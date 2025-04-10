@@ -18,4 +18,3 @@ return {
 		-- No build step needed for this theme, but you can reload or reapply config here if needed
 	end,
 }
-
