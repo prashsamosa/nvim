@@ -29,14 +29,3 @@ keymap.set("n", "<leader>tx", "<cmd>tabclose<CR>", { desc = "Close current tab",
 keymap.set("n", "<leader>tn", "<cmd>tabnext<CR>", { desc = "Next tab", silent = true })
 keymap.set("n", "<leader>tp", "<cmd>tabprevious<CR>", { desc = "Previous tab", silent = true })
 keymap.set("n", "<leader>tf", "<cmd>tabnew %<CR>", { desc = "Open current buffer in new tab", silent = true })
-
--- === Plugin-Specific Keymaps ===
-keymap.set("n", "-", "<cmd>Oil --float<CR>", { desc = "Open parent directory in Oil", silent = true })
-
-keymap.set("n", "gl", function()
-  vim.diagnostic.open_float()
-end, { desc = "Show diagnostics in float", silent = true })
-
-keymap.set("n", "<leader>cf", function()
-  require("conform").format({ lsp_fallback = true })
-end, { desc = "Format current file", silent = true })
