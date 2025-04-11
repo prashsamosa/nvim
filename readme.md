@@ -1,8 +1,5 @@
 
-4. The configuration will automatically install all plugins on first launch.
-
 ## 🧠 Key Concepts
-
 This configuration uses:
 
 - **Space** as the leader key
