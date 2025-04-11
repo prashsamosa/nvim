@@ -54,7 +54,26 @@ return {
       version = false,
       event = 'VeryLazy',
       config = function()
-        require('mini.notify').setup()
+        require('mini.notify').setup({
+          -- Styling for popup window
+          window = {
+            config = {
+              border = 'rounded',
+              max_width = 60,
+              winblend = 0,  -- Make notifications fully opaque
+            },
+          },
+          -- Make notifications stay longer
+          content = {
+            -- Adjust default notification timeout to 5 seconds (5000ms)
+            default_timeout_ms = 5000,
+          },
+          -- Add animation for smoother appearance
+          lsp_progress = {
+            enable = true,
+            duration_ms = 500,
+          },
+        })
         vim.notify = require('mini.notify').make_notify()
       end,
     },

@@ -44,6 +44,7 @@ return {
                     telescope = true,
                     dap = true,
                     native_lsp = true,
+                    notify = true,  -- Add this line to enable notify styling
                 },
             },
         })
@@ -64,5 +65,19 @@ return {
         hl(0, "TelescopeNormal", { bg = "none" })
         hl(0, "TelescopeBorder", { bg = "none" })
         hl(0, "Pmenu", { bg = "none" }) -- completion menu
+        
+        -- Add custom highlights for mini.notify
+        local colors = require("github-theme.colors").setup()
+        
+        -- Set notification background and border colors based on GitHub theme
+        hl(0, "MiniNotifyBorder", { bg = "none", fg = colors.syntax.keyword })
+        hl(0, "MiniNotifyNormal", { bg = colors.bg.float, fg = colors.fg.default })
+        hl(0, "MiniNotifyTitle", { fg = colors.syntax.constant, bold = true })
+        
+        -- Set different colors for different notification levels
+        hl(0, "MiniNotifyTitleError", { fg = colors.git.removed, bold = true })
+        hl(0, "MiniNotifyTitleWarn", { fg = colors.syntax.constant, bold = true })
+        hl(0, "MiniNotifyTitleInfo", { fg = colors.syntax.func, bold = true })
+        hl(0, "MiniNotifyTitleTrace", { fg = colors.syntax.comment, bold = true })
     end,
 }
