@@ -1,0 +1,30 @@
+# top-most EditorConfig file
+root = true
+
+# Lua files
+[*.lua]
+indent_style = space
+indent_size = 4
+charset = utf-8
+trim_trailing_whitespace = true
+insert_final_newline = true
+
+# Markdown files
+[*.md]
+trim_trailing_whitespace = false
+
+# JSON, YAML
+[*.{json,yml,yaml}]
+indent_style = space
+indent_size = 2
+
+# Shell scripts
+[*.sh]
+indent_style = space
+indent_size = 2
+
+# General fallback
+[*]
+end_of_line = lf
+charset = utf-8
+
