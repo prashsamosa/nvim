@@ -128,6 +128,7 @@ return {
     version = false,
     event = "VeryLazy",
     config = function()
+      -- Test if your Neovim version supports certain window options
       local has_winblend = pcall(function()
         local win_id = vim.api.nvim_open_win(0, false, {
           relative = "editor",
@@ -142,27 +143,36 @@ return {
         return true
       end)
 
+      -- Basic configuration without the problematic max_width option
       local config = {
+        -- Window configuration
         window = {
           config = {
             border = "rounded",
-            max_width = 60,
+            -- max_width has been removed as it's causing errors
+            width = 60,  -- Use fixed width instead
           },
         },
+        -- Content configuration
         content = {
-          default_timeout_ms = 5000,
+          default_timeout_ms = 5000,  -- 5 seconds timeout
         },
+        -- LSP progress indicator settings
         lsp_progress = {
           enable = true,
-          duration_ms = 500,
+          duration_ms = 500,  -- Animation duration
         },
       }
 
+      -- Only add winblend if your Neovim version supports it
       if has_winblend then
         config.window.config.winblend = 0
       end
 
+      -- Apply configuration
       require("mini.notify").setup(config)
+      
+      -- Replace Neovim's default notification system
       vim.notify = require("mini.notify").make_notify()
     end,
   },

@@ -11,7 +11,7 @@ return {
                 compile_file_suffix = "_compiled",
 
                 -- Appearance options
-                transparent = false,       -- Don't use transparency by default
+                transparent = true,        -- Use transparency for consistency
                 terminal_colors = true,    -- Apply theme colors to terminal
                 dim_inactive = false,      -- Don't dim inactive windows
                 hide_end_of_buffer = true, -- Hide end of buffer characters
@@ -50,7 +50,8 @@ return {
                     telescope = true,
                     dap = true,
                     native_lsp = true,
-                    notify = true, -- Important: enable notify styling
+                    notify = true, -- Enable built-in notify styling
+                    mini = true,   -- Enable built-in mini styling
                 },
             },
         })
@@ -62,7 +63,8 @@ return {
             return
         end
 
-        -- Apply transparent background to various UI elements
+        -- Apply transparent background to various UI elements if desired
+        -- (Comment out this section if you want to keep backgrounds)
         local hl = vim.api.nvim_set_hl
         hl(0, "Normal", { bg = "none" })
         hl(0, "NormalNC", { bg = "none" })
@@ -72,33 +74,28 @@ return {
         hl(0, "TelescopeBorder", { bg = "none" })
         hl(0, "Pmenu", { bg = "none" })
 
-        -- Define custom colors for mini.notify
-        -- Using hardcoded GitHub theme colors instead of requiring the module
+        -- GitHub theme colors
         local colors = {
-            bg = {
-                float = "#1a1a1a", -- Dark background for floating windows
-            },
-            fg = {
-                default = "#c9d1d9", -- Default text color
-            },
-            syntax = {
-                keyword = "#ff7b72",  -- Keyword color (for borders)
-                constant = "#79c0ff", -- Constant color (for titles)
-                func = "#d2a8ff",     -- Function color (for info)
-                comment = "#8b949e",  -- Comment color (for trace)
-            },
-            git = {
-                removed = "#f85149", -- Git removed color (for errors)
-            }
+            bg = "#0d1117",          -- Background color
+            bg_float = "#1a1b26",    -- Float background color
+            fg = "#c9d1d9",          -- Default text color
+            border = "#30363d",      -- Border color
+            keyword = "#ff7b72",     -- Keyword color
+            constant = "#79c0ff",    -- Constant color
+            func = "#d2a8ff",        -- Function color
+            string = "#a5d6ff",      -- String color
+            comment = "#8b949e",     -- Comment color
+            git_removed = "#f85149", -- Git removed color (for errors)
+            warning = "#f0883e",     -- Warning color
         }
 
-        -- Apply custom highlights for mini.notify
-        hl(0, "MiniNotifyBorder", { bg = "none", fg = colors.syntax.keyword })
-        hl(0, "MiniNotifyNormal", { bg = colors.bg.float, fg = colors.fg.default, blend = 0 })
-        hl(0, "MiniNotifyTitle", { fg = colors.syntax.constant, bold = true })
-        hl(0, "MiniNotifyTitleError", { fg = colors.git.removed, bold = true })
-        hl(0, "MiniNotifyTitleWarn", { fg = colors.syntax.constant, bold = true })
-        hl(0, "MiniNotifyTitleInfo", { fg = colors.syntax.func, bold = true })
-        hl(0, "MiniNotifyTitleTrace", { fg = colors.syntax.comment, bold = true })
+        -- Custom mini.notify highlights to match GitHub theme perfectly
+        hl(0, "MiniNotifyBorder", { bg = "none", fg = colors.border })
+        hl(0, "MiniNotifyNormal", { bg = colors.bg_float, fg = colors.fg, blend = 0 })
+        hl(0, "MiniNotifyTitle", { fg = colors.constant, bold = true })
+        hl(0, "MiniNotifyTitleError", { fg = colors.git_removed, bold = true })
+        hl(0, "MiniNotifyTitleWarn", { fg = colors.warning, bold = true })
+        hl(0, "MiniNotifyTitleInfo", { fg = colors.func, bold = true })
+        hl(0, "MiniNotifyTitleTrace", { fg = colors.comment, bold = true })
     end,
 }
