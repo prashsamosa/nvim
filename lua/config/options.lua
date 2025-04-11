@@ -1,47 +1,49 @@
-vim.opt.expandtab = true -- Convert tabs to spaces
-vim.opt.shiftwidth = 4 -- Amount to indent with << and >>
-vim.opt.tabstop = 4 -- How many spaces are shown per Tab
-vim.opt.softtabstop = 4 -- How many spaces are applied when pressing Tab
+-- INDENTATION
+vim.opt.expandtab = true        -- Use spaces instead of tabs
+vim.opt.shiftwidth = 4          -- Number of spaces per indentation level
+vim.opt.tabstop = 4             -- Number of spaces that a <Tab> counts for
+vim.opt.softtabstop = 4         -- Number of spaces inserted when pressing Tab
+vim.opt.smartindent = true      -- Smart autoindenting on new lines
+vim.opt.autoindent = true       -- Auto-indent new lines
+vim.opt.smarttab = true         -- Make tabbing smarter when going backwards
 
-vim.opt.smarttab = true
-vim.opt.smartindent = true
-vim.opt.autoindent = true -- Keep identation from previous line
+-- UI / VISUALS
+vim.opt.number = true           -- Show line numbers
+vim.opt.relativenumber = true   -- Relative line numbers for better navigation
+vim.opt.cursorline = true       -- Highlight the current line
+vim.opt.signcolumn = "yes"      -- Always show sign column
+vim.opt.breakindent = true      -- Wrap indents visually
+vim.opt.scrolloff = 5           -- Keep 5 lines above/below the cursor
+vim.opt.showmode = false        -- Don't show -- INSERT -- (use statusline)
+vim.opt.cmdheight = 0           -- Minimize command height (good for noice.nvim, optional)
 
--- Enable break indent
-vim.opt.breakindent = true
+-- SEARCH
+vim.opt.ignorecase = true       -- Case-insensitive search
+vim.opt.smartcase = true        -- Case-sensitive if capital letters are used
 
--- Always show relative line numbers
-vim.opt.number = true
-vim.opt.relativenumber = true
+-- FILES
+vim.opt.undofile = true         -- Save undo history
+vim.opt.swapfile = false        -- Disable swapfile (optional)
 
--- Show line under cursor
-vim.opt.cursorline = true
+-- PERFORMANCE
+vim.opt.updatetime = 300        -- Faster completion
+vim.opt.lazyredraw = true       -- Don't redraw screen during macros
 
--- Store undos between sessions
-vim.opt.undofile = true
+-- CLIPBOARD & MOUSE
+vim.opt.clipboard = "unnamedplus" -- Use system clipboard
+vim.opt.mouse = "a"               -- Enable mouse in all modes
 
--- Enable mouse mode, can be useful for resizing splits for example!
-vim.opt.mouse = "a"
+-- SPLITS
+vim.opt.splitright = true       -- Vertical splits open to the right
+vim.opt.splitbelow = true       -- Horizontal splits open to the bottom
 
--- Don't show the mode, since it's already in the status line
-vim.opt.showmode = false
-
--- Case-insensitive searching UNLESS \C or one or more capital letters in the search term
-vim.opt.ignorecase = true
-vim.opt.smartcase = true
-
--- Keep signcolumn on by default
-vim.opt.signcolumn = "yes"
-
--- Configure how new splits should be opened
-vim.opt.splitright = true
-vim.opt.splitbelow = true
-
--- Sets how neovim will display certain whitespace characters in the editor.
---  See `:help 'list'`
---  and `:help 'listchars'`
+-- WHITESPACE (visible formatting chars)
 vim.opt.list = true
-vim.opt.listchars = { tab = "» ", trail = "·", nbsp = "␣" }
+vim.opt.listchars = {
+  tab = "» ",
+  trail = "·",
+  nbsp = "␣",
+}
 
--- Minimal number of screen lines to keep above and below the cursor.
-vim.opt.scrolloff = 5
+-- Optional: Netrw visual tweak if you're using it alongside Oil.nvim
+vim.cmd("let g:netrw_liststyle = 3")
