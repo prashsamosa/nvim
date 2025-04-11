@@ -1,148 +1,162 @@
-# 🚀 My Neovim Configuration
 
-A modern, feature-rich Neovim configuration with VS Code-compatible keybindings and a powerful plugin ecosystem featuring Snacks.nvim, FZF-lua, Blink.cmp, and more.
+4. The configuration will automatically install all plugins on first launch.
 
-## ✨ Features
+## 🧠 Key Concepts
 
-- 🔍 Intelligent code completion via Blink.cmp
-- 🪲 Built-in LSP integration and diagnostics
-- 📂 Multiple file explorers (Oil.nvim, Mini.files)
-- 🔎 Advanced fuzzy finding with FZF-lua
-- 📚 Git integration with Neogit
-- 💅 Code formatting through Conform.nvim
-- 🔖 Session management
-- 🧰 Treesitter for advanced syntax highlighting and text objects
-- 📝 VS Code-compatible keybindings
+This configuration uses:
+
+- **Space** as the leader key
+- **Lazy.nvim** for plugin management
+- **Snacks.nvim** for many core features
+- **FZF-lua** for fuzzy finding
+- **Blink.cmp** for completions
+- **Oil.nvim** and **Mini.files** for file management
+- **GitHub Theme** for visual aesthetics
 
 ## 🔑 Keybinding Reference
 
-### 🌟 General Keymaps
-
-| Key | Mode | Description |
-|-----|------|-------------|
-| `Space` | All | Leader key |
-| `jk` | Insert | Exit insert mode |
-| `<C-c>` | Insert | Alternative escape |
-| `<C-s>` | Normal, Insert | Quick save |
-| `<leader>nh` | Normal | Clear search highlights |
-| `<leader>+` | Normal | Increment number |
-| `<leader>=` | Normal | Decrement number |
-
-### 🪟 Window Navigation (VS Code Style)
+### 🌟 General Navigation
 
 | Key | Description |
 |-----|-------------|
-| `<C-h>` | Navigate left |
-| `<C-j>` | Navigate down |
-| `<C-k>` | Navigate up |
-| `<C-l>` | Navigate right |
-| `<leader>se` | Equalize window sizes |
-| `<leader>sx` | Close current split |
-| `sh` | Split horizontally |
-| `sv` | Split vertically |
-| `<C-Up/Down/Left/Right>` | Resize splits |
-
-### 📑 Tab & Buffer Management
-
-| Key | Description |
-|-----|-------------|
+| `Space` | Leader key |
+| `jk` | Exit insert mode |
+| `<C-h/j/k/l>` | Navigate between splits |
 | `<leader>[` | Previous buffer |
 | `<leader>]` | Next buffer |
 | `<S-h>` | Previous buffer (alternative) |
 | `<S-l>` | Next buffer (alternative) |
-| `<leader>bd` | Close buffer |
-| `<leader>bo` | Close other buffers |
+
+### 📁 File Navigation & Explorer
+
+| Key | Description |
+|-----|-------------|
+| `<leader><space>` | Smart file finder |
+| `<leader>e` | Snacks file explorer |
+| `<leader>me` | Mini file explorer |
+| `-` | Oil file manager |
+| `<leader>ff` | Find files (Snacks) |
+| `<leader>fg` | Find in git files (Snacks) |
+| `<leader>zf` | Find files (FZF) |
+| `<leader>zc` | Find in config files (FZF) |
+
+### 🔍 Search
+
+| Key | Description |
+|-----|-------------|
+| `<leader>sg` | Search in files (grep) |
+| `<leader>ss` | Search in current buffer |
+| `<leader>sw` | Search word under cursor |
+| `<leader>/` | Toggle comment |
+| `<leader>zg` | FZF live grep |
+| `<leader>z/` | FZF search in buffer |
+
+### 📊 LSP & Code Navigation
+
+| Key | Description |
+|-----|-------------|
+| `gd` | Go to definition |
+| `gD` | Go to declaration |
+| `gr` | Find references |
+| `gI` | Go to implementation |
+| `gy` | Go to type definition |
+| `<leader>ca` | Code action |
+| `<leader>cr` | Rename symbol |
+| `<leader>cs` | Document symbols |
+| `<S-k>` | Show hover info |
+| `<leader>D` | Type definition |
+| `<leader>th` | Toggle inlay hints |
+
+### 📝 Editing
+
+| Key | Description |
+|-----|-------------|
+| `<S-j>` | Move line down (Visual) |
+| `<S-k>` | Move line up (Visual) |
+| `<leader>/` | Toggle comment |
+| `<leader>+` | Increment number |
+| `<leader>=` | Decrement number |
+| `<C-s>` | Save file |
+
+### 🪟 Window Management
+
+| Key | Description |
+|-----|-------------|
+| `sh` | Split horizontally |
+| `sv` | Split vertically |
+| `<leader>se` | Equalize windows |
+| `<leader>sx` | Close split |
+| `<C-Up/Down/Left/Right>` | Resize splits |
+
+### 📋 Buffer Management
+
+| Key | Description |
+|-----|-------------|
+| `<leader>bd` | Delete buffer |
+| `<leader>bo` | Delete other buffers |
 | `<leader>ba` | Delete all buffers (Snacks) |
+| `<leader>mb` | Mini delete buffer |
+| `<leader>mB` | Mini force delete buffer |
+
+### 📑 Tab Management
+
+| Key | Description |
+|-----|-------------|
 | `<leader>to` | Open new tab |
 | `<leader>tx` | Close current tab |
 | `<leader>tn` | Next tab |
 | `<leader>tp` | Previous tab |
-| `<leader>tf` | Open current buffer in new tab |
+| `<leader>tf` | Open buffer in new tab |
 
-### 📂 File Navigation & Operations
-
-| Key | Description |
-|-----|-------------|
-| `<leader><space>` | Quick open files (Snacks/Telescope) |
-| `<leader>e` | Toggle file explorer (Snacks) |
-| `<leader>me` | Mini file explorer |
-| `-` | Open Oil floating file manager |
-| `<leader>ff` | Find files (Snacks) |
-| `<leader>fg` | Find Git files (Snacks) |
-| `<leader>fr` | Recent files (Snacks) |
-| `<leader>zf` | Find files (FZF) |
-| `<leader>zo` | Find old/recent files (FZF) |
-
-### 🔍 Search Operations
+### 📚 Git Operations
 
 | Key | Description |
 |-----|-------------|
-| `<leader>ss` | Search in buffer (Snacks) |
-| `<leader>sg` | Search in files (Snacks) |
-| `<leader>sw` | Search for word under cursor (Snacks) |
-| `<leader>sB` | Search in open buffers (Snacks) |
-| `<leader>zg` | Live grep search (FZF) |
-| `<leader>zw` | Find current word (FZF) |
-| `<leader>zW` | Find current WORD (FZF) |
-| `<leader>z/` | Live grep current buffer (FZF) |
+| `<leader>gs` | Git status |
+| `<leader>gb` | Git branches |
+| `<leader>gl` | Git log |
+| `<leader>gL` | Git line log |
+| `<leader>gd` | Git diff hunks |
+| `<leader>gf` | Git file log |
+| `<leader>gS` | Git stash |
+| `<leader>gg` | Open Lazygit |
 
-### 📊 LSP Navigation & Coding
-
-| Key | Description |
-|-----|-------------|
-| `gd` | Go to definition (Snacks) |
-| `gD` | Go to declaration (Snacks) |
-| `gr` | Find references (Snacks) |
-| `gI` | Go to implementation (Snacks) |
-| `gy` | Go to type definition (Snacks) |
-| `<leader>ca` | Code action |
-| `<leader>cr` | Rename symbol |
-| `<leader>cs` | Document symbols |
-| `<leader>ss` | LSP symbols (Snacks) |
-| `<leader>sS` | Workspace symbols (Snacks) |
-| `<leader>D` | Type definition (FZF) |
-| `<leader>ds` | Document symbols (FZF) |
-| `<leader>ws` | Workspace symbols (FZF) |
-| `<S-k>` | Show hover |
-| `<S-j>` | Move line down (Visual) |
-| `<S-k>` | Move line up (Visual) |
-| `<leader>/` | Toggle comment |
-| `<leader>th` | Toggle inlay hints |
-
-### 🖥️ Terminal Operations
+### 💻 Terminal
 
 | Key | Description |
 |-----|-------------|
-| `<c-/>` or `<c-_>` | Toggle terminal (Snacks) |
-| `<c-\>` | Toggle terminal (ToggleTerm) |
+| `<C-/>` or `<C-_>` | Toggle Snacks terminal |
+| `<C-\>` | Toggle ToggleTerm |
 
-### 🌳 Git Operations
+### 🔧 UI Toggles & Settings
 
 | Key | Description |
 |-----|-------------|
-| `<leader>gs` | Git status (Snacks) |
-| `<leader>gb` | Git branches (Snacks) |
-| `<leader>gl` | Git log (Snacks) |
-| `<leader>gL` | Git line log (Snacks) |
-| `<leader>gd` | Git diff hunks (Snacks) |
-| `<leader>gf` | Git file log (Snacks) |
-| `<leader>gS` | Git stash (Snacks) |
-| `<leader>gB` | Git browse (Snacks) |
-| `<leader>gg` | Open Lazygit (Snacks) |
+| `<leader>us` | Toggle spell checking |
+| `<leader>uw` | Toggle line wrapping |
+| `<leader>uL` | Toggle relative numbers |
+| `<leader>ud` | Toggle diagnostics |
+| `<leader>ul` | Toggle line numbers |
+| `<leader>uc` | Toggle conceal level |
+| `<leader>uT` | Toggle treesitter |
+| `<leader>ub` | Toggle dark/light mode |
+| `<leader>uh` | Toggle inlay hints |
+| `<leader>ug` | Toggle indent guides |
+| `<leader>un` | Dismiss notifications |
 
-### 📁 Workspace Operations
+### 🧘 Focus Modes
+
+| Key | Description |
+|-----|-------------|
+| `<leader>z` | Toggle Zen mode |
+| `<leader>Z` | Toggle Zoom mode |
+
+### 🔄 Session Management 
 
 | Key | Description |
 |-----|-------------|
 | `<leader>ws` | Save workspace |
 | `<leader>wl` | Load workspace |
-
-### 🧘 Focus & Appearance
-
-| Key | Description |
-|-----|-------------|
-| `<leader>z` | Toggle zen mode (Snacks) |
-| `<leader>Z` | Toggle zoom (Snacks) |
 
 ### 🌲 Treesitter Text Objects
 
@@ -159,143 +173,62 @@ A modern, feature-rich Neovim configuration with VS Code-compatible keybindings 
 | `<C-space>` | Start incremental selection |
 | `<bs>` | Shrink selection |
 
-### 🔎 FZF-lua Commands (Fuzzy Finding)
+### 📋 Special Features
 
 | Key | Description |
 |-----|-------------|
-| `<leader>zf` | Find files (FZF) |
-| `<leader>zg` | Live grep (FZF) |
-| `<leader>zc` | Find in config (FZF) |
-| `<leader>zh` | Find help tags (FZF) |
-| `<leader>zk` | Find keymaps (FZF) |
-| `<leader>zb` | Find FZF builtins (FZF) |
-| `<leader>zw` | Find current word (FZF) |
-| `<leader>zW` | Find current WORD (FZF) |
-| `<leader>zd` | Find diagnostics (FZF) |
-| `<leader>zr` | Resume last FZF search (FZF) |
-| `<leader>zo` | Find old/recent files (FZF) |
-| `<leader>z<space>` | Find buffers (FZF) |
-| `<leader>z/` | Live grep current buffer (FZF) |
-
-### 🔧 Mini.nvim Commands
-
-| Key | Description |
-|-----|-------------|
-| `<leader>me` | Mini file explorer |
-| `<leader>mp` | Mini pick files |
-| `<leader>mg` | Mini grep live |
-| `<leader>mb` | Mini delete buffer |
-| `<leader>mB` | Mini force delete buffer |
-
-### 🎛️ Toggles & Options (Snacks.nvim)
-
-| Key | Description |
-|-----|-------------|
-| `<leader>us` | Toggle spell checking |
-| `<leader>uw` | Toggle line wrapping |
-| `<leader>uL` | Toggle relative numbers |
-| `<leader>ud` | Toggle diagnostics |
-| `<leader>ul` | Toggle line numbers |
-| `<leader>uc` | Toggle conceal level |
-| `<leader>uT` | Toggle treesitter highlighting |
-| `<leader>ub` | Toggle light/dark background |
-| `<leader>uh` | Toggle inlay hints |
-| `<leader>ug` | Toggle indent guides |
-| `<leader>uD` | Toggle dim mode |
-| `<leader>un` | Dismiss notifications |
-
-### 🧠 Completion (Blink.cmp)
-
-Blink.cmp provides intelligent code completion with the following keybindings:
-
-| Key | Description |
-|-----|-------------|
-| `<C-Space>` | Open menu or docs |
-| `<C-n>/<C-p>` | Select next/previous item |
-| `<C-y>` | Accept completion (default preset) |
-| `<C-Z>` | Alternative accept completion |
-| `<C-e>` | Hide menu |
-| `<C-k>` | Toggle signature help |
-
-### 📑 Special Features
-
-| Key | Description |
-|-----|-------------|
-| `<leader>.` | Toggle scratch buffer (Snacks) |
-| `<leader>S` | Select scratch buffer (Snacks) |
-| `<leader>N` | View Neovim news (Snacks) |
-| `<leader>n` | Notification history (Snacks) |
-| `<leader>cR` | Rename file (Snacks) |
-| `]]` | Next word reference (Snacks) |
-| `[[` | Previous word reference (Snacks) |
+| `<leader>.` | Toggle scratch buffer |
+| `<leader>S` | Select scratch buffer |
+| `<leader>N` | View Neovim news |
+| `<leader>n` | Notification history |
+| `<leader>cR` | Rename file |
+| `]]` | Next word reference |
+| `[[` | Previous word reference |
 | `]t` | Next TODO comment |
 | `[t` | Previous TODO comment |
 
+## 🔨 Customization
+
+### Adding New Plugins
+
+Add new plugins by creating a new file in `lua/plugins/` with the plugin configuration.
+
+### Changing Colorscheme
+
+The default colorscheme is GitHub Dark. To change it, modify `lua/plugins/github-theme.lua`.
+
+### Adjusting LSP Settings
+
+Language servers are configured in `lua/plugins/lsp.lua`. Add new servers to the `servers` table.
+
+### Personal Snippets
+
+Add custom snippets by extending the friendly-snippets collection that comes with Blink.cmp.
+
+## 💡 Tips & Tricks
+
+- Use `<leader>z` for distraction-free writing
+- Try `<leader>sg` for searching project-wide
+- Use `<leader>gg` to open Lazygit for Git operations
+- Navigate between errors with `[d` and `]d`
+- Use Oil.nvim (`-`) for quick file management
+- Try `<leader>zk` to list all available keymaps
+
 ## 🔌 Plugin List
 
-Your configuration includes these major plugins:
+Key plugins in this configuration:
 
-1. **Core Experience**
-   - Snacks.nvim - Core functionality and UI enhancements
-   - Which-key.nvim - Command discovery
-   - Neovim LSP - Code intelligence
+- **Core Experience**: Snacks.nvim, lazy.nvim, fzf-lua
+- **Editing**: Comment.nvim, treesitter, mini.nvim
+- **Completion**: blink.cmp, friendly-snippets, blink-emoji
+- **UI**: github-nvim-theme, mini.statusline, mini.notify
+- **File Management**: oil.nvim, mini.files
+- **Git**: neogit, diffview.nvim
+- **Terminal**: toggleterm.nvim
+- **LSP**: nvim-lspconfig, mason.nvim, conform.nvim
 
-2. **File Navigation**
-   - Oil.nvim - File manager in buffer
-   - Mini.files - Minimalist file explorer
-   - FZF-lua - Fuzzy finder
+## 📚 Further Reading
 
-3. **Completion & Snippets**
-   - Blink.cmp - Modern completion engine
-   - Friendly-snippets - Collection of useful snippets
-
-4. **Git Integration**
-   - Neogit - Git interface
-   - Diffview.nvim - Visual diff viewer
-
-5. **Terminal & UI**
-   - Toggleterm.nvim - Terminal management
-   - Zen-mode.nvim - Distraction-free coding
-   - Mini.statusline - Streamlined status line
-
-6. **Code Enhancement**
-   - Treesitter - Enhanced syntax highlighting
-   - Comment.nvim - Smart commenting
-   - Todo-comments.nvim - Highlight TODOs
-   - Conform.nvim - Code formatting
-
-7. **Session Management**
-   - Neovim-session-manager - Project session handling
-
-## 🛠️ Custom Configuration
-
-### Editor Settings
-
-Your Neovim is configured with:
-
-- 4-space indentation (expandtab)
-- Relative line numbering
-- System clipboard integration
-- Persistent undo history
-- Visible whitespace characters
-- Smart search (case-sensitive when using uppercase)
-- Customized UI with signcolumn and cursorline
-
-### LSP Setup
-
-The configuration includes:
-
-- Automatic LSP server installation via Mason
-- Diagnostics with inline hints
-- Document highlighting
-- Signature help
-- Format on save with Conform.nvim
-
-### Completion
-
-Blink.cmp is configured with:
-
-- LSP, path, snippets, buffer, emoji, and SQL sources
-- Documentation auto-show
-- Signature help
-- Rust-based fuzzy matching for performance
+- [Neovim Documentation](https://neovim.io/doc/)
+- [Lua Tutorials](https://www.lua.org/pil/)
+- [Awesome Neovim](https://github.com/rockerBOO/awesome-neovim)
