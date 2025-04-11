@@ -5,7 +5,82 @@ return {
     version = false,
   },
 
-  -- Buffer removal
+  -- comment
+  {
+    "echasnovski/mini.comment",
+    version = false,
+    lazy = false,
+    opts = {
+      options = {
+        custom_commentstring = nil,
+        ignore_blank_line = false,
+        start_of_line = false,
+        pad_comment_parts = true,
+      },
+      mappings = {
+        comment = "gc",
+        comment_line = "gcc",
+        comment_visual = "gc",
+        textobject = "gc",
+      },
+      hooks = {
+        pre = function() end,
+        post = function() end,
+      },
+    },
+    desc = "Smart code commenting using mini.comment",
+  },
+
+  -- Text Editing Utilities
+  {
+    "echasnovski/mini.ai",
+    version = false,
+    config = function()
+      require("mini.ai").setup()
+    end,
+  },
+
+  {
+    "echasnovski/mini.surround",
+    version = false,
+    config = function()
+      require("mini.surround").setup()
+    end,
+  },
+
+  {
+    "echasnovski/mini.operators",
+    version = false,
+    config = function()
+      require("mini.operators").setup()
+    end,
+  },
+
+  {
+    "echasnovski/mini.comment",
+    version = false,
+    config = function()
+      require("mini.comment").setup()
+    end,
+  },
+
+  {
+    "echasnovski/mini.pairs",
+    version = false,
+    config = function()
+      require("mini.pairs").setup()
+    end,
+  },
+
+  -- General Workflow
+  {
+    "echasnovski/mini.bracketed",
+    version = false,
+    config = function()
+      require("mini.bracketed").setup()
+    end,
+  },
+
   {
     "echasnovski/mini.bufremove",
     version = false,
@@ -20,7 +95,6 @@ return {
     end,
   },
 
-  -- File explorer
   {
     "echasnovski/mini.files",
     version = false,
@@ -32,7 +106,6 @@ return {
     end,
   },
 
-  -- Fuzzy picker
   {
     "echasnovski/mini.pick",
     version = false,
@@ -48,15 +121,22 @@ return {
     end,
   },
 
-  -- Notifications
+  -- UI / Appearance
+  {
+    "echasnovski/mini.statusline",
+    version = false,
+    config = function()
+      require("mini.statusline").setup({ use_icons = true })
+    end,
+  },
+
+  -- notify
   {
     "echasnovski/mini.notify",
     version = false,
     event = "VeryLazy",
     config = function()
-      -- First check what version of mini.notify we're using
       local has_winblend = pcall(function()
-        -- Try creating a floating window with winblend to see if it's supported
         local win_id = vim.api.nvim_open_win(0, false, {
           relative = "editor",
           width = 1,
@@ -64,7 +144,7 @@ return {
           row = 0,
           col = 0,
           style = "minimal",
-          winblend = 0
+          winblend = 0,
         })
         vim.api.nvim_win_close(win_id, true)
         return true
@@ -75,7 +155,7 @@ return {
           config = {
             border = "rounded",
             max_width = 60,
-          }
+          },
         },
         content = {
           default_timeout_ms = 5000,
@@ -86,7 +166,6 @@ return {
         },
       }
 
-      -- Only add winblend if it's supported
       if has_winblend then
         config.window.config.winblend = 0
       end
@@ -96,12 +175,33 @@ return {
     end,
   },
 
-  -- Statusline
+  -- sessions (replacement for neovim-session-manager)
   {
-    "echasnovski/mini.statusline",
+    "echasnovski/mini.sessions",
     version = false,
+    lazy = false,
     config = function()
-      require("mini.statusline").setup({ use_icons = true })
+      require("mini.sessions").setup({
+        autoread = true,
+        autowrite = true,
+        directory = vim.fn.stdpath("data") .. "/sessions",
+        file = "Session.vim",
+        force = { read = false, write = true, delete = false },
+        verbose = { read = false, write = true, delete = true },
+      })
+
+      -- Keymaps for session actions
+      vim.keymap.set("n", "<leader>ws", function()
+        require("mini.sessions").write(nil)
+      end, { desc = "Write Session" })
+
+      vim.keymap.set("n", "<leader>wr", function()
+        require("mini.sessions").read(nil)
+      end, { desc = "Read Last Session" })
+
+      vim.keymap.set("n", "<leader>wd", function()
+        require("mini.sessions").delete(nil)
+      end, { desc = "Delete Last Session" })
     end,
   },
 }
