@@ -38,15 +38,14 @@ keymap.set("v", "<S-k>", ":m '<-2<CR>gv=gv", { desc = "Move lines up", silent = 
 keymap.set("n", "<S-k>", vim.lsp.buf.hover, { desc = "Show hover", silent = true })
 -- Rename symbol (like F2 in VS Code)
 keymap.set("n", "<leader>cr", vim.lsp.buf.rename, { desc = "Rename symbol", silent = true })
--- Show document symbols (like VS Code's outline)
-keymap.set("n", "<leader>cs", "<cmd>Telescope lsp_document_symbols<CR>", { desc = "Document symbols", silent = true })
+-- Show document symbols (like VS Code's outline) - FIXED: Use FZF-lua
+keymap.set("n", "<leader>cs", require("fzf-lua").lsp_document_symbols, { desc = "Document symbols", silent = true })
 
 -- ===== BUFFER MANAGEMENT =====
 -- Close current buffer (like closing a tab in VS Code)
-keymap.set("n", "<leader>bd", function() require("mini.bufremove").delete(0, false) end,
-    { desc = "Close buffer", silent = true })
+-- REMOVED: <leader>bd mapping using mini.bufremove (Rely on Snacks definition)
 -- Close all buffers except current one
-keymap.set("n", "<leader>bo", "<cmd>%bd|e#|bd#<CR>", { desc = "Close other buffers", silent = true })
+-- REMOVED: <leader>bo mapping using core commands (Rely on Snacks definition)
 
 -- ===== FILE OPERATIONS =====
 -- Quick file finder (like Ctrl+P in VS Code)
@@ -98,12 +97,13 @@ keymap.set("i", "<C-s>", "<ESC><cmd>w<CR>", { desc = "Quick Save", silent = true
 -- Removed Avante keymaps: <leader>a, <leader>ac, <leader>ae, <leader>at
 
 -- Treesitter swap keymaps (reverted <leader>a)
-keymap.set("n", "<leader>a", function() vim.cmd("TSTextobjectSwapNext @parameter.inner") end, { desc = "[T]reesitter Swap Next Param", silent = true })
-keymap.set("n", "<leader>A", function() vim.cmd("TSTextobjectSwapPrevious @parameter.inner") end, { desc = "[T]reesitter Swap Previous Param", silent = true })
+keymap.set("n", "<leader>a", function() vim.cmd("TSTextobjectSwapNext @parameter.inner") end,
+    { desc = "[T]reesitter Swap Next Param", silent = true })
+keymap.set("n", "<leader>A", function() vim.cmd("TSTextobjectSwapPrevious @parameter.inner") end,
+    { desc = "[T]reesitter Swap Previous Param", silent = true })
 
 -- ===== WORKSPACE OPERATIONS =====
 -- Removed SessionManager keymaps as mini.sessions is used
 -- keymap.set("n", "<leader>ws", "<cmd>SessionManager save_current_session<CR>", { desc = "Save workspace", silent = true })
 -- keymap.set("n", "<leader>wl", "<cmd>SessionManager load_session<CR>", { desc = "Load workspace", silent = true })
 -- mini.sessions keymaps are defined in lua/plugins/mini.lua
-

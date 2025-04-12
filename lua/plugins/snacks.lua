@@ -50,13 +50,13 @@ return {
         dashboard = {
             enabled = true,
             preset = {
-                header = [[                                                   
-      ███╗   ██╗███████╗ ██████╗ ██╗   ██╗██╗███╗   ███╗ 
-      ████╗  ██║██╔════╝██╔═══██╗██║   ██║██║████╗ ████║ 
-      ██╔██╗ ██║█████╗  ██║   ██║██║   ██║██║██╔████╔██║ 
-      ██║╚██╗██║██╔══╝  ██║   ██║╚██╗ ██╔╝██║██║╚██╔╝██║ 
-      ██║ ╚████║███████╗╚██████╔╝ ╚████╔╝ ██║██║ ╚═╝ ██║ 
-      ╚═╝  ╚═══╝╚══════╝ ╚═════╝   ╚═══╝  ╚═╝╚═╝     ╚═╝ 
+                header = [[
+      ███╗   ██╗███████╗ ██████╗ ██╗   ██╗██╗███╗   ███╗
+      ████╗  ██║██╔════╝██╔═══██╗██║   ██║██║████╗ ████║
+      ██╔██╗ ██║█████╗  ██║   ██║██║   ██║██║██╔████╔██║
+      ██║╚██╗██║██╔══╝  ██║   ██║╚██╗ ██╔╝██║██║╚██╔╝██║
+      ██║ ╚████║███████╗╚██████╔╝ ╚████╔╝ ██║██║ ╚═╝ ██║
+      ╚═╝  ╚═══╝╚══════╝ ╚═════╝   ╚═══╝  ╚═╝╚═╝     ╚═╝
         ]],
             },
         },
@@ -95,19 +95,13 @@ return {
             desc = "Smart Find Files",
         },
         {
-            "<leader>,",
+            "<leader>,", -- Kept this one for buffers
             function()
                 Snacks.picker.buffers()
             end,
             desc = "Buffers",
         },
-        {
-            "<leader>/",
-            function()
-                Snacks.picker.grep()
-            end,
-            desc = "Grep",
-        },
+        -- REMOVED: <leader>/ mapping for grep (conflicted with comment, redundant with <leader>sg)
         {
             "<leader>:",
             function()
@@ -129,13 +123,7 @@ return {
             end,
             desc = "File Explorer",
         },
-        {
-            "<leader>fb",
-            function()
-                Snacks.picker.buffers()
-            end,
-            desc = "Buffers",
-        },
+        -- REMOVED: <leader>fb mapping for buffers (redundant with <leader>,)
         {
             "<leader>fc",
             function()
@@ -249,56 +237,7 @@ return {
             desc = "Visual Word",
             mode = { "n", "x" },
         },
-        {
-            "gd",
-            function()
-                Snacks.picker.lsp_definitions()
-            end,
-            desc = "Goto Definition",
-        },
-        {
-            "gD",
-            function()
-                Snacks.picker.lsp_declarations()
-            end,
-            desc = "Goto Declaration",
-        },
-        {
-            "gr",
-            function()
-                Snacks.picker.lsp_references()
-            end,
-            nowait = true,
-            desc = "References",
-        },
-        {
-            "gI",
-            function()
-                Snacks.picker.lsp_implementations()
-            end,
-            desc = "Goto Implementation",
-        },
-        {
-            "gy",
-            function()
-                Snacks.picker.lsp_type_definitions()
-            end,
-            desc = "Type Definition",
-        },
-        {
-            "<leader>ss",
-            function()
-                Snacks.picker.lsp_symbols()
-            end,
-            desc = "LSP Symbols",
-        },
-        {
-            "<leader>sS",
-            function()
-                Snacks.picker.lsp_workspace_symbols()
-            end,
-            desc = "Workspace Symbols",
-        },
+        -- REMOVED: LSP keymaps (gd, gD, gr, gI, gy, <leader>ss, <leader>sS) - Handled by lsp.lua
         {
             "<leader>z",
             function()
@@ -314,21 +253,21 @@ return {
             desc = "Toggle Zoom",
         },
         {
-            "<leader>bd",
+            "<leader>bd", -- Keep Snacks definition
             function()
                 Snacks.bufdelete()
             end,
             desc = "Delete Buffer",
         },
         {
-            "<leader>ba",
+            "<leader>ba", -- Keep Snacks definition
             function()
                 Snacks.bufdelete.all()
             end,
             desc = "Delete All Buffers",
         },
         {
-            "<leader>bo",
+            "<leader>bo", -- Keep Snacks definition
             function()
                 Snacks.bufdelete.other()
             end,
@@ -363,20 +302,7 @@ return {
             end,
             desc = "Lazygit",
         },
-        {
-            "<c-/>",
-            function()
-                Snacks.terminal()
-            end,
-            desc = "Toggle Terminal",
-        },
-        {
-            "<c-_>",
-            function()
-                Snacks.terminal()
-            end,
-            desc = "Toggle Terminal",
-        },
+        -- REMOVED: Terminal toggles (<c-/>, <c-_>) - Handled by toggle-terminal.lua
         {
             "<leader>un",
             function()
