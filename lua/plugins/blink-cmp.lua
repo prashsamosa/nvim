@@ -15,6 +15,7 @@ return {
             "rafamadriz/friendly-snippets",
             "moyiz/blink-emoji.nvim",
             "ray-x/cmp-sql",
+            "Kaiser-Yang/blink-cmp-avante", -- Added Avante integration
         },
 
         -- use a release tag to download pre-built binaries
@@ -57,8 +58,17 @@ return {
             -- Default list of enabled providers defined so that you can extend it
             -- elsewhere in your config, without redefining it, due to `opts_extend`
             sources = {
-                default = { "lsp", "path", "snippets", "buffer", "emoji", "sql" },
+                default = { 'avante', 'lsp', 'path', 'luasnip', 'buffer', 'emoji', 'sql' },
                 providers = {
+                    -- Avante AI completion provider (configured for Gemini)
+                    avante = {
+                        module = 'blink-cmp-avante',
+                        name = 'Gemini',  -- Show as Gemini in completion menu
+                        opts = {
+                            trigger_characters = { "." },
+                            priority = 100, -- High priority to show AI suggestions first
+                        }
+                    },
                     emoji = {
                         module = "blink-emoji",
                         name = "Emoji",
@@ -74,22 +84,15 @@ return {
                         end,
                     },
                     sql = {
-                        -- IMPORTANT: use the same name as you would for nvim-cmp
                         name = "sql",
                         module = "blink.compat.source",
-
-                        -- all blink.cmp source config options work as normal:
                         score_offset = -3,
-
-                        -- this table is passed directly to the proxied completion source
-                        -- as the `option` field in nvim-cmp's source config
-                        --
-                        -- this is NOT the same as the opts in a plugin's lazy.nvim spec
-                        opts = {},
+                        opts = {
+                            keyword_pattern = [[\w\+]],
+                            max_items = 20,
+                        },
                         should_show_items = function()
                             return vim.tbl_contains(
-                                -- Enable emoji completion only for git commits and markdown.
-                                -- By default, enabled for all file-types.
                                 { "sql" },
                                 vim.o.filetype
                             )

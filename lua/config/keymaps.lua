@@ -60,9 +60,9 @@ keymap.set("n", "<leader>ss", function() Snacks.picker.lines() end, { desc = "Se
 
 -- ===== COMMENTING =====
 -- Toggle comment (like Ctrl+/ in VS Code)
-keymap.set("n", "<leader>/", function() require("Comment.api").toggle.linewise.current() end,
+keymap.set("n", "<leader>c/", function() require("Comment.api").toggle.linewise.current() end,
     { desc = "Toggle comment", silent = true })
-keymap.set("v", "<leader>/", "<ESC><cmd>lua require('Comment.api').toggle.linewise(vim.fn.visualmode())<CR>",
+keymap.set("v", "<leader>c/", "<ESC><cmd>lua require('Comment.api').toggle.linewise(vim.fn.visualmode())<CR>",
     { desc = "Toggle comment", silent = true })
 
 -- ===== NUMBER OPERATIONS =====
@@ -101,3 +101,10 @@ keymap.set("n", "<leader>ws", "<cmd>SessionManager save_current_session<CR>",
 -- Load a session
 keymap.set("n", "<leader>wl", "<cmd>SessionManager load_session<CR>",
     { desc = "Load workspace", silent = true })
+
+-- Added Avante keybindings
+keymap.set("n", "<leader>a", "<cmd>AvanteToggle<CR>", { desc = "Toggle Avante chat", silent = true })
+keymap.set("n", "<leader>ac", "<cmd>AvanteComplete<CR>", { desc = "Avante completion", silent = true })
+keymap.set("n", "<leader>ae", "<cmd>AvanteExplain<CR>", { desc = "Avante explain code", silent = true })
+keymap.set("v", "<leader>ae", "<cmd>AvanteExplain<CR>", { desc = "Avante explain selection", silent = true })
+keymap.set("n", "<leader>at", "<cmd>AvanteTests<CR>", { desc = "Avante generate tests", silent = true })

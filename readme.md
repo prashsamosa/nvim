@@ -1,39 +1,38 @@
 # 🚀 Modern Neovim Configuration
 
-A powerful, feature-rich Neovim setup with elegant UI, intelligent code completion, and a VS Code-like experience.
+A powerful, AI-enhanced Neovim configuration with elegant UI, comprehensive LSP support, VS Code-like experience, and GPT-4o integration via Avante.
 
-## ✨ Features
+## ✨ Key Features
 
-- 🎨 Beautiful UI with GitHub Dark theme and transparent elements
-- 🧠 Advanced code completion with Blink.cmp
+- 🧠 AI assistance with GPT-4o via Avante.nvim
+- 🔍 Intelligent code completion with Blink.cmp
 - 🌲 Rich syntax highlighting with Treesitter
 - 📂 Multiple file explorers (Oil.nvim, Mini.files, Snacks Explorer)
-- 🔎 Fuzzy finding with FZF-lua
-- 🤖 Full LSP integration
-- 📝 VS Code-compatible keybindings
-- 📔 Session management
-- 🧰 Git integration with Neogit
+- 🔎 Powerful fuzzy finding with FZF-lua and Snacks
+- 🤖 Full LSP integration with diagnostics support
+- 📝 VS Code-style keybindings
+- 🎨 Beautiful UI with GitHub Dark theme
+- 🧰 Rich Git integration
 
 ## 🔑 Keybinding Reference
 
-### 🌟 Navigation & Basics
+### 🌟 General Navigation
 
-| Key | Mode | Description |
-|-----|------|-------------|
-| `Space` | All | Leader key |
-| `jk` | Insert | Exit insert mode |
-| `<C-h/j/k/l>` | Normal | Navigate splits |
-| `<leader>[` | Normal | Previous buffer |
-| `<leader>]` | Normal | Next buffer |
-| `<S-h>` | Normal | Previous buffer (alternative) |
-| `<S-l>` | Normal | Next buffer (alternative) |
-| `<C-s>` | Normal, Insert | Save file |
-| `<C-c>` | Insert | Alternative ESC |
-| `<leader>nh` | Normal | Clear search highlights |
+| Key | Description |
+|-----|-------------|
+| `Space` | Leader key |
+| `jk` | Exit insert mode |
+| `<C-h/j/k/l>` | Navigate between splits |
+| `<leader>[` | Previous buffer |
+| `<leader>]` | Next buffer |
+| `<S-h>` | Previous buffer (alternative) |
+| `<S-l>` | Next buffer (alternative) |
+| `<C-s>` | Save file |
+| `<C-c>` | Alternative ESC |
 
 ### 📂 File Navigation
 
-#### Snacks.nvim
+#### Snacks File Navigation
 | Key | Description |
 |-----|-------------|
 | `<leader><space>` | Smart file finder |
@@ -42,18 +41,26 @@ A powerful, feature-rich Neovim setup with elegant UI, intelligent code completi
 | `<leader>fr` | Recent files |
 | `<leader>fc` | Find config files |
 | `<leader>fp` | Browse projects |
+| `<leader>,` | Browse buffers |
+| `<leader>:` | Command history |
+| `<leader>e` | File explorer |
 
-#### FZF-lua
+#### FZF-lua Commands (z prefix)
 | Key | Description |
 |-----|-------------|
 | `<leader>zf` | Find files |
 | `<leader>zg` | Live grep |
-| `<leader>zc` | Find in config files |
-| `<leader>zh` | Browse help tags |
-| `<leader>zo` | Browse old files |
-| `<leader>zk` | List keymaps |
+| `<leader>zc` | Find in config |
+| `<leader>zh` | Helptags |
+| `<leader>zk` | Keymaps |
+| `<leader>zb` | FZF builtins |
 | `<leader>zw` | Find current word |
 | `<leader>zW` | Find current WORD |
+| `<leader>zd` | Diagnostics |
+| `<leader>zr` | Resume last search |
+| `<leader>zo` | Old files |
+| `<leader>z<space>` | Buffers |
+| `<leader>z/` | Live grep current buffer |
 
 #### File Explorers
 | Key | Description |
@@ -62,19 +69,18 @@ A powerful, feature-rich Neovim setup with elegant UI, intelligent code completi
 | `<leader>me` | Mini file explorer |
 | `-` | Oil file manager |
 
-### 🔍 Search & Find
+### 🔍 Search Operations
 
 | Key | Description |
 |-----|-------------|
 | `<leader>/` | Grep (Snacks) |
 | `<leader>sg` | Search in files |
 | `<leader>ss` | Search in buffer |
-| `<leader>sw` | Search for word under cursor |
+| `<leader>sw` | Search word under cursor |
 | `<leader>sB` | Search in open buffers |
-| `<leader>z/` | FZF search in current buffer |
-| `<leader>zg` | FZF live grep |
+| `<leader>sb` | Buffer lines |
 
-### 📊 LSP Features
+### 📊 LSP Navigation
 
 | Key | Description |
 |-----|-------------|
@@ -94,7 +100,17 @@ A powerful, feature-rich Neovim setup with elegant UI, intelligent code completi
 | `<S-k>` | Show hover |
 | `<leader>th` | Toggle inlay hints |
 
-### 📝 Editing
+### 🧠 AI Operations (Avante)
+
+| Key | Description |
+|-----|-------------|
+| `<leader>a` | Toggle Avante chat |
+| `<leader>ac` | Avante completion |
+| `<leader>ae` | Avante explain code |
+| `<leader>at` | Avante generate tests |
+| `/avante` | Start Avante command |
+
+### 📝 Editing & Text Manipulation
 
 | Key | Description |
 |-----|-------------|
@@ -105,6 +121,22 @@ A powerful, feature-rich Neovim setup with elegant UI, intelligent code completi
 | `<S-k>` | Move line up (Visual) |
 | `<leader>+` | Increment number |
 | `<leader>=` | Decrement number |
+| `<leader>nh` | Clear search highlights |
+
+### 🌲 Treesitter Text Objects
+
+| Key | Description |
+|-----|-------------|
+| `af` | Around function |
+| `if` | Inner function |
+| `ac` | Around class |
+| `ic` | Inner class |
+| `ao` | Around comment |
+| `as` | Around scope |
+| `<leader>a` | Swap with next parameter |
+| `<leader>A` | Swap with previous parameter |
+| `<C-space>` | Incremental selection |
+| `<bs>` | Shrink selection |
 
 ### 📑 Buffer Management
 
@@ -125,6 +157,7 @@ A powerful, feature-rich Neovim setup with elegant UI, intelligent code completi
 | `<leader>se` | Equalize windows |
 | `<leader>sx` | Close split |
 | `<C-Up/Down/Left/Right>` | Resize splits |
+| `<C-h/j/k/l>` | Navigate splits |
 
 ### 📑 Tab Management
 
@@ -136,7 +169,7 @@ A powerful, feature-rich Neovim setup with elegant UI, intelligent code completi
 | `<leader>tp` | Previous tab |
 | `<leader>tf` | Open buffer in new tab |
 
-### 📚 Git Integration
+### 📚 Git Operations
 
 | Key | Description |
 |-----|-------------|
@@ -170,6 +203,7 @@ A powerful, feature-rich Neovim setup with elegant UI, intelligent code completi
 | `<leader>uT` | Toggle treesitter |
 | `<leader>ub` | Toggle dark/light mode |
 | `<leader>uh` | Toggle inlay hints |
+| `<leader>ug` | Toggle indent guides |
 | `<leader>uD` | Toggle dim mode |
 | `<leader>un` | Dismiss notifications |
 
@@ -188,7 +222,7 @@ A powerful, feature-rich Neovim setup with elegant UI, intelligent code completi
 | `<leader>wr` | Read last session |
 | `<leader>wd` | Delete last session |
 
-### 🔍 Mini.nvim Commands
+### 🔍 Mini.nvim Commands (m prefix)
 
 | Key | Description |
 |-----|-------------|
@@ -197,21 +231,6 @@ A powerful, feature-rich Neovim setup with elegant UI, intelligent code completi
 | `<leader>mg` | Mini grep live |
 | `<leader>mb` | Mini delete buffer |
 | `<leader>mB` | Mini force delete buffer |
-
-### 🌲 Treesitter Text Objects
-
-| Key | Description |
-|-----|-------------|
-| `af` | Around function |
-| `if` | Inner function |
-| `ac` | Around class |
-| `ic` | Inner class |
-| `ao` | Around comment |
-| `as` | Around scope |
-| `<leader>a` | Swap next parameter |
-| `<leader>A` | Swap previous parameter |
-| `<C-space>` | Incremental selection |
-| `<bs>` | Shrink selection |
 
 ### 📋 Special Features
 
@@ -226,58 +245,46 @@ A powerful, feature-rich Neovim setup with elegant UI, intelligent code completi
 | `]t` | Next TODO comment |
 | `[t` | Previous TODO comment |
 
-## 🔌 Plugin List
+## 🔌 Main Plugins
 
-This configuration includes these major plugins:
+### 🧠 AI Integration
+- **Avante.nvim** - GPT-4o integration for code assistance
+- **Blink-cmp-avante** - AI completion in editor
 
-1. **Core & UI**
-   - Snacks.nvim - Core UI and functionality
-   - GitHub Theme - Visual theme
-   - Mini.nvim - Various utilities
-   - Which-key.nvim - Command discovery
+### 🔧 Core & UI
+- **Snacks.nvim** - Core functionality and UI enhancements
+- **GitHub Theme** - Beautiful dark theme
+- **Mini.nvim** - Suite of minimal, independent plugins
 
-2. **File Management**
-   - Oil.nvim - Buffer-based file manager
-   - Mini.files - Minimalist file explorer
-   - FZF-lua - Fuzzy finder
+### 📂 File & Code Navigation
+- **FZF-lua** - Fuzzy finder with rich capabilities
+- **Oil.nvim** - File management in buffer
+- **Mini.files** - Minimalist file explorer
 
-3. **Coding**
-   - Blink.cmp - Modern completion engine
-   - Treesitter - Advanced syntax highlighting
-   - Comment.nvim - Smart commenting
-   - Mini.comment - Alternative commenting
+### 📝 Editing & Completion
+- **Blink.cmp** - Fast, Rust-based completion engine
+- **Treesitter** - Advanced syntax highlighting
+- **Mini.comment** - Smart code commenting
+- **Mini.surround** - Text surrounding operations
 
-4. **Git Integration**
-   - Neogit - Git interface
-   - Diffview.nvim - Visual diff viewer
+### 📚 Git Integration
+- **Neogit** - Git interface similar to Magit
+- **Diffview.nvim** - Git diff viewer
 
-5. **LSP & Formatting**
-   - LSP Configuration - Code intelligence
-   - Conform.nvim - Code formatting
-   - Mason.nvim - LSP/DAP/Linter manager
+### 💻 Terminal & Utilities
+- **Toggleterm.nvim** - Terminal integration
+- **Todo-comments.nvim** - Highlight TODO comments
 
-6. **Terminal & Focus**
-   - Toggleterm.nvim - Terminal management
-   - Zen Mode - Distraction-free coding
+### 📊 LSP & Diagnostics
+- **nvim-lspconfig** - Core LSP configuration
+- **Mason.nvim** - LSP server installer
+- **Conform.nvim** - Code formatting
 
-## 🎨 Colorscheme
+## 🛠️ Environment Setup
 
-The configuration uses GitHub Dark theme with custom notification styling and transparent backgrounds for a modern look.
+### 1. OpenAI API Key
 
-## 🛠️ Additional Features
+For Avante with GPT-4o to work, set your OpenAI API key:
 
-- Multi-file explorer options (Oil.nvim, Mini.files, Snacks Explorer)
-- Advanced LSP integration with inline diagnostics
-- Todo comments with special highlighting
-- Multiple terminal options
-- Session management with Mini.sessions
-- Custom notifications with Mini.notify
-
-## 💡 Customization
-
-You can extend this configuration by:
-
-1. Adding plugins to `lua/plugins/`
-2. Modifying keybindings in `lua/config/keymaps.lua`
-3. Changing editor options in `lua/config/options.lua`
-4. Adjusting theme settings in `lua/plugins/github-theme.lua`
+```bash
+export OPENAI_API_KEY="your-api-key-here"
