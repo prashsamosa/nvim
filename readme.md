@@ -1,6 +1,4 @@
-# 🚀 Modern Neovim Configuration
-
-A powerful Neovim setup featuring an elegant UI with Snacks.nvim and GitHub theme, comprehensive LSP support, fuzzy finding, VS Code-like experience, and robust plugin management with lazy.nvim.
+# 🚀 My Neovim Configuration
 
 ## ✨ Key Features
 
