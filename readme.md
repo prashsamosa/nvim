@@ -1,12 +1,14 @@
 # 🚀 My Neovim Configuration
 
+
+
 ## ✨ Key Features
 
 -   🔍 **Intelligent Completion**: Fast code completion with Blink.cmp.
--   🌲 **Advanced Syntax**: Rich syntax highlighting and text objects via Treesitter.
+-   🌲 **Advanced Syntax**: Rich syntax highlighting, text objects, and incremental selection via Treesitter.
 -   📂 **File Management**: Multiple options including Oil.nvim (floating), Neo-tree (sidebar), Mini.files, and Snacks Explorer.
 -   🔎 **Fuzzy Finding**: Powerful searching with FZF-lua and Snacks pickers.
--   🤖 **LSP Integration**: Full Language Server Protocol support with Mason for easy server management.
+-   🤖 **LSP Integration**: Full Language Server Protocol support with Mason for easy server management, enhanced by Fidget status updates.
 -   📝 **VS Code Keybindings**: Familiar workflow with VS Code-style shortcuts.
 -   🎨 **Beautiful UI**: GitHub Dark theme, Mini statusline, Snacks UI elements, and dashboard.
 -   🧰 **Git Integration**: Neogit, Diffview, and Snacks Git pickers.
@@ -19,8 +21,9 @@
     *   `git`
     *   `ripgrep` (for FZF live grep, Snacks grep)
     *   `fd` (for FZF file finding)
-    *   A Nerd Font (for icons in UI elements like statusline, devicons)
-    *   Node.js (for some LSPs like `prettierd`)
+    *   A Nerd Font (for icons in UI elements like statusline, devicons, todo-comments, diagnostics)
+    *   Node.js (for some LSPs/formatters like `prettierd`)
+    *   `stylua` (for Lua formatting, installed via Mason)
     *   Rust (optional, for faster Blink.cmp fuzzy matching)
 
 ## 🚀 Installation
@@ -110,12 +113,12 @@
 | `gr`            | `n`  | Goto References (FZF)           | lsp.lua        |
 | `gI`            | `n`  | Goto Implementation (FZF)       | lsp.lua        |
 | `<leader>D`     | `n`  | Type Definition (FZF)           | lsp.lua        |
-| `<leader>ca`    | `n,x`| Code Action                     | keymaps.lua/lsp|
-| `<leader>cr`    | `n`  | Rename Symbol                   | keymaps.lua/lsp|
-| `<leader>cs`    | `n`  | Document Symbols (FZF)          | keymaps.lua/lsp|
+| `<leader>ca`    | `n,x`| Code Action                     | lsp.lua/keymaps.lua |
+| `<leader>cr`    | `n`  | Rename Symbol                   | lsp.lua/keymaps.lua |
+| `<leader>cs`    | `n`  | Document Symbols (FZF)          | keymaps.lua    |
 | `<leader>ds`    | `n`  | Document Symbols (FZF)          | lsp.lua        |
 | `<leader>ws`    | `n`  | Workspace Symbols (FZF)         | lsp.lua        |
-| `<S-k>`         | `n`  | Show Hover Info                 | keymaps.lua/lsp|
+| `<S-k>`         | `n`  | Show Hover Info                 | keymaps.lua    |
 | `<leader>th`    | `n`  | Toggle Inlay Hints              | lsp.lua        |
 | `<leader>zd`    | `n`  | Diagnostics (FZF)               | fzf-mini.lua   |
 
@@ -137,8 +140,8 @@
 | :-------------- | :--- | :------------------------------ | :------------- |
 | `<C-space>`     | `n`  | Incremental selection init/inc  | treesitter.lua |
 | `<bs>`          | `n`  | Incremental selection dec       | treesitter.lua |
-| `<leader>a`     | `n`  | Swap with next parameter        | keymaps.lua/treesitter.lua |
-| `<leader>A`     | `n`  | Swap with previous parameter    | keymaps.lua/treesitter.lua |
+| `<leader>a`     | `n`  | Swap with next parameter        | treesitter.lua/keymaps.lua |
+| `<leader>A`     | `n`  | Swap with previous parameter    | treesitter.lua/keymaps.lua |
 | `af`            | `o,x`| Select outer function           | treesitter.lua |
 | `if`            | `o,x`| Select inner function           | treesitter.lua |
 | `ac`            | `o,x`| Select outer class              | treesitter.lua |
@@ -243,14 +246,14 @@
 ## 🔌 Main Plugins
 
 -   **Core/UI**: Snacks.nvim, lazy.nvim, which-key.nvim, github-nvim-theme
--   **Completion**: Blink.cmp, LuaSnip, friendly-snippets
--   **LSP**: nvim-lspconfig, mason.nvim, mason-lspconfig.nvim, fidget.nvim
+-   **Completion**: Blink.cmp, friendly-snippets
+-   **LSP**: nvim-lspconfig, mason.nvim, mason-lspconfig.nvim, fidget.nvim, mason-tool-installer.nvim
 -   **Formatting**: conform.nvim
--   **Syntax**: nvim-treesitter, nvim-ts-autotag
+-   **Syntax**: nvim-treesitter
 -   **File Management**: oil.nvim, neo-tree.nvim, mini.files
 -   **Fuzzy Finding**: fzf-lua, mini.pick
 -   **Git**: NeogitOrg/neogit, diffview.nvim
--   **Editing Utilities**: mini.nvim (comment, ai, surround, operators, pairs, bracketed, bufremove, sessions), Comment.nvim, todo-comments.nvim
+-   **Editing Utilities**: mini.nvim (comment, ai, surround, operators, pairs, bracketed, bufremove, sessions), todo-comments.nvim
 -   **Terminal**: toggleterm.nvim
 -   **Database**: vim-dadbod-ui, vim-dadbod, vim-dadbod-completion
 -   **Other**: vim-sleuth
@@ -261,8 +264,8 @@
 -   **Keymaps**: Modify core keybindings in `lua/config/keymaps.lua` or plugin-specific keys in their respective files under `lua/plugins/`.
 -   **Options**: Adjust editor settings in `lua/config/options.lua`.
 -   **Theme**: Customize theme settings in `lua/plugins/github-theme.lua`.
--   **LSP Servers**: Add/remove servers in the `servers` table within `lua/plugins/lsp.lua`. Mason will handle installation.
--   **Formatters**: Configure formatters in `lua/plugins/conform.lua`. Install them via Mason in `lua/plugins/lsp.lua`.
+-   **LSP Servers**: Add/remove servers in the `servers` table within `lua/plugins/lsp.lua`. Mason will handle installation via `mason-lspconfig` and `mason-tool-installer`.
+-   **Formatters**: Configure formatters in `lua/plugins/conform.lua`. Ensure they are listed in `ensure_installed` within `lua/plugins/lsp.lua` for Mason to install them.
 -   **Snacks Startup**: To potentially reduce startup delay, consider setting `enabled = false` for unused modules within the `opts` table in `lua/plugins/snacks.lua`.
 
 ## 📚 Further Reading
