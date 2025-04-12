@@ -75,6 +75,7 @@ return {
                 swap = {
                     enable = true,
                     swap_next = {
+                        -- Reverted back to <leader>a
                         ["<leader>a"] = { query = "@parameter.inner", desc = "Swap with next parameter" },
                     },
                     swap_previous = {

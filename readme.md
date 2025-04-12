@@ -1,290 +1,272 @@
 # 🚀 Modern Neovim Configuration
 
-A powerful, AI-enhanced Neovim configuration with elegant UI, comprehensive LSP support, VS Code-like experience, and GPT-4o integration via Avante.
+A powerful Neovim setup featuring an elegant UI with Snacks.nvim and GitHub theme, comprehensive LSP support, fuzzy finding, VS Code-like experience, and robust plugin management with lazy.nvim.
 
 ## ✨ Key Features
 
-- 🧠 AI assistance with GPT-4o via Avante.nvim
-- 🔍 Intelligent code completion with Blink.cmp
-- 🌲 Rich syntax highlighting with Treesitter
-- 📂 Multiple file explorers (Oil.nvim, Mini.files, Snacks Explorer)
-- 🔎 Powerful fuzzy finding with FZF-lua and Snacks
-- 🤖 Full LSP integration with diagnostics support
-- 📝 VS Code-style keybindings
-- 🎨 Beautiful UI with GitHub Dark theme
-- 🧰 Rich Git integration
-
-## 🔑 Keybinding Reference
-
-### 🌟 General Navigation
-
-| Key | Description |
-|-----|-------------|
-| `Space` | Leader key |
-| `jk` | Exit insert mode |
-| `<C-h/j/k/l>` | Navigate between splits |
-| `<leader>[` | Previous buffer |
-| `<leader>]` | Next buffer |
-| `<S-h>` | Previous buffer (alternative) |
-| `<S-l>` | Next buffer (alternative) |
-| `<C-s>` | Save file |
-| `<C-c>` | Alternative ESC |
-
-### 📂 File Navigation
-
-#### Snacks File Navigation
-| Key | Description |
-|-----|-------------|
-| `<leader><space>` | Smart file finder |
-| `<leader>ff` | Find files |
-| `<leader>fg` | Find git files |
-| `<leader>fr` | Recent files |
-| `<leader>fc` | Find config files |
-| `<leader>fp` | Browse projects |
-| `<leader>,` | Browse buffers |
-| `<leader>:` | Command history |
-| `<leader>e` | File explorer |
-
-#### FZF-lua Commands (z prefix)
-| Key | Description |
-|-----|-------------|
-| `<leader>zf` | Find files |
-| `<leader>zg` | Live grep |
-| `<leader>zc` | Find in config |
-| `<leader>zh` | Helptags |
-| `<leader>zk` | Keymaps |
-| `<leader>zb` | FZF builtins |
-| `<leader>zw` | Find current word |
-| `<leader>zW` | Find current WORD |
-| `<leader>zd` | Diagnostics |
-| `<leader>zr` | Resume last search |
-| `<leader>zo` | Old files |
-| `<leader>z<space>` | Buffers |
-| `<leader>z/` | Live grep current buffer |
-
-#### File Explorers
-| Key | Description |
-|-----|-------------|
-| `<leader>e` | Snacks file explorer |
-| `<leader>me` | Mini file explorer |
-| `-` | Oil file manager |
-
-### 🔍 Search Operations
-
-| Key | Description |
-|-----|-------------|
-| `<leader>/` | Grep (Snacks) |
-| `<leader>sg` | Search in files |
-| `<leader>ss` | Search in buffer |
-| `<leader>sw` | Search word under cursor |
-| `<leader>sB` | Search in open buffers |
-| `<leader>sb` | Buffer lines |
-
-### 📊 LSP Navigation
-
-| Key | Description |
-|-----|-------------|
-| `gd` | Go to definition |
-| `gD` | Go to declaration |
-| `gr` | Find references |
-| `gI` | Go to implementation |
-| `gy` | Go to type definition |
-| `<leader>ca` | Code action |
-| `<leader>cr` | Rename symbol |
-| `<leader>cs` | Document symbols |
-| `<leader>ss` | LSP document symbols |
-| `<leader>sS` | Workspace symbols |
-| `<leader>D` | Type definition (FZF) |
-| `<leader>ds` | Document symbols (FZF) |
-| `<leader>ws` | Workspace symbols (FZF) |
-| `<S-k>` | Show hover |
-| `<leader>th` | Toggle inlay hints |
-
-### 🧠 AI Operations (Avante)
-
-| Key | Description |
-|-----|-------------|
-| `<leader>a` | Toggle Avante chat |
-| `<leader>ac` | Avante completion |
-| `<leader>ae` | Avante explain code |
-| `<leader>at` | Avante generate tests |
-| `/avante` | Start Avante command |
-
-### 📝 Editing & Text Manipulation
-
-| Key | Description |
-|-----|-------------|
-| `<leader>c/` | Toggle comment line |
-| `gc` | Comment with mini.comment |
-| `gcc` | Comment current line |
-| `<S-j>` | Move line down (Visual) |
-| `<S-k>` | Move line up (Visual) |
-| `<leader>+` | Increment number |
-| `<leader>=` | Decrement number |
-| `<leader>nh` | Clear search highlights |
-
-### 🌲 Treesitter Text Objects
-
-| Key | Description |
-|-----|-------------|
-| `af` | Around function |
-| `if` | Inner function |
-| `ac` | Around class |
-| `ic` | Inner class |
-| `ao` | Around comment |
-| `as` | Around scope |
-| `<leader>a` | Swap with next parameter |
-| `<leader>A` | Swap with previous parameter |
-| `<C-space>` | Incremental selection |
-| `<bs>` | Shrink selection |
-
-### 📑 Buffer Management
-
-| Key | Description |
-|-----|-------------|
-| `<leader>bd` | Delete buffer |
-| `<leader>bo` | Delete other buffers |
-| `<leader>ba` | Delete all buffers |
-| `<leader>mb` | Mini delete buffer |
-| `<leader>mB` | Mini force delete buffer |
-
-### 🪟 Window Management
-
-| Key | Description |
-|-----|-------------|
-| `sh` | Split horizontally |
-| `sv` | Split vertically |
-| `<leader>se` | Equalize windows |
-| `<leader>sx` | Close split |
-| `<C-Up/Down/Left/Right>` | Resize splits |
-| `<C-h/j/k/l>` | Navigate splits |
-
-### 📑 Tab Management
-
-| Key | Description |
-|-----|-------------|
-| `<leader>to` | Open new tab |
-| `<leader>tx` | Close current tab |
-| `<leader>tn` | Next tab |
-| `<leader>tp` | Previous tab |
-| `<leader>tf` | Open buffer in new tab |
-
-### 📚 Git Operations
-
-| Key | Description |
-|-----|-------------|
-| `<leader>gs` | Git status |
-| `<leader>gb` | Git branches |
-| `<leader>gl` | Git log |
-| `<leader>gL` | Git log line |
-| `<leader>gd` | Git diff hunks |
-| `<leader>gf` | Git file log |
-| `<leader>gS` | Git stash |
-| `<leader>gB` | Git browse |
-| `<leader>gg` | Open Lazygit |
-
-### 💻 Terminal Access
-
-| Key | Description |
-|-----|-------------|
-| `<C-/>` or `<C-_>` | Toggle Snacks terminal |
-| `<C-\>` | Toggle ToggleTerm |
-
-### 🔧 UI Options & Toggles
-
-| Key | Description |
-|-----|-------------|
-| `<leader>us` | Toggle spell checking |
-| `<leader>uw` | Toggle line wrapping |
-| `<leader>uL` | Toggle relative numbers |
-| `<leader>ud` | Toggle diagnostics |
-| `<leader>ul` | Toggle line numbers |
-| `<leader>uc` | Toggle conceal level |
-| `<leader>uT` | Toggle treesitter |
-| `<leader>ub` | Toggle dark/light mode |
-| `<leader>uh` | Toggle inlay hints |
-| `<leader>ug` | Toggle indent guides |
-| `<leader>uD` | Toggle dim mode |
-| `<leader>un` | Dismiss notifications |
-
-### 🧘 Focus Modes
-
-| Key | Description |
-|-----|-------------|
-| `<leader>z` | Toggle Zen mode |
-| `<leader>Z` | Toggle Zoom mode |
-
-### 📝 Session Management
-
-| Key | Description |
-|-----|-------------|
-| `<leader>ws` | Save workspace |
-| `<leader>wr` | Read last session |
-| `<leader>wd` | Delete last session |
-
-### 🔍 Mini.nvim Commands (m prefix)
-
-| Key | Description |
-|-----|-------------|
-| `<leader>me` | Mini file explorer |
-| `<leader>mp` | Mini pick files |
-| `<leader>mg` | Mini grep live |
-| `<leader>mb` | Mini delete buffer |
-| `<leader>mB` | Mini force delete buffer |
-
-### 📋 Special Features
-
-| Key | Description |
-|-----|-------------|
-| `<leader>.` | Toggle scratch buffer |
-| `<leader>S` | Select scratch buffer |
-| `<leader>n` | Notification history |
-| `<leader>cR` | Rename file |
-| `]]` | Next reference |
-| `[[` | Previous reference |
-| `]t` | Next TODO comment |
-| `[t` | Previous TODO comment |
-
-## 🔌 Main Plugins
-
-### 🧠 AI Integration
-- **Avante.nvim** - GPT-4o integration for code assistance
-- **Blink-cmp-avante** - AI completion in editor
-
-### 🔧 Core & UI
-- **Snacks.nvim** - Core functionality and UI enhancements
-- **GitHub Theme** - Beautiful dark theme
-- **Mini.nvim** - Suite of minimal, independent plugins
-
-### 📂 File & Code Navigation
-- **FZF-lua** - Fuzzy finder with rich capabilities
-- **Oil.nvim** - File management in buffer
-- **Mini.files** - Minimalist file explorer
-
-### 📝 Editing & Completion
-- **Blink.cmp** - Fast, Rust-based completion engine
-- **Treesitter** - Advanced syntax highlighting
-- **Mini.comment** - Smart code commenting
-- **Mini.surround** - Text surrounding operations
-
-### 📚 Git Integration
-- **Neogit** - Git interface similar to Magit
-- **Diffview.nvim** - Git diff viewer
-
-### 💻 Terminal & Utilities
-- **Toggleterm.nvim** - Terminal integration
-- **Todo-comments.nvim** - Highlight TODO comments
-
-### 📊 LSP & Diagnostics
-- **nvim-lspconfig** - Core LSP configuration
-- **Mason.nvim** - LSP server installer
-- **Conform.nvim** - Code formatting
+-   🔍 **Intelligent Completion**: Fast code completion with Blink.cmp.
+-   🌲 **Advanced Syntax**: Rich syntax highlighting and text objects via Treesitter.
+-   📂 **File Management**: Multiple options including Oil.nvim, Mini.files, and Snacks Explorer.
+-   🔎 **Fuzzy Finding**: Powerful searching with FZF-lua and Snacks pickers.
+-   🤖 **LSP Integration**: Full Language Server Protocol support with Mason for easy server management.
+-   📝 **VS Code Keybindings**: Familiar workflow with VS Code-style shortcuts.
+-   🎨 **Beautiful UI**: GitHub Dark theme, Mini statusline, and Snacks UI elements.
+-   🧰 **Git Integration**: Neogit, Diffview, and Snacks Git pickers.
+-   ⚡ **Performance**: Optimized for speed with lazy loading via lazy.nvim.
 
 ## 🛠️ Environment Setup
 
-### 1. OpenAI API Key
+1.  **Neovim**: Version 0.9+ (0.10+ recommended).
+2.  **Dependencies**:
+    *   `git`
+    *   `ripgrep` (for FZF live grep, Snacks grep)
+    *   `fd` (for FZF file finding)
+    *   A Nerd Font (for icons)
+    *   Node.js (for some LSPs like `prettierd`)
+    *   Rust (optional, for faster Blink.cmp fuzzy matching)
 
-For Avante with GPT-4o to work, set your OpenAI API key:
+## 🚀 Installation
 
-```bash
-export OPENAI_API_KEY="your-api-key-here"
+1.  **Backup existing config** (optional):
+    ```bash
+    mv ~/.config/nvim ~/.config/nvim.bak
+    mv ~/.local/share/nvim ~/.local/share/nvim.bak
+    mv ~/.local/state/nvim ~/.local/state/nvim.bak
+    mv ~/.cache/nvim ~/.cache/nvim.bak
+    ```
+2.  **Clone the repository**:
+    ```bash
+    git clone <your-repo-url> ~/.config/nvim
+    ```
+3.  **Start Neovim**:
+    ```bash
+    nvim
+    ```
+    Lazy.nvim will automatically install all plugins on the first run.
+
+## 🔑 Keybinding Reference
+
+**Leader Key**: `Space`
+
+### 🌟 General & Navigation
+
+| Key         | Mode | Description                     | Source         |
+| :---------- | :--- | :------------------------------ | :------------- |
+| `jk`        | `i`  | Exit insert mode                | keymaps.lua    |
+| `<leader>nh`| `n`  | Clear search highlights         | keymaps.lua    |
+| `<C-h>`     | `n`  | Navigate window left            | keymaps.lua    |
+| `<C-j>`     | `n`  | Navigate window down            | keymaps.lua    |
+| `<C-k>`     | `n`  | Navigate window up              | keymaps.lua    |
+| `<C-l>`     | `n`  | Navigate window right           | keymaps.lua    |
+| `<leader>[` | `n`  | Previous buffer                 | keymaps.lua    |
+| `<leader>]` | `n`  | Next buffer                     | keymaps.lua    |
+| `<C-c>`     | `i`  | Alternative ESC                 | keymaps.lua    |
+| `<C-s>`     | `n,i`| Quick Save                      | keymaps.lua    |
+| `]]`        | `n,t`| Next Reference (Snacks Words)   | snacks.lua     |
+| `[[`        | `n,t`| Previous Reference (Snacks Words)| snacks.lua     |
+| `]t`        | `n`  | Next TODO comment               | todo.lua       |
+| `[t`        | `n`  | Previous TODO comment           | todo.lua       |
+
+### 📂 File & Project Management
+
+| Key             | Mode | Description                     | Source         |
+| :-------------- | :--- | :------------------------------ | :------------- |
+| `<leader><space>`| `n`  | Smart Find Files (Snacks)       | snacks.lua     |
+| `<leader>e`     | `n`  | File Explorer (Snacks)          | snacks.lua     |
+| `<leader>ff`    | `n`  | Find Files (Snacks)             | snacks.lua     |
+| `<leader>fg`    | `n`  | Find Git Files (Snacks)         | snacks.lua     |
+| `<leader>fr`    | `n`  | Recent Files (Snacks)           | snacks.lua     |
+| `<leader>fc`    | `n`  | Find Config File (Snacks)       | snacks.lua     |
+| `<leader>fp`    | `n`  | Browse Projects (Snacks)        | snacks.lua     |
+| `<leader>zf`    | `n`  | Find Files (FZF)                | fzf-mini.lua   |
+| `<leader>zc`    | `n`  | Find in Config (FZF)            | fzf-mini.lua   |
+| `<leader>zo`    | `n`  | Old Files (FZF)                 | fzf-mini.lua   |
+| `<leader>me`    | `n`  | Mini file explorer              | mini.lua       |
+| `<leader>mp`    | `n`  | Mini pick files                 | mini.lua       |
+| `-`             | `n`  | Open Oil File Manager (float)   | oil.lua        |
+| `<leader>cR`    | `n`  | Rename File (Snacks)            | snacks.lua     |
+
+### 🔍 Search & Grep
+
+| Key             | Mode | Description                     | Source         |
+| :-------------- | :--- | :------------------------------ | :------------- |
+| `<leader>/`     | `n`  | Grep (Snacks)                   | snacks.lua     |
+| `<leader>sg`    | `n`  | Search in files (Snacks Grep)   | snacks.lua     |
+| `<leader>ss`    | `n`  | Search in buffer (Snacks Lines) | snacks.lua     |
+| `<leader>sw`    | `n,x`| Search word under cursor (Snacks)| snacks.lua     |
+| `<leader>sB`    | `n`  | Grep Open Buffers (Snacks)      | snacks.lua     |
+| `<leader>sb`    | `n`  | Buffer Lines (Snacks)           | snacks.lua     |
+| `<leader>zg`    | `n`  | Live Grep (FZF)                 | fzf-mini.lua   |
+| `<leader>zw`    | `n`  | Find current Word (FZF)         | fzf-mini.lua   |
+| `<leader>zW`    | `n`  | Find current WORD (FZF)         | fzf-mini.lua   |
+| `<leader>zr`    | `n`  | Resume Last Search (FZF)        | fzf-mini.lua   |
+| `<leader>z/`    | `n`  | Live grep current buffer (FZF)  | fzf-mini.lua   |
+| `<leader>mg`    | `n`  | Mini grep live                  | mini.lua       |
+
+### 📊 LSP (Language Server Protocol)
+
+| Key             | Mode | Description                     | Source         |
+| :-------------- | :--- | :------------------------------ | :------------- |
+| `gd`            | `n`  | Goto Definition (FZF)           | lsp.lua        |
+| `gD`            | `n`  | Goto Declaration                | lsp.lua        |
+| `gr`            | `n`  | Goto References (FZF)           | lsp.lua        |
+| `gI`            | `n`  | Goto Implementation (FZF)       | lsp.lua        |
+| `gy`            | `n`  | Type Definition (Snacks)        | snacks.lua     |
+| `<leader>D`     | `n`  | Type Definition (FZF)           | lsp.lua        |
+| `<leader>ca`    | `n,x`| Code Action                     | keymaps.lua/lsp|
+| `<leader>cr`    | `n`  | Rename Symbol                   | keymaps.lua/lsp|
+| `<leader>cs`    | `n`  | Document Symbols (FZF)          | keymaps.lua/lsp|
+| `<leader>ds`    | `n`  | Document Symbols (FZF)          | lsp.lua        |
+| `<leader>ws`    | `n`  | Workspace Symbols (FZF)         | lsp.lua        |
+| `<leader>ss`    | `n`  | LSP Symbols (Snacks)            | snacks.lua     |
+| `<leader>sS`    | `n`  | Workspace Symbols (Snacks)      | snacks.lua     |
+| `<S-k>`         | `n`  | Show Hover Info                 | keymaps.lua/lsp|
+| `<leader>th`    | `n`  | Toggle Inlay Hints              | lsp.lua        |
+| `<leader>zd`    | `n`  | Diagnostics (FZF)               | fzf-mini.lua   |
+
+### 📝 Editing & Text Manipulation
+
+| Key             | Mode | Description                     | Source         |
+| :-------------- | :--- | :------------------------------ | :------------- |
+| `<leader>c/`    | `n,v`| Toggle comment (Comment.nvim)   | keymaps.lua    |
+| `gc`            | `n,v`| Comment (mini.comment)          | mini.lua       |
+| `gcc`           | `n`  | Comment line (mini.comment)     | mini.lua       |
+| `<S-j>`         | `v`  | Move lines down                 | keymaps.lua    |
+| `<S-k>`         | `v`  | Move lines up                   | keymaps.lua    |
+| `<leader>+`     | `n`  | Increment number                | keymaps.lua    |
+| `<leader>=`     | `n`  | Decrement number                | keymaps.lua    |
+
+### 🌲 Treesitter
+
+| Key             | Mode | Description                     | Source         |
+| :-------------- | :--- | :------------------------------ | :------------- |
+| `<C-space>`     | `n`  | Incremental selection init/inc  | treesitter.lua |
+| `<bs>`          | `n`  | Incremental selection dec       | treesitter.lua |
+| `<leader>a`     | `n`  | Swap with next parameter        | keymaps.lua    |
+| `<leader>A`     | `n`  | Swap with previous parameter    | keymaps.lua    |
+| `af`            | `o,x`| Select outer function           | treesitter.lua |
+| `if`            | `o,x`| Select inner function           | treesitter.lua |
+| `ac`            | `o,x`| Select outer class              | treesitter.lua |
+| `ic`            | `o,x`| Select inner class              | treesitter.lua |
+| `ao`            | `o,x`| Select outer comment            | treesitter.lua |
+| `as`            | `o,x`| Select scope                    | treesitter.lua |
+
+### 📑 Buffer & Tab Management
+
+| Key             | Mode | Description                     | Source         |
+| :-------------- | :--- | :------------------------------ | :------------- |
+| `<leader>bd`    | `n`  | Delete Buffer (Snacks/Mini)     | snacks.lua/keymaps.lua |
+| `<leader>ba`    | `n`  | Delete All Buffers (Snacks)     | snacks.lua     |
+| `<leader>bo`    | `n`  | Delete Other Buffers (Snacks/Core)| snacks.lua/keymaps.lua |
+| `<leader>mb`    | `n`  | Mini delete buffer              | mini.lua       |
+| `<leader>mB`    | `n`  | Mini force delete buffer        | mini.lua       |
+| `<leader>,`     | `n`  | Browse Buffers (Snacks)         | snacks.lua     |
+| `<leader>fb`    | `n`  | Browse Buffers (Snacks)         | snacks.lua     |
+| `<leader>z<space>`| `n`  | Browse Buffers (FZF)            | fzf-mini.lua   |
+| `<leader>to`    | `n`  | Open new tab                    | keymaps.lua    |
+| `<leader>tx`    | `n`  | Close current tab               | keymaps.lua    |
+| `<leader>tn`    | `n`  | Next tab                        | keymaps.lua    |
+| `<leader>tp`    | `n`  | Previous tab                    | keymaps.lua    |
+| `<leader>tf`    | `n`  | Open buffer in new tab          | keymaps.lua    |
+
+### 🪟 Window Management
+
+| Key             | Mode | Description                     | Source         |
+| :-------------- | :--- | :------------------------------ | :------------- |
+| `sh`            | `n`  | Split horizontally              | keymaps.lua    |
+| `sv`            | `n`  | Split vertically                | keymaps.lua    |
+| `<leader>se`    | `n`  | Equalize window sizes           | keymaps.lua    |
+| `<leader>sx`    | `n`  | Close current split             | keymaps.lua    |
+| `<C-Up>`        | `n`  | Resize split up                 | keymaps.lua    |
+| `<C-Down>`      | `n`  | Resize split down               | keymaps.lua    |
+| `<C-Left>`      | `n`  | Resize split left               | keymaps.lua    |
+| `<C-Right>`     | `n`  | Resize split right              | keymaps.lua    |
+
+### 📚 Git Operations
+
+| Key             | Mode | Description                     | Source         |
+| :-------------- | :--- | :------------------------------ | :------------- |
+| `<leader>gs`    | `n`  | Git Status (Snacks)             | snacks.lua     |
+| `<leader>gb`    | `n`  | Git Branches (Snacks)           | snacks.lua     |
+| `<leader>gl`    | `n`  | Git Log (Snacks)                | snacks.lua     |
+| `<leader>gL`    | `n`  | Git Log Line (Snacks)           | snacks.lua     |
+| `<leader>gd`    | `n`  | Git Diff Hunks (Snacks)         | snacks.lua     |
+| `<leader>gf`    | `n`  | Git Log File (Snacks)           | snacks.lua     |
+| `<leader>gS`    | `n`  | Git Stash (Snacks)              | snacks.lua     |
+| `<leader>gB`    | `n,v`| Git Browse (Snacks)             | snacks.lua     |
+| `<leader>gg`    | `n`  | Open Lazygit (Snacks)           | snacks.lua     |
+
+### 💻 Terminal
+
+| Key             | Mode | Description                     | Source         |
+| :-------------- | :--- | :------------------------------ | :------------- |
+| `<C-/>`         | `n,t`| Toggle Terminal (Snacks)        | snacks.lua     |
+| `<C-_>`         | `n,t`| Toggle Terminal (Snacks)        | snacks.lua     |
+| `<C-\>`         | `n`  | Toggle Terminal (ToggleTerm)    | toggle-terminal.lua |
+
+### 🔧 UI Toggles & Settings (Snacks)
+
+| Key             | Mode | Description                     | Source         |
+| :-------------- | :--- | :------------------------------ | :------------- |
+| `<leader>us`    | `n`  | Toggle Spelling                 | snacks.lua     |
+| `<leader>uw`    | `n`  | Toggle Wrap                     | snacks.lua     |
+| `<leader>uL`    | `n`  | Toggle Relative Number          | snacks.lua     |
+| `<leader>ud`    | `n`  | Toggle Diagnostics              | snacks.lua     |
+| `<leader>ul`    | `n`  | Toggle Line Number              | snacks.lua     |
+| `<leader>uc`    | `n`  | Toggle Conceal Level            | snacks.lua     |
+| `<leader>uT`    | `n`  | Toggle Treesitter               | snacks.lua     |
+| `<leader>ub`    | `n`  | Toggle Dark Background          | snacks.lua     |
+| `<leader>uh`    | `n`  | Toggle Inlay Hints              | snacks.lua     |
+| `<leader>uD`    | `n`  | Toggle Dim Mode                 | snacks.lua     |
+| `<leader>un`    | `n`  | Dismiss Notifications           | snacks.lua     |
+
+### 🧘 Focus Modes (Snacks)
+
+| Key             | Mode | Description                     | Source         |
+| :-------------- | :--- | :------------------------------ | :------------- |
+| `<leader>z`     | `n`  | Toggle Zen Mode                 | snacks.lua     |
+| `<leader>Z`     | `n`  | Toggle Zoom                     | snacks.lua     |
+
+### 📝 Session Management (Mini.sessions)
+
+| Key             | Mode | Description                     | Source         |
+| :-------------- | :--- | :------------------------------ | :------------- |
+| `<leader>ws`    | `n`  | Write Session                   | mini.lua       |
+| `<leader>wr`    | `n`  | Read Last Session               | mini.lua       |
+| `<leader>wd`    | `n`  | Delete Last Session             | mini.lua       |
+
+### 📋 Miscellaneous
+
+| Key             | Mode | Description                     | Source         |
+| :-------------- | :--- | :------------------------------ | :------------- |
+| `<leader>.`     | `n`  | Toggle Scratch Buffer (Snacks)  | snacks.lua     |
+| `<leader>S`     | `n`  | Select Scratch Buffer (Snacks)  | snacks.lua     |
+| `<leader>:`     | `n`  | Command History (Snacks)        | snacks.lua     |
+| `<leader>n`     | `n`  | Notification History (Snacks)   | snacks.lua     |
+| `<leader>zh`    | `n`  | Helptags (FZF)                  | fzf-mini.lua   |
+| `<leader>zk`    | `n`  | Keymaps (FZF)                   | fzf-mini.lua   |
+| `<leader>zb`    | `n`  | Builtins (FZF)                  | fzf-mini.lua   |
+
+## 🔌 Main Plugins
+
+-   **Core/UI**: Snacks.nvim, lazy.nvim, which-key.nvim, github-nvim-theme
+-   **Completion**: Blink.cmp, LuaSnip, friendly-snippets
+-   **LSP**: nvim-lspconfig, mason.nvim, mason-lspconfig.nvim, fidget.nvim
+-   **Formatting**: conform.nvim
+-   **Syntax**: nvim-treesitter, nvim-ts-autotag
+-   **File Management**: oil.nvim, mini.files
+-   **Fuzzy Finding**: fzf-lua, mini.pick
+-   **Git**: NeogitOrg/neogit, diffview.nvim
+-   **Editing Utilities**: mini.nvim (comment, ai, surround, operators, pairs, bracketed, bufremove, sessions), Comment.nvim, todo-comments.nvim
+-   **Terminal**: toggleterm.nvim
+-   **Database**: vim-dadbod-ui, vim-dadbod, vim-dadbod-completion
+-   **Other**: vim-sleuth
+
+## 💡 Customization
+
+-   **Plugins**: Add new plugins by creating `.lua` files in `lua/plugins/`.
+-   **Keymaps**: Modify core keybindings in `lua/config/keymaps.lua` or plugin-specific keys in their respective files under `lua/plugins/`.
+-   **Options**: Adjust editor settings in `lua/config/options.lua`.
+-   **Theme**: Customize theme settings in `lua/plugins/github-theme.lua`.
+-   **LSP Servers**: Add/remove servers in the `servers` table within `lua/plugins/lsp.lua`. Mason will handle installation.
+-   **Formatters**: Configure formatters in `lua/plugins/conform.lua`. Install them via Mason in `lua/plugins/lsp.lua`.

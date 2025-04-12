@@ -94,17 +94,16 @@ keymap.set("i", "<C-c>", "<ESC>", { desc = "Alternative ESC", silent = true })
 keymap.set("n", "<C-s>", "<cmd>w<CR>", { desc = "Quick Save", silent = true })
 keymap.set("i", "<C-s>", "<ESC><cmd>w<CR>", { desc = "Quick Save", silent = true })
 
--- ===== WORKSPACE OPERATIONS =====
--- Save current session
-keymap.set("n", "<leader>ws", "<cmd>SessionManager save_current_session<CR>",
-    { desc = "Save workspace", silent = true })
--- Load a session
-keymap.set("n", "<leader>wl", "<cmd>SessionManager load_session<CR>",
-    { desc = "Load workspace", silent = true })
+-- ===== AI (Avante - REMOVED) =====
+-- Removed Avante keymaps: <leader>a, <leader>ac, <leader>ae, <leader>at
 
--- Added Avante keybindings
-keymap.set("n", "<leader>a", "<cmd>AvanteToggle<CR>", { desc = "Toggle Avante chat", silent = true })
-keymap.set("n", "<leader>ac", "<cmd>AvanteComplete<CR>", { desc = "Avante completion", silent = true })
-keymap.set("n", "<leader>ae", "<cmd>AvanteExplain<CR>", { desc = "Avante explain code", silent = true })
-keymap.set("v", "<leader>ae", "<cmd>AvanteExplain<CR>", { desc = "Avante explain selection", silent = true })
-keymap.set("n", "<leader>at", "<cmd>AvanteTests<CR>", { desc = "Avante generate tests", silent = true })
+-- Treesitter swap keymaps (reverted <leader>a)
+keymap.set("n", "<leader>a", function() vim.cmd("TSTextobjectSwapNext @parameter.inner") end, { desc = "[T]reesitter Swap Next Param", silent = true })
+keymap.set("n", "<leader>A", function() vim.cmd("TSTextobjectSwapPrevious @parameter.inner") end, { desc = "[T]reesitter Swap Previous Param", silent = true })
+
+-- ===== WORKSPACE OPERATIONS =====
+-- Removed SessionManager keymaps as mini.sessions is used
+-- keymap.set("n", "<leader>ws", "<cmd>SessionManager save_current_session<CR>", { desc = "Save workspace", silent = true })
+-- keymap.set("n", "<leader>wl", "<cmd>SessionManager load_session<CR>", { desc = "Load workspace", silent = true })
+-- mini.sessions keymaps are defined in lua/plugins/mini.lua
+
