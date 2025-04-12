@@ -4,13 +4,13 @@
 
 -   🔍 **Intelligent Completion**: Fast code completion with Blink.cmp.
 -   🌲 **Advanced Syntax**: Rich syntax highlighting and text objects via Treesitter.
--   📂 **File Management**: Multiple options including Oil.nvim, Mini.files, and Snacks Explorer.
+-   📂 **File Management**: Multiple options including Oil.nvim (floating), Neo-tree (sidebar), Mini.files, and Snacks Explorer.
 -   🔎 **Fuzzy Finding**: Powerful searching with FZF-lua and Snacks pickers.
 -   🤖 **LSP Integration**: Full Language Server Protocol support with Mason for easy server management.
 -   📝 **VS Code Keybindings**: Familiar workflow with VS Code-style shortcuts.
--   🎨 **Beautiful UI**: GitHub Dark theme, Mini statusline, and Snacks UI elements.
+-   🎨 **Beautiful UI**: GitHub Dark theme, Mini statusline, Snacks UI elements, and dashboard.
 -   🧰 **Git Integration**: Neogit, Diffview, and Snacks Git pickers.
--   ⚡ **Performance**: Optimized for speed with lazy loading via lazy.nvim.
+-   ⚡ **Performance**: Optimized with lazy loading via lazy.nvim (Note: Snacks loads eagerly for instant dashboard/features).
 
 ## 🛠️ Environment Setup
 
@@ -19,7 +19,7 @@
     *   `git`
     *   `ripgrep` (for FZF live grep, Snacks grep)
     *   `fd` (for FZF file finding)
-    *   A Nerd Font (for icons)
+    *   A Nerd Font (for icons in UI elements like statusline, devicons)
     *   Node.js (for some LSPs like `prettierd`)
     *   Rust (optional, for faster Blink.cmp fuzzy matching)
 
@@ -83,14 +83,14 @@
 | `<leader>mp`    | `n`  | Mini pick files                 | mini.lua       |
 | `-`             | `n`  | Open Oil File Manager (float)   | oil.lua        |
 | `<leader>cR`    | `n`  | Rename File (Snacks)            | snacks.lua     |
+| _(Neo-tree)_   | `n`  | _(Use `:Neotree` or default keys)_| neo-tree.lua   |
 
 ### 🔍 Search & Grep
 
 | Key             | Mode | Description                     | Source         |
 | :-------------- | :--- | :------------------------------ | :------------- |
-| `<leader>/`     | `n`  | Grep (Snacks)                   | snacks.lua     |
 | `<leader>sg`    | `n`  | Search in files (Snacks Grep)   | snacks.lua     |
-| `<leader>ss`    | `n`  | Search in buffer (Snacks Lines) | snacks.lua     |
+| `<leader>ss`    | `n`  | Search in buffer (Snacks Lines) | snacks.lua/keymaps.lua |
 | `<leader>sw`    | `n,x`| Search word under cursor (Snacks)| snacks.lua     |
 | `<leader>sB`    | `n`  | Grep Open Buffers (Snacks)      | snacks.lua     |
 | `<leader>sb`    | `n`  | Buffer Lines (Snacks)           | snacks.lua     |
@@ -109,15 +109,12 @@
 | `gD`            | `n`  | Goto Declaration                | lsp.lua        |
 | `gr`            | `n`  | Goto References (FZF)           | lsp.lua        |
 | `gI`            | `n`  | Goto Implementation (FZF)       | lsp.lua        |
-| `gy`            | `n`  | Type Definition (Snacks)        | snacks.lua     |
 | `<leader>D`     | `n`  | Type Definition (FZF)           | lsp.lua        |
 | `<leader>ca`    | `n,x`| Code Action                     | keymaps.lua/lsp|
 | `<leader>cr`    | `n`  | Rename Symbol                   | keymaps.lua/lsp|
 | `<leader>cs`    | `n`  | Document Symbols (FZF)          | keymaps.lua/lsp|
 | `<leader>ds`    | `n`  | Document Symbols (FZF)          | lsp.lua        |
 | `<leader>ws`    | `n`  | Workspace Symbols (FZF)         | lsp.lua        |
-| `<leader>ss`    | `n`  | LSP Symbols (Snacks)            | snacks.lua     |
-| `<leader>sS`    | `n`  | Workspace Symbols (Snacks)      | snacks.lua     |
 | `<S-k>`         | `n`  | Show Hover Info                 | keymaps.lua/lsp|
 | `<leader>th`    | `n`  | Toggle Inlay Hints              | lsp.lua        |
 | `<leader>zd`    | `n`  | Diagnostics (FZF)               | fzf-mini.lua   |
@@ -140,8 +137,8 @@
 | :-------------- | :--- | :------------------------------ | :------------- |
 | `<C-space>`     | `n`  | Incremental selection init/inc  | treesitter.lua |
 | `<bs>`          | `n`  | Incremental selection dec       | treesitter.lua |
-| `<leader>a`     | `n`  | Swap with next parameter        | keymaps.lua    |
-| `<leader>A`     | `n`  | Swap with previous parameter    | keymaps.lua    |
+| `<leader>a`     | `n`  | Swap with next parameter        | keymaps.lua/treesitter.lua |
+| `<leader>A`     | `n`  | Swap with previous parameter    | keymaps.lua/treesitter.lua |
 | `af`            | `o,x`| Select outer function           | treesitter.lua |
 | `if`            | `o,x`| Select inner function           | treesitter.lua |
 | `ac`            | `o,x`| Select outer class              | treesitter.lua |
@@ -153,13 +150,12 @@
 
 | Key             | Mode | Description                     | Source         |
 | :-------------- | :--- | :------------------------------ | :------------- |
-| `<leader>bd`    | `n`  | Delete Buffer (Snacks/Mini)     | snacks.lua/keymaps.lua |
+| `<leader>bd`    | `n`  | Delete Buffer (Snacks)          | snacks.lua     |
 | `<leader>ba`    | `n`  | Delete All Buffers (Snacks)     | snacks.lua     |
-| `<leader>bo`    | `n`  | Delete Other Buffers (Snacks/Core)| snacks.lua/keymaps.lua |
+| `<leader>bo`    | `n`  | Delete Other Buffers (Snacks)   | snacks.lua     |
 | `<leader>mb`    | `n`  | Mini delete buffer              | mini.lua       |
 | `<leader>mB`    | `n`  | Mini force delete buffer        | mini.lua       |
 | `<leader>,`     | `n`  | Browse Buffers (Snacks)         | snacks.lua     |
-| `<leader>fb`    | `n`  | Browse Buffers (Snacks)         | snacks.lua     |
 | `<leader>z<space>`| `n`  | Browse Buffers (FZF)            | fzf-mini.lua   |
 | `<leader>to`    | `n`  | Open new tab                    | keymaps.lua    |
 | `<leader>tx`    | `n`  | Close current tab               | keymaps.lua    |
@@ -193,13 +189,12 @@
 | `<leader>gS`    | `n`  | Git Stash (Snacks)              | snacks.lua     |
 | `<leader>gB`    | `n,v`| Git Browse (Snacks)             | snacks.lua     |
 | `<leader>gg`    | `n`  | Open Lazygit (Snacks)           | snacks.lua     |
+| _(Neogit)_     | `n`  | _(Use `:Neogit`)_               | neogit.lua     |
 
 ### 💻 Terminal
 
 | Key             | Mode | Description                     | Source         |
 | :-------------- | :--- | :------------------------------ | :------------- |
-| `<C-/>`         | `n,t`| Toggle Terminal (Snacks)        | snacks.lua     |
-| `<C-_>`         | `n,t`| Toggle Terminal (Snacks)        | snacks.lua     |
 | `<C-\>`         | `n`  | Toggle Terminal (ToggleTerm)    | toggle-terminal.lua |
 
 ### 🔧 UI Toggles & Settings (Snacks)
@@ -252,7 +247,7 @@
 -   **LSP**: nvim-lspconfig, mason.nvim, mason-lspconfig.nvim, fidget.nvim
 -   **Formatting**: conform.nvim
 -   **Syntax**: nvim-treesitter, nvim-ts-autotag
--   **File Management**: oil.nvim, mini.files
+-   **File Management**: oil.nvim, neo-tree.nvim, mini.files
 -   **Fuzzy Finding**: fzf-lua, mini.pick
 -   **Git**: NeogitOrg/neogit, diffview.nvim
 -   **Editing Utilities**: mini.nvim (comment, ai, surround, operators, pairs, bracketed, bufremove, sessions), Comment.nvim, todo-comments.nvim
@@ -268,3 +263,11 @@
 -   **Theme**: Customize theme settings in `lua/plugins/github-theme.lua`.
 -   **LSP Servers**: Add/remove servers in the `servers` table within `lua/plugins/lsp.lua`. Mason will handle installation.
 -   **Formatters**: Configure formatters in `lua/plugins/conform.lua`. Install them via Mason in `lua/plugins/lsp.lua`.
+-   **Snacks Startup**: To potentially reduce startup delay, consider setting `enabled = false` for unused modules within the `opts` table in `lua/plugins/snacks.lua`.
+
+## 📚 Further Reading
+
+-   [Neovim Documentation](https://neovim.io/doc/)
+-   [Lazy.nvim Documentation](https://github.com/folke/lazy.nvim)
+-   [Snacks.nvim Documentation](https://github.com/folke/snacks.nvim)
+-   [Blink.cmp Documentation](https://github.com/saghen/blink.cmp)
