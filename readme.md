@@ -251,6 +251,14 @@ A powerful Neovim setup featuring an elegant UI with Snacks.nvim and GitHub them
 | `<leader>ud`    | `n`  | Debug Markdown Line             | [markdown.lua](http://_vscodecontentref_/13)   |
 | `<leader>us`    | `n`  | Show Markdown Config            | [markdown.lua](http://_vscodecontentref_/14)   |
 
+### 📄 Markdown Preview
+
+| Key     | Mode | Description              | Source              |
+| :------ | :--- | :----------------------- | :------------------ |
+| `<C-s>` | `n`  | Start Markdown Preview   | markdown-preview.lua |
+| `<M-s>` | `n`  | Stop Markdown Preview    | markdown-preview.lua |
+| `<C-p>` | `n`  | Toggle Markdown Preview  | markdown-preview.lua |
+
 ## 🔌 Main Plugins
 
 -   **Core/UI**: Snacks.nvim, lazy.nvim, which-key.nvim, github-nvim-theme
