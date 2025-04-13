@@ -76,14 +76,12 @@ A powerful Neovim setup featuring an elegant UI with Snacks.nvim and GitHub them
 | :-------------- | :--- | :------------------------------ | :------------- |
 | `<leader><space>`| `n`  | Smart Find Files (Snacks)       | snacks.lua     |
 | `<leader>e`     | `n`  | File Explorer (Snacks)          | snacks.lua     |
-| `<leader>ff`    | `n`  | Find Files (Snacks)             | snacks.lua     |
+| `<leader>ff`    | `n`  | Find Files (FZF)                | fzf-mini.lua   |
 | `<leader>fg`    | `n`  | Find Git Files (Snacks)         | snacks.lua     |
 | `<leader>fr`    | `n`  | Recent Files (Snacks)           | snacks.lua     |
-| `<leader>fc`    | `n`  | Find Config File (Snacks)       | snacks.lua     |
+| `<leader>fc`    | `n`  | Find Config File (FZF)          | fzf-mini.lua   |
 | `<leader>fp`    | `n`  | Browse Projects (Snacks)        | snacks.lua     |
-| `<leader>zf`    | `n`  | Find Files (FZF)                | fzf-mini.lua   |
-| `<leader>zc`    | `n`  | Find in Config (FZF)            | fzf-mini.lua   |
-| `<leader>zo`    | `n`  | Old Files (FZF)                 | fzf-mini.lua   |
+| `<leader>fo`    | `n`  | Old Files (FZF)                 | fzf-mini.lua   |
 | `<leader>me`    | `n`  | Mini file explorer              | mini.lua       |
 | `<leader>mp`    | `n`  | Mini pick files                 | mini.lua       |
 | `-`             | `n`  | Open Oil File Manager (float)   | oil.lua        |
@@ -95,34 +93,32 @@ A powerful Neovim setup featuring an elegant UI with Snacks.nvim and GitHub them
 | Key             | Mode | Description                     | Source         |
 | :-------------- | :--- | :------------------------------ | :------------- |
 | `<leader>sg`    | `n`  | Search in files (Snacks Grep)   | snacks.lua     |
-| `<leader>ss`    | `n`  | Search in buffer (Snacks Lines) | snacks.lua/keymaps.lua |
+| `<leader>sb`    | `n`  | Search in buffer (Snacks Lines) | snacks.lua     |
 | `<leader>sw`    | `n,x`| Search word under cursor (Snacks)| snacks.lua     |
 | `<leader>sB`    | `n`  | Grep Open Buffers (Snacks)      | snacks.lua     |
-| `<leader>sb`    | `n`  | Buffer Lines (Snacks)           | snacks.lua     |
-| `<leader>zg`    | `n`  | Live Grep (FZF)                 | fzf-mini.lua   |
-| `<leader>zw`    | `n`  | Find current Word (FZF)         | fzf-mini.lua   |
-| `<leader>zW`    | `n`  | Find current WORD (FZF)         | fzf-mini.lua   |
-| `<leader>zr`    | `n`  | Resume Last Search (FZF)        | fzf-mini.lua   |
-| `<leader>z/`    | `n`  | Live grep current buffer (FZF)  | fzf-mini.lua   |
+| `<leader>fg`    | `n`  | Live Grep (FZF)                 | fzf-mini.lua   |
+| `<leader>fw`    | `n`  | Find current Word (FZF)         | fzf-mini.lua   |
+| `<leader>fW`    | `n`  | Find current WORD (FZF)         | fzf-mini.lua   |
+| `<leader>fr`    | `n`  | Resume Last Search (FZF)        | fzf-mini.lua   |
+| `<leader>f/`    | `n`  | Live grep current buffer (FZF)  | fzf-mini.lua   |
 | `<leader>mg`    | `n`  | Mini grep live                  | mini.lua       |
 
 ### 📊 LSP (Language Server Protocol)
 
 | Key             | Mode | Description                     | Source         |
 | :-------------- | :--- | :------------------------------ | :------------- |
-| `gd`            | `n`  | Goto Definition (FZF)           | lsp.lua        |
+| `gd`            | `n`  | Goto Definition (LSP)           | lsp.lua        |
 | `gD`            | `n`  | Goto Declaration                | lsp.lua        |
-| `gr`            | `n`  | Goto References (FZF)           | lsp.lua        |
-| `gI`            | `n`  | Goto Implementation (FZF)       | lsp.lua        |
-| `<leader>D`     | `n`  | Type Definition (FZF)           | lsp.lua        |
-| `<leader>ca`    | `n,x`| Code Action                     | lsp.lua/keymaps.lua |
-| `<leader>cr`    | `n`  | Rename Symbol                   | lsp.lua/keymaps.lua |
-| `<leader>cs`    | `n`  | Document Symbols (FZF)          | keymaps.lua    |
-| `<leader>ds`    | `n`  | Document Symbols (FZF)          | lsp.lua        |
-| `<leader>ws`    | `n`  | Workspace Symbols (FZF)         | lsp.lua        |
-| `<S-k>`         | `n`  | Show Hover Info                 | keymaps.lua    |
+| `gr`            | `n`  | Goto References (LSP)           | lsp.lua        |
+| `gI`            | `n`  | Goto Implementation (LSP)       | lsp.lua        |
+| `<leader>D`     | `n`  | Type Definition (LSP)           | lsp.lua        |
+| `<leader>ca`    | `n,x`| Code Action                     | lsp.lua        |
+| `<leader>cr`    | `n`  | Rename Symbol                   | lsp.lua        |
+| `<leader>cs`    | `n`  | Document Symbols (LSP)          | lsp.lua        |
+| `<leader>ws`    | `n`  | Workspace Symbols (LSP)         | lsp.lua        |
+| `<S-k>`         | `n`  | Show Hover Info                 | lsp.lua        |
 | `<leader>th`    | `n`  | Toggle Inlay Hints              | lsp.lua        |
-| `<leader>zd`    | `n`  | Diagnostics (FZF)               | fzf-mini.lua   |
+| `<leader>fd`    | `n`  | Diagnostics (FZF)               | fzf-mini.lua   |
 
 ### 📝 Editing & Text Manipulation
 
@@ -217,9 +213,12 @@ A powerful Neovim setup featuring an elegant UI with Snacks.nvim and GitHub them
 | `<leader>uh`    | `n`  | Toggle Inlay Hints              | snacks.lua     |
 | `<leader>uD`    | `n`  | Toggle Dim Mode                 | snacks.lua     |
 | `<leader>un`    | `n`  | Dismiss Notifications           | snacks.lua     |
-| `<leader>um`    | `n`  | Toggle Markdown Render          | [markdown.lua](http://_vscodecontentref_/9)   |
-| `<leader>ue`    | `n`  | Expand Markdown View            | [markdown.lua](http://_vscodecontentref_/10)   |
-| `<leader>uc`    | `n`  | Contract Markdown View          | [markdown.lua](http://_vscodecontentref_/11)   |
+| `<leader>mm`    | `n`  | Toggle Markdown Render          | markdown.lua   |
+| `<leader>mE`    | `n`  | Expand Markdown View            | markdown.lua   |
+| `<leader>mc`    | `n`  | Contract Markdown View          | markdown.lua   |
+| `<leader>ml`    | `n`  | Open Markdown Log               | markdown.lua   |
+| `<leader>md`    | `n`  | Debug Markdown Line             | markdown.lua   |
+| `<leader>ms`    | `n`  | Show Markdown Config            | markdown.lua   |
 
 ### 🧘 Focus Modes (Snacks)
 
@@ -244,12 +243,12 @@ A powerful Neovim setup featuring an elegant UI with Snacks.nvim and GitHub them
 | `<leader>S`     | `n`  | Select Scratch Buffer (Snacks)  | snacks.lua     |
 | `<leader>:`     | `n`  | Command History (Snacks)        | snacks.lua     |
 | `<leader>n`     | `n`  | Notification History (Snacks)   | snacks.lua     |
-| `<leader>zh`    | `n`  | Helptags (FZF)                  | fzf-mini.lua   |
-| `<leader>zk`    | `n`  | Keymaps (FZF)                   | fzf-mini.lua   |
-| `<leader>zb`    | `n`  | Builtins (FZF)                  | fzf-mini.lua   |
-| `<leader>ul`    | `n`  | Open Markdown Log               | [markdown.lua](http://_vscodecontentref_/12)   |
-| `<leader>ud`    | `n`  | Debug Markdown Line             | [markdown.lua](http://_vscodecontentref_/13)   |
-| `<leader>us`    | `n`  | Show Markdown Config            | [markdown.lua](http://_vscodecontentref_/14)   |
+| `<leader>fh`    | `n`  | Helptags (FZF)                  | fzf-mini.lua   |
+| `<leader>fk`    | `n`  | Keymaps (FZF)                   | fzf-mini.lua   |
+| `<leader>fb`    | `n`  | Builtins/Commands (FZF)         | fzf-mini.lua   |
+| `<leader>ml`    | `n`  | Open Markdown Log               | markdown.lua   |
+| `<leader>md`    | `n`  | Debug Markdown Line             | markdown.lua   |
+| `<leader>ms`    | `n`  | Show Markdown Config            | markdown.lua   |
 
 ### 📄 Markdown Preview
 

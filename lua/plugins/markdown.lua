@@ -98,19 +98,13 @@ return {
           map("n", lhs, rhs, { noremap = true, silent = true, desc = desc })
       end
 
-      -- Define keybindings for toggling and controlling the Markdown rendering.
-      nmap("<leader>um", "<cmd>RenderMarkdown toggle<CR>", "Toggle Markdown Render")
-      -- Leader key followed by 'u' and 'm' toggles the rendering on/off.
-      nmap("<leader>ue", "<cmd>RenderMarkdown expand<CR>", "Expand Markdown View")
-      -- Leader key followed by 'u' and 'e' expands the rendered view.
-      nmap("<leader>uc", "<cmd>RenderMarkdown contract<CR>", "Contract Markdown View")
-      -- Leader key followed by 'u' and 'c' contracts the rendered view.
-      nmap("<leader>ul", "<cmd>RenderMarkdown log<CR>", "Open Markdown Log")
-      -- Leader key followed by 'u' and 'l' opens a log window for the plugin.
-      nmap("<leader>ud", "<cmd>RenderMarkdown debug<CR>", "Debug Markdown Line")
-      -- Leader key followed by 'u' and 'd' might provide debugging info for
-      -- the rendering of the current line.
-      nmap("<leader>us", "<cmd>RenderMarkdown config<CR>", "Show Markdown Config")
-      -- Leader key followed by 'u' and 's' might show the current plugin configuration.
+      -- Changed prefix from <leader>u to <leader>m to avoid conflicts
+      nmap("<leader>mm", "<cmd>RenderMarkdown toggle<CR>", "[M]arkdown Toggle Render")
+      -- Changed <leader>me to <leader>mE to avoid conflict with mini.files
+      nmap("<leader>mE", "<cmd>RenderMarkdown expand<CR>", "[M]arkdown Expand View")
+      nmap("<leader>mc", "<cmd>RenderMarkdown contract<CR>", "[M]arkdown Contract View")
+      nmap("<leader>ml", "<cmd>RenderMarkdown log<CR>", "[M]arkdown Open Log")
+      nmap("<leader>md", "<cmd>RenderMarkdown debug<CR>", "[M]arkdown Debug Line")
+      nmap("<leader>ms", "<cmd>RenderMarkdown config<CR>", "[M]arkdown Show Config")
   end,
 }

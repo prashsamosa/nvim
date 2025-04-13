@@ -98,12 +98,14 @@ keymap.set("n", "<leader><space>", function() Snacks.picker.smart() end, { desc 
 -- Search in files (like Ctrl+Shift+F in VS Code).
 -- This mapping uses the 'Snacks' plugin's grep function to perform a project-wide
 -- search for a given pattern.
-keymap.set("n", "<leader>sg", function() Snacks.picker.grep() end, { desc = "Search in files", silent = true })
+-- REMOVED: Redundant <leader>sg mapping (handled by snacks.lua)
+-- keymap.set("n", "<leader>sg", function() Snacks.picker.grep() end, { desc = "Search in files", silent = true })
 
 -- Search in current buffer.
 -- This mapping uses the 'Snacks' plugin's lines function to search within the
 -- current open buffer.
-keymap.set("n", "<leader>ss", function() Snacks.picker.lines() end, { desc = "Search in buffer", silent = true })
+-- REMOVED: Redundant <leader>ss mapping (handled by snacks.lua <leader>sb)
+-- keymap.set("n", "<leader>ss", function() Snacks.picker.lines() end, { desc = "Search in buffer", silent = true })
 
 -- ===== COMMENTING =====
 -- Toggle comment (like Ctrl+/ in VS Code).
