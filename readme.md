@@ -250,14 +250,6 @@ A powerful Neovim setup featuring an elegant UI with Snacks.nvim and GitHub them
 | `<leader>md`    | `n`  | Debug Markdown Line             | markdown.lua   |
 | `<leader>ms`    | `n`  | Show Markdown Config            | markdown.lua   |
 
-### 📄 Markdown Preview
-
-| Key          | Mode | Description              | Source              |
-| :----------- | :--- | :----------------------- | :------------------ |
-| `<leader>Mp` | `n`  | Start Markdown Preview   | markdown-preview.lua |
-| `<M-s>`      | `n`  | Stop Markdown Preview    | markdown-preview.lua |
-| `<C-p>`      | `n`  | Toggle Markdown Preview  | markdown-preview.lua |
-
 ## 🔌 Main Plugins
 
 -   **Core/UI**: Snacks.nvim, lazy.nvim, which-key.nvim, github-nvim-theme
