@@ -252,11 +252,11 @@ A powerful Neovim setup featuring an elegant UI with Snacks.nvim and GitHub them
 
 ### 📄 Markdown Preview
 
-| Key     | Mode | Description              | Source              |
-| :------ | :--- | :----------------------- | :------------------ |
-| `<C-s>` | `n`  | Start Markdown Preview   | markdown-preview.lua |
-| `<M-s>` | `n`  | Stop Markdown Preview    | markdown-preview.lua |
-| `<C-p>` | `n`  | Toggle Markdown Preview  | markdown-preview.lua |
+| Key          | Mode | Description              | Source              |
+| :----------- | :--- | :----------------------- | :------------------ |
+| `<leader>Mp` | `n`  | Start Markdown Preview   | markdown-preview.lua |
+| `<M-s>`      | `n`  | Stop Markdown Preview    | markdown-preview.lua |
+| `<C-p>`      | `n`  | Toggle Markdown Preview  | markdown-preview.lua |
 
 ## 🔌 Main Plugins
 

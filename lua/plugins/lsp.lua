@@ -188,19 +188,27 @@ return {
 
             -- Configuration for the Lua language server.
             lua_ls = {
-                -- cmd = { ... }, -- Override the command to start the server.
-                -- filetypes = { ... }, -- Override associated filetypes.
-                -- capabilities = {}, -- Override capabilities.
-                -- settings = { ... }, -- Override server-specific settings.
-                -- Example settings for Lua language server:
-                -- settings = {
-                --     Lua = {
-                --         completion = {
-                --             callSnippet = 'Replace',
-                --         },
-                --         diagnostics = { disable = { 'missing-fields' } },
-                --     },
-                -- },
+                -- Add settings specific to lua_ls here
+                settings = {
+                    Lua = {
+                        runtime = { version = 'LuaJIT' }, -- Adjust if needed (e.g., 'Lua 5.1')
+                        diagnostics = {
+                            -- Add "Snacks" to the list of recognized globals
+                            globals = { 'vim', 'require', 'Snacks' },
+                        },
+                        workspace = {
+                            library = vim.api.nvim_get_runtime_file("", true),
+                            -- You might want to add your config directory to the library path
+                            -- library = vim.list_extend(vim.api.nvim_get_runtime_file("", true), {
+                            --   vim.fn.expand("~/.config/nvim/lua"),
+                            -- }),
+                            checkThirdParty = false, -- Avoid warnings for plugins not explicitly in workspace
+                        },
+                        telemetry = { enable = false },
+                        -- You can add other lua_ls settings here, like:
+                        -- completion = { callSnippet = 'Replace' },
+                    },
+                },
             },
         }
 
@@ -224,6 +232,7 @@ return {
                     local server = servers[server_name] or {}
                     -- Merge default capabilities with server-specific capabilities,
                     -- allowing overrides from the `servers` table.
+                    -- This line correctly includes the 'settings' defined above.
                     server.capabilities = vim.tbl_deep_extend("force", {}, capabilities, server.capabilities or {})
                     -- Call the setup function for the specific LSP server from 'lspconfig'.
                     require("lspconfig")[server_name].setup(server)

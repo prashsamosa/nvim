@@ -65,12 +65,9 @@ return {
       vim.g.mkdp_combine_preview_auto_refresh = 1 -- Automatically refresh combined previews.
   end,
   keys = { -- Defines keybindings for interacting with the plugin.
-      { "<C-s>", "<Plug>MarkdownPreview", mode = "n", desc = "Start Markdown Preview" },
-      -- Ctrl+s in normal mode will trigger the MarkdownPreview command.
+      -- Changed from <C-s> to <leader>mp to avoid conflict with global save mapping
+      { "<leader>Mp", "<Plug>MarkdownPreview", mode = "n", desc = "[M]arkdown [P]review Start" },
       { "<M-s>", "<Plug>MarkdownPreviewStop", mode = "n", desc = "Stop Markdown Preview" },
-      -- Alt+s (or Meta+s) in normal mode will trigger the MarkdownPreviewStop command.
       { "<C-p>", "<Plug>MarkdownPreviewToggle", mode = "n", desc = "Toggle Markdown Preview" },
-      -- Ctrl+p in normal mode will toggle the MarkdownPreviewToggle command.
-      -- <Plug> mappings are special mappings defined by the plugin.
   },
 }

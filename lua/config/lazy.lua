@@ -40,7 +40,7 @@ vim.opt.rtp:prepend(lazypath)
 -- Setting them here ensures they are available when plugin keybindings are defined.
 -- This is also a good place to setup other global settings (vim.opt).
 vim.g.mapleader = " "
-vim.g.maplocalleader = "\\"
+vim.g.maplocalleader = "\\" -- Correctly set BEFORE lazy setup
 
 -- Load the options configuration file.
 -- This file likely contains settings defined using `vim.opt` to customize

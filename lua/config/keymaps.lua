@@ -1,9 +1,3 @@
--- Set the leader key to space.
--- The leader key is often used as a prefix for custom keybindings.
--- Using space is a common and ergonomic choice.
-vim.g.mapleader = " "
-vim.g.maplocalleader = " " -- Also set local leader to space for buffer-local mappings
-
 -- Alias for better readability.
 -- This creates a shorter and more convenient way to access vim.keymap.set.
 local keymap = vim.keymap
