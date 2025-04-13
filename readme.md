@@ -1,11 +1,12 @@
 # 🚀 My Neovim Configuration
 
-
+A powerful Neovim setup featuring an elegant UI with Snacks.nvim and GitHub theme, comprehensive LSP support, fuzzy finding, VS Code-like experience, enhanced Markdown rendering, and robust plugin management with lazy.nvim.
 
 ## ✨ Key Features
 
 -   🔍 **Intelligent Completion**: Fast code completion with Blink.cmp.
 -   🌲 **Advanced Syntax**: Rich syntax highlighting, text objects, and incremental selection via Treesitter.
+-   📄 **Enhanced Markdown**: Improved Markdown viewing with `render-markdown.nvim`, featuring concealed syntax, icons, borders, and more.
 -   📂 **File Management**: Multiple options including Oil.nvim (floating), Neo-tree (sidebar), Mini.files, and Snacks Explorer.
 -   🔎 **Fuzzy Finding**: Powerful searching with FZF-lua and Snacks pickers.
 -   🤖 **LSP Integration**: Full Language Server Protocol support with Mason for easy server management, enhanced by Fidget status updates.
@@ -16,15 +17,16 @@
 
 ## 🛠️ Environment Setup
 
-1.  **Neovim**: Version 0.9+ (0.10+ recommended).
+1.  **Neovim**: Version 0.9+ (0.10+ recommended for full `render-markdown` features).
 2.  **Dependencies**:
     *   `git`
     *   `ripgrep` (for FZF live grep, Snacks grep)
     *   `fd` (for FZF file finding)
-    *   A Nerd Font (for icons in UI elements like statusline, devicons, todo-comments, diagnostics)
+    *   A Nerd Font (for icons in UI elements like statusline, devicons, todo-comments, diagnostics, markdown rendering)
     *   Node.js (for some LSPs/formatters like `prettierd`)
     *   `stylua` (for Lua formatting, installed via Mason)
     *   Rust (optional, for faster Blink.cmp fuzzy matching)
+    *   `pylatexenc` (optional, Python package for LaTeX rendering in Markdown, install via `pip install pylatexenc`)
 
 ## 🚀 Installation
 
@@ -43,7 +45,7 @@
     ```bash
     nvim
     ```
-    Lazy.nvim will automatically install all plugins on the first run.
+    Lazy.nvim will automatically install all plugins on the first run. Ensure Treesitter parsers are installed/updated (`:TSUpdate`).
 
 ## 🔑 Keybinding Reference
 
@@ -138,16 +140,16 @@
 
 | Key             | Mode | Description                     | Source         |
 | :-------------- | :--- | :------------------------------ | :------------- |
-| `<C-space>`     | `n`  | Incremental selection init/inc  | treesitter.lua |
-| `<bs>`          | `n`  | Incremental selection dec       | treesitter.lua |
+| `<Enter>`       | `n`  | Incremental selection init/inc  | [treesitter.lua](http://_vscodecontentref_/1) |
+| `<Backspace>`   | `n`  | Incremental selection dec       | [treesitter.lua](http://_vscodecontentref_/2) |
 | `<leader>a`     | `n`  | Swap with next parameter        | treesitter.lua/keymaps.lua |
 | `<leader>A`     | `n`  | Swap with previous parameter    | treesitter.lua/keymaps.lua |
-| `af`            | `o,x`| Select outer function           | treesitter.lua |
-| `if`            | `o,x`| Select inner function           | treesitter.lua |
-| `ac`            | `o,x`| Select outer class              | treesitter.lua |
-| `ic`            | `o,x`| Select inner class              | treesitter.lua |
-| `ao`            | `o,x`| Select outer comment            | treesitter.lua |
-| `as`            | `o,x`| Select scope                    | treesitter.lua |
+| `af`            | `o,x`| Select outer function           | [treesitter.lua](http://_vscodecontentref_/3) |
+| `if`            | `o,x`| Select inner function           | [treesitter.lua](http://_vscodecontentref_/4) |
+| `ac`            | `o,x`| Select outer class              | [treesitter.lua](http://_vscodecontentref_/5) |
+| `ic`            | `o,x`| Select inner class              | [treesitter.lua](http://_vscodecontentref_/6) |
+| `ao`            | `o,x`| Select outer comment            | [treesitter.lua](http://_vscodecontentref_/7) |
+| `as`            | `o,x`| Select scope                    | [treesitter.lua](http://_vscodecontentref_/8) |
 
 ### 📑 Buffer & Tab Management
 
@@ -200,7 +202,7 @@
 | :-------------- | :--- | :------------------------------ | :------------- |
 | `<C-\>`         | `n`  | Toggle Terminal (ToggleTerm)    | toggle-terminal.lua |
 
-### 🔧 UI Toggles & Settings (Snacks)
+### 🔧 UI Toggles & Settings (Snacks & Markdown)
 
 | Key             | Mode | Description                     | Source         |
 | :-------------- | :--- | :------------------------------ | :------------- |
@@ -215,6 +217,9 @@
 | `<leader>uh`    | `n`  | Toggle Inlay Hints              | snacks.lua     |
 | `<leader>uD`    | `n`  | Toggle Dim Mode                 | snacks.lua     |
 | `<leader>un`    | `n`  | Dismiss Notifications           | snacks.lua     |
+| `<leader>um`    | `n`  | Toggle Markdown Render          | [markdown.lua](http://_vscodecontentref_/9)   |
+| `<leader>ue`    | `n`  | Expand Markdown View            | [markdown.lua](http://_vscodecontentref_/10)   |
+| `<leader>uc`    | `n`  | Contract Markdown View          | [markdown.lua](http://_vscodecontentref_/11)   |
 
 ### 🧘 Focus Modes (Snacks)
 
@@ -242,6 +247,9 @@
 | `<leader>zh`    | `n`  | Helptags (FZF)                  | fzf-mini.lua   |
 | `<leader>zk`    | `n`  | Keymaps (FZF)                   | fzf-mini.lua   |
 | `<leader>zb`    | `n`  | Builtins (FZF)                  | fzf-mini.lua   |
+| `<leader>ul`    | `n`  | Open Markdown Log               | [markdown.lua](http://_vscodecontentref_/12)   |
+| `<leader>ud`    | `n`  | Debug Markdown Line             | [markdown.lua](http://_vscodecontentref_/13)   |
+| `<leader>us`    | `n`  | Show Markdown Config            | [markdown.lua](http://_vscodecontentref_/14)   |
 
 ## 🔌 Main Plugins
 
@@ -250,6 +258,7 @@
 -   **LSP**: nvim-lspconfig, mason.nvim, mason-lspconfig.nvim, fidget.nvim, mason-tool-installer.nvim
 -   **Formatting**: conform.nvim
 -   **Syntax**: nvim-treesitter
+-   **Markdown**: render-markdown.nvim
 -   **File Management**: oil.nvim, neo-tree.nvim, mini.files
 -   **Fuzzy Finding**: fzf-lua, mini.pick
 -   **Git**: NeogitOrg/neogit, diffview.nvim
@@ -260,13 +269,14 @@
 
 ## 💡 Customization
 
--   **Plugins**: Add new plugins by creating `.lua` files in `lua/plugins/`.
--   **Keymaps**: Modify core keybindings in `lua/config/keymaps.lua` or plugin-specific keys in their respective files under `lua/plugins/`.
--   **Options**: Adjust editor settings in `lua/config/options.lua`.
--   **Theme**: Customize theme settings in `lua/plugins/github-theme.lua`.
--   **LSP Servers**: Add/remove servers in the `servers` table within `lua/plugins/lsp.lua`. Mason will handle installation via `mason-lspconfig` and `mason-tool-installer`.
--   **Formatters**: Configure formatters in `lua/plugins/conform.lua`. Ensure they are listed in `ensure_installed` within `lua/plugins/lsp.lua` for Mason to install them.
--   **Snacks Startup**: To potentially reduce startup delay, consider setting `enabled = false` for unused modules within the `opts` table in `lua/plugins/snacks.lua`.
+-   **Plugins**: Add new plugins by creating `.lua` files in [plugins](http://_vscodecontentref_/15).
+-   **Keymaps**: Modify core keybindings in [keymaps.lua](http://_vscodecontentref_/16) or plugin-specific keys in their respective files under [plugins](http://_vscodecontentref_/17).
+-   **Options**: Adjust editor settings in [options.lua](http://_vscodecontentref_/18).
+-   **Theme**: Customize theme settings in [github-theme.lua](http://_vscodecontentref_/19).
+-   **LSP Servers**: Add/remove servers in the `servers` table within [lsp.lua](http://_vscodecontentref_/20). Mason will handle installation via `mason-lspconfig` and `mason-tool-installer`.
+-   **Formatters**: Configure formatters in [conform.lua](http://_vscodecontentref_/21). Ensure they are listed in `ensure_installed` within [lsp.lua](http://_vscodecontentref_/22) for Mason to install them.
+-   **Markdown Rendering**: Customize appearance and behavior in [markdown.lua](http://_vscodecontentref_/23).
+-   **Snacks Startup**: To potentially reduce startup delay, consider setting `enabled = false` for unused modules within the `opts` table in [snacks.lua](http://_vscodecontentref_/24).
 
 ## 📚 Further Reading
 
@@ -274,3 +284,4 @@
 -   [Lazy.nvim Documentation](https://github.com/folke/lazy.nvim)
 -   [Snacks.nvim Documentation](https://github.com/folke/snacks.nvim)
 -   [Blink.cmp Documentation](https://github.com/saghen/blink.cmp)
+-   [render-markdown.nvim Documentation](https://github.com/MeanderingProgrammer/render-markdown.nvim)
