@@ -4,44 +4,45 @@ A powerful Neovim setup featuring an elegant UI with Snacks.nvim and GitHub them
 
 ## ✨ Key Features
 
--   🔍 **Intelligent Completion**: Fast code completion with Blink.cmp.
--   🌲 **Advanced Syntax**: Rich syntax highlighting, text objects, and incremental selection via Treesitter.
--   📄 **Enhanced Markdown**: Improved Markdown viewing with `render-markdown.nvim`, featuring concealed syntax, icons, borders, and more.
--   📂 **File Management**: Multiple options including Oil.nvim (floating), Neo-tree (sidebar), Mini.files, and Snacks Explorer.
--   🔎 **Fuzzy Finding**: Powerful searching with FZF-lua and Snacks pickers.
--   🤖 **LSP Integration**: Full Language Server Protocol support with Mason for easy server management, enhanced by Fidget status updates.
--   📝 **VS Code Keybindings**: Familiar workflow with VS Code-style shortcuts.
--   🎨 **Beautiful UI**: GitHub Dark theme, Mini statusline, Snacks UI elements, and dashboard.
--   🧰 **Git Integration**: Neogit, Diffview, and Snacks Git pickers.
--   ⚡ **Performance**: Optimized with lazy loading via lazy.nvim (Note: Snacks loads eagerly for instant dashboard/features).
+- 🔍 **Intelligent Completion**: Fast code completion with Blink.cmp.
+- 🌲 **Advanced Syntax**: Rich syntax highlighting, text objects, and incremental selection via Treesitter.
+- 📄 **Enhanced Markdown**: Improved Markdown viewing with `render-markdown.nvim`, featuring concealed syntax, icons, borders, and more.
+- 📂 **File Management**: Multiple options including Oil.nvim (floating), Neo-tree (sidebar), Mini.files, and Snacks Explorer.
+- 🔎 **Fuzzy Finding**: Powerful searching with FZF-lua and Snacks pickers.
+- 🤖 **LSP Integration**: Full Language Server Protocol support with Mason for easy server management, enhanced by Fidget status updates.
+- 📝 **VS Code Keybindings**: Familiar workflow with VS Code-style shortcuts.
+- 🎨 **Beautiful UI**: GitHub Dark theme, Mini statusline, Snacks UI elements, and dashboard.
+- 🧰 **Git Integration**: Neogit, Diffview, and Snacks Git pickers.
+- ⚡ **Performance**: Optimized with lazy loading via lazy.nvim (Note: Snacks loads eagerly for instant dashboard/features).
+- 📑 **Enhanced Buffers**: Feature-rich buffer management with `barbar.nvim`.
 
 ## 🛠️ Environment Setup
 
-1.  **Neovim**: Version 0.9+ (0.10+ recommended for full `render-markdown` features).
-2.  **Dependencies**:
-    *   `git`
-    *   `ripgrep` (for FZF live grep, Snacks grep)
-    *   `fd` (for FZF file finding)
-    *   A Nerd Font (for icons in UI elements like statusline, devicons, todo-comments, diagnostics, markdown rendering)
-    *   Node.js (for some LSPs/formatters like `prettierd`)
-    *   `stylua` (for Lua formatting, installed via Mason)
-    *   Rust (optional, for faster Blink.cmp fuzzy matching)
-    *   `pylatexenc` (optional, Python package for LaTeX rendering in Markdown, install via `pip install pylatexenc`)
+1. **Neovim**: Version 0.9+ (0.10+ recommended for full `render-markdown` features).
+2. **Dependencies**:
+    * `git`
+    * `ripgrep` (for FZF live grep, Snacks grep)
+    * `fd` (for FZF file finding)
+    * A Nerd Font (for icons in UI elements like statusline, devicons, todo-comments, diagnostics, markdown rendering)
+    * Node.js (for some LSPs/formatters like `prettierd`)
+    * `stylua` (for Lua formatting, installed via Mason)
+    * Rust (optional, for faster Blink.cmp fuzzy matching)
+    * `pylatexenc` (optional, Python package for LaTeX rendering in Markdown, install via `pip install pylatexenc`)
 
 ## 🚀 Installation
 
-1.  **Backup existing config** (optional):
+1. **Backup existing config** (optional):
     ```bash
     mv ~/.config/nvim ~/.config/nvim.bak
     mv ~/.local/share/nvim ~/.local/share/nvim.bak
     mv ~/.local/state/nvim ~/.local/state/nvim.bak
     mv ~/.cache/nvim ~/.cache/nvim.bak
     ```
-2.  **Clone the repository**:
+2. **Clone the repository**:
     ```bash
     git clone <your-repo-url> ~/.config/nvim
     ```
-3.  **Start Neovim**:
+3. **Start Neovim**:
     ```bash
     nvim
     ```
@@ -147,20 +148,27 @@ A powerful Neovim setup featuring an elegant UI with Snacks.nvim and GitHub them
 | `ao`        | `o,x`| Select outer comment            | `plugins/treesitter.lua` |
 | `as`        | `o,x`| Select scope                    | `plugins/treesitter.lua` |
 
-### 📑 Buffer Management
+### 📑 Buffer Management (`barbar.nvim`)
 
-| Key             | Mode | Description                      | Source         |
-| :-------------- | :--- | :------------------------------- | :------------- |
-| `<leader>bd`    | `n`  | Delete Buffer (Snacks)           | `snacks.lua`   |
-| `<leader>ba`    | `n`  | Delete All Buffers (Snacks)      | `snacks.lua`   |
-| `<leader>bo`    | `n`  | Delete Other Buffers (Snacks)    | `snacks.lua`   |
-| `<leader>mb`    | `n`  | Mini delete buffer               | `mini.lua`     |
-| `<leader>mB`    | `n`  | Mini force delete buffer         | `mini.lua`     |
-| `<leader>,`     | `n`  | Browse Buffers (Snacks)          | `snacks.lua`   |
-| `<leader>f<space>`| `n`  | Browse Buffers (FZF)             | `fzf-mini.lua` |
-| `<Tab>`         | `n`  | Next buffer                      | `keymaps.lua`  |
-| `<S-Tab>`       | `n`  | Previous buffer                  | `keymaps.lua`  |
-| `<leader>1-9`   | `n`  | Go to buffer 1-9                | `keymaps.lua`  |
+| Key       | Mode | Description                        | Source        |
+| :-------- | :--- | :--------------------------------- | :------------ |
+| `<A-,>`   | `n`  | Go to previous buffer              | `barbar.nvim` |
+| `<A-.>`   | `n`  | Go to next buffer                  | `barbar.nvim` |
+| `<A-<>`  | `n`  | Move current buffer to previous     | `barbar.nvim` |
+| `<A->>`  | `n`  | Move current buffer to next         | `barbar.nvim` |
+| `<A-1>`   | `n`  | Go to buffer 1                     | `barbar.nvim` |
+| `<A-2>`   | `n`  | Go to buffer 2                     | `barbar.nvim` |
+| `<A-3>`   | `n`  | Go to buffer 3                     | `barbar.nvim` |
+| `<A-4>`   | `n`  | Go to buffer 4                     | `barbar.nvim` |
+| `<A-5>`   | `n`  | Go to buffer 5                     | `barbar.nvim` |
+| `<A-6>`   | `n`  | Go to buffer 6                     | `barbar.nvim` |
+| `<A-7>`   | `n`  | Go to buffer 7                     | `barbar.nvim` |
+| `<A-8>`   | `n`  | Go to buffer 8                     | `barbar.nvim` |
+| `<A-9>`   | `n`  | Go to buffer 9                     | `barbar.nvim` |
+| `<A-0>`   | `n`  | Go to last buffer                  | `barbar.nvim` |
+| `<A-p>`   | `n`  | Pin/unpin current buffer           | `barbar.nvim` |
+| `<A-c>`   | `n`  | Close current buffer               | `barbar.nvim` |
+| `<A-b>`   | `n`  | Close all buffers but current      | `barbar.nvim` |
 
 ### 🪟 Window Management
 
@@ -195,6 +203,14 @@ A powerful Neovim setup featuring an elegant UI with Snacks.nvim and GitHub them
 | Key      | Mode | Description                 | Source              |
 | :------- | :--- | :-------------------------- | :------------------ |
 | `<C-\>`  | `n`  | Toggle Terminal (ToggleTerm)| `toggle-terminal.lua` |
+
+### 🔑 Elixir Specific Keybindings
+
+| Key       | Mode | Description             | Source              |
+| :-------- | :--- | :---------------------- | `elixir-tools.nvim` |
+| `<space>Fp`| `n`  | Run Elixir From Pipe    | `elixir-tools.nvim` |
+| `<space>Tp`| `n`  | Run Elixir To Pipe      | `elixir-tools.nvim` |
+| `<space>Em`| `v`  | Expand Elixir Macro     | `elixir-tools.nvim` |
 
 ### 🔧 UI Toggles & Settings (Snacks & Markdown)
 
@@ -250,43 +266,43 @@ A powerful Neovim setup featuring an elegant UI with Snacks.nvim and GitHub them
 
 ### 🔑 Elixir Specific Keybindings
 
-| Key         | Mode | Description                     | Source                 |
-| :---------- | :--- | :------------------------------ | :--------------------- |
-| `<space>Fp` | `n`  | Run Elixir From Pipe            | elixir-tools.nvim      |
-| `<space>Tp` | `n`  | Run Elixir To Pipe              | elixir-tools.nvim      |
-| `<space>Em` | `v`  | Expand Elixir Macro             | elixir-tools.nvim      |
+| Key       | Mode | Description             | Source              |
+| :-------- | :--- | :---------------------- | `elixir-tools.nvim` |
+| `<space>Fp`| `n`  | Run Elixir From Pipe    | `elixir-tools.nvim` |
+| `<space>Tp`| `n`  | Run Elixir To Pipe      | `elixir-tools.nvim` |
+| `<space>Em`| `v`  | Expand Elixir Macro     | `elixir-tools.nvim` |
 
 ## 🔌 Main Plugins
 
--   **Core/UI**: Snacks.nvim, lazy.nvim, which-key.nvim, github-nvim-theme
--   **Completion**: Blink.cmp, friendly-snippets
--   **LSP**: nvim-lspconfig, mason.nvim, mason-lspconfig.nvim, fidget.nvim, mason-tool-installer.nvim
--   **Formatting**: conform.nvim
--   **Syntax**: nvim-treesitter
--   **Markdown**: render-markdown.nvim
--   **File Management**: oil.nvim, neo-tree.nvim, mini.files
--   **Fuzzy Finding**: fzf-lua, mini.pick
--   **Git**: NeogitOrg/neogit, diffview.nvim
--   **Editing Utilities**: mini.nvim (comment, ai, surround, operators, pairs, bracketed, bufremove, sessions), todo-comments.nvim
--   **Terminal**: toggleterm.nvim
--   **Database**: vim-dadbod-ui, vim-dadbod, vim-dadbod-completion
--   **Other**: vim-sleuth
+- Core/UI: Snacks.nvim, lazy.nvim, which-key.nvim, github-nvim-theme
+- Completion: Blink.cmp, friendly-snippets
+- LSP: nvim-lspconfig, mason.nvim, mason-lspconfig.nvim, fidget.nvim, mason-tool-installer.nvim
+- Formatting: conform.nvim
+- Syntax: nvim-treesitter
+- Markdown: render-markdown.nvim
+- File Management: oil.nvim, neo-tree.nvim, mini.files
+- Fuzzy Finding: fzf-lua, mini.pick
+- Git: NeogitOrg/neogit, diffview.nvim
+- Editing Utilities: mini.nvim (comment, ai, surround, operators, pairs, bracketed, bufremove, sessions), todo-comments.nvim
+- Terminal: toggleterm.nvim
+- Database: vim-dadbod-ui, vim-dadbod, vim-dadbod-completion
+- Other: vim-sleuth
 
 ## 💡 Customization
 
--   **Plugins**: Add new plugins by creating `.lua` files in [plugins](http://_vscodecontentref_/15).
--   **Keymaps**: Modify core keybindings in [keymaps.lua](http://_vscodecontentref_/16) or plugin-specific keys in their respective files under [plugins](http://_vscodecontentref_/17).
--   **Options**: Adjust editor settings in [options.lua](http://_vscodecontentref_/18).
--   **Theme**: Customize theme settings in [github-theme.lua](http://_vscodecontentref_/19).
--   **LSP Servers**: Add/remove servers in the `servers` table within [lsp.lua](http://_vscodecontentref_/20). Mason will handle installation via `mason-lspconfig` and `mason-tool-installer`.
--   **Formatters**: Configure formatters in [conform.lua](http://_vscodecontentref_/21). Ensure they are listed in `ensure_installed` within [lsp.lua](http://_vscodecontentref_/22) for Mason to install them.
--   **Markdown Rendering**: Customize appearance and behavior in [markdown.lua](http://_vscodecontentref_/23).
--   **Snacks Startup**: To potentially reduce startup delay, consider setting `enabled = false` for unused modules within the `opts` table in [snacks.lua](http://_vscodecontentref_/24).
+- Plugins: Add new plugins by creating `.lua` files in [plugins](http://_vscodecontentref_/15).
+- Keymaps: Modify core keybindings in [keymaps.lua](http://_vscodecontentref_/16) or plugin-specific keys in their respective files under [plugins](http://_vscodecontentref_/17).
+- Options: Adjust editor settings in [options.lua](http://_vscodecontentref_/18).
+- Theme: Customize theme settings in [github-theme.lua](http://_vscodecontentref_/19).
+- LSP Servers: Add/remove servers in the `servers` table within [lsp.lua](http://_vscodecontentref_/20). Mason will handle installation via `mason-lspconfig` and `mason-tool-installer`.
+- Formatters: Configure formatters in [conform.lua](http://_vscodecontentref_/21). Ensure they are listed in `ensure_installed` within [lsp.lua](http://_vscodecontentref_/22) for Mason to install them.
+- Markdown Rendering: Customize appearance and behavior in [markdown.lua](http://_vscodecontentref_/23).
+- Snacks Startup: To potentially reduce startup delay, consider setting `enabled = false` for unused modules within the `opts` table in [snacks.lua](http://_vscodecontentref_/24).
 
 ## 📚 Further Reading
 
--   [Neovim Documentation](https://neovim.io/doc/)
--   [Lazy.nvim Documentation](https://github.com/folke/lazy.nvim)
--   [Snacks.nvim Documentation](https://github.com/folke/snacks.nvim)
--   [Blink.cmp Documentation](https://github.com/saghen/blink.cmp)
--   [render-markdown.nvim Documentation](https://github.com/MeanderingProgrammer/render-markdown.nvim)
+- [Neovim Documentation](https://neovim.io/doc/)
+- [Lazy.nvim Documentation](https://github.com/folke/lazy.nvim)
+- [Snacks.nvim Documentation](https://github.com/folke/snacks.nvim)
+- [Blink.cmp Documentation](https://github.com/saghen/blink.cmp)
+- [render-markdown.nvim Documentation](https://github.com/MeanderingProgrammer/render-markdown.nvim)
