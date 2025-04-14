@@ -12,29 +12,29 @@ return {
     {
         "echasnovski/mini.comment",
         version = false,
-        lazy = false, -- Load immediately for essential commenting functionality.
+        lazy = false,
         opts = {
             options = {
-                custom_commentstring = nil, -- Custom comment strings per filetype (function).
-                ignore_blank_line = false,  -- Don't comment on blank lines.
-                start_of_line = false,    -- Always comment at the start of the line.
-                pad_comment_parts = true, -- Add spaces around comment delimiters.
+                custom_commentstring = nil,
+                ignore_blank_line = false,
+                start_of_line = false,
+                pad_comment_parts = true,
             },
             mappings = {
-                comment = "gc",         -- Toggle comment for selection (line/visual).
-                comment_line = "gcc",    -- Toggle comment for current line.
-                comment_visual = "gc",  -- Comment in visual mode.
-                textobject = "gc",      -- Comment using text objects (e.g., `gcip`).
+                comment = "gc",
+                comment_line = "gcc",
+                comment_visual = "gc",
+                textobject = "gc",
             },
             hooks = {
-                pre = function() end,  -- Run before commenting.
-                post = function() end, -- Run after commenting.
+                pre = function() end,
+                post = function() end,
             },
         },
         desc = "Smart code commenting using mini.comment",
     },
 
-    -- Enhanced text objects (inside/around argument, etc.).
+    -- Enhanced text objects.
     {
         "echasnovski/mini.ai",
         version = false,
@@ -43,7 +43,7 @@ return {
         end,
     },
 
-    -- Easily surround text with delimiters (parentheses, quotes) and manage them.
+    -- Surround management.
     {
         "echasnovski/mini.surround",
         version = false,
@@ -52,7 +52,7 @@ return {
         end,
     },
 
-    -- Define custom text editing operators.
+    -- Text editing operators.
     {
         "echasnovski/mini.operators",
         version = false,
@@ -61,7 +61,7 @@ return {
         end,
     },
 
-    -- Automatic insertion and deletion of matching pairs (parentheses, brackets, quotes).
+    -- Matching pair handling.
     {
         "echasnovski/mini.pairs",
         version = false,
@@ -70,7 +70,7 @@ return {
         end,
     },
 
-    -- Navigation and manipulation of bracketed text.
+    -- Bracketed text navigation.
     {
         "echasnovski/mini.bracketed",
         version = false,
@@ -79,56 +79,55 @@ return {
         end,
     },
 
-    -- Easy deletion of buffers.
+    -- Buffer removal.
     {
         "echasnovski/mini.bufremove",
         version = false,
         config = function()
             vim.keymap.set("n", "<leader>mb", function()
-                require("mini.bufremove").delete(0, false) -- Delete current buffer (no force).
+                require("mini.bufremove").delete(0, false)
             end, { desc = "Mini delete buffer" })
 
             vim.keymap.set("n", "<leader>mB", function()
-                require("mini.bufremove").delete(0, true) -- Force delete current buffer.
+                require("mini.bufremove").delete(0, true)
             end, { desc = "Mini force delete buffer" })
         end,
     },
 
-    -- Simple file explorer within Neovim.
+    -- File explorer.
     {
         "echasnovski/mini.files",
         version = false,
         config = function()
             require("mini.files").setup()
             vim.keymap.set("n", "<leader>me", function()
-                require("mini.files").open() -- Open mini.files explorer.
+                require("mini.files").open()
             end, { desc = "Mini file explorer" })
         end,
     },
 
-    -- Selection menu for various built-in and custom sources.
+    -- Fuzzy picker.
     {
         "echasnovski/mini.pick",
         version = false,
         config = function()
             require("mini.pick").setup()
             vim.keymap.set("n", "<leader>mp", function()
-                require("mini.pick").builtin.files() -- Open mini.pick for files.
+                require("mini.pick").builtin.files()
             end, { desc = "Mini pick files" })
 
             vim.keymap.set("n", "<leader>mg", function()
-                require("mini.pick").builtin.grep_live() -- Open mini.pick for live grep.
+                require("mini.pick").builtin.grep_live()
             end, { desc = "Mini grep live" })
         end,
     },
 
-    -- Modern and customizable notification system.
+    -- Notifications.
     {
         "echasnovski/mini.notify",
         version = false,
-        event = "VeryLazy", -- Load only when needed (e.g., notification triggered).
+        event = "VeryLazy",
         config = function()
-            -- Check if 'winblend' is supported for transparency.
             local has_winblend = pcall(function()
                 local win_id = vim.api.nvim_open_win(0, false, {
                     relative = "editor", width = 1, height = 1, row = 0, col = 0, style = "minimal", winblend = 0
@@ -140,56 +139,85 @@ return {
             local config = {
                 window = {
                     config = {
-                        border = "rounded", -- Rounded borders for notifications.
-                        width = 60,        -- Fixed width for notifications.
+                        border = "rounded",
+                        width = 60,
                     },
                 },
                 content = {
-                    default_timeout_ms = 5000, -- Default notification timeout (5 seconds).
+                    default_timeout_ms = 5000,
                 },
                 lsp_progress = {
-                    enable = true,       -- Enable LSP progress display.
-                    duration_ms = 500,   -- Duration of progress animation.
+                    enable = true,
+                    duration_ms = 500,
                 },
             }
 
-            -- Enable transparency if 'winblend' is supported.
             if has_winblend then
                 config.window.config.winblend = 0
             end
 
             require("mini.notify").setup(config)
-            vim.notify = require("mini.notify").make_notify() -- Replace default notify.
+            vim.notify = require("mini.notify").make_notify()
         end,
     },
 
-    -- Session management (saving and restoring Neovim's state).
+    -- Session management.
     {
         "echasnovski/mini.sessions",
         version = false,
-        lazy = false, -- Load immediately for session management.
+        lazy = false,
         config = function()
             require("mini.sessions").setup({
-                autoread = true,  -- Automatically read last session on startup.
-                autowrite = true, -- Automatically write current session on exit.
-                directory = vim.fn.stdpath("data") .. "/sessions", -- Session file directory.
-                file = "Session.vim", -- Default session filename.
-                force = { read = false, write = true, delete = false }, -- Force options for actions.
-                verbose = { read = false, write = true, delete = true }, -- Verbose output for actions.
+                autoread = true,
+                autowrite = true,
+                directory = vim.fn.stdpath("data") .. "/sessions",
+                file = "Session.vim",
+                force = { read = false, write = true, delete = false },
+                verbose = { read = false, write = true, delete = true },
             })
 
-            -- Keymaps for session actions.
             vim.keymap.set("n", "<leader>ms", function()
-                require("mini.sessions").write(nil) -- Write current session.
+                require("mini.sessions").write(nil)
             end, { desc = "Write Session" })
 
             vim.keymap.set("n", "<leader>mr", function()
-                require("mini.sessions").read(nil) -- Read last saved session.
+                require("mini.sessions").read(nil)
             end, { desc = "Read Last Session" })
 
             vim.keymap.set("n", "<leader>md", function()
-                require("mini.sessions").delete(nil) -- Delete last saved session.
+                require("mini.sessions").delete(nil)
             end, { desc = "Delete Last Session" })
+        end,
+    },
+
+    -- Indentation scope lines.
+    {
+        "echasnovski/mini.indentscope",
+        version = false,
+        event = "VeryLazy",
+        config = function()
+            local indentscope = require("mini.indentscope")
+            indentscope.setup({
+                draw = {
+                    delay = 100,
+                    animation = indentscope.gen_animation.linear({ easing = "in", duration = 20, unit = "step" }),
+                    predicate = function(scope) return not scope.body.is_incomplete end,
+                    priority = 2,
+                },
+                mappings = {
+                    object_scope = "ii",
+                    object_scope_with_border = "ai",
+                    goto_top = "[i",
+                    goto_bottom = "]i",
+                },
+                options = {
+                    border = "both",
+                    indent_at_cursor = true,
+                    n_lines = 10000,
+                    try_as_border = false,
+                },
+                symbol = "╎",
+            })
         end,
     },
 }
