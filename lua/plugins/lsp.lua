@@ -40,8 +40,8 @@ return {
                 map("gD", vim.lsp.buf.declaration, "[G]oto [D]eclaration")
 
                 -- Find Symbols
-                map("<leader>ds", require("fzf-lua").lsp_document_symbols, "[D]ocument [S]ymbols")
-                map("<leader>ws", require("fzf-lua").lsp_live_workspace_symbols, "[W]orkspace [S]ymbols")
+                map("<leader>dS", require("fzf-lua").lsp_document_symbols, "[D]ocument [S]ymbols")
+                map("<leader>wS", require("fzf-lua").lsp_live_workspace_symbols, "[W]orkspace [S]ymbols")
 
                 -- Editing
                 map("<leader>cr", vim.lsp.buf.rename, "[R]e[n]ame")

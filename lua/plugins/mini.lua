@@ -179,15 +179,15 @@ return {
             })
 
             -- Keymaps for session actions.
-            vim.keymap.set("n", "<leader>ws", function()
+            vim.keymap.set("n", "<leader>ms", function()
                 require("mini.sessions").write(nil) -- Write current session.
             end, { desc = "Write Session" })
 
-            vim.keymap.set("n", "<leader>wr", function()
+            vim.keymap.set("n", "<leader>mr", function()
                 require("mini.sessions").read(nil) -- Read last saved session.
             end, { desc = "Read Last Session" })
 
-            vim.keymap.set("n", "<leader>wd", function()
+            vim.keymap.set("n", "<leader>md", function()
                 require("mini.sessions").delete(nil) -- Delete last saved session.
             end, { desc = "Delete Last Session" })
         end,

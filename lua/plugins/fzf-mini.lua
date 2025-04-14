@@ -95,13 +95,14 @@ return {
         function() require("fzf-lua").lsp_typedefs() end,
         desc = "[F]ZF Type Definition",
       },
+      -- These keybindings conflict with your LSP keybindings:
       {
-        "<leader>cs", -- This was the problematic keymap in your keymaps.lua
+        "<leader>fds", 
         function() require("fzf-lua").lsp_document_symbols() end,
         desc = "[F]ZF Document Symbols",
       },
       {
-        "<leader>ws",
+        "<leader>fws",
         function() require("fzf-lua").lsp_workspace_symbols() end,
         desc = "[F]ZF Workspace Symbols",
       },

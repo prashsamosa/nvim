@@ -118,6 +118,8 @@ A powerful Neovim setup featuring an elegant UI with Snacks.nvim and GitHub them
 | `<S-k>`      | `n`  | Show Hover Info              | `lsp.lua`   |
 | `<leader>th` | `n`  | Toggle Inlay Hints           | `lsp.lua`   |
 | `<leader>fd` | `n`  | Diagnostics (FZF)            | `fzf-mini.lua` |
+| `<leader>dS` | `n`  | Document Symbols (LSP)       | `lsp.lua`   |
+| `<leader>wS` | `n`  | Workspace Symbols (LSP)      | `lsp.lua`   |
 
 ### 📝 Editing & Text Manipulation
 
@@ -193,13 +195,19 @@ A powerful Neovim setup featuring an elegant UI with Snacks.nvim and GitHub them
 | `<leader>gS` | `n`  | Git Stash (Snacks)      | `snacks.lua`  |
 | `<leader>gB` | `n,v`| Git Browse (Snacks)     | `snacks.lua`  |
 | `<leader>gg` | `n`  | Open Lazygit (Snacks)   | `snacks.lua`  |
+| `<leader>gn` | `n`  | Open Neogit             | `neogit.lua`  |
 | _(Neogit)_   | `n`  | _(Use `:Neogit`)_       | `neogit.lua`  |
 
 ### 💻 Terminal
 
-| Key      | Mode | Description                 | Source              |
-| :------- | :--- | :-------------------------- | :------------------ |
-| `<C-\>`  | `n`  | Toggle Terminal (ToggleTerm)| `toggle-terminal.lua` |
+| Key          | Mode | Description                        | Source              |
+| :----------- | :--- | :--------------------------------- | :------------------ |
+| `<C-\>`      | `n`  | Toggle Terminal (ToggleTerm)       | `toggle-terminal.lua` |
+| `<leader>tt` | `n`  | Toggle Terminal (float)            | `toggle-terminal.lua` |
+| `<leader>th` | `n`  | Toggle Terminal (horizontal)       | `toggle-terminal.lua` |
+| `<leader>tv` | `n`  | Toggle Terminal (vertical)         | `toggle-terminal.lua` |
+| `<leader>tl` | `n`  | Send Line to Terminal              | `toggle-terminal.lua` |
+| `<leader>ts` | `n`  | Select Terminal                    | `toggle-terminal.lua` |
 
 ### 💧 Elixir Specific Keybindings
 
@@ -224,12 +232,12 @@ A powerful Neovim setup featuring an elegant UI with Snacks.nvim and GitHub them
 | `<leader>uh` | `n`  | Toggle Inlay Hints          | `snacks.lua`  |
 | `<leader>uD` | `n`  | Toggle Dim Mode             | `snacks.lua`  |
 | `<leader>un` | `n`  | Dismiss Notifications       | `snacks.lua`  |
-| `<leader>mm` | `n`  | Toggle Markdown Render      | `markdown.lua`|
-| `<leader>mE` | `n`  | Expand Markdown View        | `markdown.lua`|
-| `<leader>mc` | `n`  | Contract Markdown View      | `markdown.lua`|
-| `<leader>ml` | `n`  | Open Markdown Log           | `markdown.lua`|
-| `<leader>md` | `n`  | Debug Markdown Line         | `markdown.lua`|
-| `<leader>ms` | `n`  | Show Markdown Config        | `markdown.lua`|
+| `<leader>Mm` | `n`  | Toggle Markdown Render      | `markdown.lua`|
+| `<leader>Me` | `n`  | Expand Markdown View        | `markdown.lua`|
+| `<leader>Mc` | `n`  | Contract Markdown View      | `markdown.lua`|
+| `<leader>ML` | `n`  | Open Markdown Log           | `markdown.lua`|
+| `<leader>Md` | `n`  | Debug Markdown Line         | `markdown.lua`|
+| `<leader>Ms` | `n`  | Show Markdown Config        | `markdown.lua`|
 
 ### 🧘 Focus Modes (Snacks)
 
@@ -242,9 +250,9 @@ A powerful Neovim setup featuring an elegant UI with Snacks.nvim and GitHub them
 
 | Key          | Mode | Description           | Source      |
 | :----------- | :--- | :-------------------- | :---------- |
-| `<leader>ws` | `n`  | Write Session         | `mini.lua`  |
-| `<leader>wr` | `n`  | Read Last Session     | `mini.lua`  |
-| `<leader>wd` | `n`  | Delete Last Session   | `mini.lua`  |
+| `<leader>ms` | `n`  | Write Session         | `mini.lua`  |
+| `<leader>mr` | `n`  | Read Last Session     | `mini.lua`  |
+| `<leader>md` | `n`  | Delete Last Session   | `mini.lua`  |
 
 ### 📋 Miscellaneous
 
