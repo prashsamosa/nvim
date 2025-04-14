@@ -1,58 +1,65 @@
--- Configure 'barbar.nvim' for buffer management.
+-- Configure 'barbar.nvim' for enhanced buffer management.
 return {
-    "romgrk/barbar.nvim",
-    version = false,
-    dependencies = {
-      "nvim-tree/nvim-web-devicons", -- Support for file icons.
-      "lewis6991/gitsigns.nvim",     -- Display Git status in the tabline.
-    },
-    config = function()
+  "romgrk/barbar.nvim",
+  version = false, -- Follow the latest version
+  dependencies = {
+      "nvim-tree/nvim-web-devicons", -- Display file icons in the bufferline.
+      "lewis6991/gitsigns.nvim",     -- Show Git status indicators in the bufferline.
+  },
+  config = function()
       local barbar = require("barbar")
-  
+
       barbar.setup({
-        clickable = true, -- Enable clickable tabs for buffer switching.
-        tabpages = false, -- Disable tabpage indicator (we are focusing on buffers).
-        insert_at_end = true, -- New buffers appear at the end of the tabline.
-        icons = {
-          button = "",       -- Icon to display for the close button.
-          buffer_index = true, -- Show buffer index/number.
-          filetype = { enabled = true }, -- Show file type icons.
-          visible = { modified = { buffer_number = false } }, -- Don't show buffer number if only modified.
-          gitsigns = {
-            added = { enabled = true, icon = "+" },   -- Icon for added changes.
-            changed = { enabled = true, icon = "~" }, -- Icon for changed changes.
-            deleted = { enabled = true, icon = "-" }, -- Icon for deleted changes.
+          clickable = true,          -- Enable buffer switching by clicking on tabs.
+          tabpages = false,          -- Disable the tabpage indicator (focusing on buffers).
+          insert_at_end = true,      -- New buffers are added to the end of the bufferline.
+          icons = {
+              button = "",          -- Icon for the buffer close button.
+              buffer_index = true,    -- Display the index/number of each buffer.
+              filetype = { enabled = true }, -- Show icons based on the file type.
+              visible = {
+                  modified = { buffer_number = false } -- Don't show buffer number if only modified.
+              },
+              gitsigns = {
+                  added = { enabled = true, icon = "+" },    -- Icon for added lines (Git).
+                  changed = { enabled = true, icon = "~" },  -- Icon for changed lines (Git).
+                  deleted = { enabled = true, icon = "-" },  -- Icon for deleted lines (Git).
+              },
           },
-        },
       })
-  
-      -- Define keymaps for buffer management.
+
+      -- Define keymaps for 'barbar.nvim' buffer management.
       local map = vim.api.nvim_set_keymap
       local opts = { noremap = true, silent = true }
-  
-      -- Move to previous/next buffer (using Alt + , and Alt + .)
+
+      -- Navigate to the previous buffer (Alt + ,).
       map("n", "<A-,>", "<Cmd>BufferPrevious<CR>", opts)
+
+      -- Navigate to the next buffer (Alt + .).
       map("n", "<A-.>", "<Cmd>BufferNext<CR>", opts)
-  
-      -- Re-order to previous/next buffer (using Alt + < and Alt + >)
+
+      -- Move the current buffer one position to the left (Alt + <).
       map("n", "<A-<>", "<Cmd>BufferMovePrevious<CR>", opts)
+
+      -- Move the current buffer one position to the right (Alt + >).
       map("n", "<A->>", "<Cmd>BufferMoveNext<CR>", opts)
-  
-      -- Go to buffer in position... (using Alt + 1-9 and Alt + 0 for last)
+
+      -- Go to a specific buffer by its number (Alt + 1-9).
       for i = 1, 9 do
-        -- Check for potential conflict with existing <leader>[1-9] for buffer jumping.
-        -- Using <A-1> to <A-9> to avoid this common conflict.
-        map("n", "<A-" .. i .. ">", "<Cmd>BufferGoto " .. i .. "<CR>", opts)
+          -- Using Alt + number to avoid potential conflicts with <leader>[1-9].
+          map("n", "<A-" .. i .. ">", "<Cmd>BufferGoto " .. i .. "<CR>", opts)
       end
+
+      -- Go to the last buffer (Alt + 0).
       map("n", "<A-0>", "<Cmd>BufferLast<CR>", opts)
-  
-      -- Pin/unpin buffer (using Alt + p)
+
+      -- Pin or unpin the current buffer (Alt + p). Pinned buffers stay in place.
       map("n", "<A-p>", "<Cmd>BufferPin<CR>", opts)
-  
-      -- Close buffer (using Alt + c)
+
+      -- Close the current buffer (Alt + c).
       map("n", "<A-c>", "<Cmd>BufferClose<CR>", opts)
-  
-      -- Close all buffers but current (using Alt + b)
+
+      -- Close all buffers except the currently active one (Alt + b).
       map("n", "<A-b>", "<Cmd>BufferCloseAllButCurrent<CR>", opts)
-    end,
-  }
+  end,
+}

@@ -1,39 +1,40 @@
+-- Configure various 'mini.nvim' utility plugins by echasnovski.
+-- These plugins provide enhanced functionalities for text editing, workflow, and UI.
+
 return {
-    -- Core mini.nvim library. This is the foundation for all other mini.* plugins.
+    -- Core mini.nvim library (foundation for other mini.* plugins).
     {
         "echasnovski/mini.nvim",
-        version = false, -- Pin to false to always use the latest version.
+        version = false, -- Always use the latest version.
     },
 
-    -- Smart code commenting using mini.comment. Provides commands and mappings
-    -- for easily commenting and uncommenting code blocks and lines.
+    -- Smart code commenting.
     {
         "echasnovski/mini.comment",
         version = false,
-        lazy = false, -- Load immediately as commenting is a fundamental operation.
+        lazy = false, -- Load immediately for essential commenting functionality.
         opts = {
             options = {
-                custom_commentstring = nil, -- Function to define custom comment strings per filetype.
-                ignore_blank_line = false,  -- Whether to skip commenting on blank lines.
-                start_of_line = false,      -- Whether to always comment at the start of the line.
-                pad_comment_parts = true,   -- Add padding spaces around comment delimiters.
+                custom_commentstring = nil, -- Custom comment strings per filetype (function).
+                ignore_blank_line = false,  -- Don't comment on blank lines.
+                start_of_line = false,    -- Always comment at the start of the line.
+                pad_comment_parts = true, -- Add spaces around comment delimiters.
             },
             mappings = {
-                comment = "gc",        -- Mapping to comment out the current selection (line/visual).
-                comment_line = "gcc",  -- Mapping to comment out the current line.
-                comment_visual = "gc", -- Mapping for commenting in visual mode.
-                textobject = "gc",     -- Mapping for commenting using text objects (e.g., `gcip` to comment inside paragraph).
+                comment = "gc",         -- Toggle comment for selection (line/visual).
+                comment_line = "gcc",    -- Toggle comment for current line.
+                comment_visual = "gc",  -- Comment in visual mode.
+                textobject = "gc",      -- Comment using text objects (e.g., `gcip`).
             },
             hooks = {
-                pre = function() end,  -- Function to run before commenting.
-                post = function() end, -- Function to run after commenting.
+                pre = function() end,  -- Run before commenting.
+                post = function() end, -- Run after commenting.
             },
         },
         desc = "Smart code commenting using mini.comment",
     },
 
-    -- Text Editing Utilities:
-    -- 'mini.ai' provides enhanced text objects (like inside/around argument, etc.).
+    -- Enhanced text objects (inside/around argument, etc.).
     {
         "echasnovski/mini.ai",
         version = false,
@@ -42,8 +43,7 @@ return {
         end,
     },
 
-    -- 'mini.surround' provides commands to easily surround text with delimiters
-    -- (like parentheses, quotes, etc.) and change/delete them.
+    -- Easily surround text with delimiters (parentheses, quotes) and manage them.
     {
         "echasnovski/mini.surround",
         version = false,
@@ -52,7 +52,7 @@ return {
         end,
     },
 
-    -- 'mini.operators' allows defining custom text editing operators.
+    -- Define custom text editing operators.
     {
         "echasnovski/mini.operators",
         version = false,
@@ -61,8 +61,7 @@ return {
         end,
     },
 
-    -- 'mini.pairs' handles automatic insertion and deletion of matching pairs
-    -- (like parentheses, brackets, quotes).
+    -- Automatic insertion and deletion of matching pairs (parentheses, brackets, quotes).
     {
         "echasnovski/mini.pairs",
         version = false,
@@ -71,8 +70,7 @@ return {
         end,
     },
 
-    -- General Workflow:
-    -- 'mini.bracketed' provides navigation and manipulation of bracketed text.
+    -- Navigation and manipulation of bracketed text.
     {
         "echasnovski/mini.bracketed",
         version = false,
@@ -81,34 +79,34 @@ return {
         end,
     },
 
-    -- 'mini.bufremove' allows easy deletion of buffers.
+    -- Easy deletion of buffers.
     {
         "echasnovski/mini.bufremove",
         version = false,
         config = function()
             vim.keymap.set("n", "<leader>mb", function()
-                require("mini.bufremove").delete(0, false) -- Delete current buffer, don't force.
+                require("mini.bufremove").delete(0, false) -- Delete current buffer (no force).
             end, { desc = "Mini delete buffer" })
 
             vim.keymap.set("n", "<leader>mB", function()
-                require("mini.bufremove").delete(0, true) -- Delete current buffer, force close.
+                require("mini.bufremove").delete(0, true) -- Force delete current buffer.
             end, { desc = "Mini force delete buffer" })
         end,
     },
 
-    -- 'mini.files' provides a simple file explorer within Neovim.
+    -- Simple file explorer within Neovim.
     {
         "echasnovski/mini.files",
         version = false,
         config = function()
             require("mini.files").setup()
             vim.keymap.set("n", "<leader>me", function()
-                require("mini.files").open() -- Open the mini.files explorer.
+                require("mini.files").open() -- Open mini.files explorer.
             end, { desc = "Mini file explorer" })
         end,
     },
 
-    -- 'mini.pick' offers a selection menu for various built-in and custom sources.
+    -- Selection menu for various built-in and custom sources.
     {
         "echasnovski/mini.pick",
         version = false,
@@ -124,90 +122,73 @@ return {
         end,
     },
 
-
-    -- 'mini.notify' is a modern and customizable notification system.
+    -- Modern and customizable notification system.
     {
         "echasnovski/mini.notify",
         version = false,
-        event = "VeryLazy", -- Load only when needed (e.g., when a notification is triggered).
+        event = "VeryLazy", -- Load only when needed (e.g., notification triggered).
         config = function()
-            -- Test if your Neovim version supports the 'winblend' window option.
+            -- Check if 'winblend' is supported for transparency.
             local has_winblend = pcall(function()
                 local win_id = vim.api.nvim_open_win(0, false, {
-                    relative = "editor",
-                    width = 1,
-                    height = 1,
-                    row = 0,
-                    col = 0,
-                    style = "minimal",
-                    winblend = 0,
+                    relative = "editor", width = 1, height = 1, row = 0, col = 0, style = "minimal", winblend = 0
                 })
                 vim.api.nvim_win_close(win_id, true)
                 return true
             end)
 
-            -- Basic configuration for mini.notify.
             local config = {
-                -- Window configuration for notifications.
                 window = {
                     config = {
-                        border = "rounded", -- Use rounded borders for notification windows.
-                        width = 60,         -- Set a fixed width for notification windows.
-                        -- max_width has been removed as it was causing errors in some versions.
+                        border = "rounded", -- Rounded borders for notifications.
+                        width = 60,        -- Fixed width for notifications.
                     },
                 },
-                -- Content configuration for notifications.
                 content = {
-                    default_timeout_ms = 5000, -- Default timeout for notifications (5 seconds).
+                    default_timeout_ms = 5000, -- Default notification timeout (5 seconds).
                 },
-                -- LSP progress indicator settings.
                 lsp_progress = {
-                    enable = true,     -- Enable the display of LSP progress.
-                    duration_ms = 500, -- Duration of the progress animation.
+                    enable = true,       -- Enable LSP progress display.
+                    duration_ms = 500,   -- Duration of progress animation.
                 },
             }
 
-            -- Only add the 'winblend' option if the Neovim version supports it
-            -- for transparent notification backgrounds.
+            -- Enable transparency if 'winblend' is supported.
             if has_winblend then
                 config.window.config.winblend = 0
             end
 
-            -- Apply the mini.notify configuration.
             require("mini.notify").setup(config)
-
-            -- Replace Neovim's default notification system with mini.notify.
-            vim.notify = require("mini.notify").make_notify()
+            vim.notify = require("mini.notify").make_notify() -- Replace default notify.
         end,
     },
 
-    -- 'mini.sessions' provides session management (saving and restoring
-    -- Neovim's state).
+    -- Session management (saving and restoring Neovim's state).
     {
         "echasnovski/mini.sessions",
         version = false,
         lazy = false, -- Load immediately for session management.
         config = function()
             require("mini.sessions").setup({
-                autoread = true,                                         -- Automatically read the last session on startup.
-                autowrite = true,                                        -- Automatically write the current session when exiting.
-                directory = vim.fn.stdpath("data") .. "/sessions",       -- Directory to store session files.
-                file = "Session.vim",                                    -- Default filename for sessions.
-                force = { read = false, write = true, delete = false },  -- Force options for actions.
+                autoread = true,  -- Automatically read last session on startup.
+                autowrite = true, -- Automatically write current session on exit.
+                directory = vim.fn.stdpath("data") .. "/sessions", -- Session file directory.
+                file = "Session.vim", -- Default session filename.
+                force = { read = false, write = true, delete = false }, -- Force options for actions.
                 verbose = { read = false, write = true, delete = true }, -- Verbose output for actions.
             })
 
-            -- Keymaps for common session actions.
+            -- Keymaps for session actions.
             vim.keymap.set("n", "<leader>ws", function()
-                require("mini.sessions").write(nil) -- Write the current session.
+                require("mini.sessions").write(nil) -- Write current session.
             end, { desc = "Write Session" })
 
             vim.keymap.set("n", "<leader>wr", function()
-                require("mini.sessions").read(nil) -- Read the last saved session.
+                require("mini.sessions").read(nil) -- Read last saved session.
             end, { desc = "Read Last Session" })
 
             vim.keymap.set("n", "<leader>wd", function()
-                require("mini.sessions").delete(nil) -- Delete the last saved session.
+                require("mini.sessions").delete(nil) -- Delete last saved session.
             end, { desc = "Delete Last Session" })
         end,
     },

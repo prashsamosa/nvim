@@ -1,29 +1,33 @@
+-- Configure 'elixir-tools.nvim' for Elixir development support.
+-- This plugin provides various Elixir-specific features.
+
 return {
     "elixir-tools/elixir-tools.nvim",
-    version = "*",
-    event = { "BufReadPre", "BufNewFile" }, -- Load for Elixir files
+    version = "*", -- Use the latest version
+    event = { "BufReadPre", "BufNewFile" }, -- Load when opening or creating Elixir files
     config = function()
         local elixir = require("elixir")
 
         elixir.setup({
-            -- Let lsp.lua handle elixirls configuration
-            -- elixirls = { enable = false }, -- Or simply remove the elixirls table
+            -- LSP configuration is handled in lsp.lua to avoid conflicts.
+            -- elixirls = { enable = false }, -- Uncomment to disable elixirls managed by this plugin
 
-            -- Keep other elixir-tools features if needed
-            nextls = { enable = true },        -- Example: If you use Next LS features
-            projectionist = { enable = true }, -- Example: If you use projectionist features
+            -- Enable other Elixir Tools features as needed.
+            nextls = { enable = true },       -- Features related to Next LS (if used).
+            projectionist = { enable = true }, -- Integration with Projectionist (if used).
 
-            -- Keymaps for elixir-tools commands (can also be set globally if preferred)
-            -- These commands are provided by elixir-tools regardless of LSP setup
-            vim.keymap.set("n", "<leader>Fp", ":ElixirFromPipe<CR>", { desc = "[E]lixir [F]rom [P]ipe", silent = true }),
-            vim.keymap.set("n", "<leader>Tp", ":ElixirToPipe<CR>", { desc = "[E]lixir [T]o [P]ipe", silent = true }),
+            -- Keymaps for Elixir Tools commands.
+            -- These commands are available regardless of the LSP setup.
+            vim.keymap.set("n", "<leader>Fp", ":ElixirFromPipe<CR>",
+                { desc = "[E]lixir [F]rom [P]ipe", silent = true }),
+            vim.keymap.set("n", "<leader>Tp", ":ElixirToPipe<CR>",
+                { desc = "[E]lixir [T]o [P]ipe", silent = true }),
             vim.keymap.set("v", "<leader>Em", ":ElixirExpandMacro<CR>",
-            { desc = "[E]lixir [E]xpand [M]acro", silent = true }),
+                { desc = "[E]lixir [E]xpand [M]acro", silent = true }),
         })
     end,
     dependencies = {
-        "nvim-lua/plenary.nvim",
-        -- Add mason.nvim as a dependency if elixir-tools needs it for installation checks
-        "williamboman/mason.nvim",
+        "nvim-lua/plenary.nvim", -- Required dependency for many Lua-based plugins.
+        "williamboman/mason.nvim", -- Dependency for managing language servers and tools.
     },
 }
