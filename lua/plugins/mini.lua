@@ -130,7 +130,13 @@ return {
         config = function()
             local has_winblend = pcall(function()
                 local win_id = vim.api.nvim_open_win(0, false, {
-                    relative = "editor", width = 1, height = 1, row = 0, col = 0, style = "minimal", winblend = 0
+                    relative = "editor",
+                    width = 1,
+                    height = 1,
+                    row = 0,
+                    col = 0,
+                    style = "minimal",
+                    winblend = 0,
                 })
                 vim.api.nvim_win_close(win_id, true)
                 return true
@@ -196,12 +202,13 @@ return {
         version = false,
         event = "VeryLazy",
         config = function()
-            local indentscope = require("mini.indentscope")
-            indentscope.setup({
+            require("mini.indentscope").setup({
                 draw = {
                     delay = 100,
-                    animation = indentscope.gen_animation.linear({ easing = "in", duration = 20, unit = "step" }),
-                    predicate = function(scope) return not scope.body.is_incomplete end,
+                    animation = require("mini.indentscope").gen_animation.none(), -- Disable animation
+                    predicate = function(scope)
+                        return not scope.body.is_incomplete
+                    end,
                     priority = 2,
                 },
                 mappings = {
