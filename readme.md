@@ -254,9 +254,9 @@ A powerful Neovim setup featuring an elegant UI with Snacks.nvim and GitHub them
 
 | Key         | Mode | Description                     | Source                 |
 | :---------- | :--- | :------------------------------ | :--------------------- |
-| `<space>efp` | `n`  | Run Elixir From Pipe            | elixir-tools.nvim      |
-| `<space>etp` | `n`  | Run Elixir To Pipe              | elixir-tools.nvim      |
-| `<space>eem` | `v`  | Expand Elixir Macro             | elixir-tools.nvim      |
+| `<space>Fp` | `n`  | Run Elixir From Pipe            | elixir-tools.nvim      |
+| `<space>Tp` | `n`  | Run Elixir To Pipe              | elixir-tools.nvim      |
+| `<space>Em` | `v`  | Expand Elixir Macro             | elixir-tools.nvim      |
 
 ## 🔌 Main Plugins
 
