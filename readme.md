@@ -157,7 +157,10 @@ A powerful Neovim setup featuring an elegant UI with Snacks.nvim and GitHub them
 | `<leader>mb`    | `n`  | Mini delete buffer              | mini.lua       |
 | `<leader>mB`    | `n`  | Mini force delete buffer        | mini.lua       |
 | `<leader>,`     | `n`  | Browse Buffers (Snacks)         | snacks.lua     |
-| `<leader>z<space>`| `n`  | Browse Buffers (FZF)            | fzf-mini.lua   |
+| `<leader>f<space>`| `n`  | Browse Buffers (FZF)            | fzf-mini.lua   |
+| `<Tab>`         | `n`  | Next buffer                     | mini.lua       |
+| `<S-Tab>`       | `n`  | Previous buffer                 | mini.lua       |
+| `<leader>1-9`   | `n`  | Go to buffer 1-9                | mini.lua       |
 | `<leader>to`    | `n`  | Open new tab                    | keymaps.lua    |
 | `<leader>tx`    | `n`  | Close current tab               | keymaps.lua    |
 | `<leader>tn`    | `n`  | Next tab                        | keymaps.lua    |
