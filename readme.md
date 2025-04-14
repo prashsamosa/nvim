@@ -113,13 +113,12 @@ A powerful Neovim setup featuring an elegant UI with Snacks.nvim and GitHub them
 | `<leader>D`  | `n`  | Type Definition (LSP)        | `lsp.lua`   |
 | `<leader>ca` | `n,x`| Code Action                  | `lsp.lua`   |
 | `<leader>cr` | `n`  | Rename Symbol                | `lsp.lua`   |
-| `<leader>cs` | `n`  | Document Symbols (LSP)       | `lsp.lua`   |
+| `<leader>ds` | `n`  | Document Symbols (LSP)       | `lsp.lua`   |
 | `<leader>ws` | `n`  | Workspace Symbols (LSP)      | `lsp.lua`   |
 | `<S-k>`      | `n`  | Show Hover Info              | `lsp.lua`   |
 | `<leader>th` | `n`  | Toggle Inlay Hints           | `lsp.lua`   |
 | `<leader>fd` | `n`  | Diagnostics (FZF)            | `fzf-mini.lua` |
-| `<leader>dS` | `n`  | Document Symbols (LSP)       | `lsp.lua`   |
-| `<leader>wS` | `n`  | Workspace Symbols (LSP)      | `lsp.lua`   |
+
 
 ### 📝 Editing & Text Manipulation
 
@@ -209,13 +208,6 @@ A powerful Neovim setup featuring an elegant UI with Snacks.nvim and GitHub them
 | `<leader>tl` | `n`  | Send Line to Terminal              | `toggle-terminal.lua` |
 | `<leader>ts` | `n`  | Select Terminal                    | `toggle-terminal.lua` |
 
-### 💧 Elixir Specific Keybindings
-
-| Key           | Mode | Description          | Source               |
-| :------------ | :--- | :------------------- | :------------------- |
-| `<leader>Efp` | `n`  | Elixir From Pipe     | `elixir-tools.lua`   |
-| `<leader>Etp` | `n`  | Elixir To Pipe       | `elixir-tools.lua`   |
-| `<leader>Eem` | `v`  | Elixir Expand Macro  | `elixir-tools.lua`   |
 
 ### 🔧 UI Toggles & Settings (Snacks & Markdown)
 

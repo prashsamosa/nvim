@@ -1,50 +1,49 @@
+-- Configure 'neo-tree.nvim' for a modern and highly customizable file explorer.
+
 return {
-    "nvim-neo-tree/neo-tree.nvim", -- File explorer plugin.
+    "nvim-neo-tree/neo-tree.nvim",
     branch = "v3.x", -- Use the v3.x branch for stability and latest features.
     dependencies = {
-        "nvim-lua/plenary.nvim", -- Lua utility library.
-        "nvim-tree/nvim-web-devicons", -- Optional: File icons.
-        "MunifTanjim/nui.nvim", -- UI library used by neo-tree.
-        -- {"3rd/image.nvim", opts = {}}, -- Optional: Image preview (see docs).
+        "nvim-lua/plenary.nvim",         -- Required: Lua utility library.
+        "nvim-tree/nvim-web-devicons",  -- Optional: File icons.
+        "MunifTanjim/nui.nvim",          -- Required: UI library for neo-tree.
+        -- Uncomment below for image previews (optional).
+        -- { "3rd/image.nvim", opts = {} },
     },
-    lazy = false, -- Load immediately on startup for instant access.
-    ---@module "neo-tree"
-    ---@type neotree.Config?
+    lazy = false, -- Load neo-tree immediately on startup.
     opts = {
-        sources = { "filesystem", "buffers", "git_status" }, -- Display file system, open buffers, and Git status.
-        open_files_do_not_replace_types = { "terminal", "Trouble", "trouble", "qf", "Outline" },
-        -- Prevent neo-tree from replacing these buffer types when opening files.
+        sources = { "filesystem", "buffers", "git_status" }, -- Enable filesystem, buffers, and Git status views.
+        open_files_do_not_replace_types = { "terminal", "Trouble", "qf", "Outline" }, -- Preserve these buffer types.
         filesystem = {
-            bind_to_cwd = false, -- Don't automatically change root to current working directory.
-            follow_current_file = { enabled = true }, -- Automatically show and focus the current file in neo-tree.
-            use_libuv_file_watcher = true, -- Use Neovim's built-in file watcher for better performance.
+            bind_to_cwd = false, -- Do not auto-bind neo-tree's root to the current working directory.
+            follow_current_file = { enabled = true }, -- Highlight the active file in neo-tree.
+            use_libuv_file_watcher = true, -- Use libuv for efficient file system updates.
         },
         window = {
             mappings = {
-                ["l"] = "open", -- Open file or directory.
-                ["h"] = "close_node", -- Close focused directory.
-                ["<space>"] = "none", -- Disable default space action.
-                ["Y"] = { -- Copy the path of the selected node to the clipboard.
+                ["l"] = "open",       -- Open file or expand/collapse directory.
+                ["h"] = "close_node", -- Collapse the current directory.
+                ["<space>"] = "none", -- Disable the default space key action.
+                ["Y"] = {
                     function(state)
                         local node = state.tree:get_node()
                         local path = node:get_id()
-                        vim.fn.setreg("+", path, "c") -- Copy to system clipboard.
+                        vim.fn.setreg("+", path, "c") -- Copy the file path to the clipboard.
                     end,
                     desc = "Copy Path to Clipboard",
                 },
-                ["O"] = { -- Open the selected file or directory with the system's default application.
+                ["O"] = {
                     function(state)
                         require("lazy.util").open(state.tree:get_node().path, { system = true })
                     end,
                     desc = "Open with System Application",
                 },
-                ["P"] = { "toggle_preview", config = { use_float = false } },
-                -- Toggle preview window (in a side split).
+                ["P"] = { "toggle_preview", config = { use_float = false } }, -- Toggle preview in a split window.
             },
         },
         default_component_configs = {
             indent = {
-                with_expanders = true, -- Show expander icons for nested files/directories.
+                with_expanders = true, -- Show expand/collapse icons for directories.
                 expander_collapsed = "", -- Icon for collapsed directories.
                 expander_expanded = "",  -- Icon for expanded directories.
                 expander_highlight = "NeoTreeExpander", -- Highlight group for expander icons.
@@ -52,7 +51,7 @@ return {
             git_status = {
                 symbols = {
                     unstaged = "󰄱", -- Symbol for unstaged changes.
-                    staged = "󰱒",  -- Symbol for staged changes.
+                    staged = "󰱒",   -- Symbol for staged changes.
                 },
             },
         },

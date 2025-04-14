@@ -1,5 +1,4 @@
 -- Configure various 'mini.nvim' utility plugins by echasnovski.
--- These plugins provide enhanced functionalities for text editing, workflow, and UI.
 
 return {
     -- Core mini.nvim library (foundation for other mini.* plugins).
@@ -12,23 +11,17 @@ return {
     {
         "echasnovski/mini.comment",
         version = false,
-        lazy = false,
+        lazy = false, -- Load immediately as commenting is frequently used.
         opts = {
             options = {
-                custom_commentstring = nil,
                 ignore_blank_line = false,
                 start_of_line = false,
                 pad_comment_parts = true,
             },
             mappings = {
-                comment = "gc",
-                comment_line = "gcc",
-                comment_visual = "gc",
-                textobject = "gc",
-            },
-            hooks = {
-                pre = function() end,
-                post = function() end,
+                comment = "gc", -- Toggle comment for the current line or selection.
+                comment_line = "gcc", -- Comment out the current line.
+                textobject = "gc", -- Comment text objects (e.g., `gcip` for inner paragraph).
             },
         },
         desc = "Smart code commenting using mini.comment",
@@ -39,7 +32,7 @@ return {
         "echasnovski/mini.ai",
         version = false,
         config = function()
-            require("mini.ai").setup()
+            require("mini.ai").setup() -- Additional and improved text objects.
         end,
     },
 
@@ -48,7 +41,7 @@ return {
         "echasnovski/mini.surround",
         version = false,
         config = function()
-            require("mini.surround").setup()
+            require("mini.surround").setup() -- Easy manipulation of surrounding characters.
         end,
     },
 
@@ -57,7 +50,7 @@ return {
         "echasnovski/mini.operators",
         version = false,
         config = function()
-            require("mini.operators").setup()
+            require("mini.operators").setup() -- New text editing operators (e.g., move lines).
         end,
     },
 
@@ -66,7 +59,7 @@ return {
         "echasnovski/mini.pairs",
         version = false,
         config = function()
-            require("mini.pairs").setup()
+            require("mini.pairs").setup() -- Enhanced handling of matching pairs.
         end,
     },
 
@@ -75,7 +68,7 @@ return {
         "echasnovski/mini.bracketed",
         version = false,
         config = function()
-            require("mini.bracketed").setup()
+            require("mini.bracketed").setup() -- Navigation based on brackets and paired characters.
         end,
     },
 
@@ -85,11 +78,11 @@ return {
         version = false,
         config = function()
             vim.keymap.set("n", "<leader>mb", function()
-                require("mini.bufremove").delete(0, false)
+                require("mini.bufremove").delete(0, false) -- Delete current buffer without forcing.
             end, { desc = "Mini delete buffer" })
 
             vim.keymap.set("n", "<leader>mB", function()
-                require("mini.bufremove").delete(0, true)
+                require("mini.bufremove").delete(0, true) -- Force delete current buffer.
             end, { desc = "Mini force delete buffer" })
         end,
     },
@@ -101,7 +94,7 @@ return {
         config = function()
             require("mini.files").setup()
             vim.keymap.set("n", "<leader>me", function()
-                require("mini.files").open()
+                require("mini.files").open() -- Open the mini.files file explorer.
             end, { desc = "Mini file explorer" })
         end,
     },
@@ -113,11 +106,11 @@ return {
         config = function()
             require("mini.pick").setup()
             vim.keymap.set("n", "<leader>mp", function()
-                require("mini.pick").builtin.files()
+                require("mini.pick").builtin.files() -- Open fuzzy file finder.
             end, { desc = "Mini pick files" })
 
             vim.keymap.set("n", "<leader>mg", function()
-                require("mini.pick").builtin.grep_live()
+                require("mini.pick").builtin.grep_live() -- Open live grep fuzzy finder.
             end, { desc = "Mini grep live" })
         end,
     },
@@ -126,7 +119,7 @@ return {
     {
         "echasnovski/mini.notify",
         version = false,
-        event = "VeryLazy",
+        event = "VeryLazy", -- Load lazily as notifications might not be immediately needed.
         config = function()
             local has_winblend = pcall(function()
                 local win_id = vim.api.nvim_open_win(0, false, {
@@ -150,20 +143,20 @@ return {
                     },
                 },
                 content = {
-                    default_timeout_ms = 5000,
+                    default_timeout_ms = 5000, -- Default duration for notifications.
                 },
                 lsp_progress = {
-                    enable = true,
+                    enable = true, -- Enable LSP progress notifications.
                     duration_ms = 500,
                 },
             }
 
             if has_winblend then
-                config.window.config.winblend = 0
+                config.window.config.winblend = 0 -- Set winblend to 0 if supported.
             end
 
             require("mini.notify").setup(config)
-            vim.notify = require("mini.notify").make_notify()
+            vim.notify = require("mini.notify").make_notify() -- Override vim.notify.
         end,
     },
 
@@ -171,27 +164,26 @@ return {
     {
         "echasnovski/mini.sessions",
         version = false,
-        lazy = false,
+        lazy = false, -- Load immediately for session management.
         config = function()
             require("mini.sessions").setup({
-                autoread = true,
-                autowrite = true,
-                directory = vim.fn.stdpath("data") .. "/sessions",
-                file = "Session.vim",
-                force = { read = false, write = true, delete = false },
+                autoread = true, -- Automatically read the last session on startup.
+                autowrite = true, -- Automatically write the current session on exit.
+                directory = vim.fn.stdpath("data") .. "/sessions", -- Directory for session files.
+                file = "Session.vim", -- Default session filename.
                 verbose = { read = false, write = true, delete = true },
             })
 
             vim.keymap.set("n", "<leader>ms", function()
-                require("mini.sessions").write(nil)
+                require("mini.sessions").write(nil) -- Write the current session.
             end, { desc = "Write Session" })
 
             vim.keymap.set("n", "<leader>mr", function()
-                require("mini.sessions").read(nil)
+                require("mini.sessions").read(nil) -- Read the last saved session.
             end, { desc = "Read Last Session" })
 
             vim.keymap.set("n", "<leader>md", function()
-                require("mini.sessions").delete(nil)
+                require("mini.sessions").delete(nil) -- Delete the last saved session.
             end, { desc = "Delete Last Session" })
         end,
     },
@@ -200,30 +192,14 @@ return {
     {
         "echasnovski/mini.indentscope",
         version = false,
-        event = "VeryLazy",
+        event = "VeryLazy", -- Load lazily as it's a visual aid.
         config = function()
             require("mini.indentscope").setup({
                 draw = {
-                    delay = 100,
-                    animation = require("mini.indentscope").gen_animation.none(), -- Disable animation
-                    predicate = function(scope)
-                        return not scope.body.is_incomplete
-                    end,
-                    priority = 2,
+                    delay = 100, -- Delay before drawing lines.
+                    animation = require("mini.indentscope").gen_animation.none(), -- Disable animation.
                 },
-                mappings = {
-                    object_scope = "ii",
-                    object_scope_with_border = "ai",
-                    goto_top = "[i",
-                    goto_bottom = "]i",
-                },
-                options = {
-                    border = "both",
-                    indent_at_cursor = true,
-                    n_lines = 10000,
-                    try_as_border = false,
-                },
-                symbol = "╎",
+                symbol = "╎", -- Symbol for indentation scope lines.
             })
         end,
     },

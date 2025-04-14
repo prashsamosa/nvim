@@ -1,59 +1,59 @@
 return {
-  "nvim-lualine/lualine.nvim", -- Modern and extensible statusline plugin for Neovim.
-  dependencies = {
-      "nvim-tree/nvim-web-devicons", -- Adds fancy icons to the statusline.
-      "projekt0n/github-nvim-theme", -- Provides the GitHub theme for consistent UI.
-  },
-  config = function()
-      require("lualine").setup({
-          options = {
-              theme = "github_dark", -- Use the dark version of the GitHub theme.
-              component_separators = { left = "", right = "" }, -- Remove default separators between components.
-              section_separators = { left = "", right = "" }, -- Remove default separators between sections.
-              globalstatus = true, -- Display the statusline even when no buffer is open.
-              disabled_filetypes = { -- Disable the statusline for these filetypes.
-                  statusline = { "dashboard", "alpha", "starter" }, -- Common startup screens.
-              },
-          },
-          sections = {
-              lualine_a = { "mode" }, -- Display the current editor mode (Normal, Insert, Visual, etc.).
-              lualine_b = {
-                  { "branch", icon = "" }, -- Display the Git branch name (hide the default icon).
-                  {
-                      "diff", -- Display Git diff information (added, modified, removed lines).
-                      symbols = {
-                          added = " ", -- Hide the icon for added lines.
-                          modified = " ", -- Hide the icon for modified lines.
-                          removed = " " -- Hide the icon for removed lines.
-                      },
-                  },
-              },
-              lualine_c = {
-                  { "filetype", icon_only = true, separator = "", padding = { left = 1, right = 0 } }, -- Display filetype icon only.
-                  { "filename", path = 1 }, -- Display the relative path of the current file.
-                  { "diagnostics" }, -- Display any warnings, errors, etc.
-              },
-              lualine_x = {
-                  {
-                      -- Display LSP (Language Server Protocol) status: names of active servers.
-                      function()
-                          local clients = vim.lsp.get_active_clients()
-                          if next(clients) == nil then return "" end
+    "nvim-lualine/lualine.nvim", -- A modern and highly customizable statusline.
+    dependencies = {
+        "nvim-tree/nvim-web-devicons", -- For file icons in the statusline.
+        "projekt0n/github-nvim-theme", -- GitHub theme for consistent styling.
+    },
+    config = function()
+        require("lualine").setup({
+            options = {
+                theme = "github_dark", -- Use the GitHub dark theme.
+                component_separators = { left = "", right = "" }, -- No separators between components.
+                section_separators = { left = "", right = "" }, -- No separators between sections.
+                globalstatus = true, -- Display the statusline globally.
+                disabled_filetypes = { -- Disable the statusline for specific filetypes.
+                    statusline = { "dashboard", "alpha", "starter" }, -- Commonly used for startup screens.
+                },
+            },
+            sections = {
+                lualine_a = { "mode" }, -- Display the current mode (e.g., NORMAL, INSERT).
+                lualine_b = {
+                    { "branch", icon = "" }, -- Show the current Git branch (icon hidden).
+                    {
+                        "diff", -- Show Git diff stats (added, modified, removed).
+                        symbols = {
+                            added = "+",    -- Symbol for added lines.
+                            modified = "~", -- Symbol for modified lines.
+                            removed = "-",  -- Symbol for removed lines.
+                        },
+                    },
+                },
+                lualine_c = {
+                    { "filetype", icon_only = true, separator = "", padding = { left = 1, right = 0 } }, -- Filetype icon only.
+                    { "filename", path = 1 }, -- Show the relative path of the file.
+                    { "diagnostics" }, -- Show LSP or linter diagnostics (errors, warnings, etc.).
+                },
+                lualine_x = {
+                    {
+                        -- Display active LSP clients.
+                        function()
+                            local clients = vim.lsp.get_active_clients()
+                            if not next(clients) then return "" end -- Return empty if no clients are active.
 
-                          local names = {}
-                          for _, client in ipairs(clients) do
-                              table.insert(names, client.name)
-                          end
-                          return "LSP: " .. table.concat(names, ", ") -- Concatenate the names with commas.
-                      end,
-                  },
-                  "encoding", -- Display the current file encoding.
-                  "fileformat", -- Display the current file format (e.g., unix, dos).
-              },
-              lualine_y = { "progress" }, -- Display the current position in the file as a percentage.
-              lualine_z = { "location" }, -- Display the current line and column number.
-          },
-          extensions = { "lazy", "mason", "toggleterm" }, -- Neo-tree removed
-      })
-  end
+                            local names = {}
+                            for _, client in ipairs(clients) do
+                                table.insert(names, client.name)
+                            end
+                            return "LSP: " .. table.concat(names, ", ") -- Concatenate client names.
+                        end,
+                    },
+                    "encoding",   -- Show the file encoding (e.g., utf-8).
+                    "fileformat", -- Show the file format (e.g., unix, dos).
+                },
+                lualine_y = { "progress" }, -- Show progress through the file as a percentage.
+                lualine_z = { "location" }, -- Show the current line and column number.
+            },
+            extensions = { "lazy", "mason", "toggleterm" }, -- Integrate with Lazy, Mason, and ToggleTerm plugins.
+        })
+    end,
 }

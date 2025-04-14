@@ -1,78 +1,72 @@
 return {
-    "folke/todo-comments.nvim", -- Manage TODO-style comments
-    dependencies = { "nvim-lua/plenary.nvim" }, -- Lua utility library
-    event = "VeryLazy", -- Load only when needed
-  
+    "folke/todo-comments.nvim",
+    dependencies = { "nvim-lua/plenary.nvim" }, -- Required dependency.
+    event = "VeryLazy", -- Load lazily to improve startup time.
+
     config = function()
-      require("todo-comments").setup({
-        -- Configuration options
-        signs = true, -- Show signs in the sign column
-        sign_priority = 8, -- Priority of signs (higher = closer to text)
-        keywords = {
-          -- Define recognized keywords and their properties
-          FIX = {
-            icon = " ",
-            color = "error",
-            alt = { "FIXME", "BUG", "FIXIT", "ISSUE" }, -- Alternate spellings
-          },
-          TODO = { icon = " ", color = "info" },
-          HACK = { icon = " ", color = "warning" },
-          WARN = {
-            icon = " ",
-            color = "warning",
-            alt = { "WARNING", "XXX" },
-          },
-          PERF = { icon = " ", alt = { "OPTIM", "PERFORMANCE", "OPTIMIZE" } },
-          NOTE = { icon = " ", color = "hint", alt = { "INFO" } },
-          TEST = {
-            icon = "⏲ ",
-            color = "test",
-            alt = { "TESTING", "PASSED", "FAILED" },
-          },
-        },
-        highlight = {
-          -- Highlighting options for TODO comments
-          multiline = true, -- Enable multiline highlighting
-          multiline_pattern = "^.", -- Pattern for each line of multiline comment
-          multiline_context = 10, -- Lines of context for multiline comments
-          before = "", -- Text before keyword
-          keyword = "wide", -- Highlight the whole keyword
-          after = "fg", -- Highlight after keyword (foreground color)
-          pattern = [[.*<(KEYWORDS)\s*:]], -- Pattern to find keywords
-          comments_only = true, -- Only search in comments
-          max_line_len = 400, -- Max line length to search
-          exclude = {}, -- Files/dirs to exclude
-        },
-        colors = {
-          -- Colors for different keywords
-          error = { "DiagnosticError", "ErrorMsg", "#DC2626" }, -- Red
-          warning = { "DiagnosticWarn", "WarningMsg", "#FBBF24" }, -- Yellow
-          info = { "DiagnosticInfo", "#2563EB" }, -- Blue
-          hint = { "DiagnosticHint", "#10B981" }, -- Green
-          default = { "Identifier", "#7C3AED" }, -- Purple
-          test = { "Identifier", "#FF00FF" }, -- Magenta
-        },
-        search = {
-          -- Search options
-          command = "rg", -- Use ripgrep
-          args = {
-            "--color=never",
-            "--no-heading",
-            "--with-filename",
-            "--line-number",
-            "--column",
-          },
-          pattern = [[\b(KEYWORDS):]], -- Pattern to find keywords
-        },
-      })
-  
-      -- Keybindings
-      vim.keymap.set("n", "]t", function()
-        require("todo-comments").jump_next() -- Jump to next TODO
-      end, { desc = "Next todo comment" })
-      vim.keymap.set("n", "[t", function()
-        require("todo-comments").jump_prev() -- Jump to previous TODO
-      end, { desc = "Previous todo comment" })
+        require("todo-comments").setup({
+            signs = true, -- Show icons in the sign column.
+            sign_priority = 8, -- Priority of signs (higher = closer to text).
+            keywords = {
+                FIX = {
+                    icon = " ", -- Icon for FIX comments.
+                    color = "error", -- Highlight color.
+                    alt = { "FIXME", "BUG", "FIXIT", "ISSUE" }, -- Alternative keywords.
+                },
+                TODO = { icon = " ", color = "info" }, -- Icon and color for TODO comments.
+                HACK = { icon = " ", color = "warning" }, -- Icon and color for HACK comments.
+                WARN = {
+                    icon = " ", -- Icon for WARN comments.
+                    color = "warning",
+                    alt = { "WARNING", "XXX" }, -- Alternative keywords.
+                },
+                PERF = { icon = " ", alt = { "OPTIM", "PERFORMANCE", "OPTIMIZE" } }, -- Performance-related notes.
+                NOTE = { icon = " ", color = "hint", alt = { "INFO" } }, -- General notes or information.
+                TEST = {
+                    icon = "⏲ ", -- Icon for TEST comments.
+                    color = "test",
+                    alt = { "TESTING", "PASSED", "FAILED" }, -- Alternative keywords.
+                },
+            },
+            highlight = {
+                multiline = true, -- Highlight multiline comments.
+                multiline_pattern = "^.", -- Match each line of a multiline comment.
+                multiline_context = 10, -- Number of lines of context for multiline comments.
+                keyword = "wide", -- Highlight the entire keyword.
+                after = "fg", -- Highlight text after the keyword.
+                pattern = [[.*<(KEYWORDS)\s*:]], -- Pattern to match keywords.
+                comments_only = true, -- Search only within comments.
+                max_line_len = 400, -- Maximum line length to search.
+                exclude = {}, -- Exclude specific files or directories.
+            },
+            colors = {
+                error = { "DiagnosticError", "ErrorMsg", "#DC2626" }, -- Red for errors.
+                warning = { "DiagnosticWarn", "WarningMsg", "#FBBF24" }, -- Yellow for warnings.
+                info = { "DiagnosticInfo", "#2563EB" }, -- Blue for informational comments.
+                hint = { "DiagnosticHint", "#10B981" }, -- Green for hints.
+                default = { "Identifier", "#7C3AED" }, -- Purple for default comments.
+                test = { "Identifier", "#FF00FF" }, -- Magenta for test-related comments.
+            },
+            search = {
+                command = "rg", -- Use ripgrep for searching.
+                args = {
+                    "--color=never", -- Disable color output.
+                    "--no-heading", -- Don't show headings.
+                    "--with-filename", -- Include filenames in results.
+                    "--line-number", -- Include line numbers in results.
+                    "--column", -- Include column numbers in results.
+                },
+                pattern = [[\b(KEYWORDS):]], -- Pattern to find keywords.
+            },
+        })
+
+        -- Keybindings for navigating TODO comments.
+        vim.keymap.set("n", "]t", function()
+            require("todo-comments").jump_next() -- Jump to the next TODO comment.
+        end, { desc = "Next TODO comment" })
+
+        vim.keymap.set("n", "[t", function()
+            require("todo-comments").jump_prev() -- Jump to the previous TODO comment.
+        end, { desc = "Previous TODO comment" })
     end,
-  }
-  
+}

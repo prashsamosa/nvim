@@ -1,76 +1,73 @@
 -- Configure 'render-markdown.nvim' for enhanced Markdown display in Neovim.
--- Renders Markdown elements with icons, borders, and improved formatting.
 
 return {
-    "MeanderingProgrammer/render-markdown.nvim", -- Plugin specification.
-    ft = { "markdown" }, -- Load only for Markdown files (.md).
+    "MeanderingProgrammer/render-markdown.nvim",
+    ft = { "markdown" }, -- Load only for Markdown files.
     dependencies = {
         "nvim-treesitter/nvim-treesitter", -- Required for Markdown syntax parsing.
-        "echasnovski/mini.nvim",         -- Optional: For icons (can also use mini.icons).
-        -- Alternative icon plugin: "nvim-tree/nvim-web-devicons"
+        "echasnovski/mini.nvim",           -- Optional: Provides icons (can use other icon plugins).
+        -- Alternative: Uncomment below to use nvim-web-devicons for icons.
+        -- "nvim-tree/nvim-web-devicons",
     },
-    opts = { -- Configuration options.
-        completions = { -- Markdown-specific completions.
-            blink = { enabled = true }, -- Enable for blink.cmp.
+    opts = {
+        completions = {
+            blink = { enabled = true }, -- Enable blink.cmp completions for Markdown.
         },
-
-        appearance = { -- Style of rendered Markdown elements.
-            heading = { -- Headings (h1, h2, etc.).
-                icon = "󰉫",       -- Icon before heading.
-                border = "solid",   -- Border style.
-                padding = 1,        -- Padding around text.
-                width = "full",     -- Full width.
-                color = "Title",    -- Highlight group.
+        appearance = {
+            heading = {
+                icon = "󰉫",       -- Icon for headings (requires Nerd Font).
+                border = "solid",    -- Border style: "none", "solid", "dashed", etc.
+                padding = 1,         -- Padding around heading text.
+                width = "full",      -- Full-width heading.
+                color = "Title",     -- Highlight group for heading text.
             },
-            bullet = { -- Unordered list bullets.
-                icon = "•",        -- Bullet character.
-                color = "Comment",   -- Highlight group.
-                padding = 1,        -- Padding after bullet.
+            bullet = {
+                icon = "•",          -- Bullet point character.
+                color = "Comment",   -- Highlight group for bullets.
+                padding = 1,         -- Padding after the bullet.
             },
-            checkbox = { -- Task list checkboxes.
+            checkbox = {
                 icons = {
-                    [" "] = "󰄱", -- Unchecked.
-                    ["x"] = "󰄵", -- Checked.
-                    ["-"] = "󰜺", -- Indeterminate.
+                    [" "] = "󰄱", -- Unchecked checkbox.
+                    ["x"] = "󰄵", -- Checked checkbox.
+                    ["-"] = "󰜺", -- Indeterminate checkbox.
                 },
-                color = "Boolean", -- Highlight group.
+                color = "Boolean", -- Highlight group for checkboxes.
             },
-            code_block = { -- Fenced code blocks.
-                border = "rounded", -- Border style.
-                padding = 1,        -- Padding inside.
-                width = "full",     -- Full width.
-                background = "Visual", -- Background highlight.
+            code_block = {
+                border = "rounded",  -- Border style for code blocks.
+                padding = 1,         -- Padding inside code blocks.
+                width = "full",      -- Full-width code blocks.
+                background = "Visual", -- Highlight group for code block background.
             },
-            callout = { -- Callout blocks (> note).
-                icon = "",         -- Icon.
-                border = "none",    -- No border.
-                line_padding = 1, -- Padding per line.
-                color = "String",   -- Highlight group.
+            callout = {
+                icon = "",         -- Icon for callouts (e.g., > note, > warning).
+                border = "none",     -- Border style for callouts.
+                line_padding = 1,    -- Padding at the start of each line.
+                color = "String",    -- Highlight group for callout text.
             },
-            table = { -- Markdown tables.
-                border = "solid", -- Border style.
-                color = "Type",    -- Highlight group.
-                align = true,      -- Align columns.
+            table = {
+                border = "solid",    -- Border style for tables.
+                color = "Type",      -- Highlight group for table elements.
+                align = true,        -- Align table columns.
             },
-            link = { -- Markdown links.
-                icon = "",         -- Icon before link.
-                color = "Identifier", -- Highlight group.
+            link = {
+                icon = "",         -- Icon for links.
+                color = "Identifier", -- Highlight group for link text.
             },
-            latex_block = { -- LaTeX blocks ($$ ... $$).
-                enabled = true,   -- Enable rendering.
-                color = "Special",  -- Highlight group.
+            latex_block = {
+                enabled = true,      -- Enable LaTeX block rendering.
+                color = "Special",   -- Highlight group for LaTeX blocks.
             },
         },
-
         performance = {
-            max_lines = 5000, -- Disable rendering for very long files.
-            -- Set to `false` or high number to disable limit.
+            max_lines = 5000, -- Disable rendering for files with more than 5000 lines.
         },
     },
     config = function(_, opts)
         require("render-markdown").setup(opts)
 
-        -- Keybindings (prefix changed to <leader>m to avoid conflicts).
+        -- Keybindings for interacting with render-markdown.nvim.
         local map = vim.keymap.set
         local function nmap(lhs, rhs, desc)
             map("n", lhs, rhs, { noremap = true, silent = true, desc = desc })

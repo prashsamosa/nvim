@@ -1,20 +1,17 @@
+-- Configure 'which-key.nvim' for displaying keybinding hints in a popup.
+
 return {
-  "folke/which-key.nvim", -- Plugin: which-key.nvim (for keybinding hints)
-  event = "VeryLazy",       -- Load lazily (on demand)
+    "folke/which-key.nvim",
+    event = "VeryLazy", -- Load the plugin lazily to improve startup time.
 
-  init = function()
-    -- Initialization function
-    vim.o.timeout = true       -- Enable key sequence timeouts
-    vim.o.timeoutlen = 500    -- Timeout length in milliseconds (ms)
-    --  This sets how long Neovim waits for subsequent keys
-    --  in a multi-key mapping.
-  end,
+    init = function()
+        -- Set timeout options for multi-key mappings.
+        vim.o.timeout = true
+        vim.o.timeoutlen = 500 -- Wait 500ms for the next key in a multi-key mapping.
+    end,
 
-  opts = {
-    -- Configuration options
-    --  This table is where you would add custom configuration
-    --  for the 'which-key.nvim' plugin.  If you leave it empty,
-    --  it will use its default settings.  Refer to the plugin's
-    --  documentation for available options.
-  },
+    opts = {
+        -- Add custom configuration here if needed.
+        -- Leaving this table empty will use the plugin's default settings.
+    },
 }

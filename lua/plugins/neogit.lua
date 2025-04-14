@@ -1,39 +1,41 @@
+-- Configure Neogit: A Git interface within Neovim.
+
 return {
     "NeogitOrg/neogit",
     dependencies = {
-        "nvim-lua/plenary.nvim",
-        "sindrets/diffview.nvim",
-        "nvim-telescope/telescope.nvim",
+        "nvim-lua/plenary.nvim",         -- Required: Lua utility library.
+        "sindrets/diffview.nvim",        -- Optional: Enhanced diff viewing.
+        "nvim-telescope/telescope.nvim", -- Optional: Fuzzy finding within Neogit.
     },
-    cmd = "Neogit", -- Load only when the command is used
+    cmd = "Neogit", -- Load only when the `Neogit` command is executed.
     keys = {
-        { "<leader>gn", "<cmd>Neogit<CR>", desc = "Open Neogit" },
+        { "<leader>gn", "<cmd>Neogit<CR>", desc = "Open Neogit" }, -- Keybinding to open Neogit.
     },
     opts = {
-        kind = "split", -- Open in split view
+        kind = "split", -- Open Neogit in a split window. Options: "split", "tab", "float".
         signs = {
-            section = { "", "" }, -- No signs for sections
-            item = { "▸", "▾" }, -- Nicer item symbols
+            section = { "", "" }, -- No signs for section headers.
+            item = { "▸", "▾" }, -- Collapsed and expanded states for items.
         },
         integrations = {
-            diffview = true, -- Use diffview for diffs
-            telescope = true, -- Use telescope for fuzzy finding
+            diffview = true,    -- Enable diffview.nvim integration for diffs.
+            telescope = true,   -- Enable telescope.nvim integration for fuzzy finding.
         },
-        disable_commit_confirmation = true, -- Don't confirm commits
-        disable_context_highlighting = false, -- Keep context highlighting
-        disable_signs = false, -- Keep signs
+        disable_commit_confirmation = true, -- Skip commit confirmation prompts.
+        disable_context_highlighting = false, -- Keep context highlighting in diff views.
+        disable_signs = false, -- Ensure signs are displayed.
         telescope_sorter = function()
-            return require("telescope").extensions.fzf.native_fzf_sorter()
+            return require("telescope").extensions.fzf.native_fzf_sorter() -- Use FZF sorter for Telescope.
         end,
-        -- Match your Github theme colors
         sections = {
-            -- customize section separator colors
-            unstaged = {
-                folded = false, -- Start with unstaged section unfolded
-            },
-            staged = {
-                folded = false, -- Start with staged section unfolded
-            },
+            unstaged = { folded = false }, -- Unfold "Unstaged changes" by default.
+            staged = { folded = false },   -- Unfold "Staged changes" by default.
         },
+        -- Uncomment and customize colors if needed.
+        -- colors = {
+        --     added = "#A3BE8C",
+        --     modified = "#EBCB8B",
+        --     removed = "#BF616A",
+        -- },
     },
 }

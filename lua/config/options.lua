@@ -1,52 +1,51 @@
 -- Configure Neovim options for customized behavior and appearance.
 
 -- ===== INDENTATION =====
-vim.opt.expandtab = true       -- Use spaces instead of tabs.
-vim.opt.shiftwidth = 4         -- Number of spaces per indentation level.
-vim.opt.tabstop = 4            -- Display width of a <Tab>.
-vim.opt.softtabstop = 4        -- Spaces inserted for a <Tab> press (visual tab).
-vim.opt.smartindent = true     -- Smart auto-indenting on new lines.
-vim.opt.autoindent = true      -- Auto-indent based on the previous line.
-vim.opt.smarttab = true        -- Smarter backspace unindentation.
+vim.opt.expandtab = true        -- Use spaces instead of tabs for indentation.
+vim.opt.shiftwidth = 4          -- Number of spaces per indentation level.
+vim.opt.tabstop = 4             -- Number of spaces a <Tab> character occupies.
+vim.opt.softtabstop = 4         -- Number of spaces inserted when pressing <Tab>.
+vim.opt.smartindent = true      -- Enable smart auto-indenting based on syntax.
+vim.opt.autoindent = true       -- Automatically indent new lines.
+vim.opt.smarttab = true         -- Adjust tab behavior based on 'shiftwidth'.
 
 -- ===== UI / VISUALS =====
-vim.opt.number = true          -- Show line numbers.
-vim.opt.relativenumber = true  -- Show relative line numbers.
-vim.opt.cursorline = true      -- Highlight the current line.
-vim.opt.signcolumn = "yes"     -- Always show the sign column.
-vim.opt.breakindent = true     -- Indent wrapped lines visually.
-vim.opt.scrolloff = 5          -- Keep context lines above/below cursor.
-vim.opt.showmode = false       -- Don't display the current mode (statusline is used).
-vim.opt.cmdheight = 0          -- Minimize command line height (using alternative UI).
+vim.opt.number = true           -- Show absolute line numbers.
+vim.opt.relativenumber = true   -- Show relative line numbers.
+vim.opt.cursorline = true       -- Highlight the current line.
+vim.opt.signcolumn = "yes"      -- Always display the sign column.
+vim.opt.breakindent = true      -- Indent wrapped lines.
+vim.opt.scrolloff = 5           -- Keep 5 lines visible above/below the cursor.
+vim.opt.showmode = false        -- Hide mode display (use statusline instead).
+vim.opt.cmdheight = 0           -- Minimize the command line height.
 
 -- ===== SEARCH =====
-vim.opt.ignorecase = true      -- Case-insensitive search by default.
-vim.opt.smartcase = true       -- Case-sensitive search if pattern has uppercase.
+vim.opt.ignorecase = true       -- Case-insensitive search by default.
+vim.opt.smartcase = true        -- Override 'ignorecase' if uppercase is used.
 
 -- ===== FILES =====
-vim.opt.undofile = true        -- Persistent undo history.
-vim.opt.swapfile = false       -- Disable swap files (consider data safety).
+vim.opt.undofile = true         -- Enable persistent undo history.
+vim.opt.swapfile = false        -- Disable swap files.
 
 -- ===== PERFORMANCE =====
-vim.opt.updatetime = 300       -- Interval to check for updates (milliseconds).
-vim.opt.lazyredraw = true      -- Don't redraw during macro execution.
+vim.opt.updatetime = 300        -- Faster updates for better responsiveness.
+vim.opt.lazyredraw = true       -- Optimize screen redraws during macros.
 
 -- ===== CLIPBOARD & MOUSE =====
-vim.opt.clipboard = "unnamedplus" -- Use system clipboard for copy/paste.
-vim.opt.mouse = "a"            -- Enable mouse support in all modes.
+vim.opt.clipboard = "unnamedplus" -- Use the system clipboard.
+vim.opt.mouse = "a"             -- Enable mouse support in all modes.
 
 -- ===== SPLITS =====
-vim.opt.splitright = true      -- New vertical splits to the right.
-vim.opt.splitbelow = true      -- New horizontal splits below.
+vim.opt.splitright = true       -- Open vertical splits to the right.
+vim.opt.splitbelow = true       -- Open horizontal splits below.
 
 -- ===== WHITESPACE =====
-vim.opt.list = true            -- Show special whitespace characters.
+vim.opt.list = true             -- Show special characters for whitespace.
 vim.opt.listchars = {
-    tab = "» ",
-    trail = "·",
-    nbsp = "␣",
+    tab = "» ",                 -- Display for tabs.
+    trail = "·",                -- Display for trailing spaces.
+    nbsp = "␣",                 -- Display for non-breaking spaces.
 }
 
 -- ===== Optional: Netrw visual tweak =====
--- Adjust Netrw list style, possibly for better integration with other file explorers.
-vim.cmd("let g:netrw_liststyle = 3")
+vim.g.netrw_liststyle = 3       -- Use a tree-like view in Netrw.
