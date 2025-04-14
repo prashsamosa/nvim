@@ -250,6 +250,14 @@ A powerful Neovim setup featuring an elegant UI with Snacks.nvim and GitHub them
 | `<leader>md`    | `n`  | Debug Markdown Line             | markdown.lua   |
 | `<leader>ms`    | `n`  | Show Markdown Config            | markdown.lua   |
 
+### 🔑 Elixir Specific Keybindings
+
+| Key         | Mode | Description                     | Source                 |
+| :---------- | :--- | :------------------------------ | :--------------------- |
+| `<space>efp` | `n`  | Run Elixir From Pipe            | elixir-tools.nvim      |
+| `<space>etp` | `n`  | Run Elixir To Pipe              | elixir-tools.nvim      |
+| `<space>eem` | `v`  | Expand Elixir Macro             | elixir-tools.nvim      |
+
 ## 🔌 Main Plugins
 
 -   **Core/UI**: Snacks.nvim, lazy.nvim, which-key.nvim, github-nvim-theme
