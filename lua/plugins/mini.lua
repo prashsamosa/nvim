@@ -14,18 +14,18 @@ return {
         opts = {
             options = {
                 custom_commentstring = nil, -- Function to define custom comment strings per filetype.
-                ignore_blank_line = false, -- Whether to skip commenting on blank lines.
-                start_of_line = false, -- Whether to always comment at the start of the line.
-                pad_comment_parts = true, -- Add padding spaces around comment delimiters.
+                ignore_blank_line = false,  -- Whether to skip commenting on blank lines.
+                start_of_line = false,      -- Whether to always comment at the start of the line.
+                pad_comment_parts = true,   -- Add padding spaces around comment delimiters.
             },
             mappings = {
-                comment = "gc", -- Mapping to comment out the current selection (line/visual).
-                comment_line = "gcc", -- Mapping to comment out the current line.
+                comment = "gc",        -- Mapping to comment out the current selection (line/visual).
+                comment_line = "gcc",  -- Mapping to comment out the current line.
                 comment_visual = "gc", -- Mapping for commenting in visual mode.
-                textobject = "gc", -- Mapping for commenting using text objects (e.g., `gcip` to comment inside paragraph).
+                textobject = "gc",     -- Mapping for commenting using text objects (e.g., `gcip` to comment inside paragraph).
             },
             hooks = {
-                pre = function() end, -- Function to run before commenting.
+                pre = function() end,  -- Function to run before commenting.
                 post = function() end, -- Function to run after commenting.
             },
         },
@@ -124,45 +124,6 @@ return {
         end,
     },
 
-    -- UI / Appearance:
-    -- 'mini.statusline' provides a customizable statusline.
-    {
-        "echasnovski/mini.statusline",
-        version = false,
-        config = function()
-            require("mini.statusline").setup({ use_icons = true }) -- Enable icons in the statusline.
-        end,
-    },
-
-    -- 'mini.tabline' provides a minimal and fast tabline showing listed buffers.
-    {
-        "echasnovski/mini.tabline",
-        version = false,
-        event = "VeryLazy",
-        config = function()
-            require("mini.tabline").setup({
-                show_icons = true, -- Show file icons (requires mini.icons or nvim-web-devicons).
-                format = nil, -- Use default formatting.
-                tabpage_section = "left", -- Show tabpage section on the left if multiple tabs.
-            })
-
-            -- Buffer navigation: next/previous
-            vim.keymap.set("n", "<Tab>", function()
-                vim.cmd("bnext")
-            end, { desc = "Next buffer" })
-
-            vim.keymap.set("n", "<S-Tab>", function()
-                vim.cmd("bprevious")
-            end, { desc = "Previous buffer" })
-
-            -- Jump to buffer 1 through 9 using <leader>1..9
-            for i = 1, 9 do
-                vim.keymap.set("n", "<leader>" .. i, function()
-                    vim.cmd("buffer " .. i)
-                end, { desc = "Go to buffer " .. i })
-            end
-        end,
-    },
 
     -- 'mini.notify' is a modern and customizable notification system.
     {
@@ -191,7 +152,7 @@ return {
                 window = {
                     config = {
                         border = "rounded", -- Use rounded borders for notification windows.
-                        width = 60, -- Set a fixed width for notification windows.
+                        width = 60,         -- Set a fixed width for notification windows.
                         -- max_width has been removed as it was causing errors in some versions.
                     },
                 },
@@ -201,7 +162,7 @@ return {
                 },
                 -- LSP progress indicator settings.
                 lsp_progress = {
-                    enable = true, -- Enable the display of LSP progress.
+                    enable = true,     -- Enable the display of LSP progress.
                     duration_ms = 500, -- Duration of the progress animation.
                 },
             }
@@ -228,11 +189,11 @@ return {
         lazy = false, -- Load immediately for session management.
         config = function()
             require("mini.sessions").setup({
-                autoread = true, -- Automatically read the last session on startup.
-                autowrite = true, -- Automatically write the current session when exiting.
-                directory = vim.fn.stdpath("data") .. "/sessions", -- Directory to store session files.
-                file = "Session.vim", -- Default filename for sessions.
-                force = { read = false, write = true, delete = false }, -- Force options for actions.
+                autoread = true,                                         -- Automatically read the last session on startup.
+                autowrite = true,                                        -- Automatically write the current session when exiting.
+                directory = vim.fn.stdpath("data") .. "/sessions",       -- Directory to store session files.
+                file = "Session.vim",                                    -- Default filename for sessions.
+                force = { read = false, write = true, delete = false },  -- Force options for actions.
                 verbose = { read = false, write = true, delete = true }, -- Verbose output for actions.
             })
 

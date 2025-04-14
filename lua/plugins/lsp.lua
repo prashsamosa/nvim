@@ -171,9 +171,6 @@ return {
         -- needed for 'blink.cmp' (completion plugin).
         local original_capabilities = vim.lsp.protocol.make_client_capabilities()
         local capabilities = require("blink.cmp").get_lsp_capabilities(original_capabilities)
-        -- You might have other completion plugins; this line shows how to merge
-        -- their capabilities as well (commented out here).
-        -- capabilities = vim.tbl_deep_extend('force', capabilities, require('cmp_nvim_lsp').default_capabilities())
 
         -- Define the language servers to enable. Mason will automatically
         -- try to install these if they are not already present.
@@ -210,6 +207,15 @@ return {
                     },
                 },
             },
+
+            -- Add elixirls configuration
+            elixirls = {
+                settings = {
+                    dialyzerEnabled = false,
+                    enableTestLenses = false,
+                },
+                filetypes = { "elixir", "ex", "exs", "heex", "eex" }, -- Usually detected automatically
+            },
         }
 
         -- Ensure the defined servers and tools are installed using Mason.
@@ -217,6 +223,7 @@ return {
         vim.list_extend(ensure_installed, {
             "stylua",    -- Lua code formatter.
             "prettierd", -- JavaScript/TypeScript formatter (daemon for speed).
+            "elixirls",  -- Add elixirls here
         })
         require("mason-tool-installer").setup({ ensure_installed = ensure_installed })
 

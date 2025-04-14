@@ -25,11 +25,9 @@ keymap.set("n", "<C-k>", "<C-w>k", { desc = "Navigate up", silent = true })
 keymap.set("n", "<C-l>", "<C-w>l", { desc = "Navigate right", silent = true })
 
 -- Buffer navigation with brackets (similar to VS Code tabs).
--- These mappings allow you to cycle through open buffers using '<leader>[' for
--- the previous buffer and '<leader>]' for the next buffer. This provides a
--- quick way to switch between files you're currently working on.
-keymap.set("n", "<leader>[", "<cmd>bprevious<CR>", { desc = "Previous buffer", silent = true })
-keymap.set("n", "<leader>]", "<cmd>bnext<CR>", { desc = "Next buffer", silent = true })
+-- REMOVE THESE MAPPINGS as mini.tabline provides <Tab>/<S-Tab>/<leader>1-9
+-- keymap.set("n", "<leader>[", "<cmd>bprevious<CR>", { desc = "Previous buffer", silent = true })
+-- keymap.set("n", "<leader>]", "<cmd>bnext<CR>", { desc = "Next buffer", silent = true })
 
 -- ===== WINDOW SPLITTING (VS CODE STYLE) =====
 -- These mappings provide shortcuts to create horizontal and vertical window splits,
@@ -102,13 +100,11 @@ keymap.set("n", "<leader><space>", function() Snacks.picker.smart() end, { desc 
 -- keymap.set("n", "<leader>ss", function() Snacks.picker.lines() end, { desc = "Search in buffer", silent = true })
 
 -- ===== COMMENTING =====
--- Toggle comment (like Ctrl+/ in VS Code).
--- These mappings use the 'Comment.nvim' plugin to toggle comments on the current
--- line (in normal mode) or on the visually selected lines.
-keymap.set("n", "<leader>c/", function() require("Comment.api").toggle.linewise.current() end,
-    { desc = "Toggle comment", silent = true })
-keymap.set("v", "<leader>c/", "<ESC><cmd>lua require('Comment.api').toggle.linewise(vim.fn.visualmode())<CR>",
-    { desc = "Toggle comment", silent = true })
+-- REMOVE THESE MAPPINGS for Comment.nvim as mini.comment is used
+-- keymap.set("n", "<leader>c/", function() require("Comment.api").toggle.linewise.current() end,
+--     { desc = "Toggle comment", silent = true })
+-- keymap.set("v", "<leader>c/", "<ESC><cmd>lua require('Comment.api').toggle.linewise(vim.fn.visualmode())<CR>",
+--     { desc = "Toggle comment", silent = true })
 
 -- ===== NUMBER OPERATIONS =====
 -- Increment and decrement numbers.
