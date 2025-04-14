@@ -2,16 +2,16 @@
 
 return {
     "folke/which-key.nvim",
-    event = "VeryLazy", -- Load the plugin lazily to improve startup time.
-
+    event = "VeryLazy", -- Load lazily.
+  
     init = function()
-        -- Set timeout options for multi-key mappings.
-        vim.o.timeout = true
-        vim.o.timeoutlen = 500 -- Wait 500ms for the next key in a multi-key mapping.
+      -- Timeout options for multi-key mappings.
+      vim.o.timeout = true
+      vim.o.timeoutlen = 500 -- Wait 500ms for next key.
     end,
-
+  
     opts = {
-        -- Add custom configuration here if needed.
-        -- Leaving this table empty will use the plugin's default settings.
+      -- Custom configuration can go here.
+      -- Empty table uses default settings.
     },
-}
+  }
