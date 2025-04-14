@@ -78,6 +78,7 @@ A powerful Neovim setup featuring an elegant UI with Snacks.nvim and GitHub them
 | `<leader>ff`      | `n`  | Find Files (FZF)                  | `fzf-mini.lua` |
 | `<leader>fg`      | `n`  | Find Git Files (Snacks)           | `snacks.lua`   |
 | `<leader>fr`      | `n`  | Recent Files (Snacks)             | `snacks.lua`   |
+| `<leader>fR`      | `n`  | Resume Last Search (FZF)          | `fzf-mini.lua` |
 | `<leader>fc`      | `n`  | Find Config File (FZF)            | `fzf-mini.lua` |
 | `<leader>fp`      | `n`  | Browse Projects (Snacks)          | `snacks.lua`   |
 | `<leader>fo`      | `n`  | Old Files (FZF)                   | `fzf-mini.lua` |
@@ -91,16 +92,16 @@ A powerful Neovim setup featuring an elegant UI with Snacks.nvim and GitHub them
 
 | Key          | Mode | Description                        | Source         |
 | :----------- | :--- | :--------------------------------- | :------------- |
-| `<leader>sg` | `n`  | Search in files (Snacks Grep)    | `snacks.lua`   |
-| `<leader>sb` | `n`  | Search in buffer (Snacks Lines)  | `snacks.lua`   |
-| `<leader>sw` | `n,x`| Search word under cursor (Snacks) | `snacks.lua`   |
-| `<leader>sB` | `n`  | Grep Open Buffers (Snacks)       | `snacks.lua`   |
-| `<leader>fg` | `n`  | Live Grep (FZF)                    | `fzf-mini.lua` |
-| `<leader>fw` | `n`  | Find current Word (FZF)          | `fzf-mini.lua` |
-| `<leader>fW` | `n`  | Find current WORD (FZF)          | `fzf-mini.lua` |
-| `<leader>fr` | `n`  | Resume Last Search (FZF)         | `fzf-mini.lua` |
-| `<leader>f/` | `n`  | Live grep current buffer (FZF)   | `fzf-mini.lua` |
-| `<leader>mg` | `n`  | Mini grep live                   | `mini.lua`     |
+| `<leader>sg` | `n`  | Search in files (Snacks Grep)      | `snacks.lua`   |
+| `<leader>sb` | `n`  | Search in buffer (Snacks Lines)    | `snacks.lua`   |
+| `<leader>sw` | `n,x`| Search word under cursor (Snacks)  | `snacks.lua`   |
+| `<leader>sB` | `n`  | Grep Open Buffers (Snacks)         | `snacks.lua`   |
+| `<leader>fl` | `n`  | Live Grep (FZF)                    | `fzf-mini.lua` |
+| `<leader>fw` | `n`  | Find current Word (FZF)            | `fzf-mini.lua` |
+| `<leader>fW` | `n`  | Find current WORD (FZF)            | `fzf-mini.lua` |
+| `<leader>fR` | `n`  | Resume Last Search (FZF)           | `fzf-mini.lua` |
+| `<leader>f/` | `n`  | Live grep current buffer (FZF)     | `fzf-mini.lua` |
+| `<leader>mg` | `n`  | Mini grep live                     | `mini.lua`     |
 
 ### 📊 LSP (Language Server Protocol)
 
@@ -116,9 +117,8 @@ A powerful Neovim setup featuring an elegant UI with Snacks.nvim and GitHub them
 | `<leader>ds` | `n`  | Document Symbols (LSP)       | `lsp.lua`   |
 | `<leader>ws` | `n`  | Workspace Symbols (LSP)      | `lsp.lua`   |
 | `<S-k>`      | `n`  | Show Hover Info              | `lsp.lua`   |
-| `<leader>th` | `n`  | Toggle Inlay Hints           | `lsp.lua`   |
+| `<leader>ih` | `n`  | Toggle Inlay Hints           | `lsp.lua`   |
 | `<leader>fd` | `n`  | Diagnostics (FZF)            | `fzf-mini.lua` |
-
 
 ### 📝 Editing & Text Manipulation
 
@@ -137,8 +137,8 @@ A powerful Neovim setup featuring an elegant UI with Snacks.nvim and GitHub them
 | :---------- | :--- | :------------------------------ | :------------------ |
 | `<Enter>`   | `n`  | Incremental selection init/inc  | `treesitter.lua` |
 | `<Backspace>`| `n`  | Incremental selection dec       | `treesitter.lua` |
-| `<leader>a` | `n`  | Swap with next parameter       | `keymaps.lua`       |
-| `<leader>A` | `n`  | Swap with previous parameter   | `keymaps.lua`       |
+| `<leader>a` | `n`  | Swap with next parameter       | `treesitter.lua`    |
+| `<leader>A` | `n`  | Swap with previous parameter   | `treesitter.lua`    |
 | `af`        | `o,x`| Select outer function           | `treesitter.lua` |
 | `if`        | `o,x`| Select inner function           | `treesitter.lua` |
 | `ac`        | `o,x`| Select outer class              | `treesitter.lua` |
@@ -207,7 +207,6 @@ A powerful Neovim setup featuring an elegant UI with Snacks.nvim and GitHub them
 | `<leader>tv` | `n`  | Toggle Terminal (vertical)         | `toggle-terminal.lua` |
 | `<leader>tl` | `n`  | Send Line to Terminal              | `toggle-terminal.lua` |
 | `<leader>ts` | `n`  | Select Terminal                    | `toggle-terminal.lua` |
-
 
 ### 🔧 UI Toggles & Settings (Snacks & Markdown)
 

@@ -3,7 +3,7 @@
 return {
     "folke/snacks.nvim",
     priority = 1000, -- Load early.
-    lazy = false, -- Load immediately.
+    lazy = false,    -- Load immediately.
 
     init = function()
         -- Define global debugging functions.
@@ -15,7 +15,7 @@ return {
                 end -- Debug inspect.
                 _G.bt = function()
                     Snacks.debug.backtrace()
-                end -- Debug backtrace.
+                end               -- Debug backtrace.
                 vim.print = _G.dd -- Redirect `vim.print`.
 
                 -- Configure toggle mappings.
@@ -44,7 +44,10 @@ return {
         vim.api.nvim_create_autocmd("User", {
             pattern = "OilActionsPost",
             callback = function(event)
-                if event.data.actions.type == "move" then
+                if event.data and event.data.actions and
+                    event.data.actions.type == "move" and
+                    event.data.actions.src_url and
+                    event.data.actions.dest_url then
                     Snacks.rename.on_rename_file(event.data.actions.src_url, event.data.actions.dest_url)
                 end
             end,
@@ -57,12 +60,12 @@ return {
             enabled = true,
             preset = {
                 header = [[
-        ███████╗ █████╗ ███╗   ███╗ ██████╗ ███████╗ █████╗
-        ██╔════╝██╔══██╗████╗ ████║██╔═══██╗██╔════╝██╔══██╗
-        ███████╗███████║██╔████╔██║██║   ██║███████╗███████║
-        ╚════██║██╔══██║██║╚██╔╝██║██║   ██║╚════██║██╔══██║
-        ███████║██║  ██║██║ ╚═╝ ██║╚██████╔╝███████║██║  ██║
-        ╚══════╝╚═╝  ╚═╝╚═╝   ╚═╝ ╚═════╝ ╚══════╝╚═╝  ╚═╝
+    ███████╗ █████╗ ███╗   ███╗ ██████╗ ███████╗ █████╗
+    ██╔════╝██╔══██╗████╗ ████║██╔═══██╗██╔════╝██╔══██╗
+    ███████╗███████║██╔████╔██║██║   ██║███████╗███████║
+    ╚════██║██╔══██║██║╚██╔╝██║██║   ██║╚════██║██╔══██║
+    ███████║██║  ██║██║ ╚═╝ ██║╚██████╔╝███████║██║  ██║
+    ╚══════╝╚═╝  ╚═╝╚═╝   ╚═╝ ╚═════╝ ╚══════╝╚═╝  ╚═╝
                 ]],
             },
         },

@@ -73,11 +73,11 @@ return {
         map("n", lhs, rhs, { noremap = true, silent = true, desc = desc })
       end
   
-      nmap("<leader>mm", "<cmd>RenderMarkdown toggle<CR>", "[M]arkdown Toggle Render")
-      nmap("<leader>mE", "<cmd>RenderMarkdown expand<CR>", "[M]arkdown Expand View")
-      nmap("<leader>mc", "<cmd>RenderMarkdown contract<CR>", "[M]arkdown Contract View")
-      nmap("<leader>ml", "<cmd>RenderMarkdown log<CR>", "[M]arkdown Open Log")
-      nmap("<leader>md", "<cmd>RenderMarkdown debug<CR>", "[M]arkdown Debug Line")
-      nmap("<leader>ms", "<cmd>RenderMarkdown config<CR>", "[M]arkdown Show Config")
+      nmap("<leader>Mm", "<cmd>RenderMarkdown toggle<CR>", "[M]arkdown Toggle Render")
+      nmap("<leader>Me", "<cmd>RenderMarkdown expand<CR>", "[M]arkdown Expand View")
+      nmap("<leader>Mc", "<cmd>RenderMarkdown contract<CR>", "[M]arkdown Contract View")
+      nmap("<leader>ML", "<cmd>RenderMarkdown log<CR>", "[M]arkdown Open Log")
+      nmap("<leader>Md", "<cmd>RenderMarkdown debug<CR>", "[M]arkdown Debug Line")
+      nmap("<leader>Ms", "<cmd>RenderMarkdown config<CR>", "[M]arkdown Show Config")
     end,
   }
