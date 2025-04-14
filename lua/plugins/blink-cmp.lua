@@ -1,7 +1,7 @@
 return {
   {
     "saghen/blink.compat",
-    version = "*", -- Consider a more specific version for stability.
+    version = "*",
     lazy = true,
     opts = {},
   },
@@ -16,17 +16,17 @@ return {
     opts = {
       keymap = {
         preset = "default",
-        ["<C-Z>"] = { "accept", "fallback" }, -- Accept completion or fallback to default behavior.
+        ["<C-Z>"] = { "accept", "fallback" },
       },
       appearance = {
         nerd_font_variant = "mono",
       },
       completion = {
-        documentation = { auto_show = true }, -- Automatically show documentation for selected completion item.
+        documentation = { auto_show = true },
       },
-      signature = { enabled = true }, -- Enable function signature help.
+      signature = { enabled = true },
       sources = {
-        default = { "lsp", "path", "snippets", "buffer", "emoji", "sql" }, -- Default sources for completion.
+        default = { "lsp", "path", "snippets", "buffer", "emoji", "sql" },
         providers = {
           emoji = {
             module = "blink-emoji",
@@ -34,7 +34,7 @@ return {
             score_offset = 15,
             opts = { insert = true },
             should_show_items = function()
-              return vim.tbl_contains({ "gitcommit", "markdown" }, vim.o.filetype) -- Show emoji completions in git commit and markdown files.
+              return vim.tbl_contains({ "gitcommit", "markdown" }, vim.o.filetype)
             end,
           },
           sql = {
@@ -43,13 +43,13 @@ return {
             score_offset = -3,
             opts = {},
             should_show_items = function()
-              return vim.tbl_contains({ "sql" }, vim.o.filetype) -- Show SQL completions in SQL files.
+              return vim.tbl_contains({ "sql" }, vim.o.filetype)
             end,
           },
         },
       },
       fuzzy = { implementation = "prefer_rust_with_warning" },
     },
-    opts_extend = { "sources.default" }, -- Extend the default sources with additional configurations.
+    opts_extend = { "sources.default" },
   },
 }

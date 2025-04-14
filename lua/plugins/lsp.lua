@@ -126,6 +126,17 @@ return {
     local servers = {
       bashls = {},
       marksman = {},
+      elixirls = {
+        cmd = { vim.fn.stdpath("data") .. "/mason/packages/elixir-ls/language_server.sh" },
+        settings = {
+          elixirLS = {
+            dialyzerEnabled = false,
+            enableTestLenses = false,
+          },
+        },
+        filetypes = { "elixir", "ex", "exs", "heex", "eex" },
+      },
+
       -- Add more servers as needed, for example:
       -- lua_ls = {
       --   settings = {
@@ -142,12 +153,12 @@ return {
     for server_name, config in pairs(servers) do
       lspconfig[server_name].setup {
         capabilities = capabilities,
-        -- Add server-specific configurations here. For example, to disable formatting
-        -- for bashls:
+        cmd = config.cmd, -- Added to pass the command configuration
+        filetypes = config.filetypes, -- Added to pass filetypes configuration
+        settings = config.settings,
         -- flags = {
         --   debounce_text_changes = 150,
         -- },
-        settings = config.settings,
       }
     end
 
