@@ -257,6 +257,52 @@ A powerful Neovim setup featuring an elegant UI with Snacks.nvim and GitHub them
 | `<leader>fk` | `n`  | Keymaps (FZF)                | `fzf-mini.lua` |
 | `<leader>fb` | `n`  | Builtins/Commands (FZF)      | `fzf-mini.lua` |
 
+### 🐹 Go Operations
+
+| Key             | Mode | Description                    | Source      |
+| :-------------- | :--- | :----------------------------- | :---------- |
+| `ga`            | `n`  | Alternate File                 | go.lua      |
+| `gv`            | `n`  | Alternate Vertical Split       | go.lua      |
+| `gs`            | `n`  | Alternate Horizontal Split     | go.lua      |
+| `<leader>oi`    | `n`  | Go Imports (organize)          | go.lua      |
+| `<leader>of`    | `n`  | Go Format                      | go.lua      |
+| `<leader>ot`    | `n`  | Go Mod Tidy                    | go.lua      |
+| `<leader>oc`    | `n`  | Generate Comment Stub          | go.lua      |
+| `<leader>os`    | `n`  | Fill Struct                    | go.lua      |
+| `<leader>or`    | `n`  | Generate Return Values         | go.lua      |
+| `<leader>oj`    | `n`  | JSON to Struct                 | go.lua      |
+| `<leader>oa`    | `n`  | Add Struct Tag                 | go.lua      |
+| `<leader>od`    | `n`  | Remove Struct Tag              | go.lua      |
+| `<leader>ol`    | `n`  | Go Lint                        | go.lua      |
+| `<leader>og`    | `n`  | Go Generate                    | go.lua      |
+| `<leader>bb`    | `n`  | Build Package                  | go.lua      |
+| `<leader>br`    | `n`  | Run Package                    | go.lua      |
+| `<leader>tp`    | `n`  | Test Package                   | go.lua      |
+| `<leader>tf`    | `n`  | Test Function (Nearest)        | go.lua      |
+| `<leader>tF`    | `n`  | Test File                      | go.lua      |
+| `<leader>tc`    | `n`  | Test Coverage (Package)        | go.lua      |
+| `<leader>tC`    | `n`  | Toggle Coverage Display        | go.lua      |
+| `<leader>dgd`   | `n`  | Debug (Start/Auto-Detect)      | go.lua      |
+| `<leader>dgt`   | `n`  | Debug Test (Nearest/File)      | go.lua      |
+| `<leader>dgc`   | `n`  | Debug Continue                 | go.lua      |
+| `<leader>dgb`   | `n`  | Debug Toggle Breakpoint        | go.lua      |
+| `<leader>dgx`   | `n`  | Debug Stop                     | go.lua      |
+| `<leader>dgr`   | `n`  | Debug Restart                  | go.lua      |
+| `<leader>gh`    | `n`  | Hover Doc Popup                | go.lua      |
+| `<leader>gi`    | `n`  | Implement Interface            | go.lua      |
+| `<leader>gm`    | `n`  | Generate Mocks                 | go.
+lua      |
+
+### 🗄️ Database (Dadbod) Shortcuts
+
+| Key            | Mode | Description             | Source      |
+| :------------- | :--- | :---------------------- | :---------- |
+| `<leader>du`   | `n`  | Toggle DB UI            | dadbod.lua  |
+| `<leader>dr`   | `n`  | Find DB buffer          | dadbod.lua  |
+| `<leader>da`   | `n`  | Add DB Connection       | dadbod.lua  |
+| `<leader>dc`   | `n`  | Close DB UI             | dadbod.lua  |
+| `<leader>do`   | `n`  | Open DB UI              | dadbod.lua  |
+
 ## 🔌 Main Plugins
 
 - **Core/UI**: Snacks.nvim, lazy.nvim, which-key.nvim, github-nvim-theme
