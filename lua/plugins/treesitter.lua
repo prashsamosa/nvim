@@ -29,6 +29,7 @@ return {
         "typescript",
         "vimdoc",
         "yaml",
+        "sql",
       },
 
       -- Autoinstall missing parsers when entering buffer
