@@ -282,15 +282,16 @@ A powerful Neovim setup featuring an elegant UI with Snacks.nvim and GitHub them
 | `<leader>tF`| `n`  | Test File                       | `go.lua`    |
 | `<leader>tc`| `n`  | Test Coverage (Package)         | `go.lua`    |
 | `<leader>tC`| `n`  | Toggle Coverage Display         | `go.lua`    |
-<!-- | `<leader>dgd`| `n`  | Debug (Start/Auto-Detect)       | `go.lua`    |
+| `<leader>gh`| `n`  | Hover Doc Popup                 | `go.lua`    |
+| `<leader>gi`| `n`  | Implement Interface             | `go.lua`    |
+| `<leader>gm`| `n`  | Generate Mocks                  | `go.lua`    |
+<!-- | `<leader>dgd`| `n`  | Debug (Start/Auto-Detect)       | `go.lua`|
 | `<leader>dgt`| `n`  | Debug Test (Nearest/File)       | `go.lua`    |
 | `<leader>dgc`| `n`  | Debug Continue                  | `go.lua`    |
 | `<leader>dgb`| `n`  | Debug Toggle Breakpoint         | `go.lua`    |
 | `<leader>dgx`| `n`  | Debug Stop                      | `go.lua`    |
 | `<leader>dgr`| `n`  | Debug Restart                   | `go.lua`    | -->
-| `<leader>gh`| `n`  | Hover Doc Popup                 | `go.lua`    |
-| `<leader>gi`| `n`  | Implement Interface             | `go.lua`    |
-| `<leader>gm`| `n`  | Generate Mocks                  | `go.lua`    |
+
 
 ### 🗄️ Database (Dadbod) Shortcuts
 
