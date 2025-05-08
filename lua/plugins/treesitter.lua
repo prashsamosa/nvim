@@ -2,7 +2,7 @@
 
 return {
   "nvim-treesitter/nvim-treesitter",
-  build = ":TSUpdate",                             -- Auto-update parsers after installation.
+  build = ":TSUpdate",                                  -- Auto-update parsers after installation.
   dependencies = {
     "nvim-treesitter/nvim-treesitter-textobjects", -- Tree-sitter text objects.
   },

@@ -4,8 +4,10 @@ return {
     "ray-x/guihua.lua",
     "neovim/nvim-lspconfig",
     "nvim-treesitter/nvim-treesitter",
-    -- "mfussenegger/nvim-dap", -- for DAP support (removed)
-    -- "leolozano/nvim-dap-go", -- Go debug adapter (removed)
+    "mfussenegger/nvim-dap",           -- for DAP support
+    "leoluz/nvim-dap-go",              -- Go debug adapter
+    "rcarriga/nvim-dap-ui",            -- Optional: A UI for nvim-dap
+    "theHamsta/nvim-dap-virtual-text", -- Optional: Display variable values inline
   },
   config = function()
     local capabilities = vim.lsp.protocol.make_client_capabilities()
@@ -13,7 +15,8 @@ return {
       capabilities = require("blink.cmp").get_lsp_capabilities(capabilities)
       vim.notify("go.nvim: Using capabilities from blink.cmp", vim.log.levels.INFO, { title = "go.nvim" })
     else
-      vim.notify("go.nvim: Warning - blink.cmp not loaded, using default LSP capabilities.", vim.log.levels.WARN, { title = "go.nvim" })
+      vim.notify("go.nvim: Warning - blink.cmp not loaded, using default LSP capabilities.", vim.log.levels.WARN,
+      { title = "go.nvim" })
     end
 
     require("go").setup({
@@ -27,8 +30,24 @@ return {
       },
     })
 
-    -- Debug Adapter Protocol setup (removed)
-    -- require("dap-go").setup() (removed)
+    -- Setup nvim-dap-go
+    require("dap-go").setup()
+
+    -- Optional: Setup nvim-dap-ui
+    local dap, dapui = require("dap"), require("dapui")
+    dapui.setup()
+    dap.listeners.after.event_initialized["dapui_config"] = function()
+      dapui.open()
+    end
+    dap.listeners.before.event_terminated["dapui_config"] = function()
+      dapui.close()
+    end
+    dap.listeners.before.event_exited["dapui_config"] = function()
+      dapui.close()
+    end
+
+    -- Optional: Setup nvim-dap-virtual-text
+    require("dap-virtual-text").setup()
 
     local go_augroup = vim.api.nvim_create_augroup("GoUserKeymaps", { clear = true })
     vim.api.nvim_create_autocmd("FileType", {
@@ -67,13 +86,16 @@ return {
         map("n", "<leader>tc", "<cmd>GoCoverage -p<CR>", "Test Coverage (Package)")
         map("n", "<leader>tC", "<cmd>GoCoverageToggle<CR>", "Toggle Coverage Display")
 
-        -- DAP (Debugging) (removed keybindings)
-        -- map("n", "<leader>dgd", "<cmd>GoDebug<CR>", "Debug (Auto Detect)")
-        -- map("n", "<leader>dgt", "<cmd>GoDebug -t<CR>", "Debug Test")
-        -- map("n", "<leader>dgc", "<cmd>GoDbgContinue<CR>", "Debug Continue")
-        -- map("n", "<leader>dgb", "<cmd>GoBreakToggle<CR>", "Debug Toggle Breakpoint")
-        -- map("n", "<leader>dgx", "<cmd>GoDbgStop<CR>", "Debug Stop")
-        -- map("n", "<leader>dgr", "<cmd>GoDebug -R<CR>", "Debug Restart")
+        -- DAP (Debugging)
+        map("n", "<leader>dgd", "<cmd>lua require('dap').continue()<CR>", "Debug Continue (Auto Detect)")
+        map("n", "<leader>dgt", "<cmd>lua require('dap').step_over()<CR>", "Debug Step Over")
+        map("n", "<leader>dgi", "<cmd>lua require('dap').step_into()<CR>", "Debug Step Into")
+        map("n", "<leader>dgo", "<cmd>lua require('dap').step_out()<CR>", "Debug Step Out")
+        map("n", "<leader>dgb", "<cmd>lua require('dap').toggle_breakpoint()<CR>", "Debug Toggle Breakpoint")
+        map("n", "<leader>dgx", "<cmd>lua require('dap').terminate()<CR>", "Debug Stop")
+        map("n", "<leader>drs", "<cmd>lua require('dap').repl.open()<CR>", "Debug REPL Open")
+        map("n", "<leader>drr", "<cmd>lua require('dap').run()<CR>", "Debug Run (Start)")
+        map("n", "<leader>dra", "<cmd>lua require('dap').attach()<CR>", "Debug Attach")
 
         -- Other Go Commands (prefixing with <leader>g to avoid conflicts with LSP)
         map("n", "<leader>gh", "<cmd>GoDoc<CR>", "Hover Doc Popup")
@@ -82,7 +104,7 @@ return {
       end,
     })
 
-    vim.notify("go.nvim configured!", vim.log.levels.INFO, { title = "go.nvim" })
+    vim.notify("go.nvim configured with DAP!", vim.log.levels.INFO, { title = "go.nvim" })
   end,
   event = { "FileType go", "FileType gomod" },
   ft = { "go", "gomod" },
