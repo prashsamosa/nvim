@@ -1,65 +1,59 @@
 -- Configure 'barbar.nvim' for enhanced buffer management.
 return {
   "romgrk/barbar.nvim",
-  -- version = false, -- You can keep or remove this line, usually not needed unless pinning
   dependencies = {
-    "nvim-tree/nvim-web-devicons", -- File icons.
-    "lewis6991/gitsigns.nvim",     -- Git integration in the bufferline.
+    "nvim-tree/nvim-web-devicons", -- File icons
+    "lewis6991/gitsigns.nvim",     -- Git integration for bufferline
   },
-  init = function() -- Use init for keymaps so they are set even if barbar loads lazily
+  init = function()
     -- Keymaps for buffer navigation and control.
-    local map = vim.keymap.set -- Use vim.keymap.set for Neovim >= 0.7
+    local map = vim.keymap.set
     local opts = { noremap = true, silent = true }
 
-    -- Buffer Navigation
-    map("n", "<A-,>", "<Cmd>BufferPrevious<CR>", opts) -- Previous buffer
-    map("n", "<A-.>", "<Cmd>BufferNext<CR>", opts)     -- Next buffer
+    -- BUFFER NAVIGATION
+    map("n", "<A-,>", "<Cmd>BufferPrevious<CR>", opts) -- Go to previous buffer
+    map("n", "<A-.>", "<Cmd>BufferNext<CR>", opts)     -- Go to next buffer
 
-    -- Buffer Movement (Alt + < > might conflict, consider Alt + Shift + < > or other keys)
-    -- Using <A-<> > requires checking terminal compatibility or using different keys
-    -- map("n", "<A-<>", "<Cmd>BufferMovePrevious<CR>", opts) -- Move buffer left
-    -- map("n", "<A->>", "<Cmd>BufferMoveNext<CR>", opts)     -- Move buffer right
-    map("n", "<A-S-,>", "<Cmd>BufferMovePrevious<CR>", opts) -- Move buffer left (Alt+Shift+,)
-    map("n", "<A-S-.>", "<Cmd>BufferMoveNext<CR>", opts)     -- Move buffer right (Alt+Shift+.)
+    -- BUFFER REORDERING
+    map("n", "<A-S-,>", "<Cmd>BufferMovePrevious<CR>", opts) -- Move buffer left
+    map("n", "<A-S-.>", "<Cmd>BufferMoveNext<CR>", opts)     -- Move buffer right
 
-
-    -- Jump to Buffer by Index
+    -- JUMP TO BUFFER BY INDEX (Alt + 1–9, Alt + 0 = last)
     for i = 1, 9 do
-      map("n", "<A-" .. i .. ">", "<Cmd>BufferGoto " .. i .. "<CR>", opts) -- Goto buffer 1-9
+      map("n", "<A-" .. i .. ">", "<Cmd>BufferGoto " .. i .. "<CR>", opts)
     end
-    map("n", "<A-0>", "<Cmd>BufferLast<CR>", opts)     -- Last buffer
+    map("n", "<A-0>", "<Cmd>BufferLast<CR>", opts)
 
-    -- Buffer Pinning/Closing
-    map("n", "<A-p>", "<Cmd>BufferPin<CR>", opts)                      -- Pin/unpin buffer
-    map("n", "<A-c>", "<Cmd>BufferClose<CR>", opts)                    -- Close current buffer
-    map("n", "<A-S-c>", "<Cmd>BufferCloseAllButCurrentOrPinned<CR>", opts) -- Close other buffers (Safer alternative)
-    -- map("n", "<A-b>", "<Cmd>BufferCloseAllButCurrent<CR>", opts) -- Original Close other buffers
+    -- BUFFER PINNING / CLOSING
+    map("n", "<A-p>", "<Cmd>BufferPin<CR>", opts)                             -- Pin/unpin current buffer
+    -- Avoid <A-c> (often conflicts with copy), use <leader> mappings instead:
+    map("n", "<leader>bc", "<Cmd>BufferClose<CR>", opts)                      -- Close current buffer
+    map("n", "<leader>bo", "<Cmd>BufferCloseAllButCurrentOrPinned<CR>", opts) -- Close others (safe)
 
+    -- Optional: legacy close key, with a warning
+    -- map("n", "<A-c>", "<Cmd>BufferClose<CR>", opts) -- Use with caution: conflicts with Alt+C in some terminals
   end,
-  opts = {
-    -- Add this line:
-    auto_hide = true,          -- Automatically hide barbar when only one buffer is open
 
-    clickable = true,         -- Enable mouse clicks to switch buffers.
-    -- tabpages = false,      -- This option is often not needed; barbar focuses on buffers
-    insert_at_end = true,     -- Add new buffers to the end of the list.
+  opts = {
+    auto_hide = true,     -- Hide the tabline if only one buffer
+    clickable = true,     -- Enable mouse click support
+    insert_at_end = true, -- New buffers go to end of bufferline
     icons = {
-      button = "",           -- Close button icon (ensure Nerd Font)
-      buffer_index = true,    -- Show buffer numbers.
+      buffer_index = true,
+      button = "", -- Close button icon
       filetype = {
-        enabled = true,       -- Show filetype icons.
-        custom_colors = false, -- Use theme default colors for icons
+        enabled = true,
+        custom_colors = false,
       },
-      separator = { left = '▎', right = '' }, -- Separator style
-      -- visible = { modified = { buffer_number = false } }, -- This is often default or can be tweaked
-      gitsigns = {              -- Requires gitsigns.nvim plugin
-        added = { enabled = true, icon = '+' },
-        changed = { enabled = true, icon = '~' },
-        deleted = { enabled = true, icon = '-' },
+      separator = { left = "▎", right = "" },
+      gitsigns = {
+        added = { enabled = true, icon = "+" },
+        changed = { enabled = true, icon = "~" },
+        deleted = { enabled = true, icon = "-" },
       },
-      inactive = { filetype = { enabled = false } } -- Dim inactive icons slightly
+      inactive = {
+        filetype = { enabled = false },
+      },
     },
-    -- Add highlighting options if needed, e.g.:
-    -- highlight = { },
   },
 }
