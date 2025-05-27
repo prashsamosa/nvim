@@ -1,5 +1,5 @@
 # 🚀 My Neovim Configuration
-
+<!--
 ## ✨ Key Features
 
 - 🔍 **Intelligent Completion**: Swift and accurate code completion powered by Blink.cmp.
@@ -12,7 +12,7 @@
 - 🎨 **Beautiful User Interface**: An aesthetically pleasing GitHub Dark theme complemented by Snacks UI elements and an informative dashboard.
 - 🧰 **Seamless Git Integration**: Streamlined Git operations with Neogit, enhanced diff viewing with Diffview, and convenient Git pickers from Snacks.
 - ⚡ **Optimized Performance**: Improved startup and responsiveness achieved through lazy loading of most plugins via lazy.nvim (Note: Snacks loads eagerly to provide an instant dashboard and core features).
-- 📑 **Enhanced Buffer Management**: Feature-rich and intuitive buffer handling with `barbar.nvim`.
+- 📑 **Enhanced Buffer Management**: Feature-rich and intuitive buffer handling with `barbar.nvim`. -->
 
 ## 🛠️ Environment Setup
 
@@ -84,7 +84,7 @@
 | `<leader>mp`    | `n`  | Mini Pick Files                       | `mini.lua`     |
 | `-`             | `n`  | Open Oil File Manager (Floating)        | `oil.lua`      |
 | `<leader>cR`    | `n`  | Rename File (Snacks)                    | `snacks.lua`   |
-| _(Neo-tree)_    | `n`  | _(Use `:Neotree` or configured keys)_ | `neo-tree.lua` |
+<!-- | _(Neo-tree)_    | `n`  | _(Use `:Neotree` or configured keys)_ | `neo-tree.lua` | -->
 
 ### 🔍 Search & Grep
 
