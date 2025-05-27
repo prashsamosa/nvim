@@ -307,5 +307,5 @@ end"'
 # WELCOME MESSAGE
 # =============================================================================
 
-echo "Zsh environment loaded successfully!"
+echo "environment loaded successfully!"
 
