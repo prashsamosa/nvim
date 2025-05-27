@@ -334,12 +334,4 @@
 - **Markdown Rendering**: Customize the appearance and behavior of Markdown rendering in `lua/plugins/markdown.lua`.
 - **Snacks Startup**: To potentially optimize startup time, consider disabling unused modules by setting `enabled = false` within the `opts` table in `lua/plugins/snacks.lua`.
 
-## 📚 Further Reading
-
-- [Neovim Documentation](https://neovim.io/doc/)
-- [Lazy.nvim Documentation](https://github.com/folke/lazy.nvim)
-- [Snacks.nvim Documentation](https://github.com/folke/snacks.nvim)
-- [Blink.cmp Documentation](https://github.com/saghen/blink.cmp)
-- [render-markdown.nvim Documentation](https://github.com/MeanderingProgrammer/render-markdown.nvim)
-
 
