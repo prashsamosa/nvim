@@ -8,14 +8,10 @@ return {
       python = { "isort", "black" },
       rust = { "rustfmt" },
       javascript = {
-        "prettierd",
-        "prettier",
-        stop_after_first = true, -- Stop after the first available formatter
+        { "prettierd", "prettier", stop_after_first = true },
       },
       typescript = {
-        "prettierd",
-        "prettier",
-        stop_after_first = true,
+        { "prettierd", "prettier", stop_after_first = true },
       },
 
       -- ✅ Go support

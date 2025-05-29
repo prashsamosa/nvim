@@ -151,6 +151,7 @@
 | :------- | :--- | :---------------------------- | :---------- |
 | `<CR>`   | `i`  | Accept Suggestion or Fallback | `blink.lua` |
 
+
 ### 📑 Buffer Management (`barbar.nvim`)
 
 | Key             | Mode | Description                          | Source       |

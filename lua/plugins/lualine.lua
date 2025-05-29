@@ -5,17 +5,11 @@ return {
   "nvim-lualine/lualine.nvim",     -- Modern and customizable statusline.
   dependencies = {
     "nvim-tree/nvim-web-devicons", -- File icons in the statusline. Requires Nerd Font.
-    -- NOTE: The theme "projekt0n/github-nvim-theme" might need installation.
-    -- If you don't have it, change the theme option below or install the theme plugin.
-    -- Example: "projekt0n/github-nvim-theme", -- GitHub theme for consistent styling.
   },
   config = function()
     require("lualine").setup({
       options = {
-        -- If you haven't installed "projekt0n/github-nvim-theme", use a built-in theme
-        -- or one provided by another plugin you have (e.g., 'tokyonight', 'catppuccin', 'onedark').
-        -- theme = "auto", -- Or 'tokyonight', 'catppuccin', etc.
-        theme = "github_dark",                                          -- Use the GitHub dark theme (ensure theme plugin is installed).
+        theme = "github_dark",
         component_separators = { left = "", right = "" },               -- No separators between components.
         section_separators = { left = "", right = "" },                 -- No separators between sections.
         globalstatus = true,                                            -- Display the statusline globally.
@@ -51,24 +45,23 @@ return {
           {
             -- Display active LSP clients for the current buffer (Corrected Function).
             function()
-              -- Use vim.lsp.get_clients({ bufnr = 0 }) instead of deprecated get_active_clients().
               local clients = vim.lsp.get_clients({ bufnr = 0 }) -- Get clients attached to the *current* buffer.
 
-              if not next(clients) then
+              if vim.tbl_isempty(clients) then
                 return "" -- Return empty if no clients active for this buffer.
               end
 
               local names = {}
-              local added_names = {} -- Keep track of names to avoid duplicates.
+              local added = {} -- Keep track of names to avoid duplicates.
               for _, client in ipairs(clients) do
                 -- Check if client has a name and if it hasn't been added already.
-                if client.name and not added_names[client.name] then
+                if client.name and not added[client.name] then
                   table.insert(names, client.name)
-                  added_names[client.name] = true
+                  added[client.name] = true
                 end
               end
 
-              if not next(names) then
+              if #names == 0 then
                 return "" -- Return empty if no clients with names found.
               end
 
