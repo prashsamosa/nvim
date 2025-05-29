@@ -385,10 +385,6 @@ nvim --headless "+Lazy! sync" +qa
 - Review plugin documentation for specific features
 - Open an issue in this repository for configuration-related problems
 
-## 📄 License
-
-This configuration is released under the MIT License. See [LICENSE](LICENSE) for details.
-
 ## 🤝 Contributing
 
 Contributions are welcome! Please feel free to submit a Pull Request. For major changes, please open an issue first to discuss what you would like to change.
