@@ -106,8 +106,32 @@ return {
     local servers = {
       bashls = {},
       marksman = {},
-      lua_ls = {},
-      -- Add other servers as needed
+      lua_ls = {
+        settings = {
+          Lua = {
+            diagnostics = {
+              globals = { "vim", "Snacks" },
+            },
+          },
+        },
+      },
+      pyright = {
+        settings = {
+          python = {
+            analysis = {
+              typeCheckingMode = "basic",
+            },
+          },
+        },
+      },
+      gopls = {
+        settings = {
+          gopls = {
+            analyses = { unusedparams = true },
+            staticcheck = true,
+          },
+        },
+      },
     }
 
     -- Ensure tools are installed
