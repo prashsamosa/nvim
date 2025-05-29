@@ -19,7 +19,8 @@ return {
     opts = {
       keymap = {
         preset = "default",
-        ["<C-CR>"] = { "accept", "fallback" }, -- Changed from <C-Z> to avoid shell suspend conflict
+        ["<CR>"] = { "accept", "fallback" },      -- Add this line
+        ["<C-CR>"] = { "accept", "fallback" },    -- Keep this if you want Ctrl+Enter too
       },
       appearance = {
         nerd_font_variant = "mono", -- Use mono-styled Nerd Font icons
