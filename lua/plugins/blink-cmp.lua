@@ -20,10 +20,6 @@ return {
       keymap = {
         preset = "default",
         ["<CR>"] = { "accept", "fallback" },
-        ["<C-y>"] = { "accept", "fallback" }, -- Accept completion with Ctrl+y
-        ["<C-e>"] = { "close", "fallback" },  -- Close completion with Ctrl+e
-        ["<C-n>"] = { "next_item", "fallback" }, -- Next item with Ctrl+n
-        ["<C-p>"] = { "prev_item", "fallback" }, -- Previous item with Ctrl+p 
       },
       appearance = {
         nerd_font_variant = "mono", -- Use mono-styled Nerd Font icons
