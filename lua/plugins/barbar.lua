@@ -1,46 +1,41 @@
--- Configure 'barbar.nvim' for enhanced buffer management.
+-- Bufferline configuration using barbar.nvim
 return {
   "romgrk/barbar.nvim",
   dependencies = {
     "nvim-tree/nvim-web-devicons", -- File icons
-    "lewis6991/gitsigns.nvim",     -- Git integration for bufferline
+    "lewis6991/gitsigns.nvim",     -- Git signs in the bufferline
   },
   init = function()
-    -- Keymaps for buffer navigation and control.
     local map = vim.keymap.set
     local opts = { noremap = true, silent = true }
 
-    -- BUFFER NAVIGATION
-    map("n", "<A-,>", "<Cmd>BufferPrevious<CR>", opts) -- Go to previous buffer
-    map("n", "<A-.>", "<Cmd>BufferNext<CR>", opts)     -- Go to next buffer
+    -- Buffer navigation
+    map("n", "<A-,>", "<Cmd>BufferPrevious<CR>", opts)
+    map("n", "<A-.>", "<Cmd>BufferNext<CR>", opts)
 
-    -- BUFFER REORDERING
-    map("n", "<A-S-,>", "<Cmd>BufferMovePrevious<CR>", opts) -- Move buffer left
-    map("n", "<A-S-.>", "<Cmd>BufferMoveNext<CR>", opts)     -- Move buffer right
+    -- Buffer reordering
+    map("n", "<A-S-,>", "<Cmd>BufferMovePrevious<CR>", opts)
+    map("n", "<A-S-.>", "<Cmd>BufferMoveNext<CR>", opts)
 
-    -- JUMP TO BUFFER BY INDEX (Alt + 1–9, Alt + 0 = last)
+    -- Jump to buffer by index (Alt + 1–9, Alt + 0 = last)
     for i = 1, 9 do
       map("n", "<A-" .. i .. ">", "<Cmd>BufferGoto " .. i .. "<CR>", opts)
     end
     map("n", "<A-0>", "<Cmd>BufferLast<CR>", opts)
 
-    -- BUFFER PINNING / CLOSING
-    map("n", "<A-p>", "<Cmd>BufferPin<CR>", opts)                             -- Pin/unpin current buffer
-    -- Avoid <A-c> (often conflicts with copy), use <leader> mappings instead:
-    map("n", "<leader>bc", "<Cmd>BufferClose<CR>", opts)                      -- Close current buffer
-    map("n", "<leader>bo", "<Cmd>BufferCloseAllButCurrentOrPinned<CR>", opts) -- Close others (safe)
-
-    -- Optional: legacy close key, with a warning
-    -- map("n", "<A-c>", "<Cmd>BufferClose<CR>", opts) -- Use with caution: conflicts with Alt+C in some terminals
+    -- Buffer pinning and closing
+    map("n", "<A-p>", "<Cmd>BufferPin<CR>", opts)
+    map("n", "<leader>bc", "<Cmd>BufferClose<CR>", opts)
+    map("n", "<leader>bo", "<Cmd>BufferCloseAllButCurrentOrPinned<CR>", opts)
   end,
 
   opts = {
-    auto_hide = true,     -- Hide the tabline if only one buffer
-    clickable = true,     -- Enable mouse click support
-    insert_at_end = true, -- New buffers go to end of bufferline
+    auto_hide = true,
+    clickable = true,
+    insert_at_end = true,
     icons = {
       buffer_index = true,
-      button = "", -- Close button icon
+      button = "",
       filetype = {
         enabled = true,
         custom_colors = false,
