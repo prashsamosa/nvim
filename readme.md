@@ -1,11 +1,11 @@
 # 🚀 My Neovim Configuration
 
-> A modern, feature-rich Neovim setup optimized for productivity and performance
+<!-- > A modern, feature-rich Neovim setup optimized for productivity and performance -->
 
 [![Neovim](https://img.shields.io/badge/Neovim-0.10+-green.svg)](https://neovim.io/)
 [![Lua](https://img.shields.io/badge/Made%20with-Lua-blue.svg)](https://lua.org/)
 
-## ✨ Key Features
+<!-- ## ✨ Key Features
 
 - 🔍 **Intelligent Completion**: Swift and accurate code completion powered by Blink.cmp
 - 🌲 **Advanced Syntax**: Rich syntax highlighting, precise text objects, and intuitive incremental selection through Treesitter
@@ -17,7 +17,7 @@
 - 🎨 **Beautiful User Interface**: An aesthetically pleasing GitHub Dark theme complemented by Snacks UI elements and an informative dashboard
 - 🧰 **Seamless Git Integration**: Streamlined Git operations with Neogit, enhanced diff viewing with Diffview, and convenient Git pickers from Snacks
 - ⚡ **Optimized Performance**: Improved startup and responsiveness achieved through lazy loading of most plugins via lazy.nvim
-- 📑 **Enhanced Buffer Management**: Feature-rich and intuitive buffer handling with `barbar.nvim`
+- 📑 **Enhanced Buffer Management**: Feature-rich and intuitive buffer handling with `barbar.nvim` -->
 
 ## 📋 Prerequisites
 
@@ -251,7 +251,7 @@ On first startup, lazy.nvim will automatically download and install all plugins.
 |:-------------|:-----|:---------------------------|:----------|
 | `<leader>ga` | `n`  | Alternate File             | File      |
 | `<leader>gv` | `n`  | Alternate Vertical Split   | File      |
-| `<leader>gs` | `n`  | Alternate Horizontal Split | File      |
+| `<leader>gx` | `n`  | Alternate Horizontal Split | File      |
 | `<leader>oi` | `n`  | Go Imports (Organize)      | Format    |
 | `<leader>of` | `n`  | Go Format                  | Format    |
 | `<leader>ot` | `n`  | Go Mod Tidy                | Format    |
@@ -388,14 +388,14 @@ nvim --headless "+Lazy! sync" +qa
 ## 🤝 Contributing
 
 Contributions are welcome! Please feel free to submit a Pull Request. For major changes, please open an issue first to discuss what you would like to change.
-
+<!--
 ## 🙏 Acknowledgments
 
 This configuration is built upon the excellent work of the Neovim community and the authors of the included plugins. Special thanks to:
 
 - The Neovim core team
 - Plugin authors and maintainers
-- The Lua ecosystem contributors
+- The Lua ecosystem contributors -->
 
 ---
 

@@ -62,7 +62,7 @@ return {
         -- Alternate File Switching (using <leader>ga, <leader>gv, <leader>gs to avoid conflicts)
         map("n", "<leader>ga", "<cmd>lua require('go.alternate').switch(true, '')<CR>", "Alternate File")
         map("n", "<leader>gv", "<cmd>lua require('go.alternate').switch(true, 'vsplit')<CR>", "Alternate Vertical Split")
-        map("n", "<leader>gs", "<cmd>lua require('go.alternate').switch(true, 'split')<CR>", "Alternate Horizontal Split")
+        map("n", "<leader>gx", "<cmd>lua require('go.alternate').switch(true, 'split')<CR>", "Alternate Horizontal Split")
 
         -- Code Generation & Management
         map("n", "<leader>oi", "<cmd>GoImports<CR>", "Imports (add/organize)")
