@@ -1,83 +1,79 @@
--- Configure 'render-markdown.nvim' for enhanced Markdown display in Neovim.
-
 return {
   "MeanderingProgrammer/render-markdown.nvim",
-  ft = { "markdown" },                 -- Load only for Markdown files.
+  ft = { "markdown" },
   dependencies = {
-    "nvim-treesitter/nvim-treesitter", -- Required for Markdown syntax parsing.
-    "echasnovski/mini.nvim",           -- Optional: Provides icons (can use other icon plugins).
-    -- Alternative: Uncomment below to use nvim-web-devicons for icons.
-    -- "nvim-tree/nvim-web-devicons",
+    "nvim-treesitter/nvim-treesitter", -- Required
+    "echasnovski/mini.nvim",           -- For icons (or use another icon provider)
+    "nvim-tree/nvim-web-devicons",  -- Optional alternative icon plugin
   },
   opts = {
     completions = {
-      blink = { enabled = true }, -- Enable blink.cmp completions for Markdown.
+      blink = { enabled = true },
     },
     appearance = {
       heading = {
-        icon = "󰉫", -- Icon for headings (requires Nerd Font).
-        border = "solid", -- Border style: "none", "solid", "dashed", etc.
-        padding = 1, -- Padding around heading text.
-        width = "full", -- Full-width heading.
-        color = "Title", -- Highlight group for heading text.
+        icon = "󰉫",
+        border = "solid",
+        padding = 1,
+        width = "full",
+        color = "Title",
       },
       bullet = {
-        icon = "•", -- Bullet point character.
-        color = "Comment", -- Highlight group for bullets.
-        padding = 1, -- Padding after the bullet.
+        icon = "•",
+        color = "Comment",
+        padding = 1,
       },
       checkbox = {
         icons = {
-          [" "] = "󰄱", -- Unchecked checkbox.
-          ["x"] = "󰄵", -- Checked checkbox.
-          ["-"] = "󰜺", -- Indeterminate checkbox.
+          [" "] = "󰄱",
+          ["x"] = "󰄵",
+          ["-"] = "󰜺",
         },
-        color = "Boolean", -- Highlight group for checkboxes.
+        color = "Boolean",
       },
       code_block = {
-        border = "rounded",    -- Border style for code blocks.
-        padding = 1,           -- Padding inside code blocks.
-        width = "full",        -- Full-width code blocks.
-        background = "Visual", -- Highlight group for code block background.
+        border = "rounded",
+        padding = 1,
+        width = "full",
+        background = "Visual",
       },
       callout = {
-        icon = "", -- Icon for callouts (e.g., > note, > warning).
-        border = "none", -- Border style for callouts.
-        line_padding = 1, -- Padding at the start of each line.
-        color = "String", -- Highlight group for callout text.
+        icon = "",
+        border = "none",
+        line_padding = 1,
+        color = "String",
       },
       table = {
-        border = "solid", -- Border style for tables.
-        color = "Type",   -- Highlight group for table elements.
-        align = true,     -- Align table columns.
+        border = "solid",
+        color = "Type",
+        align = true,
       },
       link = {
-        icon = "", -- Icon for links.
-        color = "Identifier", -- Highlight group for link text.
+        icon = "",
+        color = "Identifier",
       },
       latex_block = {
-        enabled = true,    -- Enable LaTeX block rendering.
-        color = "Special", -- Highlight group for LaTeX blocks.
+        enabled = true,
+        color = "Special",
       },
     },
     performance = {
-      max_lines = 5000, -- Disable rendering for files with more than 5000 lines.
+      max_lines = 5000,
     },
   },
   config = function(_, opts)
     require("render-markdown").setup(opts)
 
-    -- Keybindings for interacting with render-markdown.nvim.
     local map = vim.keymap.set
     local function nmap(lhs, rhs, desc)
       map("n", lhs, rhs, { noremap = true, silent = true, desc = desc })
     end
 
-    nmap("<leader>Mm", "<cmd>RenderMarkdown toggle<CR>", "[M]arkdown Toggle Render")
-    nmap("<leader>Me", "<cmd>RenderMarkdown expand<CR>", "[M]arkdown Expand View")
-    nmap("<leader>Mc", "<cmd>RenderMarkdown contract<CR>", "[M]arkdown Contract View")
-    nmap("<leader>ML", "<cmd>RenderMarkdown log<CR>", "[M]arkdown Open Log")
-    nmap("<leader>Md", "<cmd>RenderMarkdown debug<CR>", "[M]arkdown Debug Line")
-    nmap("<leader>Ms", "<cmd>RenderMarkdown config<CR>", "[M]arkdown Show Config")
+    nmap("<leader>Mm", "<cmd>RenderMarkdown toggle<CR>",   "Markdown: Toggle Render")
+    nmap("<leader>Me", "<cmd>RenderMarkdown expand<CR>",   "Markdown: Expand View")
+    nmap("<leader>Mc", "<cmd>RenderMarkdown contract<CR>", "Markdown: Contract View")
+    nmap("<leader>ML", "<cmd>RenderMarkdown log<CR>",      "Markdown: Open Log")
+    nmap("<leader>Md", "<cmd>RenderMarkdown debug<CR>",    "Markdown: Debug Line")
+    nmap("<leader>Ms", "<cmd>RenderMarkdown config<CR>",   "Markdown: Show Config")
   end,
 }

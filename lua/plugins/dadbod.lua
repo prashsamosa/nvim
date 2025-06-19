@@ -1,32 +1,29 @@
--- Configure 'vim-dadbod-ui' for database interaction within Neovim.
--- This plugin provides a UI for managing database connections and running queries.
-
+-- Database UI with vim-dadbod-ui
 return {
-  "kristijanhusak/vim-dadbod-ui",        -- Plugin specification on GitHub.
+  "kristijanhusak/vim-dadbod-ui",
   dependencies = {
-    { "tpope/vim-dadbod", lazy = true }, -- Core database connectivity plugin by tpope (lazy-loaded).
+    { "tpope/vim-dadbod", lazy = true },
     {
       "kristijanhusak/vim-dadbod-completion",
-      ft = { "sql", "mysql", "plsql" }, -- Autocompletion for SQL, MySQL, and PL/SQL filetypes (lazy-loaded).
+      ft = { "sql", "mysql", "plsql" },
       lazy = true,
     },
   },
-  cmd = {                -- Neovim commands provided by vim-dadbod-ui:
-    "DBUI",              -- Open the main Dadbod UI window.
-    "DBUIToggle",        -- Toggle the visibility of the Dadbod UI window.
-    "DBUIAddConnection", -- Add a new database connection through the UI.
-    "DBUIFindBuffer",    -- Find a Neovim buffer associated with a database connection.
+  cmd = {
+    "DBUI",
+    "DBUIToggle",
+    "DBUIAddConnection",
+    "DBUIFindBuffer",
   },
   init = function()
-    -- Global configuration settings for vim-dadbod-ui.
-    vim.g.db_ui_use_nerd_fonts = 1 -- Enable Nerd Fonts for icons in the Dadbod UI.
+    vim.g.db_ui_use_nerd_fonts = 1
   end,
   config = function()
-    -- Keybindings for vim-dadbod-ui
-    vim.keymap.set("n", "<leader>du", "<Cmd>DBUIToggle<CR>", { desc = "Toggle DB UI" })             -- Toggle Dadbod UI
-    vim.keymap.set("n", "<leader>dr", "<Cmd>DBUIFindBuffer<CR>", { desc = "Find DB buffer" })       -- Find associated DB buffer
-    vim.keymap.set("n", "<leader>da", "<Cmd>DBUIAddConnection<CR>", { desc = "Add DB Connection" }) -- Add a new DB connection
-    vim.keymap.set("n", "<leader>dc", "<Cmd>DBUIClose<CR>", { desc = "Close DB UI" })               -- Close the DB UI window
-    vim.keymap.set("n", "<leader>do", "<Cmd>DBUI<CR>", { desc = "Open DB UI" })                     -- Open the DB UI window
+    local map = vim.keymap.set
+    map("n", "<leader>du", "<Cmd>DBUIToggle<CR>", { desc = "Toggle DB UI" })
+    map("n", "<leader>dr", "<Cmd>DBUIFindBuffer<CR>", { desc = "Find DB buffer" })
+    map("n", "<leader>da", "<Cmd>DBUIAddConnection<CR>", { desc = "Add DB Connection" })
+    map("n", "<leader>dc", "<Cmd>DBUIClose<CR>", { desc = "Close DB UI" })
+    map("n", "<leader>do", "<Cmd>DBUI<CR>", { desc = "Open DB UI" })
   end,
 }

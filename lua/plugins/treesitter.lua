@@ -1,38 +1,17 @@
--- Configure 'nvim-treesitter' for syntax highlighting, text objects, and more.
-
 return {
   "nvim-treesitter/nvim-treesitter",
-  build = ":TSUpdate",                                  -- Auto-update parsers after installation.
+  build = ":TSUpdate",
   dependencies = {
-    "nvim-treesitter/nvim-treesitter-textobjects", -- Tree-sitter text objects.
+    "nvim-treesitter/nvim-treesitter-textobjects",
   },
   config = function()
     require("nvim-treesitter.configs").setup({
-      -- Add languages to be installed here that you want installed for treesitter
       ensure_installed = {
-        "bash",
-        "c",
-        "cpp",
-        "css",
-        "elixir",
-        "go",
-        "html",
-        "javascript",
-        "json",
-        "lua",
-        "markdown",
-        "markdown_inline",
-        "python",
-        "regex",
-        "rust",
-        "tsx",
-        "typescript",
-        "vimdoc",
-        "yaml",
-        "sql",
+        "bash", "c", "cpp", "css", "elixir", "go", "html", "javascript",
+        "json", "lua", "markdown", "markdown_inline", "python", "regex",
+        "rust", "sql", "tsx", "typescript", "vimdoc", "yaml",
       },
 
-      -- Autoinstall missing parsers when entering buffer
       auto_install = true,
 
       highlight = {
@@ -40,7 +19,9 @@ return {
         additional_vim_regex_highlighting = false,
       },
 
-      indent = { enable = true },
+      indent = {
+        enable = true,
+      },
 
       incremental_selection = {
         enable = true,
@@ -55,9 +36,8 @@ return {
       textobjects = {
         select = {
           enable = true,
-          lookahead = true, -- Automatically jump forward to textobj
+          lookahead = true,
           keymaps = {
-            -- You can use the capture groups defined in textobjects.scm
             ["af"] = "@function.outer",
             ["if"] = "@function.inner",
             ["ac"] = "@class.outer",
@@ -79,7 +59,7 @@ return {
 
         move = {
           enable = true,
-          set_jumps = true, -- whether to set jumps in the jumplist
+          set_jumps = true,
           goto_next_start = {
             ["]m"] = "@function.outer",
             ["]]"] = { query = "@class.outer", desc = "Next class start" },

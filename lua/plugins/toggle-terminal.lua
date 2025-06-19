@@ -1,28 +1,26 @@
--- Configure 'toggleterm.nvim' for a toggleable terminal in Neovim.
-
 return {
   "akinsho/toggleterm.nvim",
-  version = "*", -- Use the latest version.
+  version = "*",
   keys = {
     { "<C-\\>", desc = "Toggle Terminal" },
-    { "<leader>tt", "<cmd>ToggleTerm direction=float<cr>", desc = "Terminal (float)" },
-    { "<leader>th", "<cmd>ToggleTerm direction=horizontal<cr>", desc = "Terminal (horizontal)" },
-    { "<leader>tv", "<cmd>ToggleTerm direction=vertical size=80<cr>", desc = "Terminal (vertical)" },
-    { "<leader>tl", "<cmd>ToggleTermSendCurrentLine<cr>", desc = "Send line to terminal" },
-    { "<leader>ts", "<cmd>TermSelect<cr>", desc = "Select terminal" },
+    { "<leader>tt", "<cmd>ToggleTerm direction=float<cr>",     desc = "Terminal (Float)" },
+    { "<leader>th", "<cmd>ToggleTerm direction=horizontal<cr>", desc = "Terminal (Horizontal)" },
+    { "<leader>tv", "<cmd>ToggleTerm direction=vertical size=80<cr>", desc = "Terminal (Vertical)" },
+    { "<leader>tl", "<cmd>ToggleTermSendCurrentLine<cr>",      desc = "Send Line to Terminal" },
+    { "<leader>ts", "<cmd>TermSelect<cr>",                     desc = "Select Terminal" },
   },
   opts = {
-    open_mapping = [[<C-\>]], -- Key to open terminal.
-    direction = "float",       -- Default terminal direction.
+    open_mapping = [[<C-\>]],
+    direction = "float",
     float_opts = {
-      border = "curved", -- Curved borders.
-      winblend = 0,    -- Opaque window.
+      border = "curved",
+      winblend = 0,
     },
     size = function(term)
       if term.direction == "horizontal" then
-        return 15 -- Height for horizontal.
+        return 15
       elseif term.direction == "vertical" then
-        return vim.o.columns * 0.4 -- Width for vertical (40%).
+        return vim.o.columns * 0.4
       end
     end,
   },

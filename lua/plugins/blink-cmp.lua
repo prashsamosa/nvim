@@ -1,5 +1,5 @@
 return {
-  -- Compatibility module (lazy-loadable)
+  -- Optional compatibility module (lazy-loaded)
   {
     "saghen/blink.compat",
     version = "*",
@@ -7,14 +7,14 @@ return {
     opts = {},
   },
 
-  -- Main blink completion engine
+  -- Blink completion engine
   {
     "saghen/blink.cmp",
     version = "1.*",
     dependencies = {
-      "rafamadriz/friendly-snippets", -- Common snippets
-      "moyiz/blink-emoji.nvim",       -- Emoji completions
-      "ray-x/cmp-sql",                -- SQL completions
+      "rafamadriz/friendly-snippets",
+      "moyiz/blink-emoji.nvim",
+      "ray-x/cmp-sql",
     },
     opts = {
       keymap = {
@@ -22,21 +22,19 @@ return {
         ["<CR>"] = { "accept", "fallback" },
       },
       appearance = {
-        nerd_font_variant = "mono", -- Use mono-styled Nerd Font icons
+        nerd_font_variant = "mono",
       },
       completion = {
         documentation = {
-          auto_show = true, -- Show documentation popup automatically
+          auto_show = true,
         },
       },
       signature = {
-        enabled = true, -- Show function signatures
+        enabled = true,
       },
       sources = {
         default = { "lsp", "path", "snippets", "buffer", "emoji", "sql" },
-
         providers = {
-          -- Emoji source (only for markdown/gitcommit files)
           emoji = {
             module = "blink-emoji",
             name = "Emoji",
@@ -46,8 +44,6 @@ return {
               return vim.tbl_contains({ "gitcommit", "markdown" }, vim.bo.filetype)
             end,
           },
-
-          -- SQL source (only for SQL files)
           sql = {
             module = "blink.compat.source",
             name = "sql",
@@ -59,7 +55,6 @@ return {
           },
         },
       },
-      -- Prefer Rust fuzzy matching if available
       fuzzy = {
         implementation = "prefer_rust_with_warning",
       },

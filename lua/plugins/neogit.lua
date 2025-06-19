@@ -1,37 +1,34 @@
--- Configure Neogit: A Git interface within Neovim.
-
 return {
   "NeogitOrg/neogit",
   dependencies = {
-    "nvim-lua/plenary.nvim",                                   -- Required: Lua utility library.
-    "sindrets/diffview.nvim",                                  -- Optional: Enhanced diff viewing.
-    "nvim-telescope/telescope.nvim",                           -- Optional: Fuzzy finding within Neogit.
+    "nvim-lua/plenary.nvim",
+    "sindrets/diffview.nvim",
+    "nvim-telescope/telescope.nvim",
   },
-  cmd = "Neogit",                                              -- Load only when the `Neogit` command is executed.
+  cmd = "Neogit",
   keys = {
-    { "<leader>gn", "<cmd>Neogit<CR>", desc = "Open Neogit" }, -- Keybinding to open Neogit.
+    { "<leader>gn", "<cmd>Neogit<CR>", desc = "Open Neogit" },
   },
   opts = {
-    kind = "split", -- Open Neogit in a split window ("split", "tab", "float").
+    kind = "split",
     signs = {
-      section = { "", "" }, -- No signs for section headers.
-      item = { "▸", "▾" }, -- Collapsed/expanded states for items.
+      section = { "", "" },
+      item = { "▸", "▾" },
     },
     integrations = {
-      diffview = true,                                               -- Enable diffview.nvim integration.
-      telescope = true,                                              -- Enable telescope.nvim integration.
+      diffview = true,
+      telescope = true,
     },
-    disable_commit_confirmation = true,                              -- Skip commit confirmation prompts.
-    disable_context_highlighting = false,                            -- Keep context highlighting in diff views.
-    disable_signs = false,                                           -- Ensure signs are displayed.
+    disable_commit_confirmation = true,
+    disable_context_highlighting = false,
+    disable_signs = false,
     telescope_sorter = function()
-      return require("telescope").extensions.fzf.native_fzf_sorter() -- Use the faster native FZF sorter in Telescope.
+      return require("telescope").extensions.fzf.native_fzf_sorter()
     end,
     sections = {
-      unstaged = { folded = false }, -- Unfold "Unstaged changes" by default.
-      staged = { folded = false },   -- Unfold "Staged changes" by default.
+      unstaged = { folded = false },
+      staged = { folded = false },
     },
-    -- Uncomment and customize colors if needed.
     -- colors = {
     --   added = "#A3BE8C",
     --   modified = "#EBCB8B",
