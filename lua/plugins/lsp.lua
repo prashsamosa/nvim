@@ -4,100 +4,94 @@ return {
     { "williamboman/mason.nvim", opts = {} },
     "williamboman/mason-lspconfig.nvim",
     "WhoIsSethDaniel/mason-tool-installer.nvim",
-    { "j-hui/fidget.nvim", opts = {} },
+    { "j-hui/fidget.nvim", opts = {} }, -- LSP progress notifications
   },
   config = function()
-    -- Helper function to safely require schemastore
+    -- Helper function to get JSON/YAML schemas from schemastore
     local function get_schemas(type)
-      local ok, schemastore = pcall(require, "schemastore")
-      if not ok then
-        return {}
-      end
+      local schemastore = require("schemastore")
       return schemastore[type].schemas()
     end
 
-    -- LSP attach autocmd
+    -- Auto-command that runs when LSP attaches to a buffer
     vim.api.nvim_create_autocmd("LspAttach", {
       group = vim.api.nvim_create_augroup("lsp-attach", { clear = true }),
       callback = function(event)
+        -- Helper function to create keymaps with consistent options
         local map = function(keys, fn, desc, mode)
           vim.keymap.set(mode or "n", keys, fn, { buffer = event.buf, desc = "LSP: " .. desc })
         end
 
-        -- Navigation
+        -- Navigation keymaps using fzf-lua for better UX
         map("gd", require("fzf-lua").lsp_definitions, "Go to Definition")
         map("gr", require("fzf-lua").lsp_references, "Go to References")
         map("gI", require("fzf-lua").lsp_implementations, "Go to Implementation")
         map("gD", vim.lsp.buf.declaration, "Go to Declaration")
         map("<leader>D", require("fzf-lua").lsp_typedefs, "Type Definition")
 
-        -- Symbols (Fixed to match README)
+        -- Symbol search keymaps
         map("<leader>ds", require("fzf-lua").lsp_document_symbols, "Document Symbols")
         map("<leader>ws", require("fzf-lua").lsp_live_workspace_symbols, "Workspace Symbols")
 
-        -- Code actions
+        -- Code action and refactoring keymaps
         map("<leader>ca", vim.lsp.buf.code_action, "Code Action", { "n", "x" })
         map("<leader>cr", vim.lsp.buf.rename, "Rename")
 
-        -- Documentation
+        -- Documentation keymaps
         map("K", vim.lsp.buf.hover, "Hover Documentation")
         map("<C-k>", vim.lsp.buf.signature_help, "Signature Help", "i")
 
+        -- Get the LSP client for this buffer
         local client = vim.lsp.get_client_by_id(event.data.client_id)
-        if not client then return end
 
-        -- Disable LSP formatting - let conform.nvim handle it
+        -- Disable LSP formatting in favor of dedicated formatters (like conform.nvim)
         client.server_capabilities.documentFormattingProvider = false
         client.server_capabilities.documentRangeFormattingProvider = false
 
-        -- Check if client supports method (compatible with both 0.10 and 0.11)
-        local supports = function(method)
-          if vim.fn.has("nvim-0.11") == 1 then
-            return client:supports_method(method, event.buf)
-          else
-            return client.supports_method(method, { bufnr = event.buf })
-          end
+        -- Helper function to check if client supports a specific method
+        local function supports(method)
+          return client.supports_method(method)
         end
 
-        -- Document highlighting
-        if supports(vim.lsp.protocol.Methods.textDocument_documentHighlight) then
-          local highlight_group = vim.api.nvim_create_augroup("lsp-highlight-" .. event.buf, { clear = true })
+        -- Document highlighting: highlight symbol under cursor
+        if supports("textDocument/documentHighlight") then
+          local group = vim.api.nvim_create_augroup("lsp-highlight-" .. event.buf, { clear = true })
 
+          -- Highlight on cursor hold
           vim.api.nvim_create_autocmd({ "CursorHold", "CursorHoldI" }, {
             buffer = event.buf,
-            group = highlight_group,
+            group = group,
             callback = vim.lsp.buf.document_highlight,
           })
 
+          -- Clear highlights on cursor move
           vim.api.nvim_create_autocmd({ "CursorMoved", "CursorMovedI" }, {
             buffer = event.buf,
-            group = highlight_group,
+            group = group,
             callback = vim.lsp.buf.clear_references,
           })
 
+          -- Clean up when LSP detaches
           vim.api.nvim_create_autocmd("LspDetach", {
             group = vim.api.nvim_create_augroup("lsp-detach-" .. event.buf, { clear = true }),
-            callback = function(ev)
-              if ev.buf == event.buf then
-                vim.lsp.buf.clear_references()
-                vim.api.nvim_clear_autocmds({ group = highlight_group })
-              end
+            callback = function()
+              vim.lsp.buf.clear_references()
+              vim.api.nvim_clear_autocmds({ group = group })
             end,
           })
         end
 
-        -- Inlay hints
-        if supports(vim.lsp.protocol.Methods.textDocument_inlayHint) then
+        -- Inlay hints: show type hints inline in code
+        if supports("textDocument/inlayHint") then
           map("<leader>ih", function()
-            if vim.fn.has("nvim-0.10") == 1 then
-              local enabled = vim.lsp.inlay_hint.is_enabled({ bufnr = event.buf })
-              vim.lsp.inlay_hint.enable(not enabled, { bufnr = event.buf })
-            end
+            local enabled = vim.lsp.inlay_hint.is_enabled({ bufnr = event.buf })
+            vim.lsp.inlay_hint.enable(not enabled, { bufnr = event.buf })
           end, "Toggle Inlay Hints")
         end
 
-        -- Code lens
-        if supports(vim.lsp.protocol.Methods.textDocument_codeLens) then
+        -- Code lens: show actionable metadata above code
+        if supports("textDocument/codeLens") then
+          -- Refresh code lens on buffer enter and changes
           vim.lsp.codelens.refresh()
           vim.api.nvim_create_autocmd({ "BufEnter", "CursorHold", "InsertLeave" }, {
             buffer = event.buf,
@@ -108,30 +102,29 @@ return {
       end,
     })
 
-    -- Diagnostic configuration
+    -- Configure diagnostic display options
     vim.diagnostic.config({
-      severity_sort = true,
-      underline = true,
-      update_in_insert = false,
+      severity_sort = true, -- Sort diagnostics by severity
+      underline = true,     -- Underline problematic code
+      update_in_insert = false, -- Don't update diagnostics in insert mode
       virtual_text = {
-        source = "if_many",
-        spacing = 2,
-        prefix = "●",
-        format = function(diagnostic)
-          local max_width = 60
-          if #diagnostic.message > max_width then
-            return diagnostic.message:sub(1, max_width) .. "..."
-          end
-          return diagnostic.message
+        source = "if_many", -- Show source only if multiple sources
+        spacing = 2,        -- Spacing between text and virtual text
+        prefix = "●",       -- Prefix character for virtual text
+        -- Truncate long diagnostic messages
+        format = function(d)
+          return #d.message > 60 and (d.message:sub(1, 60) .. "...") or d.message
         end,
       },
+      -- Floating window configuration for diagnostics
       float = {
         border = "rounded",
         source = "if_many",
         header = "",
         prefix = "",
-        focusable = false,
+        focusable = false
       },
+      -- Custom icons for different diagnostic severities
       signs = {
         text = {
           [vim.diagnostic.severity.ERROR] = "󰅚",
@@ -142,65 +135,63 @@ return {
       },
     })
 
-    -- Diagnostic keymaps
-    vim.keymap.set("n", "[d", vim.diagnostic.goto_prev, { desc = "Go to previous diagnostic" })
-    vim.keymap.set("n", "]d", vim.diagnostic.goto_next, { desc = "Go to next diagnostic" })
-    vim.keymap.set("n", "<leader>dl", vim.diagnostic.setloclist, { desc = "Open diagnostic list" })
-    vim.keymap.set("n", "<leader>dq", vim.diagnostic.setqflist, { desc = "Open diagnostic quickfix" })
+    -- Global diagnostic navigation keymaps
+    vim.keymap.set("n", "[d", vim.diagnostic.goto_prev, { desc = "Prev diagnostic" })
+    vim.keymap.set("n", "]d", vim.diagnostic.goto_next, { desc = "Next diagnostic" })
+    vim.keymap.set("n", "<leader>dl", vim.diagnostic.setloclist, { desc = "Diagnostic list" })
+    vim.keymap.set("n", "<leader>dq", vim.diagnostic.setqflist, { desc = "Diagnostic quickfix" })
 
-    -- Get capabilities
+    -- Setup LSP capabilities with completion support
     local base_capabilities = vim.lsp.protocol.make_client_capabilities()
-    local capabilities = base_capabilities
+    local capabilities = package.loaded["blink.cmp"]
+      and require("blink.cmp").get_lsp_capabilities(base_capabilities)
+      or base_capabilities
 
-    -- Integrate with completion
-    if package.loaded["blink.cmp"] then
-      capabilities = require("blink.cmp").get_lsp_capabilities(base_capabilities)
-    end
-
-    -- Server configurations
+    -- LSP server configurations
     local servers = {
+      -- Bash/Shell scripting
       bashls = {
         filetypes = { "sh", "bash", "zsh" },
         settings = {
           bashIde = {
-            globPattern = "**/*@(.sh|.inc|.bash|.command)",
-          },
+            globPattern = "**/*@(.sh|.inc|.bash|.command)"
+          }
         },
       },
 
+      -- Markdown support
       marksman = {
         filetypes = { "markdown", "md" },
-        single_file_support = true,
+        single_file_support = true
       },
 
+      -- Lua language server (optimized for Neovim)
       lua_ls = {
         settings = {
           Lua = {
-            runtime = { version = "LuaJIT" },
+            runtime = { version = "LuaJIT" }, -- Use LuaJIT runtime
             workspace = {
               checkThirdParty = false,
-              library = {
-                vim.env.VIMRUNTIME,
-                "${3rd}/luv/library",
-              },
+              library = { vim.env.VIMRUNTIME, "${3rd}/luv/library" },
             },
             completion = { callSnippet = "Replace" },
             diagnostics = {
-              globals = { "vim", "Snacks" },
-              disable = { "missing-fields" },
+              globals = { "vim", "Snacks" }, -- Recognize vim and Snacks as globals
+              disable = { "missing-fields" } -- Disable annoying missing-fields warnings
             },
-            hint = { enable = true },
-            telemetry = { enable = false },
-            format = { enable = false }, -- Disable LSP formatting
+            hint = { enable = true }, -- Enable inlay hints
+            telemetry = { enable = false }, -- Disable telemetry
+            format = { enable = false }, -- Disable built-in formatting
           },
         },
       },
 
+      -- Python language server
       pyright = {
         settings = {
           python = {
             analysis = {
-              typeCheckingMode = "basic",
+              typeCheckingMode = "basic", -- Basic type checking
               autoSearchPaths = true,
               useLibraryCodeForTypes = true,
               autoImportCompletions = true,
@@ -209,7 +200,7 @@ return {
         },
       },
 
-      -- Go LSP - Enhanced configuration
+      -- Go language server with extensive configuration
       gopls = {
         cmd = { "gopls" },
         filetypes = { "go", "gomod", "gowork", "gotmpl" },
@@ -217,21 +208,18 @@ return {
         single_file_support = true,
         settings = {
           gopls = {
-            -- Analysis
+            -- Static analysis options
             analyses = {
-              unusedparams = true,
-              shadow = true,
-              fieldalignment = false, -- Can be noisy
-              nilness = true,
-              unusedwrite = true,
-              useany = true,
+              unusedparams = true,  -- Report unused parameters
+              shadow = true,        -- Report variable shadowing
+              nilness = true,       -- Report nil pointer dereferences
+              unusedwrite = true,   -- Report unused writes
+              useany = true,        -- Suggest using 'any' instead of 'interface{}'
             },
-            staticcheck = true,
-            gofumpt = true,
-
-            -- Code lenses
+            staticcheck = true,   -- Enable staticcheck integration
+            gofumpt = true,      -- Use gofumpt for formatting
+            -- Code lens options
             codelenses = {
-              gc_details = false,
               generate = true,
               regenerate_cgo = true,
               run_govulncheck = true,
@@ -240,8 +228,7 @@ return {
               upgrade_dependency = true,
               vendor = true,
             },
-
-            -- Inlay hints
+            -- Inlay hints configuration
             hints = {
               assignVariableTypes = true,
               compositeLiteralFields = true,
@@ -251,158 +238,127 @@ return {
               parameterNames = true,
               rangeVariableTypes = true,
             },
-
-            -- Other settings
             usePlaceholders = true,
             completeUnimported = true,
             matcher = "Fuzzy",
             symbolMatcher = "fuzzy",
             semanticTokens = true,
-
-            -- Disable formatting - conform.nvim handles this
-            ["formatting.gofumpt"] = false,
+            ["formatting.gofumpt"] = false, -- Disable to use external formatter
             ["formatting.local"] = "",
           },
         },
-        flags = {
-          debounce_text_changes = 200,
-        },
+        flags = { debounce_text_changes = 200 }, -- Reduce server load
       },
 
-      -- TypeScript/JavaScript
+      -- TypeScript/JavaScript language server
       ts_ls = {
         settings = {
           typescript = {
-            format = { enable = false }, -- Disable LSP formatting
-            inlayHints = {
-              includeInlayParameterNameHints = "all",
-              includeInlayParameterNameHintsWhenArgumentMatchesName = false,
-              includeInlayFunctionParameterTypeHints = true,
-              includeInlayVariableTypeHints = true,
-              includeInlayPropertyDeclarationTypeHints = true,
-              includeInlayFunctionLikeReturnTypeHints = true,
-              includeInlayEnumMemberValueHints = true,
-            },
+            format = { enable = false }, -- Use external formatter
+            inlayHints = { includeInlayParameterNameHints = "all" }
           },
           javascript = {
-            format = { enable = false }, -- Disable LSP formatting
-            inlayHints = {
-              includeInlayParameterNameHints = "all",
-              includeInlayParameterNameHintsWhenArgumentMatchesName = false,
-              includeInlayFunctionParameterTypeHints = true,
-              includeInlayVariableTypeHints = true,
-              includeInlayPropertyDeclarationTypeHints = true,
-              includeInlayFunctionLikeReturnTypeHints = true,
-              includeInlayEnumMemberValueHints = true,
-            },
+            format = { enable = false }, -- Use external formatter
+            inlayHints = { includeInlayParameterNameHints = "all" }
           },
         },
       },
 
-      -- Rust
+      -- Rust language server
       rust_analyzer = {
         settings = {
           ["rust-analyzer"] = {
-            cargo = {
-              allFeatures = true,
-            },
-            checkOnSave = {
-              command = "check", -- Use 'clippy' for more lints
-            },
-            procMacro = {
-              enable = true,
-            },
-            inlayHints = {
-              enable = true,
-            },
-            formatting = {
-              enable = false, -- Disable LSP formatting
-            },
+            cargo = { allFeatures = true }, -- Enable all Cargo features
+            checkOnSave = { command = "check" }, -- Use cargo check on save
+            procMacro = { enable = true }, -- Enable procedural macros
+            inlayHints = { enable = true },
+            formatting = { enable = false }, -- Use external formatter
           },
         },
       },
 
-      -- JSON
+      -- JSON language server with schema validation
       jsonls = {
         settings = {
           json = {
-            schemas = get_schemas("json"),
+            schemas = get_schemas("json"), -- Use schemastore for validation
             validate = { enable = true },
-            format = { enable = false }, -- Disable LSP formatting
+            format = { enable = false }, -- Use external formatter
           },
         },
       },
 
-      -- YAML
+      -- YAML language server with schema validation
       yamlls = {
         settings = {
           yaml = {
-            schemaStore = {
-              enable = false,
-              url = "",
-            },
-            schemas = get_schemas("yaml"),
-            format = { enable = false }, -- Disable LSP formatting
+            schemaStore = { enable = false, url = "" }, -- Disable default store
+            schemas = get_schemas("yaml"), -- Use schemastore for validation
+            format = { enable = false }, -- Use external formatter
           },
         },
       },
 
-      -- HTML
+      -- HTML language server
       html = {
         settings = {
           html = {
-            format = { enable = false }, -- Disable LSP formatting
-          },
-        },
+            format = { enable = false } -- Use external formatter
+          }
+        }
       },
 
-      -- CSS
+      -- CSS language server
       cssls = {
         settings = {
           css = {
-            format = { enable = false }, -- Disable LSP formatting
-          },
-        },
+            format = { enable = false } -- Use external formatter
+          }
+        }
       },
     }
 
-    -- Ensure installed tools
+    -- Tools to ensure are installed via Mason
     local ensure_installed = vim.tbl_keys(servers)
     vim.list_extend(ensure_installed, {
-      -- Formatters (for conform.nvim)
-      "stylua",      -- Lua formatter
-      "prettierd",   -- Multi-language formatter
-      "shfmt",       -- Shell formatter
-      "goimports",   -- Go imports organizer
-      "gofumpt",     -- Go formatter
-      "black",       -- Python formatter
-      "isort",       -- Python import sorter
-      "rustfmt",     -- Rust formatter
+      -- Formatters
+      "stylua",     -- Lua formatter
+      "prettierd",  -- JavaScript/TypeScript/JSON/CSS formatter
+      "shfmt",      -- Shell script formatter
+      "goimports",  -- Go import organizer
+      "gofumpt",    -- Go formatter
+      "black",      -- Python formatter
+      "isort",      -- Python import sorter
+      "rustfmt",    -- Rust formatter
 
-      -- Linters and tools
-      "delve",       -- Go debugger
+      -- Debuggers and linters
+      "delve",         -- Go debugger
       "golangci-lint", -- Go linter
     })
 
+    -- Setup Mason tool installer
     require("mason-tool-installer").setup({
       ensure_installed = ensure_installed,
-      auto_update = false,
-      run_on_start = true,
+      auto_update = false, -- Don't auto-update tools
+      run_on_start = true, -- Install missing tools on startup
     })
 
-    -- Setup servers
+    -- Setup Mason LSP config with automatic installation
     require("mason-lspconfig").setup({
       ensure_installed = vim.tbl_keys(servers),
       automatic_installation = true,
       handlers = {
+        -- Default handler for all servers
         function(server_name)
-          local server = servers[server_name] or {}
-          server.capabilities = vim.tbl_deep_extend("force", {}, capabilities, server.capabilities or {})
-          require("lspconfig")[server_name].setup(server)
+          local config = servers[server_name] or {}
+          -- Merge capabilities with server-specific config
+          config.capabilities = vim.tbl_deep_extend("force", {}, capabilities, config.capabilities or {})
+          require("lspconfig")[server_name].setup(config)
         end,
       },
     })
 
+    -- Notification that LSP setup is complete
     vim.notify("LSP configuration loaded", vim.log.levels.INFO, { title = "lspconfig" })
   end,
 }

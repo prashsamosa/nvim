@@ -2,41 +2,38 @@
 return {
   "stevearc/conform.nvim",
   opts = {
+    -- Formatters by filetype
     formatters_by_ft = {
-      lua = { "stylua" },
-      python = { "isort", "black" },
-      rust = { "rustfmt" },
-      javascript = {
-        { "prettierd", "prettier", stop_after_first = true },
-      },
-      typescript = {
-        { "prettierd", "prettier", stop_after_first = true },
-      },
-      -- Use goimports instead of gofumpt to handle both formatting and imports
-      go = { "goimports" },
-      -- Add more specific file types
-      sh = { "shfmt" },
-      bash = { "shfmt" },
-      markdown = { "prettierd" },
-      json = { "prettierd" },
-      yaml = { "prettierd" },
-      html = { "prettierd" },
-      css = { "prettierd" },
+      lua         = { "stylua" },
+      python      = { "isort", "black" },
+      rust        = { "rustfmt" },
+      go          = { "goimports" }, -- Handles imports and formatting
 
-      ["_"] = { "trim_whitespace" },
+      javascript  = {
+        { "prettierd", "prettier", stop_after_first = true },
+      },
+      typescript  = {
+        { "prettierd", "prettier", stop_after_first = true },
+      },
+
+      sh          = { "shfmt" },
+      bash        = { "shfmt" },
+      markdown    = { "prettierd" },
+      json        = { "prettierd" },
+      yaml        = { "prettierd" },
+      html        = { "prettierd" },
+      css         = { "prettierd" },
+
+      -- Fallback for any filetype
+      ["_"]       = { "trim_whitespace" },
     },
+
+    -- Format on save settings
     format_on_save = {
-      timeout_ms = 1000, -- Increased timeout for Go files
-      lsp_format = "never", -- Disable LSP formatting to avoid conflicts
+      timeout_ms = 1000,         -- Increased for slower formatters like Go
+      lsp_format = "never",      -- Disable LSP formatting to avoid conflicts
     },
-    -- Configure specific formatters
-    formatters = {
-      goimports = {
-        prepend_args = { "-local", "github.com/yourusername" }, -- Adjust to your module prefix
-      },
-      shfmt = {
-        prepend_args = { "-i", "2", "-ci" },
-      },
-    },
+
+    -- Individual formatter configuration
   },
 }

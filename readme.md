@@ -130,7 +130,7 @@ pip install pylatexenc
 | `<leader>gr`    | `n`   | Generate Return            |
 | `<leader>gj`    | `n`   | JSON to Struct             |
 | `<leader>gI`    | `n`   | Implement Interface        |
-| `<leader>gg`    | `n`   | Go Generate                |
+| `<leader>gG`    | `n`   | Go Generate                |
 | `<leader>gm`    | `n`   | Generate Mocks             |
 | `<leader>gL`    | `n`   | Go Lint                    |
 | `<leader>gV`    | `n`   | Go Vet                     |

@@ -3,27 +3,31 @@ return {
   "romgrk/barbar.nvim",
   dependencies = {
     "nvim-tree/nvim-web-devicons", -- File icons
-    "lewis6991/gitsigns.nvim",     -- Git signs in the bufferline
+    "lewis6991/gitsigns.nvim",     -- Git signs integration
   },
+
   init = function()
+    -- Prevent barbar from auto-setting keymaps
+    vim.g.barbar_auto_setup = false
+
     local map = vim.keymap.set
     local opts = { noremap = true, silent = true }
 
-    -- Buffer navigation
+    -- Navigate between buffers
     map("n", "<A-,>", "<Cmd>BufferPrevious<CR>", opts)
     map("n", "<A-.>", "<Cmd>BufferNext<CR>", opts)
 
-    -- Buffer reordering
+    -- Reorder buffers
     map("n", "<A-S-,>", "<Cmd>BufferMovePrevious<CR>", opts)
     map("n", "<A-S-.>", "<Cmd>BufferMoveNext<CR>", opts)
 
-    -- Jump to buffer by index (Alt + 1–9, Alt + 0 = last)
+    -- Jump to buffer 1-9, 0 = last
     for i = 1, 9 do
       map("n", "<A-" .. i .. ">", "<Cmd>BufferGoto " .. i .. "<CR>", opts)
     end
     map("n", "<A-0>", "<Cmd>BufferLast<CR>", opts)
 
-    -- Buffer pinning and closing
+    -- Pin/unpin and close buffers
     map("n", "<A-p>", "<Cmd>BufferPin<CR>", opts)
     map("n", "<leader>bc", "<Cmd>BufferClose<CR>", opts)
     map("n", "<leader>bo", "<Cmd>BufferCloseAllButCurrentOrPinned<CR>", opts)
@@ -36,16 +40,23 @@ return {
     icons = {
       buffer_index = true,
       button = "",
+
       filetype = {
         enabled = true,
         custom_colors = false,
       },
-      separator = { left = "▎", right = "" },
+
+      separator = {
+        left = "▎",
+        right = "",
+      },
+
       gitsigns = {
-        added = { enabled = true, icon = "+" },
+        added =   { enabled = true, icon = "+" },
         changed = { enabled = true, icon = "~" },
         deleted = { enabled = true, icon = "-" },
       },
+
       inactive = {
         filetype = { enabled = false },
       },
