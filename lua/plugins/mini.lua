@@ -432,19 +432,30 @@ return {
   },
 
   -- Indentation guides
-  {
-    "echasnovski/mini.indentscope",
-    version = false,
-    event = "VeryLazy",
-    config = function()
-      require("mini.indentscope").setup({
-        draw = {
-          delay = 100,
-          animation = require("mini.indentscope").gen_animation.none(),
-        },
-        symbol = "╎",
-      })
-    end,
-    desc = "Indentation scope visualization",
-  },
+ {
+  "echasnovski/mini.indentscope",
+  version = false,
+  event = "VeryLazy",
+  config = function()
+    require("mini.indentscope").setup({
+      draw = {
+        delay = 100,
+        animation = require("mini.indentscope").gen_animation.none(),
+      },
+      symbol = "╎",
+      options = {
+        try_as_border = true,
+      },
+    })
+
+    vim.api.nvim_create_autocmd("FileType", {
+      pattern = { "NvimTree", "neo-tree", "alpha", "snacks_dashboard" },
+      callback = function()
+        vim.b.miniindentscope_disable = true
+      end,
+    })
+
+  end,
+  desc = "Indentation scope visualization",
+},
 }

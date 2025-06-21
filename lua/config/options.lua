@@ -47,3 +47,10 @@ vim.opt.listchars = {
 
 -- Netrw
 vim.g.netrw_liststyle = 3
+
+
+-- Visual separator for vertical splits (e.g. NvimTree boundary)
+vim.opt.fillchars:append({
+  vert = "│",   -- vertical border
+  eob = " ",    -- hide ~ in empty lines
+})
