@@ -307,28 +307,6 @@ pip install pylatexenc
 - **Git Aware**: Respects `.gitignore` files and shows git status
 - **Diagnostic Integration**: Shows LSP errors, warnings, and hints
 
-## ⚠️ Potential Conflicts & Resolutions
-
-### 1. Key Binding Conflicts
-- **Removed Conflicting Bindings**: The old Mini Files and Snacks explorer bindings have been replaced
-- **NvimTree Integration**: `<leader>e` now exclusively opens NvimTree
-- **Window Navigation**: Ensure `<C-h>`, `<C-j>`, `<C-k>`, `<C-l>` don't conflict with terminal or NvimTree
-
-### 2. Plugin Dependencies
-- **NvimTree Dependencies**: Requires `nvim-web-devicons` for file icons
-- **Optional Dependencies**: Works better with a Nerd Font installed
-- **Mason Integration**: NvimTree works independently of Mason tools
-
-### 3. LSP Integration
-- **Diagnostic Display**: NvimTree shows LSP diagnostics alongside files
-- **File Operations**: Creating/renaming files through NvimTree triggers LSP updates
-- **Buffer Management**: NvimTree respects buffer lifecycle and LSP attachments
-
-### 4. Performance Considerations
-- **Large Directories**: NvimTree handles large directories efficiently
-- **Git Repositories**: Performance is optimized for git repositories
-- **Auto Refresh**: Automatically updates when files change externally
-
 ## 📝 Mode Legend
 
 - `n` = Normal mode
