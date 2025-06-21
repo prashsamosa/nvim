@@ -89,19 +89,6 @@ return {
     desc = "Better buffer deletion",
   },
 
-  -- File explorer
-  {
-    "echasnovski/mini.files",
-    version = false,
-    config = function()
-      require("mini.files").setup()
-      vim.keymap.set("n", "<leader>me", function()
-        require("mini.files").open()
-      end, { desc = "File explorer" })
-    end,
-    desc = "Minimalist file explorer",
-  },
-
   -- Fuzzy finder
   {
     "echasnovski/mini.pick",
@@ -120,7 +107,7 @@ return {
     desc = "Fuzzy finder and picker",
   },
 
-  -- Notifications - FIXED VERSION
+  -- Notifications 
   {
     "echasnovski/mini.notify",
     version = false,

@@ -3,7 +3,6 @@
 [![Neovim](https://img.shields.io/badge/Neovim-0.10+-green.svg)](https://neovim.io/)
 [![Lua](https://img.shields.io/badge/Made%20with-Lua-blue.svg)](https://lua.org/)
 
-
 ## 📋 Prerequisites
 
 ### Required Dependencies
@@ -18,7 +17,6 @@
 # Ubuntu/Debian
 sudo apt install ripgrep fd-find
 ```
-
 
 ### Language-Specific Dependencies
 
@@ -49,7 +47,6 @@ pip install pylatexenc
 - **stylua** - Lua formatter (auto-installed via Mason)
 - **lazygit** - Enhanced Git UI experience
 
-
 **First Launch Process:**
 1. Lazy.nvim will automatically install all plugins
 2. Mason will install LSP servers, formatters, and debuggers
@@ -63,10 +60,6 @@ pip install pylatexenc
 :GoInstallBinaries " Install Go development tools
 ```
 
-# 🚀 Neovim Configuration
-
-# 🚀 Neovim Configuration
-
 ## ⌨️ Key Bindings
 
 **Leader Key:** `<Space>`
@@ -77,7 +70,7 @@ pip install pylatexenc
 |:------------------|:------|:-------------------------------|
 | `jk`              | `i`   | Exit Insert Mode               |
 | `<leader><space>` | `n`   | Smart Find Files               |
-| `<leader>e`       | `n`   | File Explorer                  |
+| `<leader>e`       | `n`   | File Explorer (Snacks)         |
 | `<leader>sg`      | `n`   | Search in Files                |
 | `<leader>ff`      | `n`   | Find Files (FZF)               |
 | `<C-s>`           | `n,i` | Quick Save                     |
@@ -177,13 +170,48 @@ pip install pylatexenc
 
 ### 📂 File Management
 
-| Key               | Mode | Description                    |
-|:------------------|:-----|:-------------------------------|
-| `<leader>e`       | `n`  | File Explorer (Snacks)         |
-| `<leader>me`      | `n`  | Mini Files (current file)      |
-| `<leader>mE`      | `n`  | Mini Files (cwd)               |
-| `-`               | `n`  | Open Oil File Manager          |
-| `<leader>cR`      | `n`  | Rename File                    |
+| Key               | Mode | Description                        |
+|:------------------|:-----|:-----------------------------------|
+| `<leader>e`       | `n`  | File Explorer (Snacks)             |
+| `<leader>me`      | `n`  | Mini Files (Toggle Explorer)       |
+| `<leader>mE`      | `n`  | Mini Files (Open at Current File)  |
+| `-`               | `n`  | Open Oil File Manager              |
+| `<leader>cR`      | `n`  | Rename File                        |
+
+#### 🗂️ Mini Files Navigation
+
+| Key       | Mode | Description (within Mini Files)        |
+|:----------|:-----|:---------------------------------------|
+| `q`       | `n`  | Close explorer                         |
+| `l`       | `n`  | Enter directory or open file           |
+| `L`       | `n`  | Enter directory/open file & close      |
+| `h`       | `n`  | Go to parent directory                 |
+| `H`       | `n`  | Go to parent and trim right            |
+| `'`       | `n`  | Go to bookmark                         |
+| `m`       | `n`  | Set bookmark                           |
+| `<BS>`    | `n`  | Reset to anchor directory              |
+| `@`       | `n`  | Reveal current working directory       |
+| `g?`      | `n`  | Show help                              |
+| `=`       | `n`  | Apply file operations                  |
+| `<`       | `n`  | Trim left part of branch               |
+| `>`       | `n`  | Trim right part of branch              |
+| `g.`      | `n`  | Toggle dotfiles visibility             |
+| `<C-s>`   | `n`  | Split horizontal                       |
+| `<C-v>`   | `n`  | Split vertical                         |
+| `<C-t>`   | `n`  | Open in new tab                        |
+| `g~`      | `n`  | Set cwd to current directory           |
+| `gy`      | `n`  | Yank path to clipboard                 |
+| `gx`      | `n`  | Open with system default               |
+
+#### 📑 Mini Files Bookmarks
+
+| Bookmark | Description          |
+|:---------|:---------------------|
+| `'c`     | Config directory     |
+| `'d`     | Data directory       |
+| `'h`     | Home directory       |
+| `'w`     | Working directory    |
+| `'r`     | Project root (git)   |
 
 ### 📑 Buffer Management
 
@@ -260,11 +288,12 @@ pip install pylatexenc
 ## 🚀 Quick Start Guide
 
 1. **File Navigation**: Use `<leader><space>` for quick file finding
-2. **Code Navigation**: Use `gd` for definitions, `gr` for references
-3. **Debugging**: Start with `<leader>db` to set breakpoints, then `<leader>dc` to start debugging
-4. **Go Development**: Use `<leader>ga` to switch between files, `<leader>tp` to run tests
-5. **Search**: Use `<leader>sg` for project-wide search
-6. **Git**: Use `<leader>gg` for Lazygit or individual git commands
+2. **File Management**: Use `<leader>me` for Mini Files explorer with advanced features
+3. **Code Navigation**: Use `gd` for definitions, `gr` for references
+4. **Debugging**: Start with `<leader>db` to set breakpoints, then `<leader>dc` to start debugging
+5. **Go Development**: Use `<leader>ga` to switch between files, `<leader>tp` to run tests
+6. **Search**: Use `<leader>sg` for project-wide search
+7. **Git**: Use `<leader>gg` for Lazygit or individual git commands
 
 ## 💡 Tips
 
@@ -273,70 +302,5 @@ pip install pylatexenc
 - **Debugging**: All debug commands are prefixed with `d` after leader
 - **Terminal**: Use `<C-\>` for quick terminal toggle
 - **Buffer Navigation**: Use `Alt` + `,` and `.` for quick buffer switching
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+- **Mini Files**: Use `<leader>me` for a feature-rich file explorer with bookmarks, previews, and file operations
+- **File Operations**: In Mini Files, use `=` to apply operations like create, delete, rename, copy, move
