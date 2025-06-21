@@ -1,23 +1,7 @@
 # 🚀 My Neovim Configuration
 
-<!-- > A modern, feature-rich Neovim setup optimized for productivity and performance -->
-
 [![Neovim](https://img.shields.io/badge/Neovim-0.10+-green.svg)](https://neovim.io/)
 [![Lua](https://img.shields.io/badge/Made%20with-Lua-blue.svg)](https://lua.org/)
-
-<!-- ## ✨ Key Features
-
-- 🔍 **Intelligent Completion**: Swift and accurate code completion powered by Blink.cmp
-- 🌲 **Advanced Syntax**: Rich syntax highlighting, precise text objects, and intuitive incremental selection through Treesitter
-- 📄 **Enhanced Markdown**: Superior Markdown viewing with `render-markdown.nvim`, featuring concealed syntax elements, informative icons, clean borders, and more
-- 📂 **Flexible File Management**: Multiple file exploration options including a floating Oil.nvim, a sidebar Neo-tree, the focused Mini.files, and the versatile Snacks Explorer
-- 🔎 **Efficient Fuzzy Finding**: Powerful and rapid searching capabilities with FZF-lua and the integrated Snacks pickers
-- 🤖 **Robust LSP Integration**: Comprehensive Language Server Protocol support facilitated by Mason for effortless server management, enhanced with real-time status updates from Fidget
-- 📝 **Familiar VS Code Keybindings**: A comfortable and efficient workflow leveraging familiar VS Code-style keyboard shortcuts
-- 🎨 **Beautiful User Interface**: An aesthetically pleasing GitHub Dark theme complemented by Snacks UI elements and an informative dashboard
-- 🧰 **Seamless Git Integration**: Streamlined Git operations with Neogit, enhanced diff viewing with Diffview, and convenient Git pickers from Snacks
-- ⚡ **Optimized Performance**: Improved startup and responsiveness achieved through lazy loading of most plugins via lazy.nvim
-- 📑 **Enhanced Buffer Management**: Feature-rich and intuitive buffer handling with `barbar.nvim` -->
 
 ## 📋 Prerequisites
 
@@ -102,7 +86,8 @@ On first startup, lazy.nvim will automatically download and install all plugins.
 | `<leader>fc`      | `n`  | Find Configuration File (FZF)  |
 | `<leader>fp`      | `n`  | Browse Projects (Snacks)       |
 | `<leader>fo`      | `n`  | Old Files (FZF)                |
-| `<leader>me`      | `n`  | Toggle Mini File Explorer      |
+| `<leader>me`      | `n`  | Mini Files (current file)      |
+| `<leader>mE`      | `n`  | Mini Files (cwd)               |
 | `<leader>mp`      | `n`  | Mini Pick Files                |
 | `-`               | `n`  | Open Oil File Manager          |
 | `<leader>cR`      | `n`  | Rename File (Snacks)           |
@@ -123,6 +108,7 @@ On first startup, lazy.nvim will automatically download and install all plugins.
 | `<leader>fW` | `n`   | Find Current WORD (FZF)           |
 | `<leader>f/` | `n`   | Live Grep Current Buffer (FZF)    |
 | `<leader>mg` | `n`   | Mini Grep Live                    |
+| `<leader>mG` | `n`   | Mini Grep Current Word            |
 
 </details>
 
@@ -151,12 +137,27 @@ On first startup, lazy.nvim will automatically download and install all plugins.
 
 | Key         | Mode  | Description                 |
 |:------------|:------|:----------------------------|
-| `gc`        | `n,v` | Toggle Comment              |
-| `gcc`       | `n`   | Comment Line                |
+| `gc`        | `n,v` | Toggle Comment (Mini)       |
+| `gcc`       | `n`   | Comment Line (Mini)         |
 | `<S-j>`     | `v`   | Move Lines Down             |
 | `<S-k>`     | `v`   | Move Lines Up               |
 | `<leader>+` | `n`   | Increment Number            |
 | `<leader>=` | `n`   | Decrement Number            |
+
+**Mini.nvim Text Objects & Editing:**
+| Key     | Mode  | Description                          |
+|:--------|:------|:-------------------------------------|
+| `sa`    | `n,v` | Add Surrounding (Mini Surround)      |
+| `sd`    | `n`   | Delete Surrounding (Mini Surround)   |
+| `sf`    | `n`   | Find Surrounding (Mini Surround)     |
+| `sh`    | `n`   | Highlight Surrounding (Mini Surround)|
+| `sn`    | `n`   | Update Next Surrounding (Mini)       |
+| `sl`    | `n`   | Update Last Surrounding (Mini)       |
+| `sr`    | `n`   | Replace Surrounding (Mini Surround)  |
+| `ii`    | `n,v` | Inner Indentation Scope (Mini)       |
+| `ai`    | `n,v` | Around Indentation Scope (Mini)      |
+| `[i`    | `n`   | Go to Top of Indent Scope (Mini)     |
+| `]i`    | `n`   | Go to Bottom of Indent Scope (Mini)  |
 
 </details>
 
@@ -172,8 +173,11 @@ On first startup, lazy.nvim will automatically download and install all plugins.
 | `<A-1>`–`<A-9>` | `n`  | Go to Buffer 1–9                     |
 | `<A-0>`         | `n`  | Go to Last Buffer                    |
 | `<A-p>`         | `n`  | Pin/Unpin Current Buffer             |
-| `<leader>bc`    | `n`  | Close Current Buffer                 |
+| `<leader>bd`    | `n`  | Delete Current Buffer                |
+| `<leader>bD`    | `n`  | Force Delete Current Buffer          |
 | `<leader>bo`    | `n`  | Close All But Current/Pinned Buffers |
+| `<leader>mb`    | `n`  | Delete Buffer (Mini Bufremove)       |
+| `<leader>mB`    | `n`  | Force Delete Buffer (Mini Bufremove) |
 
 </details>
 
@@ -208,6 +212,65 @@ On first startup, lazy.nvim will automatically download and install all plugins.
 | `<leader>gB` | `n,v` | Git Browse (Snacks)     |
 | `<leader>gg` | `n`   | Open Lazygit (Snacks)   |
 | `<leader>gn` | `n`   | Open Neogit             |
+
+</details>
+
+<details>
+<summary><strong>📦 Mini.nvim Operations</strong></summary>
+
+**File Management:**
+| Key          | Mode | Description                 |
+|:-------------|:-----|:----------------------------|
+| `<leader>me` | `n`  | Mini Files (File Explorer)  |
+
+**Fuzzy Finding & Search:**
+| Key          | Mode | Description                 |
+|:-------------|:-----|:----------------------------|
+| `<leader>mp` | `n`  | Mini Pick Files             |
+| `<leader>mg` | `n`  | Mini Grep Live              |
+
+**Buffer Operations:**
+| Key          | Mode | Description                 |
+|:-------------|:-----|:----------------------------|
+| `<leader>mb` | `n`  | Delete Buffer (Mini)        |
+| `<leader>mB` | `n`  | Force Delete Buffer (Mini)  |
+
+**Session Management:**
+| Key          | Mode | Description                 |
+|:-------------|:-----|:----------------------------|
+| `<leader>ms` | `n`  | Write Session               |
+| `<leader>mr` | `n`  | Read Last Session          |
+| `<leader>md` | `n`  | Delete Session              |
+
+**Navigation & Brackets:**
+| Key    | Mode | Description                          |
+|:-------|:-----|:-------------------------------------|
+| `[b`   | `n`  | Previous Buffer (Mini Bracketed)     |
+| `]b`   | `n`  | Next Buffer (Mini Bracketed)         |
+| `[c`   | `n`  | Previous Comment (Mini Bracketed)    |
+| `]c`   | `n`  | Next Comment (Mini Bracketed)        |
+| `[d`   | `n`  | Previous Diagnostic (Mini Bracketed) |
+| `]d`   | `n`  | Next Diagnostic (Mini Bracketed)     |
+| `[f`   | `n`  | Previous File (Mini Bracketed)       |
+| `]f`   | `n`  | Next File (Mini Bracketed)           |
+| `[i`   | `n`  | Previous Indent (Mini Bracketed)     |
+| `]i`   | `n`  | Next Indent (Mini Bracketed)         |
+| `[j`   | `n`  | Previous Jump (Mini Bracketed)       |
+| `]j`   | `n`  | Next Jump (Mini Bracketed)           |
+| `[l`   | `n`  | Previous Location (Mini Bracketed)   |
+| `]l`   | `n`  | Next Location (Mini Bracketed)       |
+| `[o`   | `n`  | Previous Oldfile (Mini Bracketed)    |
+| `]o`   | `n`  | Next Oldfile (Mini Bracketed)        |
+| `[q`   | `n`  | Previous Quickfix (Mini Bracketed)   |
+| `]q`   | `n`  | Next Quickfix (Mini Bracketed)       |
+| `[t`   | `n`  | Previous Treesitter (Mini Bracketed) |
+| `]t`   | `n`  | Next Treesitter (Mini Bracketed)     |
+| `[u`   | `n`  | Previous Undo (Mini Bracketed)       |
+| `]u`   | `n`  | Next Undo (Mini Bracketed)           |
+| `[w`   | `n`  | Previous Window (Mini Bracketed)     |
+| `]w`   | `n`  | Next Window (Mini Bracketed)         |
+| `[y`   | `n`  | Previous Yank (Mini Bracketed)       |
+| `]y`   | `n`  | Next Yank (Mini Bracketed)           |
 
 </details>
 
@@ -300,6 +363,18 @@ On first startup, lazy.nvim will automatically download and install all plugins.
 - **[nvim-treesitter](https://github.com/nvim-treesitter/nvim-treesitter)** - Syntax highlighting and text objects
 - **[render-markdown.nvim](https://github.com/MeanderingProgrammer/render-markdown.nvim)** - Enhanced Markdown rendering
 - **[mini.nvim](https://github.com/echasnovski/mini.nvim)** - Collection of minimal, independent modules
+  - **mini.comment** - Smart code commenting
+  - **mini.ai** - Enhanced text objects
+  - **mini.surround** - Surround text objects manipulation
+  - **mini.operators** - Additional text operators
+  - **mini.pairs** - Auto-completion of bracket pairs
+  - **mini.bracketed** - Navigate through various text objects with brackets
+  - **mini.bufremove** - Better buffer deletion
+  - **mini.files** - File explorer
+  - **mini.pick** - Fuzzy finder and picker
+  - **mini.notify** - Notification system
+  - **mini.sessions** - Session management
+  - **mini.indentscope** - Indentation scope visualization
 
 ### Git Integration
 - **[neogit](https://github.com/NeogitOrg/neogit)** - Magit-like Git interface
@@ -331,78 +406,23 @@ return {
 
 ### Modifying Keybindings
 - **Core keybindings**: Edit `lua/config/keymaps.lua`
-- **Plugin-specific**: Modify the respective plugin file in `lua/plugins/`
+- **Plugin-specific keybindings**: Edit the respective plugin configuration file in `lua/plugins/`
+- **Mini.nvim keybindings**: The mini.nvim modules use mostly default keybindings, which are documented in each module's help
 
-### Adjusting Settings
-- **Editor options**: Modify `lua/config/options.lua`
-- **Theme settings**: Edit `lua/plugins/github-theme.lua`
+### Mini.nvim Module Configuration
+Each mini.nvim module can be customized by modifying its setup function in `lua/plugins/mini.lua`:
 
-### LSP Configuration
-Add or remove Language Servers in the `servers` table in `lua/plugins/lsp.lua`:
 ```lua
-local servers = {
-  "lua_ls",
-  "gopls",
-  "pyright",
-  -- Add your preferred servers here
-}
+-- Example: Customizing mini.surround
+require("mini.surround").setup({
+  mappings = {
+    add = "sa",            -- Add surrounding in Normal and Visual modes
+    delete = "sd",         -- Delete surrounding
+    find = "sf",           -- Find surrounding (to the right)
+    find_left = "sF",      -- Find surrounding (to the left)
+    highlight = "sh",      -- Highlight surrounding
+    replace = "sr",        -- Replace surrounding
+    update_n_lines = "sn", -- Update `n_lines`
+  },
+})
 ```
-
-### Formatters & Linters
-Configure in `lua/plugins/conform.lua` and ensure they're listed in the `ensure_installed` table in `lua/plugins/lsp.lua`.
-
-## 🐛 Troubleshooting
-
-### Common Issues
-
-**Plugin installation fails**
-```bash
-# Clear lazy.nvim cache and reinstall
-rm -rf ~/.local/share/nvim/lazy
-nvim --headless "+Lazy! sync" +qa
-```
-
-**LSP servers not working**
-```vim
-" Check Mason installation status
-:Mason
-" Update Treesitter parsers
-:TSUpdate
-```
-
-**Slow startup time**
-```vim
-" Profile startup time
-:Lazy profile
-```
-
-**Missing icons**
-- Ensure you have a Nerd Font installed and configured in your terminal
-- Popular choices: `JetBrainsMono Nerd Font`, `FiraCode Nerd Font`
-
-### Getting Help
-- Check `:checkhealth` for configuration issues
-- Review plugin documentation for specific features
-- Open an issue in this repository for configuration-related problems
-
-## 🤝 Contributing
-
-Contributions are welcome! Please feel free to submit a Pull Request. For major changes, please open an issue first to discuss what you would like to change.
-<!--
-## 🙏 Acknowledgments
-
-This configuration is built upon the excellent work of the Neovim community and the authors of the included plugins. Special thanks to:
-
-- The Neovim core team
-- Plugin authors and maintainers
-- The Lua ecosystem contributors -->
-
----
-
-<div align="center">
-
-**[⬆ Back to Top](#-my-neovim-configuration)**
-
-Made with ❤️ for the Neovim community
-
-</div>

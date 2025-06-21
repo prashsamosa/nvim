@@ -29,6 +29,7 @@ return {
     config = function()
       require("mini.ai").setup()
     end,
+    desc = "Enhanced text objects",
   },
 
   -- Surround manipulation
@@ -38,6 +39,7 @@ return {
     config = function()
       require("mini.surround").setup()
     end,
+    desc = "Surround text objects manipulation",
   },
 
   -- Operators like replace, evaluate, etc.
@@ -47,6 +49,7 @@ return {
     config = function()
       require("mini.operators").setup()
     end,
+    desc = "Additional text operators",
   },
 
   -- Auto pairs
@@ -56,6 +59,7 @@ return {
     config = function()
       require("mini.pairs").setup()
     end,
+    desc = "Auto-completion of bracket pairs",
   },
 
   -- Bracketed text navigation
@@ -65,6 +69,7 @@ return {
     config = function()
       require("mini.bracketed").setup()
     end,
+    desc = "Navigate through various text objects with brackets",
   },
 
   -- Buffer remove
@@ -72,6 +77,7 @@ return {
     "echasnovski/mini.bufremove",
     version = false,
     config = function()
+      -- Use your original simple keymaps that worked
       vim.keymap.set("n", "<leader>mb", function()
         require("mini.bufremove").delete(0, false)
       end, { desc = "Delete buffer" })
@@ -80,6 +86,7 @@ return {
         require("mini.bufremove").delete(0, true)
       end, { desc = "Force delete buffer" })
     end,
+    desc = "Better buffer deletion",
   },
 
   -- File explorer
@@ -92,6 +99,7 @@ return {
         require("mini.files").open()
       end, { desc = "File explorer" })
     end,
+    desc = "Minimalist file explorer",
   },
 
   -- Fuzzy finder
@@ -109,14 +117,16 @@ return {
         require("mini.pick").builtin.grep_live()
       end, { desc = "Grep live" })
     end,
+    desc = "Fuzzy finder and picker",
   },
 
-  -- Notifications
+  -- Notifications - FIXED VERSION
   {
     "echasnovski/mini.notify",
     version = false,
     event = "VeryLazy",
     config = function()
+      -- Simple winblend check like your original
       local has_winblend = pcall(function()
         local win_id = vim.api.nvim_open_win(0, false, {
           relative = "editor", width = 1, height = 1, row = 0, col = 0, style = "minimal", winblend = 0
@@ -125,6 +135,7 @@ return {
         return true
       end)
 
+      -- Use your original working configuration structure
       local config = {
         window = {
           config = {
@@ -145,6 +156,7 @@ return {
       require("mini.notify").setup(config)
       vim.notify = require("mini.notify").make_notify()
     end,
+    desc = "Notification system",
   },
 
   -- Session management
@@ -173,6 +185,7 @@ return {
         require("mini.sessions").delete(nil)
       end, { desc = "Delete session" })
     end,
+    desc = "Session management",
   },
 
   -- Indentation guides
@@ -189,5 +202,6 @@ return {
         symbol = "╎",
       })
     end,
+    desc = "Indentation scope visualization",
   },
 }
