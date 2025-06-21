@@ -6,6 +6,7 @@ return {
     signs = true,
     sign_priority = 8,
 
+    -- Define keyword types and icons
     keywords = {
       FIX = { icon = " ", color = "error", alt = { "FIXME", "BUG", "FIXIT", "ISSUE" } },
       TODO = { icon = " ", color = "info" },
@@ -16,6 +17,7 @@ return {
       TEST = { icon = "⏲ ", color = "test", alt = { "TESTING", "PASSED", "FAILED" } },
     },
 
+    -- GUI style
     gui_style = {
       fg = "NONE",
       bg = "BOLD",
@@ -23,6 +25,7 @@ return {
 
     merge_keywords = true,
 
+    -- Highlighting options
     highlight = {
       multiline = true,
       multiline_pattern = "^.",
@@ -36,6 +39,7 @@ return {
       exclude = {},
     },
 
+    -- Custom colors
     colors = {
       error = { "DiagnosticError", "ErrorMsg", "#DC2626" },
       warning = { "DiagnosticWarn", "WarningMsg", "#FBBF24" },
@@ -45,6 +49,7 @@ return {
       test = { "Identifier", "#FF00FF" },
     },
 
+    -- Ripgrep search setup
     search = {
       command = "rg",
       args = {
@@ -57,7 +62,6 @@ return {
       pattern = [[\b(KEYWORDS):]],
     },
   },
-
   keys = {
     { "<leader>st", "<cmd>TodoTelescope<CR>", desc = "Search TODOs (Telescope)" },
   },

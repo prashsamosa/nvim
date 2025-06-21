@@ -1,12 +1,13 @@
 return {
   "nvim-lualine/lualine.nvim",
+  desc = "Statusline plugin with theme and LSP info",
   dependencies = {
-    "nvim-tree/nvim-web-devicons",
+    "nvim-tree/nvim-web-devicons", -- For file icons
   },
   config = function()
     require("lualine").setup({
       options = {
-        theme = "github_dark",
+        theme = "github_dark", -- Theme name (requires lualine theme or custom colorscheme)
         component_separators = { left = "", right = "" },
         section_separators = { left = "", right = "" },
         globalstatus = true,
@@ -30,7 +31,9 @@ return {
           },
         },
         lualine_c = {
+          -- Show only icon
           { "filetype", icon_only = true, separator = "", padding = { left = 1, right = 0 } },
+          -- Full file path (shortened to target 40 chars)
           { "filename", path = 1, shorting_target = 40 },
         },
         lualine_x = {
@@ -44,15 +47,16 @@ return {
             },
           },
           {
+            -- Show active LSP client(s)
             function()
               local clients = vim.lsp.get_clients({ bufnr = 0 })
               if vim.tbl_isempty(clients) then return "" end
 
-              local names, added = {}, {}
+              local names, seen = {}, {}
               for _, client in ipairs(clients) do
-                if client.name and not added[client.name] then
+                if client.name and not seen[client.name] then
                   table.insert(names, client.name)
-                  added[client.name] = true
+                  seen[client.name] = true
                 end
               end
 
@@ -73,10 +77,12 @@ return {
         lualine_y = {},
         lualine_z = {},
       },
-      tabline = {},
-      winbar = {},
-      inactive_winbar = {},
-      extensions = { "lazy", "mason", "toggleterm", "nvim-tree" },
+      extensions = {
+        "lazy",       -- Plugin manager
+        "mason",      -- LSP/DAP/linter manager
+        "toggleterm", -- Terminal integration
+        "nvim-tree",  -- File explorer
+      },
     })
   end,
 }

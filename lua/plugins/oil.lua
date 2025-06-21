@@ -19,6 +19,7 @@ return {
   config = function(_, opts)
     require("oil").setup(opts)
 
+    -- Open floating file manager
     vim.keymap.set("n", "-", function()
       require("oil").open_float()
     end, { desc = "Oil: Open File Manager (float)", silent = true })

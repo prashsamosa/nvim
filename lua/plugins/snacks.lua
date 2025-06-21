@@ -3,7 +3,9 @@ return {
   priority = 1000,
   lazy = false,
 
+  -- Pre-initialization hook
   init = function()
+    -- Set minimal UI characters
     vim.opt.fillchars:append({
       vert = " ",
       fold = " ",
@@ -12,8 +14,10 @@ return {
       msgsep = " ",
     })
 
+    -- Disable indent blankline color
     vim.cmd("highlight IndentBlanklineChar guifg=NONE")
 
+    -- Global helper functions and toggle bindings
     vim.api.nvim_create_autocmd("User", {
       pattern = "VeryLazy",
       callback = function()
@@ -42,20 +46,19 @@ return {
       end,
     })
 
+    -- File rename hook for Oil.nvim integration
     vim.api.nvim_create_autocmd("User", {
       pattern = "OilActionsPost",
       callback = function(event)
-        if event.data and event.data.actions
-            and event.data.actions.type == "move"
-            and event.data.actions.src_url
-            and event.data.actions.dest_url
-        then
-          Snacks.rename.on_rename_file(event.data.actions.src_url, event.data.actions.dest_url)
+        local data = event.data and event.data.actions
+        if data and data.type == "move" and data.src_url and data.dest_url then
+          Snacks.rename.on_rename_file(data.src_url, data.dest_url)
         end
       end,
     })
   end,
 
+  -- Plugin options
   opts = {
     bigfile = { enabled = true },
     dashboard = {
@@ -95,7 +98,9 @@ return {
     },
   },
 
+  -- Key mappings
   keys = {
+    -- Pickers
     { "<leader><space>", function() Snacks.picker.smart() end, desc = "Smart Find Files" },
     { "<leader>,",       function() Snacks.picker.buffers() end, desc = "Buffers" },
     { "<leader>:",       function() Snacks.picker.command_history() end, desc = "Command History" },
@@ -107,6 +112,7 @@ return {
     { "<leader>fp", function() Snacks.picker.projects() end, desc = "Projects" },
     { "<leader>fr", function() Snacks.picker.recent() end, desc = "Recent Files" },
 
+    -- Git
     { "<leader>gb", function() Snacks.picker.git_branches() end, desc = "Git Branches" },
     { "<leader>gl", function() Snacks.picker.git_log() end, desc = "Git Log" },
     { "<leader>gL", function() Snacks.picker.git_log_line() end, desc = "Git Log Line" },
@@ -117,27 +123,37 @@ return {
     { "<leader>gB", function() Snacks.gitbrowse() end, desc = "Git Browse", mode = { "n", "v" } },
     { "<leader>gg", function() Snacks.lazygit() end, desc = "Lazygit" },
 
+    -- Search
     { "<leader>sb", function() Snacks.picker.lines() end, desc = "Buffer Lines" },
     { "<leader>sB", function() Snacks.picker.grep_buffers() end, desc = "Grep Buffers" },
     { "<leader>sg", function() Snacks.picker.grep() end, desc = "Grep Project" },
     { "<leader>sw", function() Snacks.picker.grep_word() end, desc = "Search Word", mode = { "n", "x" } },
 
+    -- Zen
     { "<leader>z", function() Snacks.zen() end, desc = "Toggle Zen Mode" },
     { "<leader>Z", function() Snacks.zen.zoom() end, desc = "Zoom Current Window" },
 
+    -- Buffer management
     { "<leader>bd", function() Snacks.bufdelete() end, desc = "Delete Buffer" },
     { "<leader>ba", function() Snacks.bufdelete.all() end, desc = "Delete All Buffers" },
     { "<leader>bo", function() Snacks.bufdelete.other() end, desc = "Delete Other Buffers" },
 
+    -- Scratch
     { "<leader>.",  function() Snacks.scratch() end, desc = "Scratch Buffer" },
     { "<leader>S",  function() Snacks.scratch.select() end, desc = "Select Scratch" },
+
+    -- Notifications
     { "<leader>un", function() Snacks.notifier.hide() end, desc = "Hide Notifications" },
+
+    -- File rename
     { "<leader>cR", function() Snacks.rename.rename_file() end, desc = "Rename File" },
 
+    -- Word jumps
     { "]]", function() Snacks.words.jump(vim.v.count1) end, desc = "Next Reference", mode = { "n", "t" } },
     { "[[", function() Snacks.words.jump(-vim.v.count1) end, desc = "Prev Reference", mode = { "n", "t" } },
   },
 
+  -- Plugin setup
   config = function(_, opts)
     require("snacks").setup(opts)
   end,

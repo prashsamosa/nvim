@@ -6,23 +6,24 @@ return {
   },
   config = function()
     require("nvim-treesitter.configs").setup({
+      -- Languages to install
       ensure_installed = {
         "bash", "c", "cpp", "css", "elixir", "go", "html", "javascript",
         "json", "lua", "markdown", "markdown_inline", "python", "regex",
         "rust", "sql", "tsx", "typescript", "vimdoc", "yaml",
       },
-
       auto_install = true,
 
+      -- Syntax highlighting
       highlight = {
         enable = true,
         additional_vim_regex_highlighting = false,
       },
 
-      indent = {
-        enable = true,
-      },
+      -- Indentation based on treesitter
+      indent = { enable = true },
 
+      -- Incremental selection
       incremental_selection = {
         enable = true,
         keymaps = {
@@ -33,6 +34,7 @@ return {
         },
       },
 
+      -- Text objects
       textobjects = {
         select = {
           enable = true,
@@ -46,17 +48,11 @@ return {
             ["ao"] = "@comment.outer",
           },
         },
-
         swap = {
           enable = true,
-          swap_next = {
-            ["<leader>a"] = "@parameter.inner",
-          },
-          swap_previous = {
-            ["<leader>A"] = "@parameter.inner",
-          },
+          swap_next = { ["<leader>a"] = "@parameter.inner" },
+          swap_previous = { ["<leader>A"] = "@parameter.inner" },
         },
-
         move = {
           enable = true,
           set_jumps = true,

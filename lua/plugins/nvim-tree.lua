@@ -12,23 +12,24 @@ return {
     disable_netrw = true,
     hijack_cursor = false,
     hijack_netrw = true,
+
     sort = {
       sorter = "name",
       folders_first = true,
     },
+
     view = {
       width = 34,
       side = "left",
       signcolumn = "yes",
       preserve_window_proportions = true,
     },
+
     renderer = {
       root_folder_label = ":~",
       highlight_git = true,
       highlight_opened_files = "name",
-      indent_markers = {
-        enable = true,
-      },
+      indent_markers = { enable = true },
       icons = {
         show = {
           file = true,
@@ -60,16 +61,19 @@ return {
         },
       },
     },
+
     filters = {
       dotfiles = false,
       git_clean = false,
       no_buffer = false,
       custom = { ".DS_Store", "thumbs.db" },
     },
+
     git = {
       enable = true,
       ignore = true,
     },
+
     diagnostics = {
       enable = true,
       show_on_dirs = true,
@@ -86,6 +90,7 @@ return {
         error = "",
       },
     },
+
     actions = {
       open_file = {
         quit_on_open = false,
@@ -100,31 +105,34 @@ return {
         },
       },
     },
+
     live_filter = {
       prefix = "🔍 ",
       always_show_folders = false,
     },
+
     log = {
       enable = false,
     },
   },
+
   config = function(_, opts)
     require("nvim-tree").setup(opts)
 
-    -- Visual tweaks for transparent theme and boundary
+    -- Appearance overrides (transparent bg, visible split)
     local hl = vim.api.nvim_set_hl
     hl(0, "NvimTreeNormal", { bg = "none" })
     hl(0, "NvimTreeNormalNC", { bg = "none" })
-    hl(0, "NvimTreeVertSplit", { fg = "#30363d", bg = "none" }) -- vertical split line
-    hl(0, "WinSeparator", { fg = "#30363d", bg = "none" })       -- global separator
+    hl(0, "NvimTreeVertSplit", { fg = "#30363d", bg = "none" })
+    hl(0, "WinSeparator", { fg = "#30363d", bg = "none" })
 
-    -- Folder/file name highlights (optional but improves visibility)
+    -- Folder name highlights
     hl(0, "NvimTreeFolderName", { fg = "#79c0ff", bold = true })
     hl(0, "NvimTreeOpenedFolderName", { fg = "#d2a8ff", bold = true })
     hl(0, "NvimTreeRootFolder", { fg = "#ff7b72", bold = true })
     hl(0, "NvimTreeCursorLine", { bg = "#1a1b26" })
 
-    -- Use pipe character as split boundary
+    -- Pipe as vertical separator
     vim.opt.fillchars:append("vert:│")
   end,
 }
