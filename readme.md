@@ -3,18 +3,6 @@
 [![Neovim](https://img.shields.io/badge/Neovim-0.10+-green.svg)](https://neovim.io/)
 [![Lua](https://img.shields.io/badge/Made%20with-Lua-blue.svg)](https://lua.org/)
 
-A modern, feature-rich Neovim configuration focused on productivity, debugging, and Go development.
-
-## ✨ Features
-
-- **🔌 Plugin Management**: Lazy loading with [lazy.nvim](https://github.com/folke/lazy.nvim)
-- **⚡ Fast Completion**: [blink.cmp](https://github.com/Saghen/blink.cmp) for lightning-fast autocompletion
-- **🔍 Advanced Search**: Multiple search backends (Snacks, FZF, Mini)
-- **🐛 Full Debugging Support**: Complete DAP setup for Go, JavaScript/TypeScript, Python, C#
-- **🐹 Go Development**: Comprehensive Go tooling with [go.nvim](https://github.com/ray-x/go.nvim)
-- **📂 File Management**: Multiple file explorers (Oil, Neo-tree, Mini.files)
-- **🎨 Beautiful UI**: GitHub theme with enhanced visual elements
-- **🔧 LSP Integration**: Full Language Server Protocol support with Mason
 
 ## 📋 Prerequisites
 
@@ -29,16 +17,8 @@ A modern, feature-rich Neovim configuration focused on productivity, debugging, 
 # Install via your package manager
 # Ubuntu/Debian
 sudo apt install ripgrep fd-find
-
-# macOS
-brew install ripgrep fd
-
-# Arch Linux
-sudo pacman -S ripgrep fd
-
-# Windows (via Chocolatey)
-choco install ripgrep fd
 ```
+
 
 ### Language-Specific Dependencies
 
@@ -64,36 +44,11 @@ pip install debugpy
 pip install pylatexenc
 ```
 
-#### C# Development
-- **.NET SDK** 6.0+ - For C# development and debugging
-- **netcoredbg** - Auto-installed via Mason
-
 ### Optional Enhancements
 - **Rust** - For potentially faster fuzzy matching
 - **stylua** - Lua formatter (auto-installed via Mason)
 - **lazygit** - Enhanced Git UI experience
 
-## 🚀 Installation
-
-### 1. Backup Existing Configuration
-```bash
-# Create timestamped backup
-BACKUP_DIR="$HOME/.config/nvim.backup.$(date +%Y%m%d_%H%M%S)"
-[ -d ~/.config/nvim ] && mv ~/.config/nvim "$BACKUP_DIR"
-[ -d ~/.local/share/nvim ] && mv ~/.local/share/nvim ~/.local/share/nvim.backup.$(date +%Y%m%d_%H%M%S)
-[ -d ~/.local/state/nvim ] && mv ~/.local/state/nvim ~/.local/state/nvim.backup.$(date +%Y%m%d_%H%M%S)
-[ -d ~/.cache/nvim ] && mv ~/.cache/nvim ~/.cache/nvim.backup.$(date +%Y%m%d_%H%M%S)
-```
-
-### 2. Clone Configuration
-```bash
-git clone <your-repo-url> ~/.config/nvim
-```
-
-### 3. First Launch
-```bash
-nvim
-```
 
 **First Launch Process:**
 1. Lazy.nvim will automatically install all plugins
@@ -107,6 +62,10 @@ nvim
 :MasonInstallAll   " Install all configured tools
 :GoInstallBinaries " Install Go development tools
 ```
+
+# 🚀 Neovim Configuration
+
+# 🚀 Neovim Configuration
 
 ## ⌨️ Key Bindings
 
@@ -156,14 +115,28 @@ nvim
 | `<leader>ot`    | `n`   | Go Mod Tidy                |
 | `<leader>bb`    | `n`   | Build Package              |
 | `<leader>br`    | `n`   | Run Package                |
+| `<leader>gx`    | `n`   | Run Current File           |
 | `<leader>tp`    | `n`   | Test Package               |
 | `<leader>tf`    | `n`   | Test Function              |
+| `<leader>tF`    | `n`   | Test File                  |
 | `<leader>tc`    | `n`   | Test Coverage              |
+| `<leader>tC`    | `n`   | Toggle Coverage            |
 | `<leader>gta`   | `n,v` | Add Tags                   |
 | `<leader>gtr`   | `n,v` | Remove Tags                |
+| `<leader>gat`   | `n`   | Add Test                   |
+| `<leader>get`   | `n`   | Add Example Test           |
 | `<leader>gc`    | `n`   | Generate Comment           |
 | `<leader>gs`    | `n`   | Fill Struct                |
+| `<leader>gr`    | `n`   | Generate Return            |
+| `<leader>gj`    | `n`   | JSON to Struct             |
 | `<leader>gI`    | `n`   | Implement Interface        |
+| `<leader>gg`    | `n`   | Go Generate                |
+| `<leader>gm`    | `n`   | Generate Mocks             |
+| `<leader>gL`    | `n`   | Go Lint                    |
+| `<leader>gV`    | `n`   | Go Vet                     |
+| `<leader>gD`    | `n`   | Go Doc                     |
+| `<leader>gDb`   | `n`   | Go Doc Browser             |
+| `<leader>gcb`   | `n`   | Coverage Browser           |
 
 ### 📊 LSP (Language Server Protocol)
 
@@ -173,14 +146,19 @@ nvim
 | `gD`         | `n`   | Go to Declaration          |
 | `gr`         | `n`   | Go to References           |
 | `gI`         | `n`   | Go to Implementation       |
+| `<leader>D`  | `n`   | Type Definition            |
 | `<leader>ca` | `n,x` | Code Action                |
 | `<leader>cr` | `n`   | Rename Symbol              |
 | `K`          | `n`   | Show Hover Information     |
+| `<C-k>`      | `i`   | Signature Help             |
 | `<leader>ds` | `n`   | Document Symbols           |
 | `<leader>ws` | `n`   | Workspace Symbols          |
+| `<leader>ih` | `n`   | Toggle Inlay Hints         |
+| `<leader>cl` | `n`   | Run Code Lens              |
 | `[d`         | `n`   | Previous Diagnostic        |
 | `]d`         | `n`   | Next Diagnostic            |
 | `<leader>dl` | `n`   | Open Diagnostic List       |
+| `<leader>dq` | `n`   | Open Diagnostic Quickfix   |
 
 ### 🔍 Search & Navigation
 
@@ -251,151 +229,114 @@ nvim
 | `<leader>th` | `n`  | Toggle Terminal (Horizontal)       |
 | `<leader>tv` | `n`  | Toggle Terminal (Vertical)         |
 
-## 🔌 Plugin Ecosystem
+### ⚙️ General Editing
 
-### Core Framework
-- **[lazy.nvim](https://github.com/folke/lazy.nvim)** - Modern plugin manager with lazy loading
-- **[Snacks.nvim](https://github.com/folke/snacks.nvim)** - Collection of useful utilities
+| Key          | Mode  | Description             |
+|:-------------|:------|:------------------------|
+| `<leader>w`  | `n`   | Save File               |
+| `<leader>q`  | `n`   | Quit                    |
+| `<leader>Q`  | `n`   | Quit All                |
+| `<leader>x`  | `n`   | Save and Quit           |
+| `<C-a>`      | `n`   | Select All              |
+| `<leader>y`  | `n,v` | Copy to System Clipboard|
+| `<leader>p`  | `n,v` | Paste from System Clipboard|
 
-### 🚀 Completion & LSP
-- **[blink.cmp](https://github.com/Saghen/blink.cmp)** - Fast completion engine
-- **[nvim-lspconfig](https://github.com/neovim/nvim-lspconfig)** - LSP configurations
-- **[mason.nvim](https://github.com/williamboman/mason.nvim)** - Tool installer
-- **[fidget.nvim](https://github.com/j-hui/fidget.nvim)** - LSP progress UI
+### 🔧 Configuration
 
-### 🐛 Debugging
-- **[nvim-dap](https://github.com/mfussenegger/nvim-dap)** - Debug Adapter Protocol
-- **[nvim-dap-ui](https://github.com/rcarriga/nvim-dap-ui)** - Beautiful debugging UI
-- **[nvim-dap-go](https://github.com/leoluz/nvim-dap-go)** - Go debugging support
-- **[nvim-dap-virtual-text](https://github.com/theHamsta/nvim-dap-virtual-text)** - Inline variable display
+| Key          | Mode | Description                   |
+|:-------------|:-----|:------------------------------|
+| `<leader>L`  | `n`  | Open Lazy (Plugin Manager)    |
+| `<leader>M`  | `n`  | Open Mason (Tool Installer)   |
+| `<leader>c`  | `n`  | Open Config Directory         |
 
-### 📂 File Management
-- **[oil.nvim](https://github.com/stevearc/oil.nvim)** - File explorer as buffer
-- **[neo-tree.nvim](https://github.com/nvim-neo-tree/neo-tree.nvim)** - Modern file tree
-- **[mini.files](https://github.com/echasnovski/mini.files)** - Minimal file navigation
-- **[fzf-lua](https://github.com/ibhagwan/fzf-lua)** - Fuzzy finder
+## 📝 Mode Legend
 
-### ⚡ Syntax & Editing
-- **[nvim-treesitter](https://github.com/nvim-treesitter/nvim-treesitter)** - Advanced syntax highlighting
-- **[render-markdown.nvim](https://github.com/MeanderingProgrammer/render-markdown.nvim)** - Enhanced Markdown
-- **[mini.nvim](https://github.com/echasnovski/mini.nvim)** - Modular utilities
+- `n` = Normal mode
+- `i` = Insert mode
+- `v` = Visual mode
+- `x` = Visual mode (character-wise)
+- `t` = Terminal mode
 
-### 🐹 Go Development
-- **[go.nvim](https://github.com/ray-x/go.nvim)** - Complete Go development suite
-- **[guihua.lua](https://github.com/ray-x/guihua.lua)** - GUI library for go.nvim
+## 🚀 Quick Start Guide
 
-### 🎨 UI & Theme
-- **[github-nvim-theme](https://github.com/projekt0n/github-nvim-theme)** - GitHub theme
-- **[barbar.nvim](https://github.com/romgrk/barbar.nvim)** - Enhanced tabline
+1. **File Navigation**: Use `<leader><space>` for quick file finding
+2. **Code Navigation**: Use `gd` for definitions, `gr` for references
+3. **Debugging**: Start with `<leader>db` to set breakpoints, then `<leader>dc` to start debugging
+4. **Go Development**: Use `<leader>ga` to switch between files, `<leader>tp` to run tests
+5. **Search**: Use `<leader>sg` for project-wide search
+6. **Git**: Use `<leader>gg` for Lazygit or individual git commands
 
-### 🔧 Git Integration
-- **[neogit](https://github.com/NeogitOrg/neogit)** - Magit-like Git interface
-- **[diffview.nvim](https://github.com/sindrets/diffview.nvim)** - Git diff interface
+## 💡 Tips
 
-## 🐛 Debugging Setup
+- **Leader Key Sequences**: Most commands start with `<leader>` (Space key)
+- **Go Development**: All Go-specific commands are prefixed with `g` after leader
+- **Debugging**: All debug commands are prefixed with `d` after leader
+- **Terminal**: Use `<C-\>` for quick terminal toggle
+- **Buffer Navigation**: Use `Alt` + `,` and `.` for quick buffer switching
 
-This configuration includes comprehensive debugging support for multiple languages:
 
-### Supported Languages
-- **Go** - Full debugging with Delve
-- **JavaScript/TypeScript** - Node.js and browser debugging
-- **Python** - Python debugger integration
-- **C#** - .NET Core debugging
 
-### Debug Features
-- **Breakpoints** - Set, remove, and manage breakpoints
-- **Variable Inspection** - Inline variable values and watch expressions
-- **Step Debugging** - Step into, over, and out of functions
-- **REPL** - Interactive debugging console
-- **Launch Configurations** - Support for `.vscode/launch.json`
-- **UI Integration** - Beautiful debugging interface
 
-### Debug Configuration Files
-The debugger supports `.vscode/launch.json` files for project-specific configurations.
 
-## 🔧 Configuration Issues Fixed
 
-### Issues Identified and Resolved:
 
-1. **DAP Configuration** (`paste-2.txt`):
-   - ✅ Added proper Mason path detection for debuggers
-   - ✅ Enhanced Go debugging with fallback delve detection
-   - ✅ Improved JavaScript/TypeScript browser debugging
-   - ✅ Added proper sign definitions for breakpoints
-   - ✅ Fixed launch.json integration
 
-2. **Go Configuration** (`paste-3.txt`):
-   - ✅ Added proper blink.cmp integration check
-   - ✅ Enhanced LSP configuration with gopls settings
-   - ✅ Added comprehensive Go-specific keymaps
-   - ✅ Improved auto-formatting on save
-   - ✅ Added proper error handling and notifications
 
-3. **README Structure**:
-   - ✅ Reorganized for better readability
-   - ✅ Added debugging section with comprehensive shortcuts
-   - ✅ Enhanced installation instructions
-   - ✅ Added troubleshooting section
-   - ✅ Improved plugin descriptions
 
-## 🛠️ Troubleshooting
 
-### Common Issues
 
-**Plugin Installation Fails**
-```bash
-# Clear plugin cache and reinstall
-rm -rf ~/.local/share/nvim
-nvim --headless +q
-nvim
-```
 
-**LSP Not Working**
-```vim
-:LspInfo          " Check LSP status
-:Mason            " Verify tools installation
-:checkhealth lsp  " Diagnose LSP issues
-```
 
-**Go Tools Missing**
-```vim
-:GoInstallBinaries  " Install Go development tools
-:checkhealth go     " Check Go setup
-```
 
-**Debugger Issues**
-```vim
-:checkhealth dap    " Check DAP configuration
-:Mason              " Verify debugger installation
-```
 
-### Health Checks
-```vim
-:checkhealth        " General health check
-:checkhealth lsp    " LSP-specific check
-:checkhealth dap    " Debug adapter check
-:checkhealth go     " Go tooling check
-```
 
-## 📋 TODO
 
-- [ ] Add more language-specific debugging configurations
-- [ ] Integrate AI-powered code completion
-- [ ] Add project templates
-- [ ] Enhance terminal integration
-- [ ] Add custom snippets
 
-## 🤝 Contributing
 
-1. Fork the repository
-2. Create a feature branch
-3. Test your changes thoroughly
-4. Submit a pull request
 
-## 📄 License
 
-This configuration is available under the MIT License. See LICENSE file for details.
 
----
 
-**Note**: This configuration is optimized for development productivity. Customize keybindings and settings according to your workflow preferences.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

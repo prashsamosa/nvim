@@ -31,7 +31,7 @@ return {
         map("gD", vim.lsp.buf.declaration, "Go to Declaration")
         map("<leader>D", require("fzf-lua").lsp_typedefs, "Type Definition")
 
-        -- Symbols
+        -- Symbols (Fixed to match README)
         map("<leader>ds", require("fzf-lua").lsp_document_symbols, "Document Symbols")
         map("<leader>ws", require("fzf-lua").lsp_live_workspace_symbols, "Workspace Symbols")
 
@@ -45,6 +45,10 @@ return {
 
         local client = vim.lsp.get_client_by_id(event.data.client_id)
         if not client then return end
+
+        -- Disable LSP formatting - let conform.nvim handle it
+        client.server_capabilities.documentFormattingProvider = false
+        client.server_capabilities.documentRangeFormattingProvider = false
 
         -- Check if client supports method (compatible with both 0.10 and 0.11)
         local supports = function(method)
@@ -156,11 +160,17 @@ return {
     -- Server configurations
     local servers = {
       bashls = {
-        filetypes = { "sh", "bash" },
+        filetypes = { "sh", "bash", "zsh" },
+        settings = {
+          bashIde = {
+            globPattern = "**/*@(.sh|.inc|.bash|.command)",
+          },
+        },
       },
 
       marksman = {
         filetypes = { "markdown", "md" },
+        single_file_support = true,
       },
 
       lua_ls = {
@@ -181,6 +191,7 @@ return {
             },
             hint = { enable = true },
             telemetry = { enable = false },
+            format = { enable = false }, -- Disable LSP formatting
           },
         },
       },
@@ -198,16 +209,27 @@ return {
         },
       },
 
-      -- Go LSP is handled by go.nvim, but we include basic config as fallback
+      -- Go LSP - Enhanced configuration
       gopls = {
+        cmd = { "gopls" },
+        filetypes = { "go", "gomod", "gowork", "gotmpl" },
+        root_dir = require("lspconfig.util").root_pattern("go.work", "go.mod", ".git"),
+        single_file_support = true,
         settings = {
           gopls = {
+            -- Analysis
             analyses = {
               unusedparams = true,
               shadow = true,
+              fieldalignment = false, -- Can be noisy
+              nilness = true,
+              unusedwrite = true,
+              useany = true,
             },
             staticcheck = true,
             gofumpt = true,
+
+            -- Code lenses
             codelenses = {
               gc_details = false,
               generate = true,
@@ -218,6 +240,8 @@ return {
               upgrade_dependency = true,
               vendor = true,
             },
+
+            -- Inlay hints
             hints = {
               assignVariableTypes = true,
               compositeLiteralFields = true,
@@ -227,7 +251,73 @@ return {
               parameterNames = true,
               rangeVariableTypes = true,
             },
+
+            -- Other settings
             usePlaceholders = true,
+            completeUnimported = true,
+            matcher = "Fuzzy",
+            symbolMatcher = "fuzzy",
+            semanticTokens = true,
+
+            -- Disable formatting - conform.nvim handles this
+            ["formatting.gofumpt"] = false,
+            ["formatting.local"] = "",
+          },
+        },
+        flags = {
+          debounce_text_changes = 200,
+        },
+      },
+
+      -- TypeScript/JavaScript
+      ts_ls = {
+        settings = {
+          typescript = {
+            format = { enable = false }, -- Disable LSP formatting
+            inlayHints = {
+              includeInlayParameterNameHints = "all",
+              includeInlayParameterNameHintsWhenArgumentMatchesName = false,
+              includeInlayFunctionParameterTypeHints = true,
+              includeInlayVariableTypeHints = true,
+              includeInlayPropertyDeclarationTypeHints = true,
+              includeInlayFunctionLikeReturnTypeHints = true,
+              includeInlayEnumMemberValueHints = true,
+            },
+          },
+          javascript = {
+            format = { enable = false }, -- Disable LSP formatting
+            inlayHints = {
+              includeInlayParameterNameHints = "all",
+              includeInlayParameterNameHintsWhenArgumentMatchesName = false,
+              includeInlayFunctionParameterTypeHints = true,
+              includeInlayVariableTypeHints = true,
+              includeInlayPropertyDeclarationTypeHints = true,
+              includeInlayFunctionLikeReturnTypeHints = true,
+              includeInlayEnumMemberValueHints = true,
+            },
+          },
+        },
+      },
+
+      -- Rust
+      rust_analyzer = {
+        settings = {
+          ["rust-analyzer"] = {
+            cargo = {
+              allFeatures = true,
+            },
+            checkOnSave = {
+              command = "check", -- Use 'clippy' for more lints
+            },
+            procMacro = {
+              enable = true,
+            },
+            inlayHints = {
+              enable = true,
+            },
+            formatting = {
+              enable = false, -- Disable LSP formatting
+            },
           },
         },
       },
@@ -238,6 +328,7 @@ return {
           json = {
             schemas = get_schemas("json"),
             validate = { enable = true },
+            format = { enable = false }, -- Disable LSP formatting
           },
         },
       },
@@ -251,6 +342,25 @@ return {
               url = "",
             },
             schemas = get_schemas("yaml"),
+            format = { enable = false }, -- Disable LSP formatting
+          },
+        },
+      },
+
+      -- HTML
+      html = {
+        settings = {
+          html = {
+            format = { enable = false }, -- Disable LSP formatting
+          },
+        },
+      },
+
+      -- CSS
+      cssls = {
+        settings = {
+          css = {
+            format = { enable = false }, -- Disable LSP formatting
           },
         },
       },
@@ -259,12 +369,19 @@ return {
     -- Ensure installed tools
     local ensure_installed = vim.tbl_keys(servers)
     vim.list_extend(ensure_installed, {
+      -- Formatters (for conform.nvim)
       "stylua",      -- Lua formatter
       "prettierd",   -- Multi-language formatter
       "shfmt",       -- Shell formatter
       "goimports",   -- Go imports organizer
       "gofumpt",     -- Go formatter
+      "black",       -- Python formatter
+      "isort",       -- Python import sorter
+      "rustfmt",     -- Rust formatter
+
+      -- Linters and tools
       "delve",       -- Go debugger
+      "golangci-lint", -- Go linter
     })
 
     require("mason-tool-installer").setup({
@@ -275,8 +392,8 @@ return {
 
     -- Setup servers
     require("mason-lspconfig").setup({
-      ensure_installed = {},
-      automatic_installation = false,
+      ensure_installed = vim.tbl_keys(servers),
+      automatic_installation = true,
       handlers = {
         function(server_name)
           local server = servers[server_name] or {}

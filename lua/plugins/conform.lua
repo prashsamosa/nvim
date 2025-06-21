@@ -12,13 +12,31 @@ return {
       typescript = {
         { "prettierd", "prettier", stop_after_first = true },
       },
-      go = { "gofumpt" },
+      -- Use goimports instead of gofumpt to handle both formatting and imports
+      go = { "goimports" },
+      -- Add more specific file types
+      sh = { "shfmt" },
+      bash = { "shfmt" },
+      markdown = { "prettierd" },
+      json = { "prettierd" },
+      yaml = { "prettierd" },
+      html = { "prettierd" },
+      css = { "prettierd" },
 
       ["_"] = { "trim_whitespace" },
     },
     format_on_save = {
-      timeout_ms = 500,
-      lsp_format = "fallback",
+      timeout_ms = 1000, -- Increased timeout for Go files
+      lsp_format = "never", -- Disable LSP formatting to avoid conflicts
+    },
+    -- Configure specific formatters
+    formatters = {
+      goimports = {
+        prepend_args = { "-local", "github.com/yourusername" }, -- Adjust to your module prefix
+      },
+      shfmt = {
+        prepend_args = { "-i", "2", "-ci" },
+      },
     },
   },
 }

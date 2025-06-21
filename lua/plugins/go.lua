@@ -4,6 +4,7 @@ return {
     "ray-x/guihua.lua",
     "neovim/nvim-lspconfig",
     "nvim-treesitter/nvim-treesitter",
+    "L3MON4D3/LuaSnip", 
   },
   config = function()
     -- Get capabilities for completion
@@ -15,42 +16,19 @@ return {
       vim.notify("blink.cmp not loaded, using default LSP capabilities", vim.log.levels.WARN, { title = "go.nvim" })
     end
 
+    -- Check if LuaSnip is available
+    local luasnip_available = pcall(require, "luasnip")
+    if luasnip_available then
+      vim.notify("LuaSnip module loaded successfully", vim.log.levels.INFO, { title = "go.nvim" })
+    else
+      vim.notify("LuaSnip module not available, snippets disabled", vim.log.levels.WARN, { title = "go.nvim" })
+    end
+
     -- Setup go.nvim
     require("go").setup({
-      -- LSP configuration
-      lsp_cfg = {
-        capabilities = capabilities,
-        settings = {
-          gopls = {
-            analyses = {
-              unusedparams = true,
-              shadow = true,
-            },
-            staticcheck = true,
-            gofumpt = true,
-            codelenses = {
-              gc_details = false,
-              generate = true,
-              regenerate_cgo = true,
-              run_govulncheck = true,
-              test = true,
-              tidy = true,
-              upgrade_dependency = true,
-              vendor = true,
-            },
-            hints = {
-              assignVariableTypes = true,
-              compositeLiteralFields = true,
-              compositeLiteralTypes = true,
-              constantValues = true,
-              functionTypeParameters = true,
-              parameterNames = true,
-              rangeVariableTypes = true,
-            },
-            usePlaceholders = true,
-          },
-        },
-      },
+      -- Disable go.nvim's LSP management since we handle it in lspconfig
+      lsp_cfg = false,
+      -- Keep other LSP features enabled
       lsp_codelens = true,
       lsp_gofumpt = true,
       lsp_inlay_hints = {
@@ -65,7 +43,7 @@ return {
 
       -- Diagnostics
       diagnostic = {
-        hdlr = true,
+        hdlr = false, -- Let LSP handle diagnostics
         underline = true,
         virtual_text = { space = 0, prefix = "■" },
         signs = true,
@@ -88,8 +66,8 @@ return {
       -- Trouble integration
       trouble = true,
 
-      -- Luasnip integration
-      luasnip = true,
+      -- Luasnip integration - only enable if available
+      luasnip = luasnip_available,
     })
 
     -- Go-specific keymaps
@@ -117,7 +95,7 @@ return {
         map("n", "<leader>gr", "<cmd>GoGenReturn<CR>", "Generate Return")
         map("n", "<leader>gj", "<cmd>GoJson2Struct<CR>", "JSON to Struct")
 
-        -- Tags
+        -- Tags (Fixed keymap conflicts)
         map("n", "<leader>gta", "<cmd>GoAddTag<CR>", "Add Tags")
         map("n", "<leader>gtr", "<cmd>GoRmTag<CR>", "Remove Tags")
         map("v", "<leader>gta", "<cmd>GoAddTag<CR>", "Add Tags")
@@ -128,12 +106,12 @@ return {
         map("n", "<leader>br", "<cmd>GoRun<CR>", "Go Run")
         map("n", "<leader>gx", "<cmd>GoRun %<CR>", "Run Current File")
 
-        -- Testing
+        -- Testing (Fixed keymap conflicts)
         map("n", "<leader>tp", "<cmd>GoTestPkg<CR>", "Test Package")
         map("n", "<leader>tf", "<cmd>GoTestFunc<CR>", "Test Function")
         map("n", "<leader>tF", "<cmd>GoTestFile<CR>", "Test File")
-        map("n", "<leader>gta", "<cmd>GoAddTest<CR>", "Add Test")
-        map("n", "<leader>gts", "<cmd>GoAddExpTest<CR>", "Add Example Test")
+        map("n", "<leader>gat", "<cmd>GoAddTest<CR>", "Add Test")
+        map("n", "<leader>get", "<cmd>GoAddExpTest<CR>", "Add Example Test")
 
         -- Coverage
         map("n", "<leader>tc", "<cmd>GoCoverage<CR>", "Coverage")
@@ -155,21 +133,8 @@ return {
       end,
     })
 
-    -- Auto commands for Go files
-    vim.api.nvim_create_autocmd("BufWritePre", {
-      pattern = "*.go",
-      group = augroup,
-      callback = function()
-        -- Format on save
-        require("go.format").gofmt()
-        -- Organize imports on save
-        require("go.format").goimport()
-      end,
-    })
-
     vim.notify("go.nvim configured successfully", vim.log.levels.INFO, { title = "go.nvim" })
   end,
-  event = { "CmdlineEnter" },
   ft = { "go", "gomod" },
   build = ':lua require("go.install").update_all_sync()',
 }
