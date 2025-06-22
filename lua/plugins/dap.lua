@@ -201,7 +201,7 @@ return {
       dap.continue()
     end
 
-    -- Keybindings
+    -- Keybindings (consistent with README)
     local map = vim.keymap.set
     map("n", "<leader>dc", continue_with_launch_json, { desc = "Debug: Continue" })
     map("n", "<leader>dsi", dap.step_into, { desc = "Debug: Step Into" })

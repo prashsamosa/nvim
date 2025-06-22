@@ -26,10 +26,11 @@ return {
   config = function()
     local map = vim.keymap.set
 
-    map("n", "<leader>do", "<Cmd>DBUI<CR>",              { desc = "Open DB UI" })
-    map("n", "<leader>du", "<Cmd>DBUIToggle<CR>",        { desc = "Toggle DB UI" })
-    map("n", "<leader>dc", "<Cmd>DBUIClose<CR>",         { desc = "Close DB UI" })
-    map("n", "<leader>dr", "<Cmd>DBUIFindBuffer<CR>",    { desc = "Find DB Buffer" })
-    map("n", "<leader>da", "<Cmd>DBUIAddConnection<CR>", { desc = "Add DB Connection" })
+    -- Database UI keybindings (using <leader>D prefix to avoid conflicts with debug)
+    map("n", "<leader>Do", "<Cmd>DBUI<CR>",              { desc = "Open DB UI" })
+    map("n", "<leader>Du", "<Cmd>DBUIToggle<CR>",        { desc = "Toggle DB UI" })
+    map("n", "<leader>Dc", "<Cmd>DBUIClose<CR>",         { desc = "Close DB UI" })
+    map("n", "<leader>Dr", "<Cmd>DBUIFindBuffer<CR>",    { desc = "Find DB Buffer" })
+    map("n", "<leader>Da", "<Cmd>DBUIAddConnection<CR>", { desc = "Add DB Connection" })
   end,
 }

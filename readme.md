@@ -71,6 +71,7 @@ pip install debugpy pylatexenc
 - **⚡ Mini Ecosystem**: Mini.nvim suite (AI, surround, pairs, comment, etc.)
 - **🌳 Syntax**: Treesitter + LSP integration
 - **🐛 Debugging**: DAP with language-specific adapters
+- **🗄️ Database**: vim-dadbod-ui for database management
 
 ### Key Features
 
@@ -80,6 +81,7 @@ pip install debugpy pylatexenc
 - **Fuzzy Finding**: Snacks.picker for files, grep, git operations
 - **Session Management**: Auto-save/restore with Mini.sessions
 - **Zen Mode**: Distraction-free coding environment
+- **Database UI**: Interactive database management with vim-dadbod
 
 ---
 
@@ -236,6 +238,16 @@ Automatically set bookmarks:
 | `<leader>th` | `n`  | Toggle Terminal (Horizontal)       |
 | `<leader>tv` | `n`  | Toggle Terminal (Vertical)         |
 
+### 🗄️ Database Operations (vim-dadbod-ui)
+
+| Key          | Mode | Description                        |
+|:-------------|:-----|:-----------------------------------|
+| `<leader>Do` | `n`  | Open Database UI                   |
+| `<leader>Du` | `n`  | Toggle Database UI                 |
+| `<leader>Dc` | `n`  | Close Database UI                  |
+| `<leader>Dr` | `n`  | Find Database Buffer               |
+| `<leader>Da` | `n`  | Add Database Connection            |
+
 ### 📑 Miscellaneous
 
 | Key                 | Mode | Action                           |
@@ -254,7 +266,7 @@ Automatically set bookmarks:
 | `<leader>ba`        | `n`  | Delete All Buffers               |
 | `<leader>bo`        | `n`  | Delete Other Buffers             |
 
-### 🧪 Debugging
+### 🧪 Debugging (DAP)
 
 | Key                           | Mode | Action                         |
 |:------------------------------|:-----|:-------------------------------|
@@ -263,9 +275,11 @@ Automatically set bookmarks:
 | `<leader>dB`                  | `n`  | Conditional Breakpoint         |
 | `<leader>du`                  | `n`  | Toggle Debug UI                |
 | `<leader>dsi` / `dso` / `dsO` | `n`  | Step In / Over / Out           |
-| `<leader>dr` / `dR`           | `n`  | Run / Restart                  |
-| `<leader>dt` / `de` / `do`    | `n`  | Terminate / Eval / REPL        |
-| `<leader>dbc`                 | `n`  | Clear Breakpoints              |
+| `<leader>dR`                  | `n`  | Restart Debug Session          |
+| `<leader>dt`                  | `n`  | Terminate Debug Session        |
+| `<leader>de`                  | `n,v`| Evaluate Expression            |
+| `<leader>do`                  | `n`  | Open Debug REPL                |
+| `<leader>dO`                  | `n`  | Toggle Debug REPL              |
 | `<leader>dgt` / `dgl`         | `n`  | Go Test Current / Last         |
 
 ### 🐹 Go Development
@@ -292,161 +306,3 @@ Automatically set bookmarks:
 | `<leader>gL` / `gV` / `gD` | `n`  | Lint / Vet / Doc                        |
 | `<leader>gDb`              | `n`  | Go Doc Browser                          |
 | `<leader>gcb`              | `n`  | Coverage Browser                        |
-
----
-
-## 🎨 UI Features
-
-### 🎯 Enhanced Dashboard
-
-Custom ASCII art dashboard with:
-- Recent files quick access
-- Session management shortcuts
-- Git repository status
-- Quick configuration access
-
-### 📊 Barbar Bufferline
-
-Visual buffer management with:
-- **Git Status Icons**: `+` (added), `~` (changed), `-` (deleted)
-- **Buffer Indexing**: Visual numbers for quick jumping
-- **Pin Functionality**: Keep important buffers always visible
-- **Auto-hide**: Cleans up when only one buffer is open
-- **Clickable Tabs**: Mouse support for buffer switching
-
-### 🗂 Mini.files Explorer
-
-GitHub-themed file explorer featuring:
-- **Multi-column Layout**: Preview, focus, and non-focus panes
-- **Live Filtering**: Real-time file filtering
-- **Bookmark System**: Quick access to common directories
-- **Custom Actions**:
-  - Set CWD (`g~`)
-  - Copy paths (`gy`)
-  - System open (`gx`)
-  - Split operations (`<C-s>`, `<C-v>`, `<C-t>`)
-- **Dotfile Toggle**: Show/hide hidden files (`g.`)
-- **Action Notifications**: Visual feedback for file operations
-
-### 🔔 Smart Notifications
-
-Enhanced notification system with:
-- **LSP Progress**: Real-time language server feedback
-- **File Operation Feedback**: Confirmations for create/delete/rename
-- **Git Integration**: Status updates and confirmations
-- **Auto-timeout**: Notifications disappear automatically
-- **History Access**: Review past notifications
-
----
-
-## 🚀 Quick Usage Tips
-
-### 🎯 Essential Workflows
-
-1. **File Navigation**:
-   - `<leader><space>` → Smart file finder
-   - `<leader>me` → File explorer
-   - `<leader>fr` → Recent files
-
-2. **Buffer Management**:
-   - `<A-,>` / `<A-.>` → Navigate buffers
-   - `<A-1>`-`<A-9>` → Jump to specific buffer
-   - `<A-p>` → Pin important buffers
-
-3. **Search Operations**:
-   - `<leader>sg` → Project-wide search
-   - `<leader>sw` → Search word under cursor
-   - `<leader>sb` → Search in current buffer
-
-4. **Code Development**:
-   - `gd` → Go to definition
-   - `<leader>ca` → Code actions
-   - `K` → Hover documentation
-
-5. **Git Workflow**:
-   - `<leader>gg` → Lazygit interface
-   - `<leader>gs` → Git status picker
-   - `<leader>gb` → Branch switcher
-
-### 💡 Pro Tips
-
-- **Mini.files Navigation**: Use `h/l` for in/out, `H/L` for in/out plus
-- **Session Management**: Auto-saves sessions, use `<leader>mr` to restore
-- **Zen Mode**: `<leader>z` for distraction-free coding
-- **Buffer Pinning**: Pin frequently used buffers with `<A-p>`
-- **Quick Splits**: In Mini.files, use `<C-s>/<C-v>/<C-t>` for instant splits
-- **Bookmark Navigation**: Use `'` + bookmark key for instant directory jumps
-- **Notification History**: `<leader>n` to review all notifications
-- **Toggle Everything**: Most UI elements have toggles under `<leader>u`
-
----
-
-## 🛠 Configuration Highlights
-
-### 🔧 Key Improvements
-
-- **Unified File Management**: Mini.files replaces traditional file trees
-- **Enhanced Buffer UX**: Barbar provides visual buffer management
-- **Smart Pickers**: Snacks.picker handles all fuzzy finding needs
-- **Session Persistence**: Auto-save/restore with Mini.sessions
-- **GitHub Theming**: Consistent color scheme across all components
-- **Notification System**: Real-time feedback for all operations
-
-### 🎨 Visual Enhancements
-
-- **Transparent Backgrounds**: Seamless integration with terminal themes
-- **Custom Separators**: Clean buffer line separators
-- **Git Integration**: Visual git status throughout the interface
-- **Consistent Icons**: Nerd Font icons across all components
-- **Rounded Borders**: Modern UI with rounded window borders
-
----
-
-## 📝 Mode Legend
-
-- `n` = Normal mode
-- `i` = Insert mode
-- `v` = Visual mode
-- `x` = Visual mode (character-wise)
-- `t` = Terminal mode
-
----
-
-## 📘 Architecture Notes
-
-* **Plugin Manager**: LazyVim with lazy loading
-* **UI Framework**: Snacks.nvim for pickers, notifications, dashboard
-* **File Management**: Mini.files with custom GitHub theming
-* **Buffer Management**: Barbar.nvim with git integration
-* **Mini Ecosystem**: Comprehensive mini.nvim plugin suite
-* **LSP Stack**: Mason-managed language servers
-* **Debugging**: DAP with multi-language support
-* **Session Management**: Auto-save/restore functionality
-
-## ❓ FAQ / Troubleshooting
-
-### Treesitter not working?
-```vim
-:TSUpdate
-```
-
-### Missing LSP or formatter?
-```vim
-:MasonInstallAll
-```
-
-### Debugging doesn't work?
-Ensure `debugpy`, `dlv`, or `js-debug-adapter` are installed.
-
-### Mini.files not showing icons?
-Ensure you have a Nerd Font installed and set in your terminal.
-
-### Barbar bufferline not appearing?
-Check that `auto_hide` is set to `true` - it hides with single buffers.
-
-### Session not restoring?
-Sessions are auto-saved to `stdpath("data")/sessions` - use `<leader>mr` to restore.
-
----
-
-*Happy Hacking with your enhanced Neovim setup! ✨*
