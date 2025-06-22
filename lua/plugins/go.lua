@@ -28,9 +28,9 @@ return {
 
     -- Setup go.nvim
     require("go").setup({
-      lsp_cfg = false, -- Disable internal LSP config
+      lsp_cfg = false, -- Disable internal LSP config (handled by lsp.lua)
       lsp_codelens = true,
-      lsp_gofumpt = true,
+      -- Removed lsp_gofumpt = true to avoid conflicts with conform.nvim
       lsp_inlay_hints = {
         enable = true,
         only_current_line = false,
@@ -77,10 +77,10 @@ return {
         map("n", "<leader>gvs", "<cmd>GoAltV<CR>", "Alternate Vertical")
         map("n", "<leader>ghs", "<cmd>GoAltS<CR>", "Alternate Horizontal")
 
-        -- Formatting & Imports
+        -- Imports & Mod Tidy (Note: formatting now handled by conform.nvim)
         map("n", "<leader>oi", "<cmd>GoImports<CR>", "Imports")
-        map("n", "<leader>of", "<cmd>GoFmt<CR>", "Format")
         map("n", "<leader>ot", "<cmd>GoModTidy<CR>", "Mod Tidy")
+        -- Removed GoFmt keymap since formatting is handled by conform.nvim
 
         -- Code Generation
         map("n", "<leader>gc", "<cmd>GoCmt<CR>", "Generate Comment")
@@ -129,4 +129,3 @@ return {
     vim.notify("go.nvim configured successfully", vim.log.levels.INFO, { title = "go.nvim" })
   end,
 }
-
