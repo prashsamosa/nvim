@@ -169,7 +169,7 @@ Automatically set bookmarks:
 |:--------------------|:-----|:--------------------------------|
 | `gd` / `gD` / `gr`  | `n`  | Go to Def / Decl / Refs         |
 | `gI`                | `n`  | Go to Implementation            |
-| `<leader>D`         | `n`  | Type Definition                 |
+| `<leader>td`         | `n`  | Type Definition                 |
 | `<leader>ca` / `cr` | `n`  | Code Action / Rename            |
 | `K` / `<C-k>`       | `n`  | Hover / Signature Help          |
 | `<leader>ds`        | `n`  | Document Symbols                |

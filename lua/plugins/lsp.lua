@@ -35,7 +35,7 @@ return {
           map("gr", require("fzf-lua").lsp_references, "Go to References")
           map("gI", require("fzf-lua").lsp_implementations, "Go to Implementation")
           map("gD", vim.lsp.buf.declaration, "Go to Declaration")
-          map("<leader>D", require("fzf-lua").lsp_typedefs, "Type Definition")
+          map("<leader>td", require("fzf-lua").lsp_typedefs, "Type Definition")
           map("<leader>ds", require("fzf-lua").lsp_document_symbols, "Document Symbols")
           map("<leader>ws", require("fzf-lua").lsp_live_workspace_symbols, "Workspace Symbols")
           map("<leader>ca", vim.lsp.buf.code_action, "Code Action", { "n", "x" })
