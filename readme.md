@@ -1,4 +1,4 @@
-# 🚀 Modern Neovim Configuration
+# 🚀 Neovim Configuration
 
 ![Neovim Version](https://img.shields.io/badge/Neovim-0.10+-blueviolet.svg?style=flat-square&logo=Neovim&logoColor=green)
 ![Platform](https://img.shields.io/badge/platform-Linux%20%7C%20macOS%20%7C%20Windows-blue.svg?style=flat-square)
@@ -18,15 +18,6 @@
 ```bash
 # Ubuntu/Debian
 sudo apt install ripgrep fd-find
-
-# macOS (using Homebrew)
-brew install ripgrep fd
-
-# Windows (using Chocolatey)
-choco install ripgrep fd
-
-# Or using Scoop
-scoop install ripgrep fd
 ```
 
 ### Language-Specific Tools
@@ -43,12 +34,14 @@ go install github.com/golangci/golangci-lint/cmd/golangci-lint@latest
 ```
 
 </details>
+
 <details>
 <summary><strong>🐍 Python</strong></summary>
 
 ```bash
 pip install debugpy black isort
 ```
+
 </details>
 
 <details>
@@ -59,6 +52,9 @@ rustup component add rust-analyzer
 rustup component add rustfmt
 ```
 
+</details>
+
+
 ## 📦 Installation
 
 1. **Backup existing configuration** (if any):
@@ -68,7 +64,7 @@ rustup component add rustfmt
 
 2. **Clone the repository**:
    ```bash
-   git clone https://github.com/your-username/your-nvim-config.git ~/.config/nvim
+   git clone https://github.com/prashsamosa/nvim.git ~/.config/nvim
    ```
    *(Replace `your-username/your-nvim-config` with your actual repository path)*
 
@@ -97,7 +93,6 @@ This configuration uses `<Space>` as the leader key (`<leader>`).
 | `<C-h>`, `<C-j>`, `<C-k>`, `<C-l>` | Navigate between windows |
 | `sh` | Horizontal split |
 | `sv` | Vertical split |
-
 ### File/Buffer Management
 | Key | Action |
 |-----|--------|
@@ -254,28 +249,6 @@ This configuration uses `<Space>` as the leader key (`<leader>`).
 ### Database
 - **kristijanhusak/vim-dadbod-ui**: Database UI
 - **tpope/vim-dadbod**: Core database plugin
-
-## ⚠️ Known Issues & Solutions
-
-<details>
-<summary><strong>File Explorer Redundancy (nvim-tree vs. oil)</strong></summary>
-
-**Problem**: Both nvim-tree.lua and oil.lua are configured, which can lead to ambiguity.
-
-**Solution**:
-- If you prefer oil.nvim for all file browsing: Consider removing nvim-tree.lua
-- If you want both: Use `<leader>e` for nvim-tree (sidebar) vs. `-` for oil.nvim (floating)
-
-</details>
-
-<details>
-<summary><strong>Buffer Closing Keymap Conflict (Potential)</strong></summary>
-
-**Problem**: Potential conflict between barbar.lua and snacks.lua for `<leader>bo` keymap.
-
-**Solution**: Currently resolved as barbar.lua mappings are commented. If uncommenting, change one of the keymaps to avoid conflict.
-
-</details>
 
 ## 🔧 Troubleshooting
 
