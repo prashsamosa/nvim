@@ -1,20 +1,20 @@
 # 🚀 Neovim Configuration
 
----
+A comprehensive, modern Neovim configuration designed to provide a powerful, efficient, and aesthetically pleasing development environment. This setup leverages a curated plugin ecosystem to enhance coding, debugging, and Git workflows.
 
 ## 📦 Prerequisites
 
 ### 🔧 Core Requirements
 
-* **Neovim** 0.10+
-* **Git** (version control)
-* **Node.js** 18+ (LSPs and debugging)
-* **Nerd Font** (e.g. JetBrains Mono Nerd Font)
+- **Neovim** (v0.10.0 or later)
+- **Git** - For version control and plugin management
+- **Node.js** (v18+) - Essential for Language Servers and debugging adapters
+- **Nerd Font** - A patched font (e.g., JetBrains Mono Nerd Font) for proper icon display
 
-### 🔍 Essential Tools
+### 🔍 Essential CLI Tools
 
 ```bash
-# Ubuntu/Debian example
+# Debian/Ubuntu
 sudo apt install ripgrep fd-find
 ```
 
@@ -26,13 +26,13 @@ go install github.com/go-delve/delve/cmd/dlv@latest
 go install github.com/golangci/golangci-lint/cmd/golangci-lint@latest
 ```
 
-### 🧠 JavaScript / TypeScript
+### 🧠 JavaScript/TypeScript Development
 
 ```bash
 npm install -g js-debug-adapter
 ```
 
-### 🐍 Python
+### 🐍 Python Development
 
 ```bash
 pip install debugpy pylatexenc
@@ -40,278 +40,272 @@ pip install debugpy pylatexenc
 
 ### ✨ Optional Enhancements
 
-* `stylua` - Lua formatter (auto-installed)
-* `lazygit` - Git UI
-* `rust` - Optional dependency for faster FZF
+- **stylua** - Lua formatter (auto-installed by Mason)
+- **lazygit** - Terminal UI for Git
+- **rust** - For faster fzf-lua performance
 
-### 🛠 First Launch
+## 🚀 Installation
 
-1. Plugins auto-installed via Lazy.nvim
-2. Mason installs all tools
-3. Treesitter compiles all parsers
-4. Verify with `:checkhealth`
+1. **Clone the repository:**
+   ```bash
+   git clone <your-config-repo-url> ~/.config/nvim
+   ```
 
-### 🔄 Post-Install
+2. **Launch Neovim:**
+   ```bash
+   nvim
+   ```
+
+3. **Automatic setup:**
+   - Lazy.nvim will bootstrap and install plugins
+   - Mason will install Language Servers and tools
+   - Treesitter will compile syntax parsers
+
+4. **Verify installation:**
+   ```vim
+   :checkhealth
+   ```
+
+### 🔄 Manual Commands (if needed)
 
 ```vim
-:TSUpdate
-:MasonInstallAll
-:GoInstallBinaries
+:TSUpdate              " Update Treesitter parsers
+:MasonInstallAll       " Install all Mason tools
+:GoInstallBinaries     " Install Go binaries
 ```
-
----
 
 ## 🔌 Plugin Architecture
 
-### Core Plugin Stack
+### Core Stack
 
-- **📂 File Management**: Mini.files (file explorer) + Snacks.picker (fuzzy finder)
-- **🗂 Buffer Management**: Barbar.nvim (enhanced bufferline)
-- **🎨 UI Framework**: Snacks.nvim (notifications, dashboard, pickers)
-- **⚡ Mini Ecosystem**: Mini.nvim suite (AI, surround, pairs, comment, etc.)
-- **🌳 Syntax**: Treesitter + LSP integration
-- **🐛 Debugging**: DAP with language-specific adapters
-- **🗄️ Database**: vim-dadbod-ui for database management
+- **[Lazy.nvim](https://github.com/folke/lazy.nvim)** - Plugin manager with lazy loading
+- **[GitHub Theme](https://github.com/projekt0n/github-nvim-theme)** - Consistent dark theme
+- **[Lualine](https://github.com/nvim-lualine/lualine.nvim)** - Clean statusline
+- **[Which-key](https://github.com/folke/which-key.nvim)** - Keybinding discovery
+- **[Mini.nvim](https://github.com/echasnovski/mini.nvim)** - Collection of small, efficient plugins
 
-### Key Features
+### LSP & Completion
 
-- **Smart Dashboard**: Custom ASCII art with quick actions
-- **Enhanced Bufferline**: Visual buffer tabs with git status
-- **File Explorer**: Mini.files with GitHub-themed colors
-- **Fuzzy Finding**: Snacks.picker for files, grep, git operations
-- **Session Management**: Auto-save/restore with Mini.sessions
-- **Zen Mode**: Distraction-free coding environment
-- **Database UI**: Interactive database management with vim-dadbod
+- **[nvim-lspconfig](https://github.com/neovim/nvim-lspconfig)** - LSP integration
+- **[Mason.nvim](https://github.com/williamboman/mason.nvim)** - LSP server management
+- **[Blink.cmp](https://github.com/saghen/blink.cmp)** - Completion engine
+- **[go.nvim](https://github.com/ray-x/go.nvim)** - Go development tools
+- **[SchemaStore](https://github.com/b0o/schemastore.nvim)** - JSON/YAML schema validation
 
----
+### File Management
 
-## ⌨️ Keybindings Overview
+- **[nvim-tree](https://github.com/nvim-tree/nvim-tree.lua)** - Tree-style file explorer
+- **[Oil.nvim](https://github.com/stevearc/oil.nvim)** - Buffer-based file explorer
+- **[Barbar.nvim](https://github.com/romgrk/barbar.nvim)** - Enhanced buffer tabs
+
+### Version Control
+
+- **[Neogit](https://github.com/NeogitOrg/neogit)** - Comprehensive Git client
+- **[Gitsigns](https://github.com/lewis6991/gitsigns.nvim)** - Git status indicators
+
+### Debugging
+
+- **[nvim-dap](https://github.com/mfussenegger/nvim-dap)** - Debug Adapter Protocol
+- **[nvim-dap-ui](https://github.com/rcarriga/nvim-dap-ui)** - Debug UI
+- **[nvim-dap-go](https://github.com/leoluz/nvim-dap-go)** - Go debugging
+- **[nvim-dap-virtual-text](https://github.com/theHamsta/nvim-dap-virtual-text)** - Inline debug info
+
+### Utilities
+
+- **[fzf-lua](https://github.com/ibhagwan/fzf-lua)** - Fast fuzzy finder
+- **[Conform.nvim](https://github.com/stevearc/conform.nvim)** - Code formatting
+- **[Snacks.nvim](https://github.com/folke/snacks.nvim)** - Useful utilities
+- **[Todo Comments](https://github.com/folke/todo-comments.nvim)** - Highlight TODO comments
+- **[ToggleTerm](https://github.com/akinsho/toggleterm.nvim)** - Terminal management
+- **[vim-dadbod-ui](https://github.com/kristijanhusak/vim-dadbod-ui)** - Database interface
+
+## ⌨️ Keybindings
 
 **Leader key:** `<Space>`
 
-### 🌟 Essential Shortcuts
+### 🌟 General
 
-| Key               | Mode  | Description                    |
-|:------------------|:------|:-------------------------------|
-| `jk`              | `i`   | Exit Insert Mode               |
-| `<leader><space>` | `n`   | Smart Find Files               |
-| `<leader>me`      | `n`   | Toggle Mini File Explorer      |
-| `<leader>ff`      | `n`   | Find Files (Snacks)           |
-| `<leader>sg`      | `n`   | Search in Files                |
-| `<C-s>`           | `n,i` | Quick Save                     |
-| `<leader>nh`      | `n`   | Clear Search Highlights        |
+| Key | Mode | Action |
+|-----|------|--------|
+| `jk` | Insert | Exit Insert Mode |
+| `<leader>nh` | Normal | Clear Search Highlights |
+| `<leader><space>` | Normal | Fuzzy Find Files |
+| `<leader>+` | Normal | Increment Number |
+| `<C-a>` | Normal | Select All |
+| `<leader>L` | Normal | Open Lazy Plugin Manager |
 
-### 🧭 Navigation & Search
+### 🧭 Navigation & Search (fzf-lua)
 
-| Key               | Mode  | Action                         |
-|:------------------|:------|:-------------------------------|
-| `<leader><space>` | `n`   | Smart Find Files (Snacks)     |
-| `<leader>me`      | `n`   | Toggle Mini File Explorer      |
-| `<leader>mE`      | `n`   | Open Mini Files at Current     |
-| `<leader>ff`      | `n`   | Find Files                     |
-| `<leader>fg`      | `n`   | Find Git Files                 |
-| `<leader>fr`      | `n`   | Recent Files                   |
-| `<leader>fc`      | `n`   | Find Config File               |
-| `<leader>fp`      | `n`   | Projects                       |
-| `<leader>mp`      | `n`   | Mini Pick Files                |
-| `<leader>mg`      | `n`   | Mini Grep Live                 |
-| `<leader>sb`      | `n`   | Search Buffer Lines            |
-| `<leader>sB`      | `n`   | Grep Open Buffers              |
-| `<leader>sw`      | `n,x` | Search Word Under Cursor       |
-| `<leader>wn / wp` | `n,t` | Next / Prev Word Reference     |
+| Key | Action |
+|-----|--------|
+| `<leader>ff` | Find Files |
+| `<leader>fc` | Find in Config Directory |
+| `<leader>fg` | Live Grep |
+| `<leader>f/` | Grep Current Buffer |
+| `<leader>fo` | Recent Files |
+| `<leader>f<space>` | Open Buffers |
+| `<leader>fb` | Commands |
+| `<leader>fw` | Find Word Under Cursor |
+| `<leader>fh` | Help Tags |
+| `<leader>fk` | Keymaps |
+| `<leader>fd` | Diagnostics |
+| `<leader>fr` | Resume Last Search |
 
-### 📂 Mini File Explorer
+### 📂 File Explorers
 
-| Key       | Mode | Description (within Mini.files)        |
-|:----------|:-----|:---------------------------------------|
-| `q`       | `n`  | Close Mini Files                       |
-| `l / L`   | `n`  | Go in / Go in plus                     |
-| `h / H`   | `n`  | Go out / Go out plus                   |
-| `<C-s>`   | `n`  | Split horizontal                       |
-| `<C-v>`   | `n`  | Split vertical                         |
-| `<C-t>`   | `n`  | Open in new tab                        |
-| `g.`      | `n`  | Toggle dotfiles                        |
-| `g~`      | `n`  | Set CWD to current directory           |
-| `gy`      | `n`  | Yank path to clipboard                 |
-| `gx`      | `n`  | Open with system default               |
-| `m`       | `n`  | Mark set                               |
-| `'`       | `n`  | Mark goto                              |
-| `=`       | `n`  | Synchronize                            |
-| `@`       | `n`  | Reveal CWD                             |
-| `g?`      | `n`  | Show help                              |
+| Key | Action |
+|-----|--------|
+| `<leader>e` | Toggle NvimTree |
+| `-` | Open Oil (floating) |
 
-#### 📚 Mini Files Bookmarks
+### 🗂 Buffer Management
 
-Automatically set bookmarks:
-- `c` - Config directory (⚙️)
-- `d` - Data directory (💾)
-- `h` - Home directory (🏠)
-- `w` - Working directory (💼)
-- `r` - Project root (📂, if .git exists)
+| Key | Action |
+|-----|--------|
+| `<A-,>` / `<A-.>` | Previous/Next Buffer |
+| `<A-S-,>` / `<A-S-.>` | Move Buffer Left/Right |
+| `<A-1>`–`<A-9>` | Jump to Buffer 1-9 |
+| `<leader>bc` | Close Current Buffer |
+| `<leader>bo` | Close All But Current |
+| `<leader>bd` | Delete Buffer |
 
-### 🗂 Buffer Management (Barbar)
+### ⚙️ LSP & Code Actions
 
-| Key                 | Mode | Action                           |
-|:------------------- |:-----|:--------------------------------|
-| `<A-,>` / `<A-.>`   | `n`  | Previous / Next Buffer          |
-| `<A-S-,>` / `<A-S-.>`| `n` | Move Buffer Left / Right        |
-| `<A-1>`–`<A-9>`     | `n`  | Jump to Buffer 1–9              |
-| `<A-0>`             | `n`  | Jump to Last Buffer             |
-| `<A-p>`             | `n`  | Pin/Unpin Buffer                |
-| `<leader>bc`        | `n`  | Close Current Buffer            |
-| `<leader>bo`        | `n`  | Close All But Current/Pinned    |
-| `<leader>mb`        | `n`  | Delete Buffer (Mini)            |
-| `<leader>mB`        | `n`  | Force Delete Buffer (Mini)      |
-
-### ⚙️ LSP
-
-| Key                 | Mode | Action                          |
-|:--------------------|:-----|:--------------------------------|
-| `gd` / `gD` / `gr`  | `n`  | Go to Def / Decl / Refs         |
-| `gI`                | `n`  | Go to Implementation            |
-| `<leader>td`         | `n`  | Type Definition                 |
-| `<leader>ca` / `cr` | `n`  | Code Action / Rename            |
-| `K` / `<C-k>`       | `n`  | Hover / Signature Help          |
-| `<leader>ds`        | `n`  | Document Symbols                |
-| `<leader>ws`        | `n`  | Workspace Symbols               |
-| `<leader>uh`        | `n`  | Toggle Inlay Hints              |
-| `<leader>cl`        | `n`  | Run Code Lens                   |
-| `[d` / `]d`         | `n`  | Prev / Next Diagnostic          |
-| `<leader>dl` / `dq` | `n`  | Diagnostic List / Quickfix      |
+| Key | Action |
+|-----|--------|
+| `gd` | Go to Definition |
+| `gD` | Go to Declaration |
+| `gr` | Go to References |
+| `gI` | Go to Implementation |
+| `<leader>td` | Type Definition |
+| `<leader>ca` | Code Action |
+| `<leader>cr` | Rename Symbol |
+| `K` | Hover Documentation |
+| `<leader>ds` | Document Symbols |
+| `<leader>ws` | Workspace Symbols |
+| `<leader>ih` | Toggle Inlay Hints |
+| `[d` / `]d` | Previous/Next Diagnostic |
 
 ### 🪟 Window Management
 
-| Key           | Mode | Action                           |
-|:--------------|:-----|:---------------------------------|
-| `<C-h/j/k/l>` | `n`  | Navigate Splits                  |
-| `sh / sv`     | `n`  | Horizontal / Vertical Split      |
-| `<leader>sx`  | `n`  | Close Split                      |
-| `<leader>z`   | `n`  | Toggle Zen Mode                  |
-| `<leader>Z`   | `n`  | Zoom Current Window              |
+| Key | Action |
+|-----|--------|
+| `<C-h/j/k/l>` | Navigate Windows |
+| `sh` | Horizontal Split |
+| `sv` | Vertical Split |
+| `<leader>z` | Toggle Zen Mode |
+| `<leader>Z` | Zoom Current Window |
 
 ### 📚 Git Operations
 
-| Key          | Mode  | Description                     |
-|:-------------|:------|:--------------------------------|
-| `<leader>gs` | `n`   | Git Status                      |
-| `<leader>gb` | `n`   | Git Branches                    |
-| `<leader>gl` | `n`   | Git Log                         |
-| `<leader>gL` | `n`   | Git Log Line                    |
-| `<leader>gd` | `n`   | Git Diff                        |
-| `<leader>gf` | `n`   | Git Log File                    |
-| `<leader>gS` | `n`   | Git Stash                       |
-| `<leader>gB` | `n,v` | Git Browse                      |
-| `<leader>gg` | `n`   | Open Lazygit                    |
-
-### 🔧 Mini Plugins
-
-| Key              | Mode | Description                     |
-|:-----------------|:-----|:--------------------------------|
-| `gcc`            | `n`  | Comment Line                    |
-| `gc`             | `v`  | Comment Selection               |
-| `sa` / `sd` / `sr`| `n` | Surround Add / Delete / Replace |
-| `<leader>ms`     | `n`  | Write Session                   |
-| `<leader>mr`     | `n`  | Read Last Session               |
-| `<leader>md`     | `n`  | Delete Session                  |
-
-### 🌳 Treesitter Navigation
-
-| Key              | Mode | Description                     |
-|:-----------------|:-----|:--------------------------------|
-| `[m` / `]m`      | `n`  | Prev / Next Function Start      |
-| `[M` / `]M`      | `n`  | Prev / Next Function End        |
-| `[c` / `]c`      | `n`  | Prev / Next Class Start         |
-| `[C` / `]C`      | `n`  | Prev / Next Class End           |
-
-### 🎛 Toggle Options
-
-| Key          | Mode | Description                     |
-|:-------------|:-----|:--------------------------------|
-| `<leader>us` | `n`  | Toggle Spelling                 |
-| `<leader>uw` | `n`  | Toggle Wrap                     |
-| `<leader>uL` | `n`  | Toggle Relative Number          |
-| `<leader>ud` | `n`  | Toggle Diagnostics              |
-| `<leader>ul` | `n`  | Toggle Line Number              |
-| `<leader>uc` | `n`  | Toggle Conceal                  |
-| `<leader>uT` | `n`  | Toggle Treesitter               |
-| `<leader>ub` | `n`  | Toggle Background (dark/light)  |
-| `<leader>uh` | `n`  | Toggle Inlay Hints              |
-| `<leader>uD` | `n`  | Toggle Dim                      |
-
-### 💻 Terminal
-
-| Key          | Mode | Description                        |
-|:-------------|:-----|:-----------------------------------|
-| `<C-\>`      | `n`  | Toggle Terminal                    |
-| `<leader>tt` | `n`  | Toggle Terminal (Floating)         |
-| `<leader>th` | `n`  | Toggle Terminal (Horizontal)       |
-| `<leader>tv` | `n`  | Toggle Terminal (Vertical)         |
-
-### 🗄️ Database Operations (vim-dadbod-ui)
-
-| Key          | Mode | Description                        |
-|:-------------|:-----|:-----------------------------------|
-| `<leader>Do` | `n`  | Open Database UI                   |
-| `<leader>Du` | `n`  | Toggle Database UI                 |
-| `<leader>Dc` | `n`  | Close Database UI                  |
-| `<leader>Dr` | `n`  | Find Database Buffer               |
-| `<leader>Da` | `n`  | Add Database Connection            |
-
-### 📑 Miscellaneous
-
-| Key                 | Mode | Action                           |
-|:------------------- |:-----|:---------------------------------|
-| `<C-a>`             | `n`  | Select All                       |
-| `<leader>y / p`     | `n`  | Yank / Paste System Clipboard    |
-| `<leader>L`         | `n`  | Lazy Plugin Manager              |
-| `<leader>,`         | `n`  | Switch Buffers                   |
-| `<leader>:`         | `n`  | Command History                  |
-| `<leader>n`         | `n`  | Notification History             |
-| `<leader>.`         | `n`  | Scratch Buffer                   |
-| `<leader>S`         | `n`  | Select Scratch                   |
-| `<leader>un`        | `n`  | Hide Notifications               |
-| `<leader>rf`        | `n`  | Rename File                      |
-| `<leader>bd`        | `n`  | Delete Buffer (Snacks)           |
-| `<leader>ba`        | `n`  | Delete All Buffers               |
-| `<leader>bo`        | `n`  | Delete Other Buffers             |
+| Key | Action |
+|-----|--------|
+| `<leader>gn` | Open Neogit |
+| `<leader>gs` | Git Status |
+| `<leader>gb` | Git Branches |
+| `<leader>gl` | Git Log |
+| `<leader>gd` | Git Diff |
+| `<leader>gg` | Open Lazygit |
 
 ### 🧪 Debugging (DAP)
 
-| Key                           | Mode | Action                         |
-|:------------------------------|:-----|:-------------------------------|
-| `<leader>dc`                  | `n`  | Continue Execution             |
-| `<leader>db`                  | `n`  | Toggle Breakpoint              |
-| `<leader>dB`                  | `n`  | Conditional Breakpoint         |
-| `<leader>du`                  | `n`  | Toggle Debug UI                |
-| `<leader>dsi` / `dso` / `dsO` | `n`  | Step In / Over / Out           |
-| `<leader>dR`                  | `n`  | Restart Debug Session          |
-| `<leader>dt`                  | `n`  | Terminate Debug Session        |
-| `<leader>de`                  | `n,v`| Evaluate Expression            |
-| `<leader>do`                  | `n`  | Open Debug REPL                |
-| `<leader>dO`                  | `n`  | Toggle Debug REPL              |
-| `<leader>dgt` / `dgl`         | `n`  | Go Test Current / Last         |
+| Key | Action |
+|-----|--------|
+| `<leader>Dc` | Start/Continue Debug |
+| `<leader>Dsi` | Step Into |
+| `<leader>DsO` | Step Over |
+| `<leader>Dso` | Step Out |
+| `<leader>Db` | Toggle Breakpoint |
+| `<leader>DB` | Conditional Breakpoint |
+| `<leader>Dt` | Toggle Debug UI |
+
+### 💻 Terminal
+
+| Key | Action |
+|-----|--------|
+| `<C-\>` | Toggle Terminal |
+| `<leader>tt` | Toggle Floating Terminal |
+| `<leader>th` | Toggle Horizontal Terminal |
+| `<leader>tv` | Toggle Vertical Terminal |
+
+### 🗄️ Database Operations
+
+| Key | Action |
+|-----|--------|
+| `<leader>Do` | Open DB UI |
+| `<leader>Du` | Toggle DB UI |
+| `<leader>DCc` | Close DB UI |
+| `<leader>Dr` | Find DB Buffer |
 
 ### 🐹 Go Development
 
-| Key                        | Mode | Description                             |
-|:---------------------------|:-----|:----------------------------------------|
-| `<leader>ga`               | `n`  | Alternate File                          |
-| `<leader>gvs`              | `n`  | Alternate Vertical Split                |
-| `<leader>ghs`              | `n`  | Alternate Horizontal Split              |
-| `<leader>gx`               | `n`  | Run Current File                        |
-| `<leader>oi`               | `n`  | Organize Imports                        |
-| `<leader>of`               | `n`  | Go Format                               |
-| `<leader>ot`               | `n`  | Go Mod Tidy                             |
-| `<leader>bb`               | `n`  | Build Package                           |
-| `<leader>br`               | `n`  | Run Package                             |
-| `<leader>tp` / `tf` / `tF` | `n`  | Test Package / Func / File              |
-| `<leader>tc`               | `n`  | Test Coverage                           |
-| `<leader>tC`               | `n`  | Toggle Coverage                         |
-| `<leader>gta` / `gtr`      | `n`  | Add / Remove Tags                       |
-| `<leader>gat` / `get`      | `n`  | Add / Example Test                      |
-| `<leader>gc` / `gs` / `gr` | `n`  | Comment / Fill Struct / Generate Return |
-| `<leader>gj`               | `n`  | JSON to Struct                          |
-| `<leader>gI` / `gG` / `gm` | `n`  | Implement / Generate / Mocks            |
-| `<leader>gL` / `gV` / `gD` | `n`  | Lint / Vet / Doc                        |
-| `<leader>gDb`              | `n`  | Go Doc Browser                          |
-| `<leader>gcb`              | `n`  | Coverage Browser                        |
+| Key | Action |
+|-----|--------|
+| `<leader>ga` | Alternate File |
+| `<leader>gx` | Run Current File |
+| `<leader>oi` | Organize Imports |
+| `<leader>ot` | Go Mod Tidy |
+| `<leader>bb` | Build Package |
+| `<leader>br` | Run Package |
+| `<leader>tp/tf/tF` | Test Package/Func/File |
+| `<leader>tc` | Show Test Coverage |
+| `<leader>gta/gtr` | Add/Remove Struct Tags |
+| `<leader>gc` | Generate Comment |
+| `<leader>gs` | Fill Struct |
+| `<leader>gI` | Implement Interface |
+
+### 🔧 Mini Plugins
+
+| Key | Action |
+|-----|--------|
+| `gcc` | Comment Line |
+| `gc` | Comment Selection (Visual) |
+| `sa` | Surround Add |
+| `sd` | Surround Delete |
+| `sr` | Surround Replace |
+| `<leader>ms` | Write Session |
+| `<leader>mr` | Read Last Session |
+
+### 🎛 Toggle Options
+
+| Key | Action |
+|-----|--------|
+| `<leader>us` | Toggle Spelling |
+| `<leader>uw` | Toggle Wrap |
+| `<leader>uL` | Toggle Relative Numbers |
+| `<leader>ud` | Toggle Diagnostics |
+| `<leader>ul` | Toggle Line Numbers |
+| `<leader>ub` | Toggle Dark/Light Theme |
+
+## 💡 Troubleshooting
+
+### Keybinding Conflicts
+If you encounter unexpected behavior:
+```vim
+:verbose map <keybinding>
+```
+This shows which plugin defines the mapping.
+
+### File Explorer Conflicts
+- **Primary nvim-tree**: Set `oil.lua`'s `default_file_explorer = false`
+- **Primary oil**: Comment out nvim-tree in `lazy.lua`
+
+### Icon Issues
+If icons are missing, temporarily disable `mini.icons` to test if it conflicts with `nvim-web-devicons`.
+
+### Indentation Problems
+1. Check if language parser is installed: `:TSInstall <language>`
+2. Verify `indent = { enable = true }` in treesitter config
+3. Review global `vim.opt` settings
+
+## 🤝 Contributing
+
+Feel free to open issues or pull requests for:
+- Bug fixes
+- Feature suggestions
+- Documentation improvements
+- Performance optimizations
+
+## 📄 License
+
+This configuration is provided as-is for educational and personal use.

@@ -29,7 +29,7 @@ return {
     -- Database UI keybindings (using <leader>D prefix to avoid conflicts with debug)
     map("n", "<leader>Do", "<Cmd>DBUI<CR>",              { desc = "Open DB UI" })
     map("n", "<leader>Du", "<Cmd>DBUIToggle<CR>",        { desc = "Toggle DB UI" })
-    map("n", "<leader>Dc", "<Cmd>DBUIClose<CR>",         { desc = "Close DB UI" })
+    map("n", "<leader>DCc", "<Cmd>DBUIClose<CR>",         { desc = "Close DB UI" })
     map("n", "<leader>Dr", "<Cmd>DBUIFindBuffer<CR>",    { desc = "Find DB Buffer" })
     map("n", "<leader>Da", "<Cmd>DBUIAddConnection<CR>", { desc = "Add DB Connection" })
   end,
