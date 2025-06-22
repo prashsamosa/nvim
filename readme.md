@@ -270,7 +270,7 @@ Automatically set bookmarks:
 | `<leader>.`         | `n`  | Scratch Buffer                   |
 | `<leader>S`         | `n`  | Select Scratch                   |
 | `<leader>un`        | `n`  | Hide Notifications               |
-| `<leader>cR`        | `n`  | Rename File                      |
+| `<leader>rf`        | `n`  | Rename File                      |
 | `<leader>bd`        | `n`  | Delete Buffer (Snacks)           |
 | `<leader>ba`        | `n`  | Delete All Buffers               |
 | `<leader>bo`        | `n`  | Delete Other Buffers             |

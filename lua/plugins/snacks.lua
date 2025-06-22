@@ -80,7 +80,7 @@ return {
       quickfile = { enabled = true },
       scope = { enabled = true },
       scroll = { enabled = true },
-      statuscolumn = { enabled = true },
+      statuscolumn = { enabled = false },
       words = { enabled = true },
       rename = { enabled = true },
       zen = {
@@ -147,7 +147,7 @@ return {
       -- { "<leader>un", function() Snacks.notifier.hide() end, desc = "Hide Notifications" },
 
       -- File rename
-      { "<leader>cR", function() Snacks.rename.rename_file() end, desc = "Rename File" },
+      { "<leader>rf", function() Snacks.rename.rename_file() end, desc = "Rename File" },
 
       -- Word jumps - Changed to avoid conflict with Treesitter
       { "<leader>wn", function() Snacks.words.jump(vim.v.count1) end, desc = "Next Reference", mode = { "n", "t" } },
