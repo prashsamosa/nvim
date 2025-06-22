@@ -1,34 +1,53 @@
 # 🚀 Modern Neovim Configuration
 
+A feature-rich, modern Neovim configuration built for productivity and ease of use. This setup provides a complete IDE-like experience with LSP support, debugging capabilities, fuzzy finding, git integration, and much more.
 
+![Neovim Version](https://img.shields.io/badge/Neovim-0.10+-blueviolet.svg?style=flat-square&logo=Neovim&logoColor=green)
+![Platform](https://img.shields.io/badge/platform-Linux%20%7C%20macOS%20%7C%20Windows-blue.svg?style=flat-square)
+![License](https://img.shields.io/badge/license-MIT-green.svg?style=flat-square)
 
-![Neovim](https://img.shields.io/badge/NeoVim-%2357A143.svg?&style=for-the-badge&logo=neovim&logoColor=white)
-![Lua](https://img.shields.io/badge/lua-%232C2D72.svg?style=for-the-badge&logo=lua&logoColor=white)
+## ✨ Features
 
-
-*A comprehensive, modern, and blazingly fast Neovim configuration*
-
-[Installation](#-installation) • [Keybindings](#-keybindings) • [Plugins](#-plugins) • [Troubleshooting](#-troubleshooting)
-
+- 🔧 **LSP Integration**: Full Language Server Protocol support with auto-completion
+- 🐛 **Debugging**: Built-in DAP (Debug Adapter Protocol) support
+- 🔍 **Fuzzy Finding**: Lightning-fast file and text search with FZF
+- 📁 **File Management**: Dual file explorers (tree view + buffer-based)
+- 🎨 **Modern UI**: Beautiful statusline, tabs, and icons
+- 🔀 **Git Integration**: Advanced git workflow with Neogit and Gitsigns
+- 🗄️ **Database Support**: Built-in database UI and completion
+- 📝 **Smart Editing**: Auto-formatting, snippets, and intelligent text objects
+- 🔧 **Session Management**: Save and restore your workspace
+- 🎯 **Productivity Tools**: Todo highlighting, markdown rendering, and more
 
 ## 📋 Prerequisites
 
 ### Essential Requirements
 
 | Tool | Version | Purpose |
-|------|---------|---------|
-| **Neovim** | ≥ 0.10.0 | Core editor |
-| **Git** | Latest | Version control & plugin management |
-| **Nerd Font** | Latest | Icons & glyphs (recommended: JetBrains Mono) |
+|:------------|:-----------|:----------------------------------|
+| **Neovim** | `≥ 0.10.0` | Core editor |
+| **Git** | `Latest` | Version control & plugin management |
+| **Nerd Font** | `Latest` | Icons & glyphs (e.g., JetBrains Mono) |
 
 ### CLI Tools
 
 ```bash
 # Ubuntu/Debian
 sudo apt install ripgrep fd-find
+
+# macOS (using Homebrew)
+brew install ripgrep fd
+
+# Windows (using Chocolatey)
+choco install ripgrep fd
+
+# Or using Scoop
+scoop install ripgrep fd
 ```
 
 ### Language-Specific Tools
+
+Ensure these are installed for optimal language support:
 
 <details>
 <summary><strong>🐹 Go Development</strong></summary>
@@ -38,228 +57,260 @@ go install golang.org/x/tools/gopls@latest
 go install github.com/go-delve/delve/cmd/dlv@latest
 go install github.com/golangci/golangci-lint/cmd/golangci-lint@latest
 ```
+
 </details>
 
 <details>
 <summary><strong>🐍 Python</strong></summary>
 
 ```bash
-pip install debugpy pylatexenc
+pip install debugpy black isort
 ```
+
 </details>
 
-### Optional Enhancements
-
-- **stylua**: Lua formatter
-- **lazygit**: Terminal UI for Git
-- **rust**: Enhanced fzf-lua performance
-
-## 🚀 Installation
-
-### Quick Start
+<details>
+<summary><strong>🌐 Web Development (JS/TS/CSS/HTML/JSON/YAML)</strong></summary>
 
 ```bash
-# Backup existing config (if any)
-mv ~/.config/nvim ~/.config/nvim.backup
-
-# Clone this configuration
-git clone <your-repo-url> ~/.config/nvim
-
-# Launch Neovim
-nvim
+npm install -g prettierd
+npm install -g typescript typescript-language-server
+npm install -g json-lsp yaml-language-server vscode-html-languageserver-bin vscode-css-languageserver-bin
 ```
 
-### First Launch
+</details>
 
-The configuration will automatically:
-1. Bootstrap Lazy.nvim plugin manager
-2. Install all configured plugins
-3. Set up LSP servers via Mason
-4. Compile Treesitter parsers
+<details>
+<summary><strong>🦀 Rust</strong></summary>
 
-### Verification
-
-Run `:checkhealth` in Neovim to verify all components are working correctly.
-
-### Manual Setup (if needed)
-
-```vim
-:TSUpdate              " Update Treesitter parsers
-:MasonInstallAll       " Install Mason-managed tools
-:GoInstallBinaries     " Install Go binaries (if applicable)
+```bash
+rustup component add rust-analyzer
+rustup component add rustfmt
 ```
+
+</details>
+
+<details>
+<summary><strong>🔗 SQL/Database</strong></summary>
+
+Install the necessary database drivers for vim-dadbod (e.g., sqlite3, psql, mysql client).
+
+</details>
+
+## 📦 Installation
+
+1. **Backup existing configuration** (if any):
+   ```bash
+   mv ~/.config/nvim ~/.config/nvim.backup
+   ```
+
+2. **Clone the repository**:
+   ```bash
+   git clone https://github.com/your-username/your-nvim-config.git ~/.config/nvim
+   ```
+   *(Replace `your-username/your-nvim-config` with your actual repository path)*
+
+3. **Open Neovim**:
+   ```bash
+   nvim
+   ```
+
+4. **Wait for installation**: lazy.nvim will automatically download and install all plugins. Mason will also install LSP servers and formatters as configured. This might take some time on the first launch.
+
+5. **Run health check**: After installation, run `:checkhealth` to ensure all dependencies are met and your setup is healthy.
 
 ## ⌨️ Keybindings
 
-> **Leader Key**: `<Space>`
+This configuration uses `<Space>` as the leader key (`<leader>`).
 
-### 🔑 Essential Shortcuts
+### General
+| Key | Action |
+|-----|--------|
+| `<leader>nh` | Clear search highlights |
+| `jk` (in Insert mode) | Exit Insert mode (remapped from `<ESC>`) |
 
-| Key | Mode | Action | Description |
-|-----|------|--------|-------------|
-| `jk` | Insert | Exit Insert Mode | Quick escape |
-| `<leader>nh` | Normal | Clear Search | Remove highlighting |
-| `<C-a>` | Normal | Select All | Select entire buffer |
-| `<leader>L` | Normal | Lazy Manager | Open plugin manager |
+### Window Management
+| Key | Action |
+|-----|--------|
+| `<C-h>`, `<C-j>`, `<C-k>`, `<C-l>` | Navigate between windows |
+| `sh` | Horizontal split |
+| `sv` | Vertical split |
 
-### 🧭 Navigation & Search
+### File/Buffer Management
+| Key | Action |
+|-----|--------|
+| `<leader>e` | Toggle nvim-tree (File Explorer Sidebar) |
+| `-` | Open oil.nvim (Floating File Explorer) |
+| `<A-,>`, `<A-.>` | Go to previous/next buffer |
+| `<A-S-,>`, `<A-S-.>` | Move buffer previous/next |
+| `<A-1>` to `<A-9>`, `<A-0>` | Jump to specific buffer |
+| `<leader>bd` | Delete current buffer |
+| `<leader>ba` | Delete all buffers |
+| `<leader>bo` | Delete other buffers |
+| `<leader>rf` | Rename current file |
 
-| Key | Mode | Action | Description |
-|-----|------|--------|-------------|
-| `<leader>ff` | Normal | Find Files | Fuzzy file finder |
-| `<leader>fg` | Normal | Live Grep | Search in files |
-| `<leader>fb` | Normal | Find Buffers | Switch between buffers |
-| `<leader>fo` | Normal | Recent Files | Open recent files |
-| `<leader>fc` | Normal | Config Files | Search config directory |
-| `<leader>fw` | Normal | Find Word | Search word under cursor |
-| `<leader>fh` | Normal | Help Tags | Search help documentation |
-| `<leader>fk` | Normal | Keymaps | Search keybindings |
-| `<leader>fr` | Normal | Resume Search | Resume last search |
+### LSP (Language Server Protocol)
+| Key | Action |
+|-----|--------|
+| `<leader>ca` | Code action |
+| `<S-k>` | Hover documentation |
+| `<leader>cr` | Rename symbol |
+| `<leader>cf` | Format current file |
+| `<leader>cc` | Organize imports |
+| `gd` | Go to definition |
+| `gr` | Go to references |
+| `gD` | Go to declaration |
+| `gi` | Go to implementation |
+| `<leader>sd` | Show document diagnostics |
+| `<leader>sw` | Show workspace diagnostics |
+| `[d` | Go to previous diagnostic |
+| `]d` | Go to next diagnostic |
 
-### 📂 File Management
+### Debugging (nvim-dap)
+| Key | Action |
+|-----|--------|
+| `<leader>Dc` | Start/Continue debugging |
+| `<leader>Dsi` | Step Into |
+| `<leader>DsO` | Step Over |
+| `<leader>Dso` | Step Out |
+| `<leader>Db` | Toggle breakpoint |
+| `<leader>DR` | Run last debug configuration |
+| `<leader>Drs` | Restart debug session |
+| `<leader>De` | Evaluate expression (visual mode) |
+| `<leader>DL` | Show debug logs |
+| `<leader>Dt` | Terminate debug session |
 
-| Key | Mode | Action | Description |
-|-----|------|--------|-------------|
-| `<leader>e` | Normal | File Explorer | Toggle NvimTree |
-| `-` | Normal | Oil Explorer | Buffer-based file manager |
+### Fuzzy Finding (fzf-lua)
+| Key | Action |
+|-----|--------|
+| `<leader>ff` | Find files |
+| `<leader>fg` | Live grep (search in files) |
+| `<leader>f/` | Grep in current buffer |
+| `<leader>fo` | Old files |
+| `<leader>f<space>` | Buffers |
+| `<leader>fgd` | LSP Go to Definition (FZF picker) |
+| `<leader>fgr` | LSP Go to References (FZF picker) |
 
-### 🗂️ Buffer Management
+### Git (Neogit)
+| Key | Action |
+|-----|--------|
+| `<leader>gn` | Open Neogit status window |
 
-| Key | Mode | Action | Description |
-|-----|------|--------|-------------|
-| `<A-,>` / `<A-.>` | Normal | Buffer Navigation | Previous/Next buffer |
-| `<A-1>` to `<A-9>` | Normal | Buffer Jump | Jump to buffer 1-9 |
-| `<leader>bc` | Normal | Close Buffer | Close current buffer |
-| `<leader>bo` | Normal | Close Others | Close other buffers |
-| `<leader>bd` | Normal | Delete Buffer | Smart buffer deletion |
+### Database (vim-dadbod-ui)
+| Key | Action |
+|-----|--------|
+| `<leader>Do` | Open DB UI |
+| `<leader>Du` | Toggle DB UI |
+| `<leader>DCc` | Close DB UI |
 
-### 🪟 Window Management
+### Terminals (toggleterm.nvim)
+| Key | Action |
+|-----|--------|
+| `<C-\>` | Toggle Floating Terminal |
+| `<leader>tt` | Toggle Floating Terminal |
+| `<leader>th` | Toggle Horizontal Terminal |
+| `<leader>tv` | Toggle Vertical Terminal |
+| `<leader>tl` | Send Current Line to Terminal |
+| `<leader>ts` | Select Terminal |
 
-| Key | Mode | Action | Description |
-|-----|------|--------|-------------|
-| `<C-h/j/k/l>` | Normal | Navigate Windows | Move between windows |
-| `sh` / `sv` | Normal | Split Window | Horizontal/Vertical split |
-| `<leader>z` | Normal | Zen Mode | Distraction-free mode |
-| `<leader>Z` | Normal | Zoom Window | Maximize current window |
+### Markdown (render-markdown.nvim)
+| Key | Action |
+|-----|--------|
+| `<leader>Mm` | Toggle Markdown Rendering |
 
-### ⚙️ LSP & Code Actions
+### Snacks Utilities
+| Key | Action |
+|-----|--------|
+| `<leader>us` | Toggle Spelling |
+| `<leader>uw` | Toggle Word Wrap |
+| `<leader>uL` | Toggle Relative Line Numbers |
+| `<leader>ud` | Toggle Diagnostics |
+| `<leader>ul` | Toggle Line Numbers |
+| `<leader>ut` | Toggle Treesitter Highlights |
+| `<leader>ub` | Toggle Dark/Light Background |
+| `<leader>uh` | Toggle Inlay Hints |
+| `<leader>uz` | Toggle Dim Mode |
+| `<leader>z` | Toggle Zen Mode |
+| `<leader>Z` | Zoom Current Window |
+| `<leader>.` | Scratch Buffer |
+| `<leader>S` | Select Scratch Buffer |
 
-| Key | Mode | Action | Description |
-|-----|------|--------|-------------|
-| `gd` | Normal | Go to Definition | Jump to definition |
-| `gD` | Normal | Go to Declaration | Jump to declaration |
-| `gr` | Normal | References | Find references |
-| `gI` | Normal | Implementation | Go to implementation |
-| `K` | Normal | Hover Info | Show documentation |
-| `<leader>ca` | Normal/Visual | Code Actions | Available code actions |
-| `<leader>cr` | Normal | Rename | Rename symbol |
-| `<leader>ds` | Normal | Document Symbols | List document symbols |
-| `<leader>ws` | Normal | Workspace Symbols | Search workspace symbols |
-| `[d` / `]d` | Normal | Navigate Diagnostics | Previous/Next diagnostic |
+### Sessions (mini.sessions)
+| Key | Action |
+|-----|--------|
+| `<leader>ms` | Write Session |
+| `<leader>mr` | Read Last Session |
+| `<leader>md` | Delete Session |
 
-### 🐛 Debugging
+> **Tip**: Use `<leader>` followed by any key to see available mappings via which-key.nvim
 
-| Key | Mode | Action | Description |
-|-----|------|--------|-------------|
-| `<leader>Dc` | Normal | Start/Continue | Start or continue debugging |
-| `<leader>Db` | Normal | Toggle Breakpoint | Set/remove breakpoint |
-| `<leader>DB` | Normal | Conditional Breakpoint | Set conditional breakpoint |
-| `<leader>Dsi` | Normal | Step Into | Step into function |
-| `<leader>DsO` | Normal | Step Over | Step over line |
-| `<leader>Dso` | Normal | Step Out | Step out of function |
-| `<leader>Dt` | Normal | Toggle UI | Show/hide debug UI |
+## ⚙️ Plugin Overview
 
-### 📚 Git Operations
+### Core & Utilities
+- **folke/lazy.nvim**: Modern plugin manager
+- **folke/which-key.nvim**: Displays keybinding hints
+- **folke/snacks.nvim**: Collection of useful utilities and toggles
+- **akinsho/toggleterm.nvim**: Integrated terminal
+- **echasnovski/mini.nvim**: Collection of lightweight plugins
+- **tpope/vim-sleuth**: Automatic indentation detection
 
-| Key | Mode | Action | Description |
-|-----|------|--------|-------------|
-| `<leader>gn` | Normal | Neogit | Open Git interface |
-| `<leader>gg` | Normal | Lazygit | Open Lazygit |
+### User Interface & Aesthetics
+- **nvim-lualine/lualine.nvim**: Customizable statusline
+- **romgrk/barbar.nvim**: Neovim tabs/bufferline
+- **nvim-tree/nvim-web-devicons**: File icons
 
-### 💻 Terminal
+### File Exploration & Fuzzy Finding
+- **nvim-tree/nvim-tree.lua**: Classic sidebar file explorer
+- **stevearc/oil.nvim**: Floating file explorer (default)
+- **ibhagwan/fzf-lua**: Powerful fuzzy finder
 
-| Key | Mode | Action | Description |
-|-----|------|--------|-------------|
-| `<C-\>` | Normal | Toggle Terminal | Quick terminal access |
-| `<leader>tt` | Normal | Floating Terminal | Floating terminal window |
-| `<leader>th` | Normal | Horizontal Terminal | Horizontal split terminal |
-| `<leader>tv` | Normal | Vertical Terminal | Vertical split terminal |
+### Language Support
+- **neovim/nvim-lspconfig**: LSP server configuration
+- **williamboman/mason.nvim**: LSP server, DAP adapter, and formatter manager
+- **saghen/blink.cmp**: Fast completion engine
+- **stevearc/conform.nvim**: Auto-formatting on save
+- **b0o/schemastore.nvim**: JSON/YAML schema validation
 
-### 🐹 Go Development
+### Debugging
+- **mfussenegger/nvim-dap**: Debug Adapter Protocol client
+- **rcarriga/nvim-dap-ui**: Debugging UI
+- **theHamsta/nvim-dap-virtual-text**: Inline variable values during debugging
 
-| Key | Mode | Action | Description |
-|-----|------|--------|-------------|
-| `<leader>ga` | Normal | Alternate File | Switch between test/implementation |
-| `<leader>gx` | Normal | Run File | Execute current Go file |
-| `<leader>bb` / `<leader>br` | Normal | Build/Run | Build or run package |
-| `<leader>tp` / `<leader>tf` | Normal | Test Package/File | Run tests |
-| `<leader>tc` | Normal | Test Coverage | Show test coverage |
-| `<leader>oi` | Normal | Organize Imports | Format imports |
-| `<leader>gs` | Normal | Fill Struct | Auto-fill struct fields |
+### Version Control
+- **NeogitOrg/neogit**: Git client
+- **sindrets/diffview.nvim**: Powerful diff viewer
+- **lewis6991/gitsigns.nvim**: Git status in sign column
 
-## 🔌 Plugin Architecture
+### Code Analysis & Navigation
+- **nvim-treesitter/nvim-treesitter**: Modern syntax highlighting
+- **folke/todo-comments.nvim**: Highlights TODO/FIXME comments
+- **MeanderingProgrammer/render-markdown.nvim**: Markdown rendering
 
-### Core Components
+### Database
+- **kristijanhusak/vim-dadbod-ui**: Database UI
+- **tpope/vim-dadbod**: Core database plugin
 
-- **[lazy.nvim](https://github.com/folke/lazy.nvim)** - Modern plugin manager
-- **[mason.nvim](https://github.com/williamboman/mason.nvim)** - LSP/DAP/Linter installer
-- **[nvim-lspconfig](https://github.com/neovim/nvim-lspconfig)** - LSP configurations
-- **[nvim-treesitter](https://github.com/nvim-treesitter/nvim-treesitter)** - Syntax highlighting
+## ⚠️ Known Issues & Solutions
 
-### UI & Theme
+<details>
+<summary><strong>File Explorer Redundancy (nvim-tree vs. oil)</strong></summary>
 
-- **[github-nvim-theme](https://github.com/projekt0n/github-nvim-theme)** - GitHub-inspired theme
-- **[lualine.nvim](https://github.com/nvim-lualine/lualine.nvim)** - Statusline
-- **[barbar.nvim](https://github.com/romgrk/barbar.nvim)** - Buffer tabs
-- **[which-key.nvim](https://github.com/folke/which-key.nvim)** - Keybinding hints
+**Problem**: Both nvim-tree.lua and oil.lua are configured, which can lead to ambiguity.
 
-### Navigation & Search
+**Solution**:
+- If you prefer oil.nvim for all file browsing: Consider removing nvim-tree.lua
+- If you want both: Use `<leader>e` for nvim-tree (sidebar) vs. `-` for oil.nvim (floating)
 
-- **[fzf-lua](https://github.com/ibhagwan/fzf-lua)** - Fuzzy finder
-- **[nvim-tree.lua](https://github.com/nvim-tree/nvim-tree.lua)** - File explorer
-- **[oil.nvim](https://github.com/stevearc/oil.nvim)** - Buffer-based file editing
+</details>
 
-### Development Tools
+<details>
+<summary><strong>Buffer Closing Keymap Conflict (Potential)</strong></summary>
 
-- **[blink.cmp](https://github.com/saghen/blink.cmp)** - Autocompletion
-- **[nvim-dap](https://github.com/mfussenegger/nvim-dap)** - Debug Adapter Protocol
-- **[conform.nvim](https://github.com/stevearc/conform.nvim)** - Code formatting
-- **[go.nvim](https://github.com/ray-x/go.nvim)** - Go development tools
+**Problem**: Potential conflict between barbar.lua and snacks.lua for `<leader>bo` keymap.
 
-### Git Integration
+**Solution**: Currently resolved as barbar.lua mappings are commented. If uncommenting, change one of the keymaps to avoid conflict.
 
-- **[neogit](https://github.com/NeogitOrg/neogit)** - Git interface
-- **[gitsigns.nvim](https://github.com/lewis6991/gitsigns.nvim)** - Git decorations
-
-### Utilities
-
-- **[mini.nvim](https://github.com/echasnovski/mini.nvim)** - Collection of small plugins
-- **[snacks.nvim](https://github.com/folke/snacks.nvim)** - Useful utilities
-- **[toggleterm.nvim](https://github.com/akinsho/toggleterm.nvim)** - Terminal management
-
-## 🛠️ Customization
-
-### Adding New Plugins
-
-1. Create a new file in `lua/plugins/`
-2. Define your plugin specification:
-
-```lua
-return {
-  "author/plugin-name",
-  config = function()
-    -- Plugin configuration
-  end,
-}
-```
-
-### Modifying Keybindings
-
-Edit the relevant configuration file in `lua/plugins/` or add custom mappings to `lua/config/keymaps.lua`.
-
-### Theme Customization
-
-Modify `lua/plugins/colorscheme.lua` to change themes or customize colors.
+</details>
 
 ## 🔧 Troubleshooting
 
@@ -268,37 +319,45 @@ Modify `lua/plugins/colorscheme.lua` to change themes or customize colors.
 <details>
 <summary><strong>Icons not displaying correctly</strong></summary>
 
-- Install a Nerd Font and configure your terminal to use it
-- Verify font installation: `fc-list | grep -i nerd`
+1. **Install a Nerd Font**: Download and install a Nerd Font (e.g., JetBrains Mono Nerd Font)
+2. **Configure your terminal**: Set your terminal to use the installed Nerd Font
+3. **Verify installation**: Run `fc-list | grep -i nerd` to check if fonts are detected
+
 </details>
 
 <details>
-<summary><strong>LSP not working for a language</strong></summary>
+<summary><strong>LSP not working / Formatting not working</strong></summary>
 
-1. Check if the language server is installed: `:Mason`
-2. Verify LSP is attached: `:LspInfo`
-3. Check for errors: `:checkhealth lsp`
+1. **Check Language Server**: Run `:Mason` and verify the language server is installed
+2. **Verify LSP Attachment**: In a relevant file, run `:LspInfo`
+3. **Check for Errors**: Run `:checkhealth lsp`
+4. **Check Formatter**: Ensure formatters are installed via `:Mason`
+5. **Test conform.nvim**: Try `:ConformInfo` and manual formatting with `:Conform`
+
 </details>
 
 <details>
 <summary><strong>Plugins not loading</strong></summary>
 
-1. Check Lazy status: `:Lazy`
-2. Sync plugins: `:Lazy sync`
-3. Check for errors: `:Lazy log`
+1. **Check Status**: Run `:Lazy` to view plugin status
+2. **Sync Plugins**: Run `:Lazy sync`
+3. **Check Logs**: Run `:Lazy log` for errors
+4. **Rebuild Treesitter**: Run `:TSUpdate` if syntax highlighting is off
+
 </details>
 
 <details>
-<summary><strong>Slow startup</strong></summary>
+<summary><strong>Slow startup time</strong></summary>
 
-1. Profile startup time: `nvim --startuptime startup.log`
-2. Check plugin loading: `:Lazy profile`
-3. Consider lazy-loading more plugins
+1. **Profile Startup**: Run `nvim --startuptime startup.log`
+2. **Check Plugin Profile**: Run `:Lazy profile` inside Neovim
+3. **Consider lazy-loading**: Add `lazy = true` with appropriate triggers to plugin configurations
+
 </details>
 
-### Getting Help
+## 🆘 Getting Help
 
-- Run `:checkhealth` for comprehensive system diagnostics
+- Run `:checkhealth` for comprehensive diagnostics
 - Use `:help <topic>` for built-in documentation
-- Check plugin documentation for specific issues
----
+- Refer to individual plugin documentation on GitHub
+- Check the [Neovim documentation](https://neovim.io/doc/)
