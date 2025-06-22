@@ -109,7 +109,7 @@ return {
           source = "if_many",
           header = "",
           prefix = "",
-          focusable = false
+          focusable = false,
         },
         signs = {
           text = {
@@ -121,8 +121,14 @@ return {
         },
       })
 
-      vim.keymap.set("n", "[d", function() vim.diagnostic.goto_prev({ float = true }) end, { desc = "Prev diagnostic" })
-      vim.keymap.set("n", "]d", function() vim.diagnostic.goto_next({ float = true }) end, { desc = "Next diagnostic" })
+      vim.keymap.set("n", "[d", function()
+        vim.diagnostic.goto_prev({ float = true })
+      end, { desc = "Prev diagnostic" })
+
+      vim.keymap.set("n", "]d", function()
+        vim.diagnostic.goto_next({ float = true })
+      end, { desc = "Next diagnostic" })
+
       vim.keymap.set("n", "<leader>dl", vim.diagnostic.setloclist, { desc = "Diagnostic list" })
       vim.keymap.set("n", "<leader>dq", vim.diagnostic.setqflist, { desc = "Diagnostic quickfix" })
 
@@ -136,24 +142,22 @@ return {
           filetypes = { "sh", "bash", "zsh" },
           settings = {
             bashIde = {
-              globPattern = "**/*@(.sh|.inc|.bash|.command)"
-            }
+              globPattern = "**/*@(.sh|.inc|.bash|.command)",
+            },
           },
         },
         marksman = {
           filetypes = { "markdown", "md" },
-          single_file_support = true
+          single_file_support = true,
         },
         lua_ls = {
           settings = {
             Lua = {
               runtime = { version = "LuaJIT" },
-              workspace = {
-                checkThirdParty = false,
-              },
+              workspace = { checkThirdParty = false },
               diagnostics = {
                 globals = { "vim", "Snacks" },
-                disable = { "missing-fields" }
+                disable = { "missing-fields" },
               },
               completion = { callSnippet = "Replace" },
               hint = { enable = true },
@@ -223,11 +227,11 @@ return {
           settings = {
             typescript = {
               format = { enable = false },
-              inlayHints = { includeInlayParameterNameHints = "all" }
+              inlayHints = { includeInlayParameterNameHints = "all" },
             },
             javascript = {
               format = { enable = false },
-              inlayHints = { includeInlayParameterNameHints = "all" }
+              inlayHints = { includeInlayParameterNameHints = "all" },
             },
           },
         },
@@ -262,20 +266,28 @@ return {
         },
         html = {
           settings = {
-            html = { format = { enable = false } }
-          }
+            html = { format = { enable = false } },
+          },
         },
         cssls = {
           settings = {
-            css = { format = { enable = false } }
-          }
+            css = { format = { enable = false } },
+          },
         },
       }
 
       local ensure_installed = vim.tbl_keys(servers)
       vim.list_extend(ensure_installed, {
-        "stylua", "prettierd", "shfmt", "goimports", "gofumpt",
-        "black", "isort", "rustfmt", "delve", "golangci-lint"
+        "stylua",
+        "prettierd",
+        "shfmt",
+        "goimports",
+        "gofumpt",
+        "black",
+        "isort",
+        "rustfmt",
+        "delve",
+        "golangci-lint",
       })
 
       require("mason-tool-installer").setup({

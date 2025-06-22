@@ -20,27 +20,22 @@ return {
     config = function()
       local MiniFiles = require("mini.files")
 
-      -- Setup MiniFiles
       MiniFiles.setup({
-        content = {
-          filter = nil,
-          prefix = nil,
-          sort = nil,
-        },
+        content = {},
         mappings = {
-          close       = "q",
-          go_in       = "l",
-          go_in_plus  = "L",
-          go_out      = "h",
+          close = "q",
+          go_in = "l",
+          go_in_plus = "L",
+          go_out = "h",
           go_out_plus = "H",
-          mark_goto   = "'",
-          mark_set    = "m",
-          reset       = "<BS>",
-          reveal_cwd  = "@",
-          show_help   = "g?",
+          mark_goto = "'",
+          mark_set = "m",
+          reset = "<BS>",
+          reveal_cwd = "@",
+          show_help = "g?",
           synchronize = "=",
-          trim_left   = "<",
-          trim_right  = ">",
+          trim_left = "<",
+          trim_right = ">",
         },
         options = {
           permanent_delete = false,
@@ -55,7 +50,6 @@ return {
         },
       })
 
-      -- GitHub theme colors for consistency
       local github_colors = {
         bg = "#0d1117",
         bg_float = "#161b22",
@@ -73,10 +67,8 @@ return {
         selection = "#264f78",
       }
 
-      -- Apply GitHub theme highlight groups for Mini.files
       local function setup_github_highlights()
         local hl = vim.api.nvim_set_hl
-
         hl(0, "MiniFilesBorder", { bg = "none", fg = github_colors.border })
         hl(0, "MiniFilesBorderModified", { bg = "none", fg = github_colors.warning })
         hl(0, "MiniFilesCursorLine", { bg = github_colors.selection })
@@ -90,110 +82,82 @@ return {
         hl(0, "MiniFilesHidden", { fg = github_colors.comment, italic = true })
       end
 
-      vim.api.nvim_create_autocmd("ColorScheme", {
-        callback = setup_github_highlights,
-      })
+      vim.api.nvim_create_autocmd("ColorScheme", { callback = setup_github_highlights })
       setup_github_highlights()
 
-      -- Toggle function for opening/closing MiniFiles
-      local minifiles_toggle = function(...)
-        if not MiniFiles.close() then
-          MiniFiles.open(...)
-        end
+      local function minifiles_toggle(...)
+        if not MiniFiles.close() then MiniFiles.open(...) end
       end
 
-      -- Global keymaps
-      vim.keymap.set("n", "<leader>me", function()
-        minifiles_toggle()
-      end, { desc = "Mini Files: Toggle explorer" })
-
+      vim.keymap.set("n", "<leader>me", function() minifiles_toggle() end, { desc = "Mini Files: Toggle explorer" })
       vim.keymap.set("n", "<leader>mE", function()
         minifiles_toggle(vim.api.nvim_buf_get_name(0))
       end, { desc = "Mini Files: Open at current file" })
 
-      -- Buffer-specific customizations
       vim.api.nvim_create_autocmd("User", {
         pattern = "MiniFilesBufferCreate",
         callback = function(args)
           local buf_id = args.data.buf_id
-
-          -- Toggle dotfiles visibility
           local show_dotfiles = true
-          local filter_show = function(fs_entry) return true end
-          local filter_hide = function(fs_entry)
-            return not vim.startswith(fs_entry.name, ".")
-          end
+          local filter_show = function(_) return true end
+          local filter_hide = function(fs_entry) return not vim.startswith(fs_entry.name, ".") end
           local toggle_dotfiles = function()
             show_dotfiles = not show_dotfiles
-            local new_filter = show_dotfiles and filter_show or filter_hide
-            MiniFiles.refresh({ content = { filter = new_filter } })
+            MiniFiles.refresh({ content = { filter = show_dotfiles and filter_show or filter_hide } })
           end
-          vim.keymap.set("n", "g.", toggle_dotfiles, {
-            buffer = buf_id,
-            desc = "Toggle dotfiles"
-          })
+          vim.keymap.set("n", "g.", toggle_dotfiles, { buffer = buf_id, desc = "Toggle dotfiles" })
 
-          -- Split mappings
-          local map_split = function(buf_id, lhs, direction, desc)
-            local rhs = function()
-              local cur_target = MiniFiles.get_explorer_state().target_window
-              local new_target = vim.api.nvim_win_call(cur_target, function()
+          local function map_split(lhs, direction, desc)
+            vim.keymap.set("n", lhs, function()
+              local cur = MiniFiles.get_explorer_state().target_window
+              local win = vim.api.nvim_win_call(cur, function()
                 vim.cmd(direction .. " split")
                 return vim.api.nvim_get_current_win()
               end)
-              MiniFiles.set_target_window(new_target)
-            end
-            vim.keymap.set("n", lhs, rhs, { buffer = buf_id, desc = desc })
+              MiniFiles.set_target_window(win)
+            end, { buffer = buf_id, desc = desc })
           end
 
-          map_split(buf_id, "<C-s>", "belowright horizontal", "Split horizontal")
-          map_split(buf_id, "<C-v>", "belowright vertical", "Split vertical")
-          map_split(buf_id, "<C-t>", "tab", "Open in new tab")
+          map_split("<C-s>", "belowright horizontal", "Split horizontal")
+          map_split("<C-v>", "belowright vertical", "Split vertical")
+          map_split("<C-t>", "tab", "Open in new tab")
 
-          -- Utility mappings
-          local set_cwd = function()
+          local function map_util(lhs, fn, desc)
+            vim.keymap.set("n", lhs, fn, { buffer = buf_id, desc = desc })
+          end
+
+          map_util("g~", function()
             local path = (MiniFiles.get_fs_entry() or {}).path
-            if path == nil then
-              return vim.notify("Cursor is not on valid entry", vim.log.levels.WARN)
+            if path then
+              vim.fn.chdir(vim.fs.dirname(path))
+              vim.notify("📁 CWD set to: " .. vim.fs.dirname(path), vim.log.levels.INFO)
+            else
+              vim.notify("Cursor is not on valid entry", vim.log.levels.WARN)
             end
-            vim.fn.chdir(vim.fs.dirname(path))
-            vim.notify("📁 CWD set to: " .. vim.fs.dirname(path), vim.log.levels.INFO)
-          end
+          end, "Set cwd to current directory")
 
-          local yank_path = function()
+          map_util("gy", function()
             local path = (MiniFiles.get_fs_entry() or {}).path
-            if path == nil then
-              return vim.notify("Cursor is not on valid entry", vim.log.levels.WARN)
+            if path then
+              vim.fn.setreg(vim.v.register, path)
+              vim.notify("📋 Yanked: " .. path, vim.log.levels.INFO)
+            else
+              vim.notify("Cursor is not on valid entry", vim.log.levels.WARN)
             end
-            vim.fn.setreg(vim.v.register, path)
-            vim.notify("📋 Yanked: " .. path, vim.log.levels.INFO)
-          end
+          end, "Yank path to clipboard")
 
-          local open_with_system = function()
+          map_util("gx", function()
             local path = (MiniFiles.get_fs_entry() or {}).path
-            if path == nil then
-              return vim.notify("Cursor is not on valid entry", vim.log.levels.WARN)
+            if path then
+              vim.ui.open(path)
+              vim.notify("🚀 Opened with system default", vim.log.levels.INFO)
+            else
+              vim.notify("Cursor is not on valid entry", vim.log.levels.WARN)
             end
-            vim.ui.open(path)
-            vim.notify("🚀 Opened with system default", vim.log.levels.INFO)
-          end
-
-          vim.keymap.set("n", "g~", set_cwd, {
-            buffer = buf_id,
-            desc = "Set cwd to current directory"
-          })
-          vim.keymap.set("n", "gy", yank_path, {
-            buffer = buf_id,
-            desc = "Yank path to clipboard"
-          })
-          vim.keymap.set("n", "gx", open_with_system, {
-            buffer = buf_id,
-            desc = "Open with system default"
-          })
+          end, "Open with system default")
         end,
       })
 
-      -- Window customization
       vim.api.nvim_create_autocmd("User", {
         pattern = "MiniFilesWindowOpen",
         callback = function(args)
@@ -206,7 +170,6 @@ return {
         end,
       })
 
-      -- Set bookmarks
       vim.api.nvim_create_autocmd("User", {
         pattern = "MiniFilesExplorerOpen",
         callback = function()
@@ -214,52 +177,41 @@ return {
           MiniFiles.set_bookmark("d", vim.fn.stdpath("data"), { desc = "💾 Data directory" })
           MiniFiles.set_bookmark("h", vim.fn.expand("~"), { desc = "🏠 Home directory" })
           MiniFiles.set_bookmark("w", vim.fn.getcwd, { desc = "💼 Working directory" })
-
           if vim.fn.isdirectory(".git") == 1 then
             MiniFiles.set_bookmark("r", ".", { desc = "📂 Project root" })
           end
         end,
       })
 
-      -- File operations feedback
       vim.api.nvim_create_autocmd("User", {
         pattern = {
-          "MiniFilesActionCreate",
-          "MiniFilesActionDelete",
-          "MiniFilesActionRename",
-          "MiniFilesActionCopy",
-          "MiniFilesActionMove",
+          "MiniFilesActionCreate", "MiniFilesActionDelete", "MiniFilesActionRename",
+          "MiniFilesActionCopy", "MiniFilesActionMove"
         },
         callback = function(event)
-          local data = event.data
-          local action = data.action:gsub("^%l", string.upper)
-          local from_path = data.from and vim.fn.fnamemodify(data.from, ":t") or ""
-          local to_path = data.to and vim.fn.fnamemodify(data.to, ":t") or ""
-
-          local message, level
-          if action == "Create" then
-            message = string.format("✨ %s: %s", action, to_path)
-            level = vim.log.levels.INFO
-          elseif action == "Delete" then
-            message = string.format("🗑️ %s: %s", action, from_path)
+          local a, from, to = event.data.action, event.data.from, event.data.to
+          local msg = ""
+          local level = vim.log.levels.INFO
+          if a == "create" then
+            msg = "✨ Create: " .. vim.fn.fnamemodify(to, ":t")
+          elseif a == "delete" then
+            msg = "🗑️ Delete: " .. vim.fn.fnamemodify(from, ":t")
             level = vim.log.levels.WARN
-          elseif action == "Rename" then
-            message = string.format("📝 %s: %s → %s", action, from_path, to_path)
-            level = vim.log.levels.INFO
-          elseif action == "Copy" then
-            message = string.format("📋 %s: %s → %s", action, from_path, to_path)
-            level = vim.log.levels.INFO
-          elseif action == "Move" then
-            message = string.format("📦 %s: %s → %s", action, from_path, to_path)
-            level = vim.log.levels.INFO
+          elseif a == "rename" then
+            msg = "📝 Rename: " .. vim.fn.fnamemodify(from, ":t") .. " → " .. vim.fn.fnamemodify(to, ":t")
+          elseif a == "copy" then
+            msg = "📋 Copy: " .. vim.fn.fnamemodify(from, ":t") .. " → " .. vim.fn.fnamemodify(to, ":t")
+          elseif a == "move" then
+            msg = "📦 Move: " .. vim.fn.fnamemodify(from, ":t") .. " → " .. vim.fn.fnamemodify(to, ":t")
           end
-
-          vim.notify(message, level)
+          vim.notify(msg, level)
         end,
       })
     end,
     desc = "File explorer",
   },
+
+  -- Remaining mini plugins below (unchanged, already great)...
 
   -- Smart commenting
   {

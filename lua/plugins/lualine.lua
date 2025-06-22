@@ -7,7 +7,7 @@ return {
   config = function()
     require("lualine").setup({
       options = {
-        theme = "github_dark", -- Theme name (requires lualine theme or custom colorscheme)
+        theme = "github_dark",
         component_separators = { left = "", right = "" },
         section_separators = { left = "", right = "" },
         globalstatus = true,
@@ -31,9 +31,7 @@ return {
           },
         },
         lualine_c = {
-          -- Show only icon
           { "filetype", icon_only = true, separator = "", padding = { left = 1, right = 0 } },
-          -- Full file path (shortened to target 40 chars)
           { "filename", path = 1, shorting_target = 40 },
         },
         lualine_x = {
@@ -47,7 +45,6 @@ return {
             },
           },
           {
-            -- Show active LSP client(s)
             function()
               local clients = vim.lsp.get_clients({ bufnr = 0 })
               if vim.tbl_isempty(clients) then return "" end
@@ -78,10 +75,10 @@ return {
         lualine_z = {},
       },
       extensions = {
-        "lazy",       -- Plugin manager
-        "mason",      -- LSP/DAP/linter manager
-        "toggleterm", -- Terminal integration
-        "nvim-tree",  -- File explorer
+        "lazy",
+        "mason",
+        "toggleterm",
+        "nvim-tree",
       },
     })
   end,

@@ -2,38 +2,27 @@
 return {
   "stevearc/conform.nvim",
   opts = {
-    -- Formatters by filetype
     formatters_by_ft = {
+      bash        = { "shfmt" },
+      css         = { "prettierd" },
+      go          = { "goimports" },
+      html        = { "prettierd" },
+      javascript  = { { "prettierd", "prettier", stop_after_first = true } },
+      json        = { "prettierd" },
       lua         = { "stylua" },
+      markdown    = { "prettierd" },
       python      = { "isort", "black" },
       rust        = { "rustfmt" },
-      go          = { "goimports" }, -- Handles imports and formatting
-
-      javascript  = {
-        { "prettierd", "prettier", stop_after_first = true },
-      },
-      typescript  = {
-        { "prettierd", "prettier", stop_after_first = true },
-      },
-
       sh          = { "shfmt" },
-      bash        = { "shfmt" },
-      markdown    = { "prettierd" },
-      json        = { "prettierd" },
+      typescript  = { { "prettierd", "prettier", stop_after_first = true } },
       yaml        = { "prettierd" },
-      html        = { "prettierd" },
-      css         = { "prettierd" },
 
-      -- Fallback for any filetype
       ["_"]       = { "trim_whitespace" },
     },
 
-    -- Format on save settings
     format_on_save = {
-      timeout_ms = 1000,         -- Increased for slower formatters like Go
-      lsp_format = "never",      -- Disable LSP formatting to avoid conflicts
+      timeout_ms = 1000,
+      lsp_format = "never",
     },
-
-    -- Individual formatter configuration
   },
 }

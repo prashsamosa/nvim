@@ -14,7 +14,7 @@ return {
     local dap = require("dap")
     local dapui = require("dapui")
 
-    -- UI Setup
+    -- UI setup
     dapui.setup({
       controls = {
         element = "repl",
@@ -33,26 +33,27 @@ return {
             { id = "stacks", size = 0.25 },
             { id = "watches", size = 0.25 },
           },
-          position = "right", size = 50,
+          position = "right",
+          size = 50,
         },
         {
           elements = {
             { id = "repl", size = 0.5 },
             { id = "console", size = 0.5 },
           },
-          position = "bottom", size = 10,
+          position = "bottom",
+          size = 10,
         },
       },
     })
 
-    -- Virtual Text
     require("nvim-dap-virtual-text").setup({
       enabled = true,
       show_stop_reason = true,
       virt_text_pos = vim.fn.has("nvim-0.10") == 1 and "inline" or "eol",
     })
 
-    -- Auto UI toggle
+    -- Auto open/close DAP UI
     dap.listeners.before.attach.dapui_config = function() dapui.open() end
     dap.listeners.before.launch.dapui_config = function() dapui.open() end
     dap.listeners.before.event_terminated.dapui_config = function() dapui.close() end
@@ -62,10 +63,14 @@ return {
     vim.fn.sign_define("DapBreakpoint", { text = "●", texthl = "DapBreakpoint" })
     vim.fn.sign_define("DapBreakpointCondition", { text = "◆", texthl = "DapBreakpointCondition" })
     vim.fn.sign_define("DapLogPoint", { text = "◆", texthl = "DapLogPoint" })
-    vim.fn.sign_define("DapStopped", { text = "▶", texthl = "DapStopped", linehl = "DapStoppedLine" })
+    vim.fn.sign_define("DapStopped", {
+      text = "▶",
+      texthl = "DapStopped",
+      linehl = "DapStoppedLine",
+    })
     vim.fn.sign_define("DapBreakpointRejected", { text = "○", texthl = "DapBreakpointRejected" })
 
-    -- JavaScript/Node/Browser setup
+    -- JavaScript/Node/Chrome
     local mason = require("mason-registry")
     local js_debug_path = mason.get_package("js-debug-adapter"):get_install_path()
     local js_debug_cmd = js_debug_path .. "/js-debug/src/dapDebugServer.js"
@@ -91,7 +96,7 @@ return {
       local co = coroutine.running()
       return coroutine.create(function()
         vim.ui.input({ prompt = "Enter URL: ", default = "http://localhost:3000" }, function(url)
-          if url ~= nil and url ~= "" then coroutine.resume(co, url) end
+          if url and url ~= "" then coroutine.resume(co, url) end
         end)
       end)
     end
@@ -116,7 +121,7 @@ return {
       }
     end
 
-    -- .NET
+    -- .NET (C#)
     local netcoredbg = mason.get_package("netcoredbg"):get_install_path()
     dap.adapters.coreclr = {
       type = "executable",
@@ -156,7 +161,9 @@ return {
         request = "launch",
         name = "Launch file",
         program = "${file}",
-        pythonPath = function() return "/usr/bin/python3" end,
+        pythonPath = function()
+          return "/usr/bin/python3"
+        end,
       },
     }
 
@@ -171,7 +178,7 @@ return {
       },
     })
 
-    -- Enhanced arg parsing
+    -- Convert string args to list
     for _, configs in pairs(dap.configurations) do
       for _, config in ipairs(configs) do
         if type(config.args) == "string" then
@@ -180,7 +187,7 @@ return {
       end
     end
 
-    -- Launch.json fallback
+    -- Load .vscode/launch.json if present
     local function continue_with_launch_json()
       if vim.fn.filereadable(".vscode/launch.json") then
         local ok, ext = pcall(require, "dap.ext.vscode")
@@ -194,25 +201,26 @@ return {
       dap.continue()
     end
 
-    -- Keymaps
-    vim.keymap.set("n", "<leader>dc", continue_with_launch_json, { desc = "Debug: Continue" })
-    vim.keymap.set("n", "<leader>dsi", dap.step_into, { desc = "Debug: Step Into" })
-    vim.keymap.set("n", "<leader>dso", dap.step_over, { desc = "Debug: Step Over" })
-    vim.keymap.set("n", "<leader>dsO", dap.step_out, { desc = "Debug: Step Out" })
-    vim.keymap.set("n", "<leader>dR", dap.restart, { desc = "Debug: Restart" })
-    vim.keymap.set("n", "<leader>dt", dap.terminate, { desc = "Debug: Terminate" })
-    vim.keymap.set("n", "<leader>db", dap.toggle_breakpoint, { desc = "Debug: Toggle Breakpoint" })
-    vim.keymap.set("n", "<leader>dB", function()
+    -- Keybindings
+    local map = vim.keymap.set
+    map("n", "<leader>dc", continue_with_launch_json, { desc = "Debug: Continue" })
+    map("n", "<leader>dsi", dap.step_into, { desc = "Debug: Step Into" })
+    map("n", "<leader>dso", dap.step_over, { desc = "Debug: Step Over" })
+    map("n", "<leader>dsO", dap.step_out, { desc = "Debug: Step Out" })
+    map("n", "<leader>dR", dap.restart, { desc = "Debug: Restart" })
+    map("n", "<leader>dt", dap.terminate, { desc = "Debug: Terminate" })
+    map("n", "<leader>db", dap.toggle_breakpoint, { desc = "Debug: Toggle Breakpoint" })
+    map("n", "<leader>dB", function()
       dap.set_breakpoint(vim.fn.input("Breakpoint condition: "))
     end, { desc = "Debug: Conditional Breakpoint" })
-    vim.keymap.set("n", "<leader>du", dapui.toggle, { desc = "Debug: Toggle UI" })
-    vim.keymap.set({ "n", "v" }, "<leader>de", dapui.eval, { desc = "Debug: Eval Expression" })
-    vim.keymap.set("n", "<leader>do", dap.repl.open, { desc = "Debug: Open REPL" })
-    vim.keymap.set("n", "<leader>dO", dap.repl.toggle, { desc = "Debug: Toggle REPL" })
+    map("n", "<leader>du", dapui.toggle, { desc = "Debug: Toggle UI" })
+    map({ "n", "v" }, "<leader>de", dapui.eval, { desc = "Debug: Eval Expression" })
+    map("n", "<leader>do", dap.repl.open, { desc = "Debug: Open REPL" })
+    map("n", "<leader>dO", dap.repl.toggle, { desc = "Debug: Toggle REPL" })
 
-    -- Go-specific test mappings
-    vim.keymap.set("n", "<leader>dgt", function() require("dap-go").debug_test() end, { desc = "Debug: Go Test" })
-    vim.keymap.set("n", "<leader>dgl", function() require("dap-go").debug_last_test() end, { desc = "Debug: Go Last Test" })
+    -- Go test mappings
+    map("n", "<leader>dgt", function() require("dap-go").debug_test() end, { desc = "Debug: Go Test" })
+    map("n", "<leader>dgl", function() require("dap-go").debug_last_test() end, { desc = "Debug: Go Last Test" })
 
     vim.notify("DAP fully configured", vim.log.levels.INFO, { title = "nvim-dap" })
   end,

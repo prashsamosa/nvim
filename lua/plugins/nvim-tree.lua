@@ -119,20 +119,16 @@ return {
   config = function(_, opts)
     require("nvim-tree").setup(opts)
 
-    -- Appearance overrides (transparent bg, visible split)
     local hl = vim.api.nvim_set_hl
-    hl(0, "NvimTreeNormal", { bg = "none" })
-    hl(0, "NvimTreeNormalNC", { bg = "none" })
-    hl(0, "NvimTreeVertSplit", { fg = "#30363d", bg = "none" })
-    hl(0, "WinSeparator", { fg = "#30363d", bg = "none" })
+    hl(0, "NvimTreeNormal",      { bg = "none" })
+    hl(0, "NvimTreeNormalNC",    { bg = "none" })
+    hl(0, "NvimTreeVertSplit",   { fg = "#30363d", bg = "none" })
+    hl(0, "WinSeparator",        { fg = "#30363d", bg = "none" })
+    hl(0, "NvimTreeFolderName",      { fg = "#79c0ff", bold = true })
+    hl(0, "NvimTreeOpenedFolderName",{ fg = "#d2a8ff", bold = true })
+    hl(0, "NvimTreeRootFolder",      { fg = "#ff7b72", bold = true })
+    hl(0, "NvimTreeCursorLine",      { bg = "#1a1b26" })
 
-    -- Folder name highlights
-    hl(0, "NvimTreeFolderName", { fg = "#79c0ff", bold = true })
-    hl(0, "NvimTreeOpenedFolderName", { fg = "#d2a8ff", bold = true })
-    hl(0, "NvimTreeRootFolder", { fg = "#ff7b72", bold = true })
-    hl(0, "NvimTreeCursorLine", { bg = "#1a1b26" })
-
-    -- Pipe as vertical separator
     vim.opt.fillchars:append("vert:│")
   end,
 }

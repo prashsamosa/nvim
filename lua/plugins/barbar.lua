@@ -7,13 +7,12 @@ return {
   },
 
   init = function()
-    -- Prevent barbar from auto-setting keymaps
-    vim.g.barbar_auto_setup = false
+    vim.g.barbar_auto_setup = false -- Disable barbar's default keymaps
 
     local map = vim.keymap.set
     local opts = { noremap = true, silent = true }
 
-    -- Navigate between buffers
+    -- Buffer navigation
     map("n", "<A-,>", "<Cmd>BufferPrevious<CR>", opts)
     map("n", "<A-.>", "<Cmd>BufferNext<CR>", opts)
 
@@ -21,13 +20,13 @@ return {
     map("n", "<A-S-,>", "<Cmd>BufferMovePrevious<CR>", opts)
     map("n", "<A-S-.>", "<Cmd>BufferMoveNext<CR>", opts)
 
-    -- Jump to buffer 1-9, 0 = last
+    -- Jump to buffer 1–9, 0 = last
     for i = 1, 9 do
       map("n", "<A-" .. i .. ">", "<Cmd>BufferGoto " .. i .. "<CR>", opts)
     end
     map("n", "<A-0>", "<Cmd>BufferLast<CR>", opts)
 
-    -- Pin/unpin and close buffers
+    -- Buffer pin & close
     map("n", "<A-p>", "<Cmd>BufferPin<CR>", opts)
     map("n", "<leader>bc", "<Cmd>BufferClose<CR>", opts)
     map("n", "<leader>bo", "<Cmd>BufferCloseAllButCurrentOrPinned<CR>", opts)
@@ -52,7 +51,7 @@ return {
       },
 
       gitsigns = {
-        added =   { enabled = true, icon = "+" },
+        added   = { enabled = true, icon = "+" },
         changed = { enabled = true, icon = "~" },
         deleted = { enabled = true, icon = "-" },
       },

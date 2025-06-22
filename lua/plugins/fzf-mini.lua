@@ -26,7 +26,7 @@ return {
     { "<leader>fws",      function() require("fzf-lua").lsp_workspace_symbols() end,                            desc = "[F]ZF Workspace Symbols" },
   },
   config = function()
-    -- Uncomment and customize as needed:
+    -- Optional: Customize behavior
     -- require("fzf-lua").setup({
     --   fzf_opts = { ['--prompt'] = '> ' },
     --   winopts = { width = 0.8, height = 0.6 },

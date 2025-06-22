@@ -3,13 +3,13 @@ return {
   ft = { "go", "gomod" },
   build = ':lua require("go.install").update_all_sync()',
   dependencies = {
-    "ray-x/guihua.lua", -- UI helper
-    "neovim/nvim-lspconfig", -- for LSP
-    "nvim-treesitter/nvim-treesitter", -- syntax parsing
-    "L3MON4D3/LuaSnip", -- snippet engine
+    "ray-x/guihua.lua",               -- UI helper
+    "neovim/nvim-lspconfig",         -- LSP support
+    "nvim-treesitter/nvim-treesitter", -- Syntax parsing
+    "L3MON4D3/LuaSnip",              -- Snippet engine
   },
   config = function()
-    -- LSP capabilities
+    -- LSP capabilities with blink.cmp support
     local capabilities = vim.lsp.protocol.make_client_capabilities()
     if package.loaded["blink.cmp"] then
       capabilities = require("blink.cmp").get_lsp_capabilities(capabilities)
@@ -18,17 +18,17 @@ return {
       vim.notify("blink.cmp not loaded, using default LSP capabilities", vim.log.levels.WARN, { title = "go.nvim" })
     end
 
-    -- LuaSnip availability
-    local has_luasnip, _ = pcall(require, "luasnip")
+    -- LuaSnip check
+    local has_luasnip = pcall(require, "luasnip")
     vim.notify(
       has_luasnip and "LuaSnip module loaded successfully" or "LuaSnip not available, snippets disabled",
       has_luasnip and vim.log.levels.INFO or vim.log.levels.WARN,
       { title = "go.nvim" }
     )
 
-    -- go.nvim setup
+    -- Setup go.nvim
     require("go").setup({
-      lsp_cfg = false, -- disable internal LSP setup
+      lsp_cfg = false, -- Disable internal LSP config
       lsp_codelens = true,
       lsp_gofumpt = true,
       lsp_inlay_hints = {
@@ -36,12 +36,12 @@ return {
         only_current_line = false,
         only_current_line_autocmd = "CursorHold",
         show_variable_name = true,
-        parameter_hints_prefix = "󰊕 ",
         show_parameter_hints = true,
+        parameter_hints_prefix = "󰊕 ",
         other_hints_prefix = "=> ",
       },
       diagnostic = {
-        hdlr = false, -- use native LSP diagnostics
+        hdlr = false,
         underline = true,
         virtual_text = { space = 0, prefix = "■" },
         signs = true,
@@ -58,7 +58,7 @@ return {
       luasnip = has_luasnip,
     })
 
-    -- Filetype-specific keymaps for Go
+    -- Keymaps for Go & GoMod
     vim.api.nvim_create_autocmd("FileType", {
       pattern = { "go", "gomod" },
       group = vim.api.nvim_create_augroup("GoUserKeymaps", { clear = true }),
@@ -72,7 +72,7 @@ return {
           })
         end
 
-        -- File switching
+        -- File Switching
         map("n", "<leader>ga", "<cmd>GoAlt<CR>", "Alternate File")
         map("n", "<leader>gvs", "<cmd>GoAltV<CR>", "Alternate Vertical")
         map("n", "<leader>ghs", "<cmd>GoAltS<CR>", "Alternate Horizontal")
@@ -82,7 +82,7 @@ return {
         map("n", "<leader>of", "<cmd>GoFmt<CR>", "Format")
         map("n", "<leader>ot", "<cmd>GoModTidy<CR>", "Mod Tidy")
 
-        -- Generation
+        -- Code Generation
         map("n", "<leader>gc", "<cmd>GoCmt<CR>", "Generate Comment")
         map("n", "<leader>gs", "<cmd>GoFillStruct<CR>", "Fill Struct")
         map("n", "<leader>gr", "<cmd>GoGenReturn<CR>", "Generate Return")
@@ -111,7 +111,7 @@ return {
         map("n", "<leader>tC", "<cmd>GoCoverageToggle<CR>", "Toggle Coverage")
         map("n", "<leader>gcb", "<cmd>GoCoverageBrowser<CR>", "Coverage Browser")
 
-        -- Linting
+        -- Linting & Vet
         map("n", "<leader>gL", "<cmd>GoLint<CR>", "Lint")
         map("n", "<leader>gV", "<cmd>GoVet<CR>", "Vet")
 
@@ -129,3 +129,4 @@ return {
     vim.notify("go.nvim configured successfully", vim.log.levels.INFO, { title = "go.nvim" })
   end,
 }
+

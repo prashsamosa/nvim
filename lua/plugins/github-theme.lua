@@ -14,16 +14,16 @@ return {
         hide_nc_statusline = true,
 
         styles = {
-          comments = "italic",
+          comments  = "italic",
           functions = "bold",
-          keywords = "italic",
-          types = "bold",
+          keywords  = "italic",
+          types     = "bold",
         },
 
         inverse = {
           match_paren = true,
-          visual = false,
-          search = true,
+          visual      = false,
+          search      = true,
         },
 
         darken = {
@@ -35,15 +35,15 @@ return {
         },
 
         modules = {
+          cmp         = true,
+          dap         = true,
+          gitsigns    = true,
           lsp_trouble = true,
-          cmp = true,
-          gitsigns = true,
-          treesitter = true,
-          telescope = true,
-          dap = true,
-          native_lsp = true,
-          notify = true,
-          mini = true,
+          mini        = true,
+          native_lsp  = true,
+          notify      = true,
+          telescope   = true,
+          treesitter  = true,
         },
       },
     }
@@ -58,35 +58,35 @@ return {
 
     local hl = vim.api.nvim_set_hl
     if theme_options.options.transparent then
-      hl(0, "Normal", { bg = "none" })
-      hl(0, "NormalNC", { bg = "none" })
-      hl(0, "NormalFloat", { bg = "none" })
-      hl(0, "FloatBorder", { bg = "none" })
-      hl(0, "TelescopeNormal", { bg = "none" })
-      hl(0, "TelescopeBorder", { bg = "none" })
-      hl(0, "Pmenu", { bg = "none" })
+      hl(0, "Normal",         { bg = "none" })
+      hl(0, "NormalNC",       { bg = "none" })
+      hl(0, "NormalFloat",    { bg = "none" })
+      hl(0, "FloatBorder",    { bg = "none" })
+      hl(0, "TelescopeNormal",{ bg = "none" })
+      hl(0, "TelescopeBorder",{ bg = "none" })
+      hl(0, "Pmenu",          { bg = "none" })
     end
 
     local colors = {
-      bg = "#0d1117",
-      bg_float = "#1a1b26",
-      fg = "#c9d1d9",
-      border = "#30363d",
-      keyword = "#ff7b72",
-      constant = "#79c0ff",
-      func = "#d2a8ff",
-      string = "#a5d6ff",
-      comment = "#8b949e",
-      git_removed = "#f85149",
-      warning = "#f0883e",
+      bg           = "#0d1117",
+      bg_float     = "#1a1b26",
+      fg           = "#c9d1d9",
+      border       = "#30363d",
+      keyword      = "#ff7b72",
+      constant     = "#79c0ff",
+      func         = "#d2a8ff",
+      string       = "#a5d6ff",
+      comment      = "#8b949e",
+      git_removed  = "#f85149",
+      warning      = "#f0883e",
     }
 
-    hl(0, "MiniNotifyBorder", { bg = "none", fg = colors.border })
-    hl(0, "MiniNotifyNormal", { bg = colors.bg_float, fg = colors.fg, blend = 0 })
-    hl(0, "MiniNotifyTitle", { fg = colors.constant, bold = true })
+    hl(0, "MiniNotifyBorder",     { bg = "none", fg = colors.border })
+    hl(0, "MiniNotifyNormal",     { bg = colors.bg_float, fg = colors.fg, blend = 0 })
+    hl(0, "MiniNotifyTitle",      { fg = colors.constant, bold = true })
     hl(0, "MiniNotifyTitleError", { fg = colors.git_removed, bold = true })
-    hl(0, "MiniNotifyTitleWarn", { fg = colors.warning, bold = true })
-    hl(0, "MiniNotifyTitleInfo", { fg = colors.func, bold = true })
+    hl(0, "MiniNotifyTitleWarn",  { fg = colors.warning, bold = true })
+    hl(0, "MiniNotifyTitleInfo",  { fg = colors.func, bold = true })
     hl(0, "MiniNotifyTitleTrace", { fg = colors.comment, bold = true })
   end,
 }

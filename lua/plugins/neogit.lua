@@ -10,7 +10,7 @@ return {
     { "<leader>gn", "<cmd>Neogit<CR>", desc = "Open Neogit" },
   },
   opts = {
-    kind = "split", -- open Neogit in split
+    kind = "split",
     signs = {
       section = { "", "" },
       item = { "▸", "▾" },
@@ -22,19 +22,13 @@ return {
     disable_commit_confirmation = true,
     disable_context_highlighting = false,
     disable_signs = false,
-
-    -- Optional custom sorter
     telescope_sorter = function()
       return require("telescope").extensions.fzf.native_fzf_sorter()
     end,
-
-    -- Expand these sections by default
     sections = {
       unstaged = { folded = false },
       staged = { folded = false },
     },
-
-    -- Optional color overrides
     -- colors = {
     --   added = "#A3BE8C",
     --   modified = "#EBCB8B",

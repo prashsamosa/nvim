@@ -4,7 +4,7 @@ return {
   dependencies = {
     "nvim-treesitter/nvim-treesitter", -- Required
     "echasnovski/mini.nvim",           -- For icons (or use another icon provider)
-    "nvim-tree/nvim-web-devicons",  -- Optional alternative icon plugin
+    "nvim-tree/nvim-web-devicons",     -- Optional alternative icon plugin
   },
   opts = {
     completions = {
