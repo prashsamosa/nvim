@@ -118,7 +118,7 @@ pip install debugpy pylatexenc
 | `<leader>sb`      | `n`   | Search Buffer Lines            |
 | `<leader>sB`      | `n`   | Grep Open Buffers              |
 | `<leader>sw`      | `n,x` | Search Word Under Cursor       |
-| `]] / [[`         | `n,t` | Next / Prev Reference          |
+| `<leader>wn / wp` | `n,t` | Next / Prev Word Reference     |
 
 ### 📂 Mini File Explorer
 
@@ -213,6 +213,15 @@ Automatically set bookmarks:
 | `<leader>ms`     | `n`  | Write Session                   |
 | `<leader>mr`     | `n`  | Read Last Session               |
 | `<leader>md`     | `n`  | Delete Session                  |
+
+### 🌳 Treesitter Navigation
+
+| Key              | Mode | Description                     |
+|:-----------------|:-----|:--------------------------------|
+| `[m` / `]m`      | `n`  | Prev / Next Function Start      |
+| `[M` / `]M`      | `n`  | Prev / Next Function End        |
+| `[c` / `]c`      | `n`  | Prev / Next Class Start         |
+| `[C` / `]C`      | `n`  | Prev / Next Class End           |
 
 ### 🎛 Toggle Options
 
