@@ -75,8 +75,8 @@ return {
       },
     },
     input = { enabled = true },
-    notifier = { enabled = true, timeout = 3000 },
-    picker = { enabled = true },
+    -- notifier = { enabled = true, timeout = 3000 },
+    -- picker = { enabled = true }, -- Commented out since using fzf-lua
     quickfile = { enabled = true },
     scope = { enabled = true },
     scroll = { enabled = true },
@@ -100,34 +100,35 @@ return {
 
   -- Key mappings
   keys = {
-    -- Pickers
-    { "<leader><space>", function() Snacks.picker.smart() end, desc = "Smart Find Files" },
+    -- Core buffer/command functionality (not overlapping with fzf-lua)
     { "<leader>,",       function() Snacks.picker.buffers() end, desc = "Buffers" },
     { "<leader>:",       function() Snacks.picker.command_history() end, desc = "Command History" },
     { "<leader>n",       function() Snacks.picker.notifications() end, desc = "Notification History" },
 
-    { "<leader>fc", function() Snacks.picker.files({ cwd = vim.fn.stdpath("config") }) end, desc = "Find Config File" },
-    { "<leader>ff", function() Snacks.picker.files() end, desc = "Find Files" },
-    { "<leader>fg", function() Snacks.picker.git_files() end, desc = "Find Git Files" },
-    { "<leader>fp", function() Snacks.picker.projects() end, desc = "Projects" },
-    { "<leader>fr", function() Snacks.picker.recent() end, desc = "Recent Files" },
+    -- File/search commands commented out since using fzf-lua
+    -- { "<leader><space>", function() Snacks.picker.smart() end, desc = "Smart Find Files" },
+    -- { "<leader>fc", function() Snacks.picker.files({ cwd = vim.fn.stdpath("config") }) end, desc = "Find Config File" },
+    -- { "<leader>ff", function() Snacks.picker.files() end, desc = "Find Files" },
+    -- { "<leader>fg", function() Snacks.picker.git_files() end, desc = "Find Git Files" },
+    -- { "<leader>fp", function() Snacks.picker.projects() end, desc = "Projects" },
+    -- { "<leader>fr", function() Snacks.picker.recent() end, desc = "Recent Files" },
 
-    -- Git
-    { "<leader>gb", function() Snacks.picker.git_branches() end, desc = "Git Branches" },
-    { "<leader>gl", function() Snacks.picker.git_log() end, desc = "Git Log" },
-    { "<leader>gL", function() Snacks.picker.git_log_line() end, desc = "Git Log Line" },
-    { "<leader>gs", function() Snacks.picker.git_status() end, desc = "Git Status" },
-    { "<leader>gS", function() Snacks.picker.git_stash() end, desc = "Git Stash" },
-    { "<leader>gd", function() Snacks.picker.git_diff() end, desc = "Git Diff" },
-    { "<leader>gf", function() Snacks.picker.git_log_file() end, desc = "Git Log File" },
-    { "<leader>gB", function() Snacks.gitbrowse() end, desc = "Git Browse", mode = { "n", "v" } },
-    { "<leader>gg", function() Snacks.lazygit() end, desc = "Lazygit" },
+    -- Git functionality commented out since using neogit
+    -- { "<leader>gb", function() Snacks.picker.git_branches() end, desc = "Git Branches" },
+    -- { "<leader>gl", function() Snacks.picker.git_log() end, desc = "Git Log" },
+    -- { "<leader>gL", function() Snacks.picker.git_log_line() end, desc = "Git Log Line" },
+    -- { "<leader>gs", function() Snacks.picker.git_status() end, desc = "Git Status" },
+    -- { "<leader>gS", function() Snacks.picker.git_stash() end, desc = "Git Stash" },
+    -- { "<leader>gd", function() Snacks.picker.git_diff() end, desc = "Git Diff" },
+    -- { "<leader>gf", function() Snacks.picker.git_log_file() end, desc = "Git Log File" },
+    -- { "<leader>gB", function() Snacks.gitbrowse() end, desc = "Git Browse", mode = { "n", "v" } },
+    -- { "<leader>gg", function() Snacks.lazygit() end, desc = "Lazygit" },
 
-    -- Search
-    { "<leader>sb", function() Snacks.picker.lines() end, desc = "Buffer Lines" },
-    { "<leader>sB", function() Snacks.picker.grep_buffers() end, desc = "Grep Buffers" },
-    { "<leader>sg", function() Snacks.picker.grep() end, desc = "Grep Project" },
-    { "<leader>sw", function() Snacks.picker.grep_word() end, desc = "Search Word", mode = { "n", "x" } },
+    -- Search commands commented out since using fzf-lua
+    -- { "<leader>sb", function() Snacks.picker.lines() end, desc = "Buffer Lines" },
+    -- { "<leader>sB", function() Snacks.picker.grep_buffers() end, desc = "Grep Buffers" },
+    -- { "<leader>sg", function() Snacks.picker.grep() end, desc = "Grep Project" },
+    -- { "<leader>sw", function() Snacks.picker.grep_word() end, desc = "Search Word", mode = { "n", "x" } },
 
     -- Zen
     { "<leader>z", function() Snacks.zen() end, desc = "Toggle Zen Mode" },
@@ -143,7 +144,7 @@ return {
     { "<leader>S",  function() Snacks.scratch.select() end, desc = "Select Scratch" },
 
     -- Notifications
-    { "<leader>un", function() Snacks.notifier.hide() end, desc = "Hide Notifications" },
+    -- { "<leader>un", function() Snacks.notifier.hide() end, desc = "Hide Notifications" },
 
     -- File rename
     { "<leader>cR", function() Snacks.rename.rename_file() end, desc = "Rename File" },

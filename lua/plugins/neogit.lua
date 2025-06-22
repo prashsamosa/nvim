@@ -29,10 +29,5 @@ return {
       unstaged = { folded = false },
       staged = { folded = false },
     },
-    -- colors = {
-    --   added = "#A3BE8C",
-    --   modified = "#EBCB8B",
-    --   removed = "#BF616A",
-    -- },
   },
 }

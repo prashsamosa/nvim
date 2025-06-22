@@ -27,9 +27,9 @@ return {
     map("n", "<A-0>", "<Cmd>BufferLast<CR>", opts)
 
     -- Buffer pin & close
-    map("n", "<A-p>", "<Cmd>BufferPin<CR>", opts)
-    map("n", "<leader>bc", "<Cmd>BufferClose<CR>", opts)
-    map("n", "<leader>bo", "<Cmd>BufferCloseAllButCurrentOrPinned<CR>", opts)
+    -- map("n", "<A-p>", "<Cmd>BufferPin<CR>", opts)
+    -- map("n", "<leader>bc", "<Cmd>BufferClose<CR>", opts)
+    -- map("n", "<leader>bo", "<Cmd>BufferCloseAllButCurrentOrPinned<CR>", opts)
   end,
 
   opts = {
