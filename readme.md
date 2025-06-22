@@ -1,23 +1,7 @@
 # 🚀 Modern Neovim Configuration
 
-A feature-rich, modern Neovim configuration built for productivity and ease of use. This setup provides a complete IDE-like experience with LSP support, debugging capabilities, fuzzy finding, git integration, and much more.
-
 ![Neovim Version](https://img.shields.io/badge/Neovim-0.10+-blueviolet.svg?style=flat-square&logo=Neovim&logoColor=green)
 ![Platform](https://img.shields.io/badge/platform-Linux%20%7C%20macOS%20%7C%20Windows-blue.svg?style=flat-square)
-![License](https://img.shields.io/badge/license-MIT-green.svg?style=flat-square)
-
-## ✨ Features
-
-- 🔧 **LSP Integration**: Full Language Server Protocol support with auto-completion
-- 🐛 **Debugging**: Built-in DAP (Debug Adapter Protocol) support
-- 🔍 **Fuzzy Finding**: Lightning-fast file and text search with FZF
-- 📁 **File Management**: Dual file explorers (tree view + buffer-based)
-- 🎨 **Modern UI**: Beautiful statusline, tabs, and icons
-- 🔀 **Git Integration**: Advanced git workflow with Neogit and Gitsigns
-- 🗄️ **Database Support**: Built-in database UI and completion
-- 📝 **Smart Editing**: Auto-formatting, snippets, and intelligent text objects
-- 🔧 **Session Management**: Save and restore your workspace
-- 🎯 **Productivity Tools**: Todo highlighting, markdown rendering, and more
 
 ## 📋 Prerequisites
 
@@ -59,25 +43,12 @@ go install github.com/golangci/golangci-lint/cmd/golangci-lint@latest
 ```
 
 </details>
-
 <details>
 <summary><strong>🐍 Python</strong></summary>
 
 ```bash
 pip install debugpy black isort
 ```
-
-</details>
-
-<details>
-<summary><strong>🌐 Web Development (JS/TS/CSS/HTML/JSON/YAML)</strong></summary>
-
-```bash
-npm install -g prettierd
-npm install -g typescript typescript-language-server
-npm install -g json-lsp yaml-language-server vscode-html-languageserver-bin vscode-css-languageserver-bin
-```
-
 </details>
 
 <details>
@@ -87,15 +58,6 @@ npm install -g json-lsp yaml-language-server vscode-html-languageserver-bin vsco
 rustup component add rust-analyzer
 rustup component add rustfmt
 ```
-
-</details>
-
-<details>
-<summary><strong>🔗 SQL/Database</strong></summary>
-
-Install the necessary database drivers for vim-dadbod (e.g., sqlite3, psql, mysql client).
-
-</details>
 
 ## 📦 Installation
 
@@ -144,9 +106,12 @@ This configuration uses `<Space>` as the leader key (`<leader>`).
 | `<A-,>`, `<A-.>` | Go to previous/next buffer |
 | `<A-S-,>`, `<A-S-.>` | Move buffer previous/next |
 | `<A-1>` to `<A-9>`, `<A-0>` | Jump to specific buffer |
+| `<A-p>` | Pin/unpin current buffer |
+| `<leader>bc` | Close current buffer |
 | `<leader>bd` | Delete current buffer |
 | `<leader>ba` | Delete all buffers |
-| `<leader>bo` | Delete other buffers |
+| `<leader>bo` | Delete other buffers (Snacks) |
+| `<leader>bO` | Close all but current/pinned (Barbar) |
 | `<leader>rf` | Rename current file |
 
 ### LSP (Language Server Protocol)
