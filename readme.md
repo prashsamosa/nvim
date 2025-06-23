@@ -115,7 +115,7 @@ This configuration uses `<Space>` as the leader key (`<leader>`).
 
 | Key            | Action                                             |
 |----------------|----------------------------------------------------|
-| `<leader>e`    | Toggle File Explorer                               |                               
+| `<leader>e`    | Toggle File Explorer                               |
 | `<leader>fb`   | Reveal current file in File Explorer               |
 | `o` / `Enter`  | Open file or folder                                |
 | `l`            | Expand folder or open file                         |
@@ -304,6 +304,86 @@ This configuration uses `<Space>` as the leader key (`<leader>`).
 | `<leader>ms` | Write Session |
 | `<leader>mr` | Read Last Session |
 | `<leader>md` | Delete Session |
+
+
+# 🔍 GrugFar Search & Replace Shortcuts
+
+## 🚀 Main Operations
+
+| Key | Action | Description |
+|-----|--------|-------------|
+| `<leader>gf` | Search & Replace | Open main GrugFar interface |
+| `<leader>gF` | AST Search & Replace | Open with AST-grep engine for structural patterns |
+| `<leader>gt` | Toggle GrugFar | Show/hide GrugFar window |
+
+## 🎯 Quick Search Actions
+
+| Key | Action | Description |
+|-----|--------|-------------|
+| `<leader>gw` | Search Word Under Cursor | Prefill search with current word |
+| `<leader>gb` | Search in Current Buffer | Limit search to current file only |
+| `<leader>gv` | Search Visual Selection | Use selected text as search term |
+
+## 🔧 Within GrugFar Interface
+
+### Navigation & Control
+| Key | Action | Description |
+|-----|--------|-------------|
+| `<Tab>` / `<S-Tab>` | Next/Previous Input | Navigate between search fields |
+| `<CR>` | Go to Location | Jump to selected result |
+| `<C-n>` / `<C-p>` | Next/Previous Result | Navigate through results |
+| `q` | Close | Exit GrugFar |
+
+### Main Actions
+| Key | Action | Description |
+|-----|--------|-------------|
+| `<leader>r` | Replace | Apply replacement |
+| `<leader>q` | Send to Quickfix | Add results to quickfix list |
+| `<leader>s` | Sync Locations | Sync buffer with results |
+| `<leader>p` | Preview | Preview location without jumping |
+
+### Advanced Features
+| Key | Action | Description |
+|-----|--------|-------------|
+| `<leader>e` | Swap Engine | Switch between ripgrep/astgrep engines |
+| `<leader>h` | History | Open search history |
+
+## 🔍 Search Engine Examples
+
+### Ripgrep (Default)
+- **Search**: `foo`, `[Aa]b?c`, `\w+`
+- **Replace**: `bar`, `$1`, `${1:default}`
+- **Files**: `*.lua`, `src/**/*.js`, `!**/node_modules`
+- **Flags**: `--ignore-case --multiline`
+
+### AST-Grep (Structural)
+- **Search**: `console.log($A)`, `function $FUNC($$$ARGS) { $$$ }`
+- **Replace**: `logger.info($A)`, `const $FUNC = ($$$ARGS) => { $$$ }`
+- **Files**: `*.js *.ts`, `**/*.{vue,svelte}`
+
+## 📁 Search Scope Shortcuts
+
+| Scope | Icon | Description |
+|-------|------|-------------|
+| Current File | 󰈙 | Search only in the current buffer |
+| Open Buffers | 󰘢 | Search across all open buffers |
+| Git Root | 󰊢 | Search from git repository root |
+
+## 💡 Pro Tips
+
+1. **Quick Word Search**: Place cursor on any word and press `<leader>gw`
+2. **Visual Selection**: Select text in visual mode, then `<leader>gv`
+3. **File-Specific**: Use `<leader>gb` to search only current file
+4. **Structural Changes**: Use `<leader>gF` for code refactoring with AST patterns
+5. **History**: Access previous searches with `<leader>h` inside GrugFar
+
+## 🎨 Visual Features
+
+- **Folding**: Results are organized with files collapsed by default
+- **Icons**: File type icons (requires Nerd Font)
+- **Preview**: See changes before applying
+- **Syntax Highlighting**: Code preview with proper highlighting
+
 
 > **Tip**: Use `<leader>` followed by any key to see available mappings via which-key.nvim
 
