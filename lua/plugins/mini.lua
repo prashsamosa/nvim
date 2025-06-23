@@ -283,21 +283,6 @@ return {
     desc = "Navigate through various text objects with brackets",
   },
 
-  -- Buffer remove
-  -- {
-  --   "echasnovski/mini.bufremove",
-  --   version = false,
-  --   config = function()
-  --     vim.keymap.set("n", "<leader>mb", function()
-  --       require("mini.bufremove").delete(0, false)
-  --     end, { desc = "Delete buffer" })
-
-  --     vim.keymap.set("n", "<leader>mB", function()
-  --       require("mini.bufremove").delete(0, true)
-  --     end, { desc = "Force delete buffer" })
-  --   end,
-  --   desc = "Better buffer deletion",
-  -- },
 
   -- Fuzzy finder
   {

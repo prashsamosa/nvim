@@ -76,17 +76,17 @@ rustup component add rustfmt
 
 5. **Run health check**: After installation, run `:checkhealth` to ensure all dependencies are met and your setup is healthy.
 
-## ⌨️ Keybindings
+# ⌨️ Keybindings
 
 This configuration uses `<Space>` as the leader key (`<leader>`).
 
-### General
+## General
 | Key | Action |
 |-----|--------|
 | `<leader>nh` | Clear search highlights |
 | `jk` (in Insert mode) | Exit Insert mode (remapped from `<ESC>`) |
 
-### Window Management
+## Window Management
 | Key | Action |
 |-----|--------|
 | `<C-h>`, `<C-j>`, `<C-k>`, `<C-l>` | Navigate between windows |
@@ -103,11 +103,11 @@ This configuration uses `<Space>` as the leader key (`<leader>`).
 | `<A-1>` to `<A-9>`, `<A-0>` | Jump to specific buffer                     |
 | `<A-p>`                     | Pin/unpin current buffer                    |
 | `<leader>bc`                | Close current buffer                        |
-| `<leader>bd`                | Delete current buffer                       |
-| `<leader>ba`                | Delete all buffers                          |
-| `<leader>bo`                | Delete other buffers (Snacks)               |
-| `<leader>bO`                | Close all but current/pinned (Barbar)       |
-| `<leader>rf`                | Rename current file                         |
+| `<leader>bd`                | Delete current buffer (Snacks)             |
+| `<leader>ba`                | Delete all buffers (Snacks)                |
+| `<leader>bo`                | Delete other buffers (Snacks)              |
+| `<leader>bO`                | Close all but current/pinned (Barbar)      |
+| `<leader>rf`                | Rename current file (Snacks)               |
 
 ## 🗂️ File Explorer (`oil.nvim`)
 
@@ -123,7 +123,14 @@ This configuration uses `<Space>` as the leader key (`<leader>`).
 | `<C-r>`        | Refresh directory                                  |
 | `q`            | Close Oil                                          |
 
-### LSP (Language Server Protocol)
+## 🗂️ Snacks Explorer
+
+| Key            | Action                                             |
+|----------------|----------------------------------------------------|
+| `<leader>e`    | Open Snacks Explorer                               |
+| `<leader>E`    | Toggle Snacks Explorer                             |
+
+## LSP (Language Server Protocol)
 | Key | Action |
 |-----|--------|
 | `<leader>ca` | Code action |
@@ -140,7 +147,7 @@ This configuration uses `<Space>` as the leader key (`<leader>`).
 | `[d` | Go to previous diagnostic |
 | `]d` | Go to next diagnostic |
 
-### 🧩 Text Objects
+## 🧩 Text Objects
 Uses [mini.ai](https://github.com/echasnovski/mini.ai) for advanced text objects.
 
 | Key | Usage Example | What it Selects                                 |
@@ -178,48 +185,7 @@ Uses [mini.ai](https://github.com/echasnovski/mini.ai) for advanced text objects
 | `<leader>Dr`  | Execute Query/Selection| Run the current query or visual selection     |
 | `<leader>DS`  | Save Query             | Save the current SQL query                    |
 
-## 🐛 Debugging Operations (`nvim-dap`)
-
-### 🔃 Debug Session Control
-
-| Keybinding     | Action           | Description                                 |
-|----------------|------------------|---------------------------------------------|
-| `<leader>dc`   | Continue         | Start or resume debugging                   |
-| `<leader>dr`   | Run Last         | Run the last debug configuration            |
-| `<leader>dR`   | Restart          | Restart the current debug session           |
-| `<leader>dt`   | Terminate        | Stop the debug session                      |
-| `<leader>du`   | Toggle Debug UI  | Show or hide the DAP UI                     |
-
-### ⛔ Breakpoint Management
-
-| Keybinding     | Action               | Description                           |
-|----------------|----------------------|---------------------------------------|
-| `<leader>db`   | Toggle Breakpoint    | Toggle breakpoint on current line     |
-| `<leader>dB`   | Conditional Breakpoint | Set breakpoint with condition       |
-
-### 🔀 Step Execution
-
-| Keybinding     | Action       | Description                         |
-|----------------|--------------|-------------------------------------|
-| `<leader>dsi`  | Step Into    | Step into function call             |
-| `<leader>dso`  | Step Over    | Step over function call             |
-| `<leader>dsO`  | Step Out     | Step out of current function        |
-
-### 🧭 Stack & Eval
-
-| Keybinding     | Action             | Description                         |
-|----------------|--------------------|-------------------------------------|
-| `<leader>dk`   | Up Stack Frame     | Move up in the call stack           |
-| `<leader>dj`   | Down Stack Frame   | Move down in the call stack         |
-| `<leader>de`   | Evaluate Expression| Evaluate variable or selection      |
-
-### 🪵 Logging
-
-| Keybinding     | Action         | Description                        |
-|----------------|----------------|------------------------------------|
-| `<leader>dl`   | Show Debug Logs| Set log level to TRACE & notify    |
-
-### Fuzzy Finding (fzf-lua)
+## Fuzzy Finding (fzf-lua)
 | Key | Action |
 |-----|--------|
 | `<leader>ff` | Find files |
@@ -230,33 +196,25 @@ Uses [mini.ai](https://github.com/echasnovski/mini.ai) for advanced text objects
 | `<leader>fgd` | LSP Go to Definition (FZF picker) |
 | `<leader>fgr` | LSP Go to References (FZF picker) |
 
-### Git (Gitsigns)
+## Terminal Operations (Snacks)
+
 | Key | Action |
 |-----|--------|
-| `]h` | Next hunk |
-| `[h` | Previous hunk |
-| `<leader>gs` | Stage hunk |
-| `<leader>gr` | Reset hunk |
-| `<leader>gS` | Stage buffer |
-| `<leader>gu` | Undo stage hunk |
-| `<leader>gR` | Reset buffer |
-| `<leader>gp` | Preview hunk |
-| `<leader>gb` | Blame line |
-| `<leader>gB` | Toggle line blame |
-| `<leader>gd` | Diff this |
-| `<leader>gD` | Diff this ~ |
+| `<leader>t` | Open Terminal |
+| `<leader>T` | Open Terminal (current directory) |
+| `<C-/>` | Toggle Terminal |
 
-### Terminals (toggleterm.nvim)
+## Git Operations (Snacks)
+
 | Key | Action |
 |-----|--------|
-| `<C-\>` | Toggle Floating Terminal |
-| `<leader>tt` | Toggle Floating Terminal |
-| `<leader>th` | Toggle Horizontal Terminal |
-| `<leader>tv` | Toggle Vertical Terminal |
-| `<leader>tl` | Send Current Line to Terminal |
-| `<leader>ts` | Select Terminal |
+| `<leader>gb` | Git Blame Line |
+| `<leader>gB` | Git Browse |
+| `<leader>gf` | Lazygit Current File History |
+| `<leader>gg` | Open Lazygit |
+| `<leader>gl` | Lazygit Log |
 
-### Markdown (render-markdown.nvim)
+## Markdown (render-markdown.nvim)
 | Key         | Action                    |
 |-------------|---------------------------|
 | `<leader>mt`| Toggle Markdown Rendering |
@@ -268,7 +226,9 @@ Uses [mini.ai](https://github.com/echasnovski/mini.ai) for advanced text objects
 | `<leader>mE`| Expand Markdown View      |
 | `<leader>mC`| Contract Markdown View    |
 
-### Snacks Utilities
+## Snacks Utilities & Toggles
+
+### Toggle Options
 | Key | Action |
 |-----|--------|
 | `<leader>us` | Toggle Spelling |
@@ -276,16 +236,34 @@ Uses [mini.ai](https://github.com/echasnovski/mini.ai) for advanced text objects
 | `<leader>uL` | Toggle Relative Line Numbers |
 | `<leader>ud` | Toggle Diagnostics |
 | `<leader>ul` | Toggle Line Numbers |
-| `<leader>ut` | Toggle Treesitter Highlights |
+| `<leader>uc` | Toggle Conceallevel |
+| `<leader>uT` | Toggle Treesitter Highlights |
 | `<leader>ub` | Toggle Dark/Light Background |
 | `<leader>uh` | Toggle Inlay Hints |
-| `<leader>uz` | Toggle Dim Mode |
+| `<leader>uD` | Toggle Dim Mode |
+
+### Zen & Focus
+| Key | Action |
+|-----|--------|
 | `<leader>z` | Toggle Zen Mode |
 | `<leader>Z` | Zoom Current Window |
+
+### Scratch & Buffers
+| Key | Action |
+|-----|--------|
 | `<leader>.` | Scratch Buffer |
 | `<leader>S` | Select Scratch Buffer |
+| `<leader>,` | Show Buffers (Snacks Picker) |
+| `<leader>:` | Command History |
+| `<leader>n` | Notification History |
 
-### Sessions (mini.sessions)
+### Word Navigation
+| Key | Action |
+|-----|--------|
+| `<leader>wn` | Next Word Reference |
+| `<leader>wp` | Previous Word Reference |
+
+## Sessions (mini.sessions)
 | Key | Action |
 |-----|--------|
 | `<leader>Ms` | Write Session |
@@ -372,113 +350,52 @@ Uses [mini.ai](https://github.com/echasnovski/mini.ai) for advanced text objects
 
 > **Tip**: Use `<leader>` followed by any key to see available mappings via which-key.nvim
 
-## ⚙️ Plugin Overview
-
-### Core & Utilities
-- **folke/lazy.nvim**: Modern plugin manager
-- **folke/which-key.nvim**: Displays keybinding hints
-- **folke/snacks.nvim**: Collection of useful utilities and toggles
-- **akinsho/toggleterm.nvim**: Integrated terminal
-- **echasnovski/mini.nvim**: Collection of lightweight plugins
-- **tpope/vim-sleuth**: Automatic indentation detection
-
-### User Interface & Aesthetics
-- **nvim-lualine/lualine.nvim**: Customizable statusline
-- **romgrk/barbar.nvim**: Neovim tabs/bufferline
-- **nvim-tree/nvim-web-devicons**: File icons
-
-### File Exploration & Fuzzy Finding
-- **stevearc/oil.nvim**: Floating file explorer
-- **ibhagwan/fzf-lua**: Powerful fuzzy finder
-
-### Language Support
-- **neovim/nvim-lspconfig**: LSP server configuration
-- **williamboman/mason.nvim**: LSP server, DAP adapter, and formatter manager
-- **saghen/blink.cmp**: Fast completion engine
-- **stevearc/conform.nvim**: Auto-formatting on save
-- **b0o/schemastore.nvim**: JSON/YAML schema validation
-
-### Debugging
-- **mfussenegger/nvim-dap**: Debug Adapter Protocol client
-- **rcarriga/nvim-dap-ui**: Debugging UI
-- **theHamsta/nvim-dap-virtual-text**: Inline variable values during debugging
-
-### Version Control
-- **lewis6991/gitsigns.nvim**: Git status in sign column
-- **sindrets/diffview.nvim**: Powerful diff viewer
-
-### Code Analysis & Navigation
-- **nvim-treesitter/nvim-treesitter**: Modern syntax highlighting
-- **folke/todo-comments.nvim**: Highlights TODO/FIXME comments
-- **MeanderingProgrammer/render-markdown.nvim**: Markdown rendering
-
-### Database
-- **kristijanhusak/vim-dadbod-ui**: Database UI
-- **tpope/vim-dadbod**: Core database plugin
-
-### Search & Replace
-- **MagicDuck/grug-far.nvim**: Advanced search and replace with multiple engines
-
-## 🔧 Troubleshooting
-
-### Common Issues
-
-<details>
-<summary><strong>Icons not displaying correctly</strong></summary>
-
-1. **Install a Nerd Font**: Download and install a Nerd Font (e.g., JetBrains Mono Nerd Font)
-2. **Configure your terminal**: Set your terminal to use the installed Nerd Font
-3. **Verify installation**: Run `fc-list | grep -i nerd` to check if fonts are detected
-
-</details>
-
-<details>
-<summary><strong>LSP not working / Formatting not working</strong></summary>
-
-1. **Check Language Server**: Run `:Mason` and verify the language server is installed
-2. **Verify LSP Attachment**: In a relevant file, run `:LspInfo`
-3. **Check for Errors**: Run `:checkhealth lsp`
-4. **Check Formatter**: Ensure formatters are installed via `:Mason`
-5. **Test conform.nvim**: Try `:ConformInfo` and manual formatting with `:Conform`
-
-</details>
-
-<details>
-<summary><strong>Plugins not loading</strong></summary>
-
-1. **Check Status**: Run `:Lazy` to view plugin status
-2. **Sync Plugins**: Run `:Lazy sync`
-3. **Check Logs**: Run `:Lazy log` for errors
-4. **Rebuild Treesitter**: Run `:TSUpdate` if syntax highlighting is off
-
-</details>
-
-<details>
-<summary><strong>Slow startup time</strong></summary>
-
-1. **Profile Startup**: Run `nvim --startuptime startup.log`
-2. **Check Plugin Profile**: Run `:Lazy profile` inside Neovim
-3. **Consider lazy-loading**: Add `lazy = true` with appropriate triggers to plugin configurations
-
-</details>
-
-<details>
-<summary><strong>Oil.nvim not opening</strong></summary>
-
-1. **Check Installation**: Verify oil.nvim is installed via `:Lazy`
-2. **Try Manual Command**: Run `:Oil` to open manually
-3. **Check Configuration**: Ensure oil.nvim is properly configured
-4. **File Permissions**: Check if you have read permissions for the current directory
-
-</details>
-
-## 🆘 Getting Help
-
-- Run `:checkhealth` for comprehensive diagnostics
-- Use `:help <topic>` for built-in documentation
-- Refer to individual plugin documentation on GitHub
-- Check the [Neovim documentation](https://neovim.io/doc/)
-
 ---
 
-**Enjoy your streamlined Neovim experience! 🎉**
+## 📦 Current Plugin Structure
+
+```
+├── init.lua
+├── lazy-lock.json
+├── lua
+│   ├── config
+│   │   ├── keymaps.lua
+│   │   ├── lazy.lua
+│   │   └── options.lua
+│   └── plugins
+│       ├── barbar.lua          # Buffer management
+│       ├── blink-cmp.lua       # Completion engine
+│       ├── conform.lua         # Code formatting
+│       ├── dadbod.lua          # Database operations
+│       ├── fzf-mini.lua        # Fuzzy finding
+│       ├── go.lua              # Go language support
+│       ├── grug-far.lua        # Search & replace
+│       ├── lsp.lua             # Language servers
+│       ├── lualine.lua         # Status line
+│       ├── markdown.lua        # Markdown rendering
+│       ├── mini.lua            # Mini plugins collection
+│       ├── oil.lua             # File explorer
+│       ├── schemastore.lua     # JSON schemas
+│       ├── sleuth-vim.lua      # Auto-detect indentation
+│       ├── snacks.lua          # Swiss-army knife utilities
+│       ├── theme.lua           # Color scheme
+│       ├── todo.lua            # Todo highlighting
+│       ├── treesitter.lua      # Syntax highlighting
+│       ├── type.lua            # Type checking
+│       └── witt-neovim.lua     # Custom utilities
+```
+
+### 🔧 Core Features Provided by Snacks.nvim
+
+- **Terminal Integration**: Built-in terminal with toggle functionality
+- **Git Operations**: Lazygit integration, git blame, and browsing
+- **File Explorer**: Alternative to oil.nvim for different use cases
+- **Zen Mode**: Distraction-free editing
+- **Scratch Buffers**: Quick note-taking
+- **Toggle Utilities**: Easy toggles for editor options
+- **Buffer Management**: Enhanced buffer operations
+- **Debug Utilities**: Development helpers
+- **Input Enhancement**: Better input prompts
+- **Scope Highlighting**: Enhanced code scope visualization
+
+---

@@ -3,9 +3,15 @@ return {
     priority = 1000,
     lazy = false,
 
-    -- Pre-initialization hook
     init = function()
-        -- Set minimal UI characters
+        _G.dd = function(...)
+            Snacks.debug.inspect(...)
+        end
+        _G.bt = function()
+            Snacks.debug.backtrace()
+        end
+        vim.print = _G.dd
+
         vim.opt.fillchars:append({
             vert = " ",
             fold = " ",
@@ -14,47 +20,13 @@ return {
             msgsep = " ",
         })
 
-        -- Disable indent blankline color
         vim.cmd("highlight IndentBlanklineChar guifg=NONE")
 
-        -- Global helper functions and toggle bindings
         vim.api.nvim_create_autocmd("User", {
             pattern = "VeryLazy",
-            callback = function()
-                _G.dd = function(...)
-                    Snacks.debug.inspect(...)
-                end
-                _G.bt = function()
-                    Snacks.debug.backtrace()
-                end
-                vim.print = _G.dd
-
-                Snacks.toggle.option("spell", { name = "Spelling" }):map("<leader>us")
-                Snacks.toggle.option("wrap", { name = "Wrap" }):map("<leader>uw")
-                Snacks.toggle.option("relativenumber", { name = "Relative Number" }):map("<leader>uL")
-                Snacks.toggle.diagnostics():map("<leader>ud")
-                Snacks.toggle.line_number():map("<leader>ul")
-                Snacks.toggle
-                    .option("conceallevel", {
-                        off = 0,
-                        on = vim.o.conceallevel > 0 and vim.o.conceallevel or 2,
-                        name = "Conceal",
-                    })
-                    :map("<leader>uc")
-                Snacks.toggle.treesitter():map("<leader>uT")
-                Snacks.toggle
-                    .option("background", {
-                        off = "light",
-                        on = "dark",
-                        name = "Dark Background",
-                    })
-                    :map("<leader>ub")
-                Snacks.toggle.inlay_hints():map("<leader>uh")
-                Snacks.toggle.dim():map("<leader>uD")
-            end,
+            callback = function() end,
         })
 
-        -- File rename hook for Oil.nvim integration
         vim.api.nvim_create_autocmd("User", {
             pattern = "OilActionsPost",
             callback = function(event)
@@ -66,184 +38,252 @@ return {
         })
     end,
 
-    -- Plugin options
     opts = {
         bigfile = { enabled = true },
+
         dashboard = {
             enabled = true,
             preset = {
                 header = [[
-  ███████╗ █████╗ ███╗   ███╗ ██████╗ ███████╗ █████╗
-  ██╔════╝██╔══██╗████╗ ████║██╔═══██╗██╔════╝██╔══██╗
-  ███████╗███████║██╔████╔██║██║   ██║███████╗███████║
-  ╚════██║██╔══██║██║╚██╔╝██║██║   ██║╚════██║██╔══██║
-  ███████║██║  ██║██║ ╚═╝ ██║╚██████╔╝███████║██║  ██║
-  ╚══════╝╚═╝  ╚═╝╚═╝   ╚═╝ ╚═════╝ ╚══════╝╚═╝  ╚═╝
-        ]],
+ ███████╗ █████╗ ███╗   ███╗ ██████╗ ███████╗ █████╗
+ ██╔════╝██╔══██╗████╗ ████║██╔═══██╗██╔════╝██╔══██╗
+ ███████╗███████║██╔████╔██║██║   ██║███████╗███████║
+ ╚════██║██╔══██║██║╚██╔╝██║██║   ██║╚════██║██╔══██║
+ ███████║██║  ██║██║ ╚═╝ ██║╚██████╔╝███████║██║  ██║
+ ╚══════╝╚═╝  ╚═╝╚═╝   ╚═╝ ╚═════╝ ╚══════╝╚═╝  ╚═╝
+                ]],
+            },
+            sections = {
+                { section = "header" },
+                { section = "keys",   gap = 1, padding = 1 },
+                { section = "startup" },
             },
         },
-        input = { enabled = true },
-        -- notifier = { enabled = true, timeout = 3000 },
-        -- picker = { enabled = true }, -- Commented out since using fzf-lua
-        quickfile = { enabled = true },
-        scope = { enabled = true },
-        scroll = { enabled = true },
-        statuscolumn = { enabled = false },
-        words = { enabled = true },
-        rename = { enabled = true },
-        zen = {
+
+        input = { enabled = false },
+
+        terminal = {
             enabled = true,
-            options = {
-                window = {
-                    width = 0.85,
-                    options = {
-                        signcolumn = "no",
-                        number = false,
-                        relativenumber = false,
+            win = {
+                style = "terminal",
+                position = "bottom",
+                height = 0.3,
+                width = 0.8,
+                border = "rounded",
+            },
+            shell = vim.o.shell,
+            interactive = true,
+        },
+
+        scope = {
+            enabled = true,
+            min_size = 2,
+            cursor = true,
+            edge = true,
+            siblings = false,
+            filter = function(buf)
+                return vim.bo[buf].buftype == ""
+                    and vim.b[buf].snacks_scope ~= false
+                    and vim.g.snacks_scope ~= false
+            end,
+            debounce = 30,
+            treesitter = {
+                enabled = true,
+                injections = true,
+                blocks = {
+                    enabled = false,
+                    "function_declaration",
+                    "function_definition",
+                    "method_declaration",
+                    "method_definition",
+                    "class_declaration",
+                    "class_definition",
+                    "do_statement",
+                    "while_statement",
+                    "repeat_statement",
+                    "if_statement",
+                    "for_statement",
+                },
+                field_blocks = {
+                    "local_declaration",
+                },
+            },
+            keys = {
+                textobject = {
+                    ii = {
+                        min_size = 2,
+                        edge = false,
+                        cursor = false,
+                        treesitter = { blocks = { enabled = false } },
+                        desc = "inner scope",
+                    },
+                    ai = {
+                        cursor = false,
+                        min_size = 2,
+                        treesitter = { blocks = { enabled = false } },
+                        desc = "full scope",
+                    },
+                },
+                jump = {
+                    ["[i"] = {
+                        min_size = 1,
+                        bottom = false,
+                        cursor = false,
+                        edge = true,
+                        treesitter = { blocks = { enabled = false } },
+                        desc = "jump to top edge of scope",
+                    },
+                    ["]i"] = {
+                        min_size = 1,
+                        bottom = true,
+                        cursor = false,
+                        edge = true,
+                        treesitter = { blocks = { enabled = false } },
+                        desc = "jump to bottom edge of scope",
                     },
                 },
             },
         },
+
+        explorer = {
+            enabled = true,
+            actions = {
+                ["<cr>"] = "open",
+                ["<c-v>"] = "vsplit",
+                ["<c-x>"] = "split",
+                ["<c-t>"] = "tabnew",
+            },
+        },
+
+        git = { enabled = true },
+
+        lazygit = {
+            enabled = true,
+            configure = true,
+            args = {},
+            config = {
+                os = { editPreset = "nvim-remote" },
+                gui = { nerdFontsVersion = "3" },
+            },
+            theme_path = vim.fs.normalize(vim.fn.stdpath("cache") .. "/lazygit-theme.yml"),
+            theme = {
+                [241] = { fg = "Special" },
+                activeBorderColor = { fg = "MatchParen", bold = true },
+                cherryPickedCommitBgColor = { fg = "Identifier" },
+                cherryPickedCommitFgColor = { fg = "Function" },
+                defaultFgColor = { fg = "Normal" },
+                inactiveBorderColor = { fg = "FloatBorder" },
+                optionsTextColor = { fg = "Function" },
+                searchingActiveBorderColor = { fg = "MatchParen", bold = true },
+                selectedLineBgColor = { bg = "Visual" },
+                unstagedChangesColor = { fg = "DiagnosticError" },
+            },
+            win = { style = "lazygit" },
+        },
+
+        debug = { enabled = true },
+        quickfile = { enabled = true },
+        scroll = { enabled = true },
+        statuscolumn = { enabled = false },
+
+        words = {
+            enabled = true,
+            debounce = 200,
+            notify_jump = false,
+            notify_end = true,
+            foldopen = true,
+            jumplist = true,
+            modes = { "n", "i", "c" },
+            filter = function(buf)
+                return vim.g.snacks_words ~= false and vim.b[buf].snacks_words ~= false
+            end,
+        },
+
+        rename = { enabled = true },
+
+        zen = {
+            enabled = true,
+            toggles = {
+                dim = true,
+                git_signs = false,
+                mini_diff_signs = false,
+            },
+            show = {
+                statusline = false,
+                tabline = false,
+            },
+            win = { style = "zen" },
+            on_open = function(win) end,
+            on_close = function(win) end,
+            zoom = {
+                toggles = {},
+                show = { statusline = true, tabline = true },
+                win = {
+                    backdrop = false,
+                    width = 0,
+                },
+            },
+        },
+
+        notifier = {
+            enabled = true,
+            timeout = 3000,
+        },
+
+        animate = {
+            enabled = true,
+            duration = 20,
+            easing = "linear",
+            fps = 60,
+        },
+
+        indent = {
+            enabled = true,
+            char = "│",
+            blank = " ",
+        },
+
+        dim = { enabled = false },
     },
 
-    -- Key mappings
     keys = {
-        -- Core buffer/command functionality (not overlapping with fzf-lua)
-        {
-            "<leader>,",
-            function()
-                Snacks.picker.buffers()
-            end,
-            desc = "Buffers",
-        },
-        {
-            "<leader>:",
-            function()
-                Snacks.picker.command_history()
-            end,
-            desc = "Command History",
-        },
-        {
-            "<leader>n",
-            function()
-                Snacks.picker.notifications()
-            end,
-            desc = "Notification History",
-        },
-
-        -- File/search commands commented out since using fzf-lua
-        -- { "<leader><space>", function() Snacks.picker.smart() end, desc = "Smart Find Files" },
-        -- { "<leader>fc", function() Snacks.picker.files({ cwd = vim.fn.stdpath("config") }) end, desc = "Find Config File" },
-        -- { "<leader>ff", function() Snacks.picker.files() end, desc = "Find Files" },
-        -- { "<leader>fg", function() Snacks.picker.git_files() end, desc = "Find Git Files" },
-        -- { "<leader>fp", function() Snacks.picker.projects() end, desc = "Projects" },
-        -- { "<leader>fr", function() Snacks.picker.recent() end, desc = "Recent Files" },
-
-        -- Git functionality commented out since using neogit
-        -- { "<leader>gb", function() Snacks.picker.git_branches() end, desc = "Git Branches" },
-        -- { "<leader>gl", function() Snacks.picker.git_log() end, desc = "Git Log" },
-        -- { "<leader>gL", function() Snacks.picker.git_log_line() end, desc = "Git Log Line" },
-        -- { "<leader>gs", function() Snacks.picker.git_status() end, desc = "Git Status" },
-        -- { "<leader>gS", function() Snacks.picker.git_stash() end, desc = "Git Stash" },
-        -- { "<leader>gd", function() Snacks.picker.git_diff() end, desc = "Git Diff" },
-        -- { "<leader>gf", function() Snacks.picker.git_log_file() end, desc = "Git Log File" },
-        -- { "<leader>gB", function() Snacks.gitbrowse() end, desc = "Git Browse", mode = { "n", "v" } },
-        -- { "<leader>gg", function() Snacks.lazygit() end, desc = "Lazygit" },
-
-        -- Search commands commented out since using fzf-lua
-        -- { "<leader>sb", function() Snacks.picker.lines() end, desc = "Buffer Lines" },
-        -- { "<leader>sB", function() Snacks.picker.grep_buffers() end, desc = "Grep Buffers" },
-        -- { "<leader>sg", function() Snacks.picker.grep() end, desc = "Grep Project" },
-        -- { "<leader>sw", function() Snacks.picker.grep_word() end, desc = "Search Word", mode = { "n", "x" } },
-
-        -- Zen
-        {
-            "<leader>z",
-            function()
-                Snacks.zen()
-            end,
-            desc = "Toggle Zen Mode",
-        },
-        {
-            "<leader>Z",
-            function()
-                Snacks.zen.zoom()
-            end,
-            desc = "Zoom Current Window",
-        },
-
-        -- Buffer management
-        {
-            "<leader>bd",
-            function()
-                Snacks.bufdelete()
-            end,
-            desc = "Delete Buffer",
-        },
-        {
-            "<leader>ba",
-            function()
-                Snacks.bufdelete.all()
-            end,
-            desc = "Delete All Buffers",
-        },
-        {
-            "<leader>bo",
-            function()
-                Snacks.bufdelete.other()
-            end,
-            desc = "Delete Other Buffers",
-        },
-
-        -- Scratch
-        {
-            "<leader>.",
-            function()
-                Snacks.scratch()
-            end,
-            desc = "Scratch Buffer",
-        },
-        {
-            "<leader>S",
-            function()
-                Snacks.scratch.select()
-            end,
-            desc = "Select Scratch",
-        },
-
-        -- Notifications
-        -- { "<leader>un", function() Snacks.notifier.hide() end, desc = "Hide Notifications" },
-
-        -- File rename
-        {
-            "<leader>rf",
-            function()
-                Snacks.rename.rename_file()
-            end,
-            desc = "Rename File",
-        },
-
-        -- Word jumps - Changed to avoid conflict with Treesitter
-        {
-            "<leader>wn",
-            function()
-                Snacks.words.jump(vim.v.count1)
-            end,
-            desc = "Next Reference",
-            mode = { "n", "t" },
-        },
-        {
-            "<leader>wp",
-            function()
-                Snacks.words.jump(-vim.v.count1)
-            end,
-            desc = "Prev Reference",
-            mode = { "n", "t" },
-        },
+        { "<leader>,",  function() Snacks.picker.buffers() end,          desc = "Buffers" },
+        { "<leader>:",  function() Snacks.picker.command_history() end,  desc = "Command History" },
+        { "<leader>n",  function() Snacks.picker.notifications() end,    desc = "Notification History" },
+        { "<leader>t",  function() Snacks.terminal() end,                desc = "Terminal" },
+        { "<c-/>",      function() Snacks.terminal.toggle() end,         desc = "Toggle Terminal",             mode = { "n", "t" } },
+        { "<leader>T",  function() Snacks.terminal.open() end,           desc = "New Terminal" },
+        { "<leader>e",  function() Snacks.explorer() end,                desc = "Explorer" },
+        { "<leader>E",  function() Snacks.explorer.toggle() end,         desc = "Toggle Explorer" },
+        { "<leader>gb", function() Snacks.git.blame_line() end,          desc = "Git Blame Line" },
+        { "<leader>gB", function() Snacks.gitbrowse() end,               desc = "Git Browse",                  mode = { "n", "v" } },
+        { "<leader>gf", function() Snacks.lazygit.log_file() end,        desc = "Lazygit Current File History" },
+        { "<leader>gg", function() Snacks.lazygit() end,                 desc = "Lazygit" },
+        { "<leader>gl", function() Snacks.lazygit.log() end,             desc = "Lazygit Log" },
+        { "<leader>z",  function() Snacks.zen() end,                     desc = "Toggle Zen Mode" },
+        { "<leader>Z",  function() Snacks.zen.zoom() end,                desc = "Zoom Current Window" },
+        { "<leader>bd", function() Snacks.bufdelete() end,               desc = "Delete Buffer" },
+        { "<leader>ba", function() Snacks.bufdelete.all() end,           desc = "Delete All Buffers" },
+        { "<leader>bo", function() Snacks.bufdelete.other() end,         desc = "Delete Other Buffers" },
+        { "<leader>.",  function() Snacks.scratch() end,                 desc = "Scratch Buffer" },
+        { "<leader>S",  function() Snacks.scratch.select() end,          desc = "Select Scratch" },
+        { "<leader>rf", function() Snacks.rename.rename_file() end,      desc = "Rename File" },
+        { "<leader>wn", function() Snacks.words.jump(vim.v.count1) end,  desc = "Next Reference",              mode = { "n", "t" } },
+        { "<leader>wp", function() Snacks.words.jump(-vim.v.count1) end, desc = "Prev Reference",              mode = { "n", "t" } },
+        { "<leader>un", function() Snacks.notifier.hide() end,           desc = "Hide Notifications" },
+        { "<leader>uN", function() Snacks.notifier.show_history() end,   desc = "Show Notification History" },
     },
 
-    -- Plugin setup
     config = function(_, opts)
         require("snacks").setup(opts)
+
+        vim.api.nvim_create_autocmd("TermOpen", {
+            callback = function()
+                vim.opt_local.number = false
+                vim.opt_local.relativenumber = false
+                vim.opt_local.cursorline = false
+                vim.opt_local.signcolumn = "no"
+            end,
+        })
     end,
 }
