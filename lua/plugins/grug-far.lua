@@ -2,9 +2,9 @@ return {
     "MagicDuck/grug-far.nvim",
     cmd = { "GrugFar" },
     keys = {
-        -- Main search interface (avoiding conflict with <leader>sd - diagnostics)
+        -- Main search interface (moved to <leader>s* prefix to avoid git conflicts)
         {
-            "<leader>gf",
+            "<leader>sr",
             function()
                 require("grug-far").open()
             end,
@@ -13,7 +13,7 @@ return {
 
         -- Search with AST-grep for structural patterns
         {
-            "<leader>gF",
+            "<leader>sR",
             function()
                 require("grug-far").open({
                     engine = "astgrep",
@@ -23,9 +23,9 @@ return {
             desc = "AST Search & Replace",
         },
 
-        -- Search current word under cursor (avoiding conflict with <leader>sw - workspace diagnostics)
+        -- Search current word under cursor
         {
-            "<leader>gw",
+            "<leader>sw",
             function()
                 require("grug-far").open({
                     prefills = { search = vim.fn.expand("<cword>") },
@@ -36,7 +36,7 @@ return {
 
         -- Search in current buffer only
         {
-            "<leader>gb",
+            "<leader>sb",
             function()
                 require("grug-far").open({
                     prefills = { paths = vim.fn.expand("%") },
@@ -47,7 +47,7 @@ return {
 
         -- Search with visual selection
         {
-            "<leader>gv",
+            "<leader>sv",
             function()
                 require("grug-far").open({
                     visualSelectionUsage = "prefill-search",
@@ -57,13 +57,24 @@ return {
             desc = "Search Visual Selection",
         },
 
-        -- Toggle visibility (avoiding conflict with terminals)
+        -- Toggle visibility
         {
-            "<leader>gt",
+            "<leader>st",
             function()
                 require("grug-far").toggle()
             end,
             desc = "Toggle GrugFar",
+        },
+
+        -- Additional useful mappings
+        {
+            "<leader>sf",
+            function()
+                require("grug-far").open({
+                    prefills = { paths = vim.fn.getcwd() },
+                })
+            end,
+            desc = "Search in Project Root",
         },
     },
 

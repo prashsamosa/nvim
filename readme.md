@@ -60,22 +60,45 @@ This configuration uses `<Space>` as the leader key (`<leader>`).
 | `<C-r>`        | Refresh directory                                  |
 | `q`            | Close Oil                                          |
 
-## LSP (Language Server Protocol)
+## 🔍 LSP (Language Server Protocol)
+
+### Navigation
+| Key | Action |
+|-----|--------|
+| `gd` | Go to definition (FZF if available) |
+| `gr` | Go to references (FZF if available) |
+| `gD` | Go to declaration |
+| `gI` | Go to implementation (FZF if available) |
+| `<leader>td` | Type definition (FZF if available) |
+
+### Code Actions
 | Key | Action |
 |-----|--------|
 | `<leader>ca` | Code action |
-| `<S-k>` | Hover documentation |
 | `<leader>cr` | Rename symbol |
-| `<leader>cf` | Format current file |
-| `<leader>cc` | Organize imports |
-| `gd` | Go to definition |
-| `gr` | Go to references |
-| `gD` | Go to declaration |
-| `gi` | Go to implementation |
-| `<leader>sd` | Show document diagnostics |
-| `<leader>sw` | Show workspace diagnostics |
+| `K` | Hover documentation |
+| `<C-k>` | Signature help (Insert mode) |
+
+### Symbols & Documentation
+| Key | Action |
+|-----|--------|
+| `<leader>ds` | Document symbols (FZF if available) |
+| `<leader>ws` | Workspace symbols (FZF if available) |
+
+### Diagnostics
+| Key | Action |
+|-----|--------|
 | `[d` | Go to previous diagnostic |
 | `]d` | Go to next diagnostic |
+| `<leader>df` | Show diagnostic float |
+| `<leader>dl` | Diagnostic loclist |
+| `<leader>dq` | Diagnostic quickfix |
+
+### Additional Features
+| Key | Action |
+|-----|--------|
+| `<leader>ih` | Toggle inlay hints |
+| `<leader>cl` | Run code lens |
 
 ## 🐹 Go Development (go.nvim)
 
@@ -201,7 +224,7 @@ This configuration uses `<Space>` as the leader key (`<leader>`).
 | `<leader>Dr`  | Execute Query/Selection| Run the current query or visual selection     |
 | `<leader>DS`  | Save Query             | Save the current SQL query                    |
 
-## Fuzzy Finding (FZF-Lua)
+## 🔍 Fuzzy Finding (FZF-Lua)
 | Key | Action |
 |-----|--------|
 | `<leader>ff` | Find files |
@@ -217,22 +240,77 @@ This configuration uses `<Space>` as the leader key (`<leader>`).
 | `<leader>fk` | Keymaps |
 | `<leader>fd` | Document diagnostics |
 | `<leader>fr` | Resume last search |
-| `<leader>fgd` | LSP Go to Definition |
-| `<leader>fgr` | LSP Go to References |
-| `<leader>fgi` | LSP Go to Implementation |
-| `<leader>fgt` | LSP Type Definition |
-| `<leader>fds` | Document symbols |
-| `<leader>fws` | Workspace symbols |
+| `<leader>fgd` | LSP Definition (FZF) |
+| `<leader>fgr` | LSP References (FZF) |
+| `<leader>fgi` | LSP Implementation (FZF) |
+| `<leader>fgt` | LSP Type Definition (FZF) |
+| `<leader>fds` | Document Symbols (FZF) |
+| `<leader>fws` | Workspace Symbols (FZF) |
 
-## Terminal Operations (Snacks)
+## 🔍 GrugFar Search & Replace
+
+### 🚀 Main Operations
+| Key | Action | Description |
+|-----|--------|-------------|
+| `<leader>sr` | Search & Replace | Open main GrugFar interface |
+| `<leader>sR` | AST Search & Replace | Open with AST-grep engine for structural patterns |
+| `<leader>st` | Toggle GrugFar | Show/hide GrugFar window |
+
+### 🎯 Quick Search Actions
+| Key | Action | Description |
+|-----|--------|-------------|
+| `<leader>sw` | Search Word Under Cursor | Prefill search with current word |
+| `<leader>sb` | Search in Current Buffer | Limit search to current file only |
+| `<leader>sv` | Search Visual Selection | Use selected text as search term (Visual mode) |
+| `<leader>sf` | Search in Project Root | Search from project root directory |
+
+### 🔧 Within GrugFar Interface
+
+#### Navigation & Control
+| Key | Action | Description |
+|-----|--------|-------------|
+| `<Tab>` / `<S-Tab>` | Next/Previous Input | Navigate between search fields |
+| `<CR>` | Go to Location | Jump to selected result |
+| `<C-n>` / `<C-p>` | Next/Previous Result | Navigate through results |
+| `q` | Close | Exit GrugFar |
+
+#### Main Actions
+| Key | Action | Description |
+|-----|--------|-------------|
+| `<leader>r` | Replace | Apply replacement |
+| `<leader>q` | Send to Quickfix | Add results to quickfix list |
+| `<leader>s` | Sync Locations | Sync buffer with results |
+| `<leader>p` | Preview | Preview location without jumping |
+
+#### Advanced Features
+| Key | Action | Description |
+|-----|--------|-------------|
+| `<leader>e` | Swap Engine | Switch between ripgrep/astgrep engines |
+| `<leader>h` | History | Open search history |
+
+### 🔍 Search Engine Examples
+
+#### Ripgrep (Default)
+- **Search**: `foo`, `[Aa]b?c`, `\w+`
+- **Replace**: `bar`, `$1`, `${1:default}`
+- **Files**: `*.lua`, `src/**/*.js`, `!**/node_modules`
+- **Flags**: `--ignore-case --multiline`
+
+#### AST-Grep (Structural)
+- **Search**: `console.log($A)`, `function $FUNC($$$ARGS) { $$$ }`
+- **Replace**: `logger.info($A)`, `const $FUNC = ($$$ARGS) => { $$$ }`
+- **Files**: `*.js *.ts`, `**/*.{vue,svelte}`
+
+## 🖥️ Terminal Operations (Snacks)
 
 | Key | Action |
 |-----|--------|
 | `<leader>t` | Open Terminal |
 | `<leader>T` | New Terminal |
 | `<C-/>` | Toggle Terminal |
+| `<C-\>` | Toggle Terminal (Alternative) |
 
-## Git Operations (Snacks)
+## 🚀 Git Operations (Snacks)
 
 | Key | Action |
 |-----|--------|
@@ -242,7 +320,7 @@ This configuration uses `<Space>` as the leader key (`<leader>`).
 | `<leader>gg` | Open Lazygit |
 | `<leader>gl` | Lazygit Log |
 
-## Markdown (render-markdown.nvim)
+## 📝 Markdown (render-markdown.nvim)
 | Key         | Action                    |
 |-------------|---------------------------|
 | `<leader>mt`| Toggle Markdown Rendering |
@@ -254,7 +332,7 @@ This configuration uses `<Space>` as the leader key (`<leader>`).
 | `<leader>mE`| Expand Markdown View      |
 | `<leader>mC`| Contract Markdown View    |
 
-## Snacks Utilities & Toggles
+## 🎛️ Snacks Utilities & Toggles
 
 ### Toggle Options
 | Key | Action |
@@ -284,6 +362,7 @@ This configuration uses `<Space>` as the leader key (`<leader>`).
 | `<leader>,` | Show Buffers (Snacks Picker) |
 | `<leader>:` | Command History |
 | `<leader>n` | Notification History |
+| `<leader><space>` | Find Files (Snacks Picker) |
 
 ### Word Navigation
 | Key | Action |
@@ -291,89 +370,73 @@ This configuration uses `<Space>` as the leader key (`<leader>`).
 | `<leader>wn` | Next Word Reference |
 | `<leader>wp` | Previous Word Reference |
 
-## Sessions (mini.sessions)
+### Notifications
+| Key | Action |
+|-----|--------|
+| `<leader>un` | Hide Notifications |
+| `<leader>uN` | Show Notification History |
+
+## 📚 Sessions (mini.sessions)
 | Key | Action |
 |-----|--------|
 | `<leader>Ms` | Write Session |
 | `<leader>Mr` | Read Last Session |
 | `<leader>Md` | Delete Session |
 
-# 🔍 GrugFar Search & Replace Shortcuts
 
-## 🚀 Main Operations
-
+## 🔍 Glance.nvim Integration
+### Main Navigation
 | Key | Action | Description |
 |-----|--------|-------------|
-| `<leader>gf` | Search & Replace | Open main GrugFar interface |
-| `<leader>gF` | AST Search & Replace | Open with AST-grep engine for structural patterns |
-| `<leader>gt` | Toggle GrugFar | Show/hide GrugFar window |
+| `<leader>ld` | Glance Definitions | Show all definitions with preview |
+| `<leader>lr` | Glance References | Show all references with preview |
+| `<leader>lt` | Glance Type Definitions | Show type definitions with preview |
+| `<leader>li` | Glance Implementations | Show implementations with preview |
 
-## 🎯 Quick Search Actions
+### Within Glance Window
 
-| Key | Action | Description |
-|-----|--------|-------------|
-| `<leader>gw` | Search Word Under Cursor | Prefill search with current word |
-| `<leader>gb` | Search in Current Buffer | Limit search to current file only |
-| `<leader>gv` | Search Visual Selection | Use selected text as search term |
+#### List Navigation
+| Key | Action |
+|-----|--------|
+| `j` / `k` | Next/Previous item |
+| `<Tab>` / `<S-Tab>` | Next/Previous location (skip groups) |
+| `<CR>` / `o` | Jump to location |
+| `v` | Open in vertical split |
+| `s` | Open in horizontal split |
+| `t` | Open in new tab |
+| `l` / `h` | Open/Close folds |
+| `<C-u>` / `<C-d>` | Scroll preview up/down |
+| `<leader>l` | Focus preview window |
+| `q` / `Q` / `<Esc>` | Close Glance |
+| `<C-q>` | Send to quickfix list |
 
-## 🔧 Within GrugFar Interface
-
-### Navigation & Control
-| Key | Action | Description |
-|-----|--------|-------------|
-| `<Tab>` / `<S-Tab>` | Next/Previous Input | Navigate between search fields |
-| `<CR>` | Go to Location | Jump to selected result |
-| `<C-n>` / `<C-p>` | Next/Previous Result | Navigate through results |
-| `q` | Close | Exit GrugFar |
-
-### Main Actions
-| Key | Action | Description |
-|-----|--------|-------------|
-| `<leader>r` | Replace | Apply replacement |
-| `<leader>q` | Send to Quickfix | Add results to quickfix list |
-| `<leader>s` | Sync Locations | Sync buffer with results |
-| `<leader>p` | Preview | Preview location without jumping |
-
-### Advanced Features
-| Key | Action | Description |
-|-----|--------|-------------|
-| `<leader>e` | Swap Engine | Switch between ripgrep/astgrep engines |
-| `<leader>h` | History | Open search history |
-
-## 🔍 Search Engine Examples
-
-### Ripgrep (Default)
-- **Search**: `foo`, `[Aa]b?c`, `\w+`
-- **Replace**: `bar`, `$1`, `${1:default}`
-- **Files**: `*.lua`, `src/**/*.js`, `!**/node_modules`
-- **Flags**: `--ignore-case --multiline`
-
-### AST-Grep (Structural)
-- **Search**: `console.log($A)`, `function $FUNC($$$ARGS) { $$$ }`
-- **Replace**: `logger.info($A)`, `const $FUNC = ($$$ARGS) => { $$$ }`
-- **Files**: `*.js *.ts`, `**/*.{vue,svelte}`
-
-## 📁 Search Scope Shortcuts
-
-| Scope | Icon | Description |
-|-------|------|-------------|
-| Current File | 󰈙 | Search only in the current buffer |
-| Open Buffers | 󰘢 | Search across all open buffers |
-| Git Root | 󰊢 | Search from git repository root |
+#### Preview Window
+| Key | Action |
+|-----|--------|
+| `<Tab>` / `<S-Tab>` | Next/Previous location |
+| `<leader>l` | Focus list window |
+| `Q` | Close Glance |
 
 ## 💡 Pro Tips
 
-1. **Quick Word Search**: Place cursor on any word and press `<leader>gw`
-2. **Visual Selection**: Select text in visual mode, then `<leader>gv`
-3. **File-Specific**: Use `<leader>gb` to search only current file
-4. **Structural Changes**: Use `<leader>gF` for code refactoring with AST patterns
+### GrugFar
+1. **Quick Word Search**: Place cursor on any word and press `<leader>sw`
+2. **Visual Selection**: Select text in visual mode, then `<leader>sv`
+3. **File-Specific**: Use `<leader>sb` to search only current file
+4. **Structural Changes**: Use `<leader>sR` for code refactoring with AST patterns
 5. **History**: Access previous searches with `<leader>h` inside GrugFar
 
-## 🎨 Visual Features
+### LSP
+1. **FZF Integration**: LSP navigation commands automatically use FZF-Lua when available
+2. **Inlay Hints**: Toggle with `<leader>ih` for better code understanding
+3. **Diagnostics**: Use `[d` and `]d` for quick navigation between issues
 
-- **Folding**: Results are organized with files collapsed by default
-- **Icons**: File type icons (requires Nerd Font)
-- **Preview**: See changes before applying
-- **Syntax Highlighting**: Code preview with proper highlighting
+### Terminal
+1. **Multiple Keymaps**: Both `<C-/>` and `<C-\>` work for terminal toggle
+2. **Terminal Mode**: Terminal keymaps work in both normal and terminal modes
+
+### File Management
+1. **Oil.nvim**: Press `-` for quick file operations in a buffer-like interface
+2. **Snacks Explorer**: Use `<leader>e` for a more traditional file tree
 
 > **Tip**: Use `<leader>` followed by any key to see available mappings via which-key.nvim

@@ -4,7 +4,7 @@ return {
         { "williamboman/mason.nvim", opts = {} },
         "williamboman/mason-lspconfig.nvim",
         "WhoIsSethDaniel/mason-tool-installer.nvim",
-        { "j-hui/fidget.nvim", opts = {} },
+        { "j-hui/fidget.nvim",       opts = {} },
         { "b0o/schemastore.nvim" },
         {
             "folke/lazydev.nvim",
@@ -54,11 +54,11 @@ return {
                     map("<leader>td", vim.lsp.buf.type_definition, "Type Definition", "n", buf)
                 end
 
-                -- Core LSP mappings
+                -- Core LSP mappings (using standard K for hover)
                 map("gD", vim.lsp.buf.declaration, "Go to Declaration", "n", buf)
                 map("<leader>ca", vim.lsp.buf.code_action, "Code Action", { "n", "x" }, buf)
                 map("<leader>cr", vim.lsp.buf.rename, "Rename", "n", buf)
-                map("K", vim.lsp.buf.hover, "Hover", "n", buf)
+                map("K", vim.lsp.buf.hover, "Hover", "n", buf) -- Standard LSP hover mapping
                 map("<C-k>", vim.lsp.buf.signature_help, "Signature Help", "i", buf)
 
                 -- Disable LSP formatting (handled by conform.nvim)
@@ -135,13 +135,15 @@ return {
         -- Diagnostic keymaps (using modern API)
         vim.keymap.set("n", "[d", function()
             vim.diagnostic.jump({ count = -1 })
-        end, { desc = "Previous diagnostic" })
+        end, { desc = "LSP: Previous diagnostic" })
+
         vim.keymap.set("n", "]d", function()
             vim.diagnostic.jump({ count = 1 })
-        end, { desc = "Next diagnostic" })
-        vim.keymap.set("n", "<leader>dl", vim.diagnostic.setloclist, { desc = "Diagnostic loclist" })
-        vim.keymap.set("n", "<leader>dq", vim.diagnostic.setqflist, { desc = "Diagnostic quickfix" })
-        vim.keymap.set("n", "<leader>df", vim.diagnostic.open_float, { desc = "Show diagnostic" })
+        end, { desc = "LSP: Next diagnostic" })
+
+        vim.keymap.set("n", "<leader>dl", vim.diagnostic.setloclist, { desc = "LSP: Diagnostic loclist" })
+        vim.keymap.set("n", "<leader>dq", vim.diagnostic.setqflist, { desc = "LSP: Diagnostic quickfix" })
+        vim.keymap.set("n", "<leader>df", vim.diagnostic.open_float, { desc = "LSP: Show diagnostic" })
 
         -- Get LSP capabilities
         local capabilities = vim.lsp.protocol.make_client_capabilities()
