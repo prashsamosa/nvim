@@ -93,6 +93,7 @@ This configuration uses `<Space>` as the leader key (`<leader>`).
 | `<C-h>`, `<C-j>`, `<C-k>`, `<C-l>` | Navigate between windows |
 | `sh` | Horizontal split |
 | `sv` | Vertical split |
+
 ### File/Buffer Management
 | Key | Action |
 |-----|--------|
@@ -127,7 +128,35 @@ This configuration uses `<Space>` as the leader key (`<leader>`).
 | `]d` | Go to next diagnostic |
 
 
----
+
+## 🧩 Text Objects
+ > uses [mini.ai](https://github.com/echasnovski/mini.ai) for advanced text objects.
+
+| Key | Usage Example | What it Selects                                 |
+|-----|--------------|-------------------------------------------------|
+| `af`| `vaf`        | **A**round **F**unction (entire function block) |
+| `if`| `vif`        | **I**nner **F**unction (just the function body) |
+| `ac`| `vac`        | **A**round **C**lass (entire class block)       |
+| `ic`| `vic`        | **I**nner **C**lass (just the class body)       |
+
+**How to use:**
+- In **visual mode**, press `v` then one of these keys (e.g., `vaf`) to select the corresponding code object.
+- In **operator-pending mode** (e.g., after `d` for delete or `c` for change), type the key (e.g., `daf` to delete a function).
+
+> These shortcuts make it easy to select, change, or delete entire functions, classes, or their contents with a few keystrokes.
+
+
+| Keybinding    | Action                | Description                                 |
+|---------------|------------------------|---------------------------------------------|
+| `<leader>Do`  | Open DB UI             | Opens the database UI interface             |
+| `<leader>Du`  | Toggle DB UI           | Toggles the database UI visibility          |
+| `<leader>Dc`  | Close DB UI            | Closes the database UI window               |
+| `<leader>Df`  | Find DB Buffer         | Find and switch to an active DB buffer      |
+| `<leader>Da`  | Add DB Connection      | Add a new database connection               |
+| `<leader>Dn`  | Rename Buffer          | Rename the current DB buffer _(was Dr)_     |
+| `<leader>Dl`  | Last Query Info        | Show info about the last executed query     |
+
+
 ## 🗄️ Database Operations (`vim-dadbod-ui`)
 
 ### 🔧 General DB UI Commands
@@ -150,7 +179,6 @@ This configuration uses `<Space>` as the leader key (`<leader>`).
 | `<leader>Dr`  | Execute Query/Selection| Run the current query or visual selection     |
 | `<leader>DS`  | Save Query             | Save the current SQL query                    |
 
----
 
 ## 🐛 Debugging Operations (`nvim-dap`)
 
@@ -192,8 +220,6 @@ This configuration uses `<Space>` as the leader key (`<leader>`).
 | Keybinding     | Action         | Description                        |
 |----------------|----------------|------------------------------------|
 | `<leader>dl`   | Show Debug Logs| Set log level to TRACE & notify    |
-
----
 
 ### Fuzzy Finding (fzf-lua)
 | Key | Action |

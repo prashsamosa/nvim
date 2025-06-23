@@ -39,14 +39,14 @@ return {
           select = {
             enable = true,
             lookahead = true,
-            keymaps = {
-              ["af"] = "@function.outer",
-              ["if"] = "@function.inner",
-              ["ac"] = "@class.outer",
-              ["ic"] = "@class.inner",
-              ["as"] = "@scope",
-              ["ao"] = "@comment.outer",
-            },
+            -- keymaps = {
+            --   ["af"] = "@function.outer",
+            --   ["if"] = "@function.inner",
+            --   ["ac"] = "@class.outer",
+            --   ["ic"] = "@class.inner",
+            --   ["as"] = "@scope",
+            --   ["ao"] = "@comment.outer",
+            -- },
           },
           swap = {
             enable = true,
