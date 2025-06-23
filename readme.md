@@ -1,81 +1,3 @@
-# 🚀 Neovim Configuration
-
-![Neovim Version](https://img.shields.io/badge/Neovim-0.10+-blueviolet.svg?style=flat-square&logo=Neovim&logoColor=green)
-![Platform](https://img.shields.io/badge/platform-Linux%20%7C%20macOS%20%7C%20Windows-blue.svg?style=flat-square)
-
-## 📋 Prerequisites
-
-### Essential Requirements
-
-| Tool | Version | Purpose |
-|:------------|:-----------|:----------------------------------|
-| **Neovim** | `≥ 0.10.0` | Core editor |
-| **Git** | `Latest` | Version control & plugin management |
-| **Nerd Font** | `Latest` | Icons & glyphs (e.g., JetBrains Mono) |
-
-### CLI Tools
-
-```bash
-# Ubuntu/Debian
-sudo apt install ripgrep fd-find
-```
-
-### Language-Specific Tools
-
-Ensure these are installed for optimal language support:
-
-<details>
-<summary><strong>🐹 Go Development</strong></summary>
-
-```bash
-go install golang.org/x/tools/gopls@latest
-go install github.com/go-delve/delve/cmd/dlv@latest
-go install github.com/golangci/golangci-lint/cmd/golangci-lint@latest
-```
-
-</details>
-
-<details>
-<summary><strong>🐍 Python</strong></summary>
-
-```bash
-pip install debugpy black isort
-```
-
-</details>
-
-<details>
-<summary><strong>🦀 Rust</strong></summary>
-
-```bash
-rustup component add rust-analyzer
-rustup component add rustfmt
-```
-
-</details>
-
-## 📦 Installation
-
-1. **Backup existing configuration** (if any):
-   ```bash
-   mv ~/.config/nvim ~/.config/nvim.backup
-   ```
-
-2. **Clone the repository**:
-   ```bash
-   git clone https://github.com/prashsamosa/nvim.git ~/.config/nvim
-   ```
-   *(Replace `your-username/your-nvim-config` with your actual repository path)*
-
-3. **Open Neovim**:
-   ```bash
-   nvim
-   ```
-
-4. **Wait for installation**: lazy.nvim will automatically download and install all plugins. Mason will also install LSP servers and formatters as configured. This might take some time on the first launch.
-
-5. **Run health check**: After installation, run `:checkhealth` to ensure all dependencies are met and your setup is healthy.
-
 # ⌨️ Keybindings
 
 This configuration uses `<Space>` as the leader key (`<leader>`).
@@ -95,19 +17,34 @@ This configuration uses `<Space>` as the leader key (`<leader>`).
 
 ## 📁 File & Buffer Management
 
+### Buffer Navigation (Barbar)
 | Key                          | Action                                      |
 |-----------------------------|---------------------------------------------|
-| `-`                         | Open `oil.nvim` (Floating File Explorer)    |
 | `<A-,>`, `<A-.>`            | Go to previous/next buffer                  |
 | `<A-S-,>`, `<A-S-.>`        | Move buffer previous/next                   |
 | `<A-1>` to `<A-9>`, `<A-0>` | Jump to specific buffer                     |
 | `<A-p>`                     | Pin/unpin current buffer                    |
-| `<leader>bc`                | Close current buffer                        |
+
+### Buffer Management (Mixed: Barbar + Snacks)
+| Key                          | Action                                      |
+|-----------------------------|---------------------------------------------|
+| `<leader>bc`                | Close current buffer (Barbar)              |
+| `<leader>bO`                | Close all but current/pinned (Barbar)      |
 | `<leader>bd`                | Delete current buffer (Snacks)             |
 | `<leader>ba`                | Delete all buffers (Snacks)                |
 | `<leader>bo`                | Delete other buffers (Snacks)              |
-| `<leader>bO`                | Close all but current/pinned (Barbar)      |
+
+### File Operations (Snacks)
+| Key                          | Action                                      |
+|-----------------------------|---------------------------------------------|
 | `<leader>rf`                | Rename current file (Snacks)               |
+
+### File Explorers
+| Key                          | Action                                      |
+|-----------------------------|---------------------------------------------|
+| `-`                         | Open `oil.nvim` (Floating File Explorer)    |
+| `<leader>e`                 | Open Snacks Explorer                        |
+| `<leader>E`                 | Toggle Snacks Explorer                      |
 
 ## 🗂️ File Explorer (`oil.nvim`)
 
@@ -122,13 +59,6 @@ This configuration uses `<Space>` as the leader key (`<leader>`).
 | `<C-c>`        | Close Oil                                          |
 | `<C-r>`        | Refresh directory                                  |
 | `q`            | Close Oil                                          |
-
-## 🗂️ Snacks Explorer
-
-| Key            | Action                                             |
-|----------------|----------------------------------------------------|
-| `<leader>e`    | Open Snacks Explorer                               |
-| `<leader>E`    | Toggle Snacks Explorer                             |
 
 ## LSP (Language Server Protocol)
 | Key | Action |
@@ -147,21 +77,107 @@ This configuration uses `<Space>` as the leader key (`<leader>`).
 | `[d` | Go to previous diagnostic |
 | `]d` | Go to next diagnostic |
 
-## 🧩 Text Objects
-Uses [mini.ai](https://github.com/echasnovski/mini.ai) for advanced text objects.
+## 🐹 Go Development (go.nvim)
 
+### File Navigation
+| Key | Action |
+|-----|--------|
+| `<leader>ga` | Alternate file (test ↔ source) |
+| `<leader>gvs` | Alternate vertical split |
+| `<leader>ghs` | Alternate horizontal split |
+
+### Code Organization
+| Key | Action |
+|-----|--------|
+| `<leader>oi` | Organize imports |
+| `<leader>ot` | Go mod tidy |
+| `<leader>cc` | Organize imports (LSP) |
+
+### Code Generation
+| Key | Action |
+|-----|--------|
+| `<leader>gc` | Generate comment |
+| `<leader>gs` | Fill struct |
+| `<leader>gr` | Generate return |
+| `<leader>gj` | JSON to struct |
+| `<leader>gI` | Implement interface |
+
+### Struct Tags
+| Key | Action |
+|-----|--------|
+| `<leader>gta` | Add struct tags |
+| `<leader>gtr` | Remove struct tags |
+
+### Build & Run
+| Key | Action |
+|-----|--------|
+| `<leader>bb` | Build package |
+| `<leader>br` | Run package |
+| `<leader>gx` | Run current file |
+
+### Testing
+| Key | Action |
+|-----|--------|
+| `<leader>tp` | Test package |
+| `<leader>tf` | Test function |
+| `<leader>tF` | Test file |
+| `<leader>gat` | Add test |
+| `<leader>get` | Add example test |
+
+### Coverage
+| Key | Action |
+|-----|--------|
+| `<leader>tc` | Show coverage |
+| `<leader>tC` | Toggle coverage |
+| `<leader>gcb` | Coverage browser |
+
+### Code Quality
+| Key | Action |
+|-----|--------|
+| `<leader>gL` | Lint code |
+| `<leader>gV` | Vet code |
+
+### Documentation
+| Key | Action |
+|-----|--------|
+| `<leader>gD` | Show documentation |
+| `<leader>gDb` | Documentation browser |
+
+### Code Generation
+| Key | Action |
+|-----|--------|
+| `<leader>gG` | Run go generate |
+| `<leader>gm` | Generate mocks |
+
+## 🧩 Text Objects & TreeSitter Navigation
+
+### Snacks Scope Text Objects
 | Key | Usage Example | What it Selects                                 |
 |-----|--------------|-------------------------------------------------|
-| `af`| `vaf`        | **A**round **F**unction (entire function block) |
-| `if`| `vif`        | **I**nner **F**unction (just the function body) |
-| `ac`| `vac`        | **A**round **C**lass (entire class block)       |
-| `ic`| `vic`        | **I**nner **C**lass (just the class body)       |
+| `ii`| `vii`        | **I**nner scope (content within current scope) |
+| `ai`| `vai`        | **A**round scope (entire scope including edges) |
 
-**How to use:**
-- In **visual mode**, press `v` then one of these keys (e.g., `vaf`) to select the corresponding code object.
-- In **operator-pending mode** (e.g., after `d` for delete or `c` for change), type the key (e.g., `daf` to delete a function).
+### TreeSitter Navigation
+| Key | Action |
+|-----|--------|
+| `<Enter>` | Start/expand selection (incremental) |
+| `<S-Enter>` | Expand to scope |
+| `<BS>` | Shrink selection |
+| `[i`, `]i` | Jump to scope edges (Snacks) |
 
-> These shortcuts make it easy to select, change, or delete entire functions, classes, or their contents with a few keystrokes.
+### TreeSitter Movement
+| Key | Action |
+|-----|--------|
+| `]m`, `[m` | Next/previous function start |
+| `]M`, `[M` | Next/previous function end |
+| `]c`, `[c` | Next/previous class start |
+| `]C`, `[C` | Next/previous class end |
+
+### Parameter Swapping
+| Key | Action |
+|-----|--------|
+| `<leader>a` | Swap with next parameter |
+| `<leader>A` | Swap with previous parameter |
 
 ## 🗄️ Database Operations (`vim-dadbod-ui`)
 
@@ -185,23 +201,35 @@ Uses [mini.ai](https://github.com/echasnovski/mini.ai) for advanced text objects
 | `<leader>Dr`  | Execute Query/Selection| Run the current query or visual selection     |
 | `<leader>DS`  | Save Query             | Save the current SQL query                    |
 
-## Fuzzy Finding (fzf-lua)
+## Fuzzy Finding (FZF-Lua)
 | Key | Action |
 |-----|--------|
 | `<leader>ff` | Find files |
+| `<leader>fc` | Find in Config directory |
 | `<leader>fg` | Live grep (search in files) |
-| `<leader>f/` | Grep in current buffer |
-| `<leader>fo` | Old files |
-| `<leader>f<space>` | Buffers |
-| `<leader>fgd` | LSP Go to Definition (FZF picker) |
-| `<leader>fgr` | LSP Go to References (FZF picker) |
+| `<leader>f/` | Grep in current directory |
+| `<leader>fo` | Recent files (oldfiles) |
+| `<leader>f<space>` | Open buffers |
+| `<leader>fb` | Commands |
+| `<leader>fw` | Find word under cursor |
+| `<leader>fW` | Find WORD under cursor |
+| `<leader>fh` | Help tags |
+| `<leader>fk` | Keymaps |
+| `<leader>fd` | Document diagnostics |
+| `<leader>fr` | Resume last search |
+| `<leader>fgd` | LSP Go to Definition |
+| `<leader>fgr` | LSP Go to References |
+| `<leader>fgi` | LSP Go to Implementation |
+| `<leader>fgt` | LSP Type Definition |
+| `<leader>fds` | Document symbols |
+| `<leader>fws` | Workspace symbols |
 
 ## Terminal Operations (Snacks)
 
 | Key | Action |
 |-----|--------|
 | `<leader>t` | Open Terminal |
-| `<leader>T` | Open Terminal (current directory) |
+| `<leader>T` | New Terminal |
 | `<C-/>` | Toggle Terminal |
 
 ## Git Operations (Snacks)
@@ -349,53 +377,3 @@ Uses [mini.ai](https://github.com/echasnovski/mini.ai) for advanced text objects
 - **Syntax Highlighting**: Code preview with proper highlighting
 
 > **Tip**: Use `<leader>` followed by any key to see available mappings via which-key.nvim
-
----
-
-## 📦 Current Plugin Structure
-
-```
-├── init.lua
-├── lazy-lock.json
-├── lua
-│   ├── config
-│   │   ├── keymaps.lua
-│   │   ├── lazy.lua
-│   │   └── options.lua
-│   └── plugins
-│       ├── barbar.lua          # Buffer management
-│       ├── blink-cmp.lua       # Completion engine
-│       ├── conform.lua         # Code formatting
-│       ├── dadbod.lua          # Database operations
-│       ├── fzf-mini.lua        # Fuzzy finding
-│       ├── go.lua              # Go language support
-│       ├── grug-far.lua        # Search & replace
-│       ├── lsp.lua             # Language servers
-│       ├── lualine.lua         # Status line
-│       ├── markdown.lua        # Markdown rendering
-│       ├── mini.lua            # Mini plugins collection
-│       ├── oil.lua             # File explorer
-│       ├── schemastore.lua     # JSON schemas
-│       ├── sleuth-vim.lua      # Auto-detect indentation
-│       ├── snacks.lua          # Swiss-army knife utilities
-│       ├── theme.lua           # Color scheme
-│       ├── todo.lua            # Todo highlighting
-│       ├── treesitter.lua      # Syntax highlighting
-│       ├── type.lua            # Type checking
-│       └── witt-neovim.lua     # Custom utilities
-```
-
-### 🔧 Core Features Provided by Snacks.nvim
-
-- **Terminal Integration**: Built-in terminal with toggle functionality
-- **Git Operations**: Lazygit integration, git blame, and browsing
-- **File Explorer**: Alternative to oil.nvim for different use cases
-- **Zen Mode**: Distraction-free editing
-- **Scratch Buffers**: Quick note-taking
-- **Toggle Utilities**: Easy toggles for editor options
-- **Buffer Management**: Enhanced buffer operations
-- **Debug Utilities**: Development helpers
-- **Input Enhancement**: Better input prompts
-- **Scope Highlighting**: Enhanced code scope visualization
-
----

@@ -353,15 +353,15 @@ return {
         verbose = { read = false, write = true, delete = true },
       })
 
-      vim.keymap.set("n", "<leader>ms", function()
+      vim.keymap.set("n", "<leader>Ms", function()
         require("mini.sessions").write(nil)
       end, { desc = "Write session" })
 
-      vim.keymap.set("n", "<leader>mr", function()
+      vim.keymap.set("n", "<leader>Mr", function()
         require("mini.sessions").read(nil)
       end, { desc = "Read last session" })
 
-      vim.keymap.set("n", "<leader>md", function()
+      vim.keymap.set("n", "<leader>Md", function()
         require("mini.sessions").delete(nil)
       end, { desc = "Delete session" })
     end,
