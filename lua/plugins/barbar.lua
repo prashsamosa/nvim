@@ -39,7 +39,7 @@ return {
     insert_at_end = true,
     icons = {
       buffer_index = true,
-      button = "",
+      button = "",
 
       filetype = {
         enabled = true,
