@@ -126,19 +126,74 @@ This configuration uses `<Space>` as the leader key (`<leader>`).
 | `[d` | Go to previous diagnostic |
 | `]d` | Go to next diagnostic |
 
-### Debugging (nvim-dap)
-| Key | Action |
-|-----|--------|
-| `<leader>Dc` | Start/Continue debugging |
-| `<leader>Dsi` | Step Into |
-| `<leader>DsO` | Step Over |
-| `<leader>Dso` | Step Out |
-| `<leader>Db` | Toggle breakpoint |
-| `<leader>DR` | Run last debug configuration |
-| `<leader>Drs` | Restart debug session |
-| `<leader>De` | Evaluate expression (visual mode) |
-| `<leader>DL` | Show debug logs |
-| `<leader>Dt` | Terminate debug session |
+
+---
+## 🗄️ Database Operations (`vim-dadbod-ui`)
+
+### 🔧 General DB UI Commands
+
+| Keybinding    | Action                | Description                                 |
+|---------------|------------------------|---------------------------------------------|
+| `<leader>Do`  | Open DB UI             | Opens the database UI interface             |
+| `<leader>Du`  | Toggle DB UI           | Toggles the database UI visibility          |
+| `<leader>Dc`  | Close DB UI            | Closes the database UI window               |
+| `<leader>Df`  | Find DB Buffer         | Find and switch to an active DB buffer      |
+| `<leader>Da`  | Add DB Connection      | Add a new database connection               |
+| `<leader>Dn`  | Rename Buffer          | Rename the current DB buffer _(was Dr)_     |
+| `<leader>Dl`  | Last Query Info        | Show info about the last executed query     |
+
+### 📝 SQL Buffer-Specific Commands
+> _Available only when editing `.sql`, `.mysql`, or `.plsql` files._
+
+| Keybinding    | Action                | Description                                   |
+|---------------|------------------------|-----------------------------------------------|
+| `<leader>Dr`  | Execute Query/Selection| Run the current query or visual selection     |
+| `<leader>DS`  | Save Query             | Save the current SQL query                    |
+
+---
+
+## 🐛 Debugging Operations (`nvim-dap`)
+
+### 🔃 Debug Session Control
+
+| Keybinding     | Action           | Description                                 |
+|----------------|------------------|---------------------------------------------|
+| `<leader>dc`   | Continue         | Start or resume debugging                   |
+| `<leader>dr`   | Run Last         | Run the last debug configuration            |
+| `<leader>dR`   | Restart          | Restart the current debug session           |
+| `<leader>dt`   | Terminate        | Stop the debug session                      |
+| `<leader>du`   | Toggle Debug UI  | Show or hide the DAP UI                     |
+
+### ⛔ Breakpoint Management
+
+| Keybinding     | Action               | Description                           |
+|----------------|----------------------|---------------------------------------|
+| `<leader>db`   | Toggle Breakpoint    | Toggle breakpoint on current line     |
+| `<leader>dB`   | Conditional Breakpoint | Set breakpoint with condition       |
+
+### 🔀 Step Execution
+
+| Keybinding     | Action       | Description                         |
+|----------------|--------------|-------------------------------------|
+| `<leader>dsi`  | Step Into    | Step into function call             |
+| `<leader>dso`  | Step Over    | Step over function call             |
+| `<leader>dsO`  | Step Out     | Step out of current function        |
+
+### 🧭 Stack & Eval
+
+| Keybinding     | Action             | Description                         |
+|----------------|--------------------|-------------------------------------|
+| `<leader>dk`   | Up Stack Frame     | Move up in the call stack           |
+| `<leader>dj`   | Down Stack Frame   | Move down in the call stack         |
+| `<leader>de`   | Evaluate Expression| Evaluate variable or selection      |
+
+### 🪵 Logging
+
+| Keybinding     | Action         | Description                        |
+|----------------|----------------|------------------------------------|
+| `<leader>dl`   | Show Debug Logs| Set log level to TRACE & notify    |
+
+---
 
 ### Fuzzy Finding (fzf-lua)
 | Key | Action |
@@ -155,13 +210,6 @@ This configuration uses `<Space>` as the leader key (`<leader>`).
 | Key | Action |
 |-----|--------|
 | `<leader>gn` | Open Neogit status window |
-
-### Database (vim-dadbod-ui)
-| Key | Action |
-|-----|--------|
-| `<leader>Do` | Open DB UI |
-| `<leader>Du` | Toggle DB UI |
-| `<leader>DCc` | Close DB UI |
 
 ### Terminals (toggleterm.nvim)
 | Key | Action |

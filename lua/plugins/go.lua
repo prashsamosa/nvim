@@ -3,34 +3,28 @@ return {
   ft = { "go", "gomod" },
   build = ':lua require("go.install").update_all_sync()',
   dependencies = {
-    "ray-x/guihua.lua",               -- UI helper
-    "neovim/nvim-lspconfig",         -- LSP support
-    "nvim-treesitter/nvim-treesitter", -- Syntax parsing
-    "L3MON4D3/LuaSnip",              -- Snippet engine
+    "ray-x/guihua.lua",
+    "neovim/nvim-lspconfig",
+    "nvim-treesitter/nvim-treesitter",
+    "L3MON4D3/LuaSnip",
   },
   config = function()
-    -- LSP capabilities with blink.cmp support
+    -- Check for blink.cmp capabilities
     local capabilities = vim.lsp.protocol.make_client_capabilities()
-    if package.loaded["blink.cmp"] then
+    local has_blink_cmp = pcall(require, "blink.cmp")
+
+    if has_blink_cmp then
       capabilities = require("blink.cmp").get_lsp_capabilities(capabilities)
-      vim.notify("Using capabilities from blink.cmp", vim.log.levels.INFO, { title = "go.nvim" })
-    else
-      vim.notify("blink.cmp not loaded, using default LSP capabilities", vim.log.levels.WARN, { title = "go.nvim" })
     end
 
-    -- LuaSnip check
+    -- Check for LuaSnip
     local has_luasnip = pcall(require, "luasnip")
-    vim.notify(
-      has_luasnip and "LuaSnip module loaded successfully" or "LuaSnip not available, snippets disabled",
-      has_luasnip and vim.log.levels.INFO or vim.log.levels.WARN,
-      { title = "go.nvim" }
-    )
 
     -- Setup go.nvim
     require("go").setup({
-      lsp_cfg = false, -- Disable internal LSP config (handled by lsp.lua)
+      -- LSP Configuration
+      lsp_cfg = false, -- Let lspconfig handle LSP setup
       lsp_codelens = true,
-      -- Removed lsp_gofumpt = true to avoid conflicts with conform.nvim
       lsp_inlay_hints = {
         enable = true,
         only_current_line = false,
@@ -40,92 +34,94 @@ return {
         parameter_hints_prefix = "󰊕 ",
         other_hints_prefix = "=> ",
       },
+
+      -- Diagnostic Configuration
       diagnostic = {
-        hdlr = false,
+        hdlr = false, -- Let other diagnostic handlers manage this
         underline = true,
         virtual_text = { space = 0, prefix = "■" },
         signs = true,
         update_in_insert = false,
       },
+
+      -- Tool Configuration
       test_runner = "go",
       run_in_floaterm = false,
       build_tags = "",
+
+      -- UI Configuration
       icons = {
-        breakpoint = "🧘",
-        currentpos = "🏃",
+        breakpoint = "🔴",
+        currentpos = "➤",
       },
+
+      -- Integration
       trouble = true,
       luasnip = has_luasnip,
     })
 
-    -- Keymaps for Go & GoMod
+    -- Create autocommand for Go-specific keymaps
+    local go_augroup = vim.api.nvim_create_augroup("GoKeymaps", { clear = true })
+
     vim.api.nvim_create_autocmd("FileType", {
       pattern = { "go", "gomod" },
-      group = vim.api.nvim_create_augroup("GoUserKeymaps", { clear = true }),
+      group = go_augroup,
       callback = function(ev)
-        local map = function(mode, lhs, rhs, desc)
-          vim.keymap.set(mode, lhs, rhs, {
-            desc = "Go: " .. desc,
-            noremap = true,
-            silent = true,
-            buffer = ev.buf,
-          })
+        local opts = { buffer = ev.buf, silent = true, noremap = true }
+
+        local function map(mode, lhs, rhs, desc)
+          vim.keymap.set(mode, lhs, rhs, vim.tbl_extend("force", opts, { desc = "Go: " .. desc }))
         end
 
-        -- File Switching
-        map("n", "<leader>ga", "<cmd>GoAlt<CR>", "Alternate File")
-        map("n", "<leader>gvs", "<cmd>GoAltV<CR>", "Alternate Vertical")
-        map("n", "<leader>ghs", "<cmd>GoAltS<CR>", "Alternate Horizontal")
+        -- File Navigation
+        map("n", "<leader>ga", "<cmd>GoAlt<CR>", "Alternate file")
+        map("n", "<leader>gvs", "<cmd>GoAltV<CR>", "Alternate vertical split")
+        map("n", "<leader>ghs", "<cmd>GoAltS<CR>", "Alternate horizontal split")
 
-        -- Imports & Mod Tidy (Note: formatting now handled by conform.nvim)
-        map("n", "<leader>oi", "<cmd>GoImports<CR>", "Imports")
-        map("n", "<leader>ot", "<cmd>GoModTidy<CR>", "Mod Tidy")
-        -- Removed GoFmt keymap since formatting is handled by conform.nvim
+        -- Code Organization
+        map("n", "<leader>oi", "<cmd>GoImports<CR>", "Organize imports")
+        map("n", "<leader>ot", "<cmd>GoModTidy<CR>", "Go mod tidy")
 
         -- Code Generation
-        map("n", "<leader>gc", "<cmd>GoCmt<CR>", "Generate Comment")
-        map("n", "<leader>gs", "<cmd>GoFillStruct<CR>", "Fill Struct")
-        map("n", "<leader>gr", "<cmd>GoGenReturn<CR>", "Generate Return")
-        map("n", "<leader>gj", "<cmd>GoJson2Struct<CR>", "JSON to Struct")
+        map("n", "<leader>gc", "<cmd>GoCmt<CR>", "Generate comment")
+        map("n", "<leader>gs", "<cmd>GoFillStruct<CR>", "Fill struct")
+        map("n", "<leader>gr", "<cmd>GoGenReturn<CR>", "Generate return")
+        map("n", "<leader>gj", "<cmd>GoJson2Struct<CR>", "JSON to struct")
+        map("n", "<leader>gI", "<cmd>GoImpl<CR>", "Implement interface")
 
         -- Struct Tags
-        map("n", "<leader>gta", "<cmd>GoAddTag<CR>", "Add Tags")
-        map("n", "<leader>gtr", "<cmd>GoRmTag<CR>", "Remove Tags")
-        map("v", "<leader>gta", "<cmd>GoAddTag<CR>", "Add Tags (Visual)")
-        map("v", "<leader>gtr", "<cmd>GoRmTag<CR>", "Remove Tags (Visual)")
+        map({ "n", "v" }, "<leader>gta", "<cmd>GoAddTag<CR>", "Add struct tags")
+        map({ "n", "v" }, "<leader>gtr", "<cmd>GoRmTag<CR>", "Remove struct tags")
 
         -- Build & Run
-        map("n", "<leader>bb", "<cmd>GoBuild<CR>", "Build")
-        map("n", "<leader>br", "<cmd>GoRun<CR>", "Run")
-        map("n", "<leader>gx", "<cmd>GoRun %<CR>", "Run Current File")
+        map("n", "<leader>bb", "<cmd>GoBuild<CR>", "Build package")
+        map("n", "<leader>br", "<cmd>GoRun<CR>", "Run package")
+        map("n", "<leader>gx", "<cmd>GoRun %<CR>", "Run current file")
 
         -- Testing
-        map("n", "<leader>tp", "<cmd>GoTestPkg<CR>", "Test Package")
-        map("n", "<leader>tf", "<cmd>GoTestFunc<CR>", "Test Function")
-        map("n", "<leader>tF", "<cmd>GoTestFile<CR>", "Test File")
-        map("n", "<leader>gat", "<cmd>GoAddTest<CR>", "Add Test")
-        map("n", "<leader>get", "<cmd>GoAddExpTest<CR>", "Add Example Test")
+        map("n", "<leader>tp", "<cmd>GoTestPkg<CR>", "Test package")
+        map("n", "<leader>tf", "<cmd>GoTestFunc<CR>", "Test function")
+        map("n", "<leader>tF", "<cmd>GoTestFile<CR>", "Test file")
+        map("n", "<leader>gat", "<cmd>GoAddTest<CR>", "Add test")
+        map("n", "<leader>get", "<cmd>GoAddExpTest<CR>", "Add example test")
 
         -- Coverage
-        map("n", "<leader>tc", "<cmd>GoCoverage<CR>", "Show Coverage")
-        map("n", "<leader>tC", "<cmd>GoCoverageToggle<CR>", "Toggle Coverage")
-        map("n", "<leader>gcb", "<cmd>GoCoverageBrowser<CR>", "Coverage Browser")
+        map("n", "<leader>tc", "<cmd>GoCoverage<CR>", "Show coverage")
+        map("n", "<leader>tC", "<cmd>GoCoverageToggle<CR>", "Toggle coverage")
+        map("n", "<leader>gcb", "<cmd>GoCoverageBrowser<CR>", "Coverage browser")
 
-        -- Linting & Vet
-        map("n", "<leader>gL", "<cmd>GoLint<CR>", "Lint")
-        map("n", "<leader>gV", "<cmd>GoVet<CR>", "Vet")
+        -- Code Quality
+        map("n", "<leader>gL", "<cmd>GoLint<CR>", "Lint code")
+        map("n", "<leader>gV", "<cmd>GoVet<CR>", "Vet code")
 
-        -- Docs & Interfaces
-        map("n", "<leader>gD", "<cmd>GoDoc<CR>", "Go Doc")
-        map("n", "<leader>gDb", "<cmd>GoDocBrowser<CR>", "Go Doc Browser")
-        map("n", "<leader>gI", "<cmd>GoImpl<CR>", "Implement Interface")
+        -- Documentation
+        map("n", "<leader>gD", "<cmd>GoDoc<CR>", "Show documentation")
+        map("n", "<leader>gDb", "<cmd>GoDocBrowser<CR>", "Documentation browser")
 
-        -- Generation
-        map("n", "<leader>gG", "<cmd>GoGenerate<CR>", "Generate")
-        map("n", "<leader>gm", "<cmd>GoMockGen<CR>", "Generate Mocks")
+        -- Code Generation
+        map("n", "<leader>gG", "<cmd>GoGenerate<CR>", "Run go generate")
+        map("n", "<leader>gm", "<cmd>GoMockGen<CR>", "Generate mocks")
       end,
     })
-
-    vim.notify("go.nvim configured successfully", vim.log.levels.INFO, { title = "go.nvim" })
   end,
 }

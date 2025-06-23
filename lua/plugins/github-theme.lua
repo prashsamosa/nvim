@@ -2,7 +2,7 @@ return {
   "projekt0n/github-nvim-theme",
   priority = 1000,
   config = function()
-    local theme_options = {
+    local opts = {
       options = {
         compile_path = vim.fn.stdpath("cache") .. "/github-theme",
         compile_file_suffix = "_compiled",
@@ -48,7 +48,7 @@ return {
       },
     }
 
-    require("github-theme").setup(theme_options)
+    require("github-theme").setup(opts)
 
     local ok = pcall(vim.cmd, "colorscheme github_dark_default")
     if not ok then
@@ -57,14 +57,14 @@ return {
     end
 
     local hl = vim.api.nvim_set_hl
-    if theme_options.options.transparent then
-      hl(0, "Normal",         { bg = "none" })
-      hl(0, "NormalNC",       { bg = "none" })
-      hl(0, "NormalFloat",    { bg = "none" })
-      hl(0, "FloatBorder",    { bg = "none" })
-      hl(0, "TelescopeNormal",{ bg = "none" })
-      hl(0, "TelescopeBorder",{ bg = "none" })
-      hl(0, "Pmenu",          { bg = "none" })
+    if opts.options.transparent then
+      local transparent_groups = {
+        "Normal", "NormalNC", "NormalFloat", "FloatBorder",
+        "TelescopeNormal", "TelescopeBorder", "Pmenu",
+      }
+      for _, group in ipairs(transparent_groups) do
+        hl(0, group, { bg = "none" })
+      end
     end
 
     local colors = {
@@ -81,12 +81,18 @@ return {
       warning      = "#f0883e",
     }
 
-    hl(0, "MiniNotifyBorder",     { bg = "none", fg = colors.border })
-    hl(0, "MiniNotifyNormal",     { bg = colors.bg_float, fg = colors.fg, blend = 0 })
-    hl(0, "MiniNotifyTitle",      { fg = colors.constant, bold = true })
-    hl(0, "MiniNotifyTitleError", { fg = colors.git_removed, bold = true })
-    hl(0, "MiniNotifyTitleWarn",  { fg = colors.warning, bold = true })
-    hl(0, "MiniNotifyTitleInfo",  { fg = colors.func, bold = true })
-    hl(0, "MiniNotifyTitleTrace", { fg = colors.comment, bold = true })
+    local custom_hl = {
+      MiniNotifyBorder     = { bg = "none", fg = colors.border },
+      MiniNotifyNormal     = { bg = colors.bg_float, fg = colors.fg, blend = 0 },
+      MiniNotifyTitle      = { fg = colors.constant, bold = true },
+      MiniNotifyTitleError = { fg = colors.git_removed, bold = true },
+      MiniNotifyTitleWarn  = { fg = colors.warning, bold = true },
+      MiniNotifyTitleInfo  = { fg = colors.func, bold = true },
+      MiniNotifyTitleTrace = { fg = colors.comment, bold = true },
+    }
+
+    for group, spec in pairs(custom_hl) do
+      hl(0, group, spec)
+    end
   end,
 }

@@ -1,5 +1,5 @@
 return {
-  -- Optional Blink compatibility module (lazy-loaded)
+  -- Optional Blink compatibility module
   {
     "saghen/blink.compat",
     version = "*",
@@ -10,77 +10,81 @@ return {
   {
     "saghen/blink.cmp",
     version = "1.*",
+    lazy = true, -- You could also use event = "InsertEnter"
     dependencies = {
       "rafamadriz/friendly-snippets",
       "moyiz/blink-emoji.nvim",
       "ray-x/cmp-sql",
     },
-    opts = {
-      -- Key mappings for completion actions
-      keymap = {
-        preset = "default",
-        ["<CR>"] = { "accept", "fallback" },
-      },
+    opts = function()
+      -- Utility function: safely get current filetype
+      local function get_filetype()
+        local ok, ft = pcall(function() return vim.bo.filetype end)
+        return ok and ft or ""
+      end
 
-      -- UI appearance customization
-      appearance = {
-        nerd_font_variant = "mono",
-      },
+      -- Utility function: returns closure to check filetype inclusion
+      local function should_show_in(ft_list)
+        return function()
+          return vim.tbl_contains(ft_list, get_filetype())
+        end
+      end
 
-      -- Completion behavior settings
-      completion = {
-        documentation = {
-          auto_show = true,
-        },
-      },
-
-      -- Signature help during typing
-      signature = {
-        enabled = true,
-      },
-
-      -- Completion sources
-      sources = {
-        default = {
-          "lsp",
-          "path",
-          "snippets",
-          "buffer",
-          "emoji",
-          "sql",
+      return {
+        keymap = {
+          preset = "default",
+          ["<CR>"] = { "accept", "fallback" },
         },
 
-        -- Custom providers with logic to limit filetypes
-        providers = {
-          emoji = {
-            module = "blink-emoji",
-            name = "Emoji",
-            score_offset = 15,
-            opts = { insert = true },
-            should_show_items = function()
-              return vim.tbl_contains({ "gitcommit", "markdown" }, vim.bo.filetype)
-            end,
-          },
+        appearance = {
+          nerd_font_variant = "mono",
+        },
 
-          sql = {
-            module = "blink.compat.source",
-            name = "sql",
-            score_offset = -3,
-            opts = {},
-            should_show_items = function()
-              return vim.bo.filetype == "sql"
-            end,
+        completion = {
+          documentation = {
+            auto_show = true,
           },
         },
-      },
 
-      -- Fuzzy search implementation (Rust preferred)
-      fuzzy = {
-        implementation = "prefer_rust_with_warning",
-      },
-    },
+        signature = {
+          enabled = true,
+        },
 
-    -- Extend only the default sources (good practice)
+        sources = {
+          default = {
+            "lsp",
+            "path",
+            "snippets",
+            "buffer",
+            "emoji",
+            "sql",
+          },
+
+          providers = {
+            emoji = {
+              module = "blink-emoji",
+              name = "Emoji",
+              score_offset = 15,
+              opts = { insert = true },
+              should_show_items = should_show_in({ "gitcommit", "markdown" }),
+            },
+
+            sql = {
+              module = "blink.compat.source",
+              name = "sql",
+              score_offset = -3,
+              opts = {},
+              should_show_items = should_show_in({ "sql" }),
+            },
+          },
+        },
+
+        fuzzy = {
+          implementation = "prefer_rust_with_warning",
+        },
+      }
+    end,
+
     opts_extend = { "sources.default" },
   },
 }
