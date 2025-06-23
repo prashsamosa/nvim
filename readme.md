@@ -93,21 +93,55 @@ This configuration uses `<Space>` as the leader key (`<leader>`).
 | `<C-h>`, `<C-j>`, `<C-k>`, `<C-l>` | Navigate between windows |
 | `sh` | Horizontal split |
 | `sv` | Vertical split |
-### File/Buffer Management
-| Key | Action |
-|-----|--------|
-| `<leader>e` | Toggle nvim-tree (File Explorer Sidebar) |
-| `-` | Open oil.nvim (Floating File Explorer) |
-| `<A-,>`, `<A-.>` | Go to previous/next buffer |
-| `<A-S-,>`, `<A-S-.>` | Move buffer previous/next |
-| `<A-1>` to `<A-9>`, `<A-0>` | Jump to specific buffer |
-| `<A-p>` | Pin/unpin current buffer |
-| `<leader>bc` | Close current buffer |
-| `<leader>bd` | Delete current buffer |
-| `<leader>ba` | Delete all buffers |
-| `<leader>bo` | Delete other buffers (Snacks) |
-| `<leader>bO` | Close all but current/pinned (Barbar) |
-| `<leader>rf` | Rename current file |
+
+## 📁 File & Buffer Management
+
+| Key                          | Action                                      |
+|-----------------------------|---------------------------------------------|
+| `<leader>e`                 | Toggle nvim-tree (File Explorer Sidebar)    |
+| `-`                         | Open `oil.nvim` (Floating File Explorer)    |
+| `<A-,>`, `<A-.>`            | Go to previous/next buffer                  |
+| `<A-S-,>`, `<A-S-.>`        | Move buffer previous/next                   |
+| `<A-1>` to `<A-9>`, `<A-0>` | Jump to specific buffer                     |
+| `<A-p>`                     | Pin/unpin current buffer                    |
+| `<leader>bc`                | Close current buffer                        |
+| `<leader>bd`                | Delete current buffer                       |
+| `<leader>ba`                | Delete all buffers                          |
+| `<leader>bo`                | Delete other buffers (Snacks)               |
+| `<leader>bO`                | Close all but current/pinned (Barbar)       |
+| `<leader>rf`                | Rename current file                         |
+
+## 🗂️ File Explorer (`nvim-tree.lua`)
+
+| Key            | Action                                             |
+|----------------|----------------------------------------------------|
+| `<leader>e`    | Toggle File Explorer                               |                               
+| `<leader>fb`   | Reveal current file in File Explorer               |
+| `o` / `Enter`  | Open file or folder                                |
+| `l`            | Expand folder or open file                         |
+| `h`            | Collapse folder                                    |
+| `v`            | Open file in vertical split                        |
+| `s`            | Open file in horizontal split                      |
+| `C`            | Change root to selected folder                     |
+| `U`            | Go up one directory (change root)                 |
+| `a`            | Create file or folder                              |
+| `r`            | Rename file or folder                              |
+| `x`            | Cut                                                |
+| `c`            | Copy                                               |
+| `p`            | Paste                                              |
+| `y`            | Copy filename                                      |
+| `Y`            | Copy relative path                                 |
+| `gy`           | Copy absolute path                                 |
+| `d`            | Delete selected item                               |
+| `q`            | Close File Explorer                                |
+| `.`            | Toggle hidden files                                |
+| `I`            | Toggle `.gitignore`-excluded files                 |
+| `f`            | Start live filter                                  |
+| `F`            | Clear live filter                                  |
+| `R`            | Refresh the file tree                              |
+| `<BS>`         | Close parent directory                             |
+| `?`            | Toggle keybinding help                             |
+
 
 ### LSP (Language Server Protocol)
 | Key | Action |
@@ -127,7 +161,23 @@ This configuration uses `<Space>` as the leader key (`<leader>`).
 | `]d` | Go to next diagnostic |
 
 
----
+
+### 🧩 Text Objects
+ > uses [mini.ai](https://github.com/echasnovski/mini.ai) for advanced text objects.
+
+| Key | Usage Example | What it Selects                                 |
+|-----|--------------|-------------------------------------------------|
+| `af`| `vaf`        | **A**round **F**unction (entire function block) |
+| `if`| `vif`        | **I**nner **F**unction (just the function body) |
+| `ac`| `vac`        | **A**round **C**lass (entire class block)       |
+| `ic`| `vic`        | **I**nner **C**lass (just the class body)       |
+
+**How to use:**
+- In **visual mode**, press `v` then one of these keys (e.g., `vaf`) to select the corresponding code object.
+- In **operator-pending mode** (e.g., after `d` for delete or `c` for change), type the key (e.g., `daf` to delete a function).
+
+> These shortcuts make it easy to select, change, or delete entire functions, classes, or their contents with a few keystrokes.
+
 ## 🗄️ Database Operations (`vim-dadbod-ui`)
 
 ### 🔧 General DB UI Commands
@@ -150,7 +200,6 @@ This configuration uses `<Space>` as the leader key (`<leader>`).
 | `<leader>Dr`  | Execute Query/Selection| Run the current query or visual selection     |
 | `<leader>DS`  | Save Query             | Save the current SQL query                    |
 
----
 
 ## 🐛 Debugging Operations (`nvim-dap`)
 
@@ -193,8 +242,6 @@ This configuration uses `<Space>` as the leader key (`<leader>`).
 |----------------|----------------|------------------------------------|
 | `<leader>dl`   | Show Debug Logs| Set log level to TRACE & notify    |
 
----
-
 ### Fuzzy Finding (fzf-lua)
 | Key | Action |
 |-----|--------|
@@ -221,10 +268,18 @@ This configuration uses `<Space>` as the leader key (`<leader>`).
 | `<leader>tl` | Send Current Line to Terminal |
 | `<leader>ts` | Select Terminal |
 
+
 ### Markdown (render-markdown.nvim)
-| Key | Action |
-|-----|--------|
-| `<leader>Mm` | Toggle Markdown Rendering |
+| Key         | Action                    |
+|-------------|---------------------------|
+| `<leader>mt`| Toggle Markdown Rendering |
+| `<leader>me`| Enable Markdown Rendering |
+| `<leader>md`| Disable Markdown Rendering|
+| `<leader>ml`| Show Markdown Log         |
+| `<leader>mD`| Debug Current Line        |
+| `<leader>mc`| Show Markdown Config      |
+| `<leader>mE`| Expand Markdown View      |
+| `<leader>mC`| Contract Markdown View    |
 
 ### Snacks Utilities
 | Key | Action |
