@@ -54,7 +54,6 @@ rustup component add rustfmt
 
 </details>
 
-
 ## 📦 Installation
 
 1. **Backup existing configuration** (if any):
@@ -98,7 +97,6 @@ This configuration uses `<Space>` as the leader key (`<leader>`).
 
 | Key                          | Action                                      |
 |-----------------------------|---------------------------------------------|
-| `<leader>e`                 | Toggle nvim-tree (File Explorer Sidebar)    |
 | `-`                         | Open `oil.nvim` (Floating File Explorer)    |
 | `<A-,>`, `<A-.>`            | Go to previous/next buffer                  |
 | `<A-S-,>`, `<A-S-.>`        | Move buffer previous/next                   |
@@ -111,37 +109,19 @@ This configuration uses `<Space>` as the leader key (`<leader>`).
 | `<leader>bO`                | Close all but current/pinned (Barbar)       |
 | `<leader>rf`                | Rename current file                         |
 
-## 🗂️ File Explorer (`nvim-tree.lua`)
+## 🗂️ File Explorer (`oil.nvim`)
 
 | Key            | Action                                             |
 |----------------|----------------------------------------------------|
-| `<leader>e`    | Toggle File Explorer                               |
-| `<leader>fb`   | Reveal current file in File Explorer               |
-| `o` / `Enter`  | Open file or folder                                |
-| `l`            | Expand folder or open file                         |
-| `h`            | Collapse folder                                    |
-| `v`            | Open file in vertical split                        |
-| `s`            | Open file in horizontal split                      |
-| `C`            | Change root to selected folder                     |
-| `U`            | Go up one directory (change root)                 |
-| `a`            | Create file or folder                              |
-| `r`            | Rename file or folder                              |
-| `x`            | Cut                                                |
-| `c`            | Copy                                               |
-| `p`            | Paste                                              |
-| `y`            | Copy filename                                      |
-| `Y`            | Copy relative path                                 |
-| `gy`           | Copy absolute path                                 |
-| `d`            | Delete selected item                               |
-| `q`            | Close File Explorer                                |
-| `.`            | Toggle hidden files                                |
-| `I`            | Toggle `.gitignore`-excluded files                 |
-| `f`            | Start live filter                                  |
-| `F`            | Clear live filter                                  |
-| `R`            | Refresh the file tree                              |
-| `<BS>`         | Close parent directory                             |
-| `?`            | Toggle keybinding help                             |
-
+| `-`            | Open Oil (Floating File Explorer)                 |
+| `Enter`        | Open file or enter directory                       |
+| `g?`           | Show help                                          |
+| `<C-h>`        | Go up one directory                                |
+| `<C-l>`        | Enter directory or open file                       |
+| `<C-p>`        | Preview file                                       |
+| `<C-c>`        | Close Oil                                          |
+| `<C-r>`        | Refresh directory                                  |
+| `q`            | Close Oil                                          |
 
 ### LSP (Language Server Protocol)
 | Key | Action |
@@ -160,10 +140,8 @@ This configuration uses `<Space>` as the leader key (`<leader>`).
 | `[d` | Go to previous diagnostic |
 | `]d` | Go to next diagnostic |
 
-
-
 ### 🧩 Text Objects
- > uses [mini.ai](https://github.com/echasnovski/mini.ai) for advanced text objects.
+Uses [mini.ai](https://github.com/echasnovski/mini.ai) for advanced text objects.
 
 | Key | Usage Example | What it Selects                                 |
 |-----|--------------|-------------------------------------------------|
@@ -189,7 +167,7 @@ This configuration uses `<Space>` as the leader key (`<leader>`).
 | `<leader>Dc`  | Close DB UI            | Closes the database UI window               |
 | `<leader>Df`  | Find DB Buffer         | Find and switch to an active DB buffer      |
 | `<leader>Da`  | Add DB Connection      | Add a new database connection               |
-| `<leader>Dn`  | Rename Buffer          | Rename the current DB buffer _(was Dr)_     |
+| `<leader>Dn`  | Rename Buffer          | Rename the current DB buffer                |
 | `<leader>Dl`  | Last Query Info        | Show info about the last executed query     |
 
 ### 📝 SQL Buffer-Specific Commands
@@ -199,7 +177,6 @@ This configuration uses `<Space>` as the leader key (`<leader>`).
 |---------------|------------------------|-----------------------------------------------|
 | `<leader>Dr`  | Execute Query/Selection| Run the current query or visual selection     |
 | `<leader>DS`  | Save Query             | Save the current SQL query                    |
-
 
 ## 🐛 Debugging Operations (`nvim-dap`)
 
@@ -253,10 +230,21 @@ This configuration uses `<Space>` as the leader key (`<leader>`).
 | `<leader>fgd` | LSP Go to Definition (FZF picker) |
 | `<leader>fgr` | LSP Go to References (FZF picker) |
 
-### Git (Neogit)
+### Git (Gitsigns)
 | Key | Action |
 |-----|--------|
-| `<leader>gn` | Open Neogit status window |
+| `]h` | Next hunk |
+| `[h` | Previous hunk |
+| `<leader>gs` | Stage hunk |
+| `<leader>gr` | Reset hunk |
+| `<leader>gS` | Stage buffer |
+| `<leader>gu` | Undo stage hunk |
+| `<leader>gR` | Reset buffer |
+| `<leader>gp` | Preview hunk |
+| `<leader>gb` | Blame line |
+| `<leader>gB` | Toggle line blame |
+| `<leader>gd` | Diff this |
+| `<leader>gD` | Diff this ~ |
 
 ### Terminals (toggleterm.nvim)
 | Key | Action |
@@ -267,7 +255,6 @@ This configuration uses `<Space>` as the leader key (`<leader>`).
 | `<leader>tv` | Toggle Vertical Terminal |
 | `<leader>tl` | Send Current Line to Terminal |
 | `<leader>ts` | Select Terminal |
-
 
 ### Markdown (render-markdown.nvim)
 | Key         | Action                    |
@@ -301,10 +288,9 @@ This configuration uses `<Space>` as the leader key (`<leader>`).
 ### Sessions (mini.sessions)
 | Key | Action |
 |-----|--------|
-| `<leader>ms` | Write Session |
-| `<leader>mr` | Read Last Session |
-| `<leader>md` | Delete Session |
-
+| `<leader>Ms` | Write Session |
+| `<leader>Mr` | Read Last Session |
+| `<leader>Md` | Delete Session |
 
 # 🔍 GrugFar Search & Replace Shortcuts
 
@@ -384,7 +370,6 @@ This configuration uses `<Space>` as the leader key (`<leader>`).
 - **Preview**: See changes before applying
 - **Syntax Highlighting**: Code preview with proper highlighting
 
-
 > **Tip**: Use `<leader>` followed by any key to see available mappings via which-key.nvim
 
 ## ⚙️ Plugin Overview
@@ -403,8 +388,7 @@ This configuration uses `<Space>` as the leader key (`<leader>`).
 - **nvim-tree/nvim-web-devicons**: File icons
 
 ### File Exploration & Fuzzy Finding
-- **nvim-tree/nvim-tree.lua**: Classic sidebar file explorer
-- **stevearc/oil.nvim**: Floating file explorer (default)
+- **stevearc/oil.nvim**: Floating file explorer
 - **ibhagwan/fzf-lua**: Powerful fuzzy finder
 
 ### Language Support
@@ -420,9 +404,8 @@ This configuration uses `<Space>` as the leader key (`<leader>`).
 - **theHamsta/nvim-dap-virtual-text**: Inline variable values during debugging
 
 ### Version Control
-- **NeogitOrg/neogit**: Git client
-- **sindrets/diffview.nvim**: Powerful diff viewer
 - **lewis6991/gitsigns.nvim**: Git status in sign column
+- **sindrets/diffview.nvim**: Powerful diff viewer
 
 ### Code Analysis & Navigation
 - **nvim-treesitter/nvim-treesitter**: Modern syntax highlighting
@@ -432,6 +415,9 @@ This configuration uses `<Space>` as the leader key (`<leader>`).
 ### Database
 - **kristijanhusak/vim-dadbod-ui**: Database UI
 - **tpope/vim-dadbod**: Core database plugin
+
+### Search & Replace
+- **MagicDuck/grug-far.nvim**: Advanced search and replace with multiple engines
 
 ## 🔧 Troubleshooting
 
@@ -476,9 +462,23 @@ This configuration uses `<Space>` as the leader key (`<leader>`).
 
 </details>
 
+<details>
+<summary><strong>Oil.nvim not opening</strong></summary>
+
+1. **Check Installation**: Verify oil.nvim is installed via `:Lazy`
+2. **Try Manual Command**: Run `:Oil` to open manually
+3. **Check Configuration**: Ensure oil.nvim is properly configured
+4. **File Permissions**: Check if you have read permissions for the current directory
+
+</details>
+
 ## 🆘 Getting Help
 
 - Run `:checkhealth` for comprehensive diagnostics
 - Use `:help <topic>` for built-in documentation
 - Refer to individual plugin documentation on GitHub
 - Check the [Neovim documentation](https://neovim.io/doc/)
+
+---
+
+**Enjoy your streamlined Neovim experience! 🎉**
