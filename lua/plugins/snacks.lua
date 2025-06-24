@@ -225,10 +225,10 @@ return {
             },
         },
 
-        notifier = {
-            enabled = true,
-            timeout = 3000,
-        },
+        -- notifier = {
+        --     enabled = true,
+        --     timeout = 3000,
+        -- },
 
         animate = {
             enabled = true,
@@ -265,8 +265,8 @@ return {
         { "<leader>rf",      function() Snacks.rename.rename_file() end,      desc = "Rename File" },
         { "<leader>wn",      function() Snacks.words.jump(vim.v.count1) end,  desc = "Next Reference",              mode = { "n", "t" } },
         { "<leader>wp",      function() Snacks.words.jump(-vim.v.count1) end, desc = "Prev Reference",              mode = { "n", "t" } },
-        { "<leader>un",      function() Snacks.notifier.hide() end,           desc = "Hide Notifications" },
-        { "<leader>uN",      function() Snacks.notifier.show_history() end,   desc = "Show Notification History" },
+        -- { "<leader>un",      function() Snacks.notifier.hide() end,           desc = "Hide Notifications" },
+        -- { "<leader>uN",      function() Snacks.notifier.show_history() end,   desc = "Show Notification History" },
         { "<leader><space>", function() Snacks.picker.files() end,            desc = "Find Files" },
     },
 
