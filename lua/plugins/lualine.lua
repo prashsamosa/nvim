@@ -43,8 +43,8 @@ return {
           },
         },
         lualine_c = {
-          { "filetype", icon_only = true, separator = "", padding = { left = 1, right = 0 } },
-          { "filename", path = 1, shorting_target = 40 },
+          { "filetype", icon_only = true, separator = "",      padding = { left = 1, right = 0 } },
+          { "filename", path = 1,         shorting_target = 40 },
         },
         lualine_x = {
           {

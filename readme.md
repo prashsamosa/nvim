@@ -7,6 +7,7 @@ This configuration uses `<Space>` as the leader key (`<leader>`).
 |-----|--------|
 | `<leader>nh` | Clear search highlights |
 | `jk` (in Insert mode) | Exit Insert mode (remapped from `<ESC>`) |
+| `<leader>+` | Increment number |
 
 ## Window Management
 | Key | Action |
@@ -28,8 +29,8 @@ This configuration uses `<Space>` as the leader key (`<leader>`).
 ### Buffer Management (Mixed: Barbar + Snacks)
 | Key                          | Action                                      |
 |-----------------------------|---------------------------------------------|
-| `<leader>bc`                | Close current buffer (Barbar)              |
-| `<leader>bO`                | Close all but current/pinned (Barbar)      |
+| `<leader>tc`                | Close current buffer (Barbar)              |
+| `<leader>to`                | Close all but current/pinned (Barbar)      |
 | `<leader>bd`                | Delete current buffer (Snacks)             |
 | `<leader>ba`                | Delete all buffers (Snacks)                |
 | `<leader>bo`                | Delete other buffers (Snacks)              |
@@ -232,7 +233,7 @@ This configuration uses `<Space>` as the leader key (`<leader>`).
 | `<leader>fg` | Live grep (search in files) |
 | `<leader>f/` | Grep in current directory |
 | `<leader>fo` | Recent files (oldfiles) |
-| `<leader>f<space>` | Open buffers |
+| `<leader>fB` | Open buffers |
 | `<leader>fb` | Commands |
 | `<leader>fw` | Find word under cursor |
 | `<leader>fW` | Find WORD under cursor |
@@ -383,7 +384,6 @@ This configuration uses `<Space>` as the leader key (`<leader>`).
 | `<leader>Mr` | Read Last Session |
 | `<leader>Md` | Delete Session |
 
-
 ## 🔍 Glance.nvim Integration
 ### Main Navigation
 | Key | Action | Description |
@@ -419,6 +419,13 @@ This configuration uses `<Space>` as the leader key (`<leader>`).
 
 ## 💡 Pro Tips
 
+### FZF-Lua
+1. **Quick File Search**: Use `<leader>ff` for fuzzy file finding
+2. **Live Grep**: `<leader>fg` for searching text across all files
+3. **Recent Files**: `<leader>fo` to quickly access recently opened files
+4. **Config Search**: `<leader>fc` to search within your Neovim config
+5. **Word Search**: Place cursor on word and use `<leader>fw` for project-wide search
+
 ### GrugFar
 1. **Quick Word Search**: Place cursor on any word and press `<leader>sw`
 2. **Visual Selection**: Select text in visual mode, then `<leader>sv`
@@ -438,5 +445,10 @@ This configuration uses `<Space>` as the leader key (`<leader>`).
 ### File Management
 1. **Oil.nvim**: Press `-` for quick file operations in a buffer-like interface
 2. **Snacks Explorer**: Use `<leader>e` for a more traditional file tree
+
+### Buffer Management
+1. **Barbar Navigation**: Use Alt+number keys to jump directly to specific buffers
+2. **Mixed Buffer Operations**: Use barbar for tab-like operations, Snacks for buffer deletion
+3. **Pin Important Buffers**: Use `<A-p>` to pin frequently used buffers
 
 > **Tip**: Use `<leader>` followed by any key to see available mappings via which-key.nvim

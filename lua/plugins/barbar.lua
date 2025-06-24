@@ -25,10 +25,10 @@ return {
     end
     map("n", "<A-0>", "<Cmd>BufferLast<CR>", opts)
 
-    -- Pinning & Closing
+    -- Tab-like operations (visual/UI focused)
     map("n", "<A-p>", "<Cmd>BufferPin<CR>", opts)
-    map("n", "<leader>bc", "<Cmd>BufferClose<CR>", opts)
-    map("n", "<leader>bO", "<Cmd>BufferCloseAllButCurrentOrPinned<CR>", opts)
+    map("n", "<leader>tc", "<Cmd>BufferClose<CR>", opts)
+    map("n", "<leader>to", "<Cmd>BufferCloseAllButCurrentOrPinned<CR>", opts)
   end,
 
   opts = {
@@ -37,7 +37,7 @@ return {
     insert_at_end = true,
     icons = {
       buffer_index = true,
-      button = "",
+      button = "",
       filetype = {
         enabled = true,
         custom_colors = false,
