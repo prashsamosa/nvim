@@ -27,8 +27,8 @@ return {
 
     -- Tab-like operations (visual/UI focused)
     map("n", "<A-p>", "<Cmd>BufferPin<CR>", opts)
-    map("n", "<leader>tc", "<Cmd>BufferClose<CR>", opts)
-    map("n", "<leader>to", "<Cmd>BufferCloseAllButCurrentOrPinned<CR>", opts)
+    map("n", "<leader>bC", "<Cmd>BufferClose<CR>", opts)
+    map("n", "<leader>bO", "<Cmd>BufferCloseAllButCurrentOrPinned<CR>", opts)
   end,
 
   opts = {
