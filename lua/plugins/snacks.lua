@@ -245,7 +245,6 @@ return {
         { "<leader>:",       function() Snacks.picker.command_history() end,  desc = "Command History" },
         { "<leader>n",       function() Snacks.picker.notifications() end,    desc = "Notification History" },
         { "<leader>t",       function() Snacks.terminal() end,                desc = "Terminal" },
-        { "<c-/>",           function() Snacks.terminal.toggle() end,         desc = "Toggle Terminal",             mode = { "n", "t" } },
         { "<c-\\>",          function() Snacks.terminal.toggle() end,         desc = "Toggle Terminal (Alt)",       mode = { "n", "t" } },
         { "<leader>T",       function() Snacks.terminal.open() end,           desc = "New Terminal" },
         { "<leader>e",       function() Snacks.explorer() end,                desc = "Explorer" },

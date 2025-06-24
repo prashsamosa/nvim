@@ -308,8 +308,7 @@ This configuration uses `<Space>` as the leader key (`<leader>`).
 |-----|--------|
 | `<leader>t` | Open Terminal |
 | `<leader>T` | New Terminal |
-| `<C-/>` | Toggle Terminal |
-| `<C-\>` | Toggle Terminal (Alternative) |
+| `<C-\>` | Toggle Terminal  |
 
 ## 🚀 Git Operations (Snacks)
 

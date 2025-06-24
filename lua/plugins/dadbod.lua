@@ -6,7 +6,8 @@ return {
             "kristijanhusak/vim-dadbod-completion",
             ft = { "sql", "mysql", "plsql" },
             config = function()
-                local cmp = require("cmp")
+                local ok, cmp = pcall(require, "cmp")
+                if not ok then return end
                 cmp.setup.buffer({
                     sources = cmp.config.sources({
                         { name = "vim-dadbod-completion" },
@@ -88,35 +89,34 @@ return {
         local map = vim.keymap.set
         local opts = { silent = true }
 
-        map("n", "<leader>Do", "<Cmd>DBUI<CR>", { desc = "Database: Open UI", table.unpack(opts) })
-        map("n", "<leader>Du", "<Cmd>DBUIToggle<CR>", { desc = "Database: Toggle UI", table.unpack(opts) })
-        map("n", "<leader>Dc", "<Cmd>DBUIClose<CR>", { desc = "Database: Close UI", table.unpack(opts) })
-        map("n", "<leader>Df", "<Cmd>DBUIFindBuffer<CR>", { desc = "Database: Find Buffer", table.unpack(opts) })
-        map("n", "<leader>Da", "<Cmd>DBUIAddConnection<CR>", { desc = "Database: Add Connection", table.unpack(opts) })
-        map("n", "<leader>Dn", "<Cmd>DBUIRenameBuffer<CR>", { desc = "Database: Rename Buffer", table.unpack(opts) })
-        map("n", "<leader>Dl", "<Cmd>DBUILastQueryInfo<CR>", { desc = "Database: Last Query Info", table.unpack(opts) })
+        -- Simple helper to merge opts
+        local function with_opts(extra)
+            return vim.tbl_extend("force", opts, extra)
+        end
+
+        map("n", "<leader>Do", "<Cmd>DBUI<CR>", with_opts { desc = "Database: Open UI" })
+        map("n", "<leader>Du", "<Cmd>DBUIToggle<CR>", with_opts { desc = "Database: Toggle UI" })
+        map("n", "<leader>Dc", "<Cmd>DBUIClose<CR>", with_opts { desc = "Database: Close UI" })
+        map("n", "<leader>Df", "<Cmd>DBUIFindBuffer<CR>", with_opts { desc = "Database: Find Buffer" })
+        map("n", "<leader>Da", "<Cmd>DBUIAddConnection<CR>", with_opts { desc = "Database: Add Connection" })
+        map("n", "<leader>Dn", "<Cmd>DBUIRenameBuffer<CR>", with_opts { desc = "Database: Rename Buffer" })
+        map("n", "<leader>Dl", "<Cmd>DBUILastQueryInfo<CR>", with_opts { desc = "Database: Last Query Info" })
 
         vim.api.nvim_create_autocmd("FileType", {
             pattern = { "sql", "mysql", "plsql" },
             callback = function(event)
-                map(
-                    "n",
-                    "<leader>Dr",
-                    "<Cmd>DBUIExecute<CR>",
-                    { desc = "Execute Query", buffer = event.buf, table.unpack(opts) }
-                )
-                map(
-                    "v",
-                    "<leader>Dr",
-                    "<Cmd>DBUIExecute<CR>",
-                    { desc = "Execute Selection", buffer = event.buf, table.unpack(opts) }
-                )
-                map(
-                    "n",
-                    "<leader>DS",
-                    "<Cmd>DBUISaveQuery<CR>",
-                    { desc = "Save Query", buffer = event.buf, table.unpack(opts) }
-                )
+                map("n", "<leader>Dr", "<Cmd>DBUIExecute<CR>", with_opts {
+                    desc = "Execute Query",
+                    buffer = event.buf,
+                })
+                map("v", "<leader>Dr", "<Cmd>DBUIExecute<CR>", with_opts {
+                    desc = "Execute Selection",
+                    buffer = event.buf,
+                })
+                map("n", "<leader>DS", "<Cmd>DBUISaveQuery<CR>", with_opts {
+                    desc = "Save Query",
+                    buffer = event.buf,
+                })
 
                 vim.opt_local.commentstring = "-- %s"
                 vim.opt_local.formatoptions:remove("t")

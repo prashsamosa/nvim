@@ -1,11 +1,10 @@
 return {
     "neovim/nvim-lspconfig",
-    event = { "BufReadPre", "BufNewFile" },
     dependencies = {
         { "williamboman/mason.nvim", opts = {} },
         "williamboman/mason-lspconfig.nvim",
         "WhoIsSethDaniel/mason-tool-installer.nvim",
-        { "j-hui/fidget.nvim", opts = {} },
+        { "j-hui/fidget.nvim",       opts = {} },
         { "b0o/schemastore.nvim" },
         {
             "folke/lazydev.nvim",
@@ -20,25 +19,11 @@ return {
         },
     },
     config = function()
-        -- Disable intrusive progress notifications
-        vim.lsp.handlers["$/progress"] = function(_, result, ctx)
-            local client = vim.lsp.get_clients({ id = ctx.client_id })[1]
-
-            -- Only show critical progress, hide workspace loading spam
-            if result.value and result.value.message then
-                local msg = result.value.message
-                if msg:match("Loading workspace") or msg:match("Indexing") then
-                    return -- Skip these notifications
-                end
-            end
-        end
-
         -- Helper function for keymaps
         local function map(keys, fn, desc, mode, buf)
             vim.keymap.set(mode or "n", keys, fn, {
                 buffer = buf,
                 desc = "LSP: " .. desc,
-                silent = true,
             })
         end
 
@@ -48,6 +33,9 @@ return {
             callback = function(event)
                 local buf = event.buf
                 local client = vim.lsp.get_clients({ id = event.data.client_id })[1]
+                if not client then
+                    return
+                end
 
                 -- Use fzf-lua if available, fallback to built-in
                 local has_fzf, fzf = pcall(require, "fzf-lua")
@@ -66,11 +54,11 @@ return {
                     map("<leader>td", vim.lsp.buf.type_definition, "Type Definition", "n", buf)
                 end
 
-                -- Core LSP mappings
+                -- Core LSP mappings (using standard K for hover)
                 map("gD", vim.lsp.buf.declaration, "Go to Declaration", "n", buf)
                 map("<leader>ca", vim.lsp.buf.code_action, "Code Action", { "n", "x" }, buf)
                 map("<leader>cr", vim.lsp.buf.rename, "Rename", "n", buf)
-                map("K", vim.lsp.buf.hover, "Hover", "n", buf)
+                map("K", vim.lsp.buf.hover, "Hover", "n", buf) -- Standard LSP hover mapping
                 map("<C-k>", vim.lsp.buf.signature_help, "Signature Help", "i", buf)
 
                 -- Disable LSP formatting (handled by conform.nvim)
@@ -123,7 +111,7 @@ return {
                 spacing = 2,
                 prefix = "●",
                 format = function(d)
-                    return #d.message > 60 and (d.message:sub(1, 57) .. "...") or d.message
+                    return #d.message > 50 and (d.message:sub(1, 50) .. "...") or d.message
                 end,
             },
             float = {
@@ -132,8 +120,7 @@ return {
                 header = "",
                 prefix = "",
                 focusable = false,
-                max_width = 100,
-                wrap = true,
+                max_width = 80,
             },
             signs = {
                 text = {
@@ -145,7 +132,7 @@ return {
             },
         })
 
-        -- Diagnostic keymaps
+        -- Diagnostic keymaps (using modern API)
         vim.keymap.set("n", "[d", function()
             vim.diagnostic.jump({ count = -1 })
         end, { desc = "LSP: Previous diagnostic" })
@@ -160,12 +147,6 @@ return {
 
         -- Get LSP capabilities
         local capabilities = vim.lsp.protocol.make_client_capabilities()
-        capabilities.textDocument.completion.completionItem.snippetSupport = true
-        capabilities.textDocument.completion.completionItem.resolveSupport = {
-            properties = { "documentation", "detail", "additionalTextEdits" },
-        }
-
-        -- Setup completion capabilities
         if package.loaded["blink.cmp"] then
             capabilities = require("blink.cmp").get_lsp_capabilities(capabilities)
         elseif package.loaded["cmp_nvim_lsp"] then
@@ -179,26 +160,10 @@ return {
                 settings = {
                     Lua = {
                         runtime = { version = "LuaJIT" },
-                        workspace = {
-                            checkThirdParty = false,
-                            maxPreload = 100,
-                            preloadFileSize = 1000,
-                            ignoreDir = {
-                                ".git",
-                                "node_modules",
-                                ".vscode",
-                                "target",
-                                "build",
-                                "dist",
-                            },
-                            library = {
-                                vim.env.VIMRUNTIME,
-                                "${3rd}/luv/library",
-                            },
-                        },
+                        workspace = { checkThirdParty = false },
                         diagnostics = {
-                            globals = { "vim", "Snacks", "require", "pcall", "pairs", "ipairs" },
-                            disable = { "missing-fields", "incomplete-signature-doc" },
+                            globals = { "vim", "Snacks" },
+                            disable = { "missing-fields" },
                         },
                         completion = { callSnippet = "Replace" },
                         hint = { enable = true },
@@ -208,36 +173,15 @@ return {
                 },
             },
 
-            -- TypeScript/JavaScript
-            ts_ls = {
-                init_options = {
-                    preferences = {
-                        disableSuggestions = true,
-                    },
-                },
+            -- Python
+            pyright = {
                 settings = {
-                    typescript = {
-                        format = { enable = false },
-                        inlayHints = {
-                            includeInlayParameterNameHints = "all",
-                            includeInlayParameterNameHintsWhenArgumentMatchesName = false,
-                            includeInlayFunctionParameterTypeHints = true,
-                            includeInlayVariableTypeHints = true,
-                            includeInlayPropertyDeclarationTypeHints = true,
-                            includeInlayFunctionLikeReturnTypeHints = true,
-                            includeInlayEnumMemberValueHints = true,
-                        },
-                    },
-                    javascript = {
-                        format = { enable = false },
-                        inlayHints = {
-                            includeInlayParameterNameHints = "all",
-                            includeInlayParameterNameHintsWhenArgumentMatchesName = false,
-                            includeInlayFunctionParameterTypeHints = true,
-                            includeInlayVariableTypeHints = true,
-                            includeInlayPropertyDeclarationTypeHints = true,
-                            includeInlayFunctionLikeReturnTypeHints = true,
-                            includeInlayEnumMemberValueHints = true,
+                    python = {
+                        analysis = {
+                            typeCheckingMode = "standard",
+                            autoSearchPaths = true,
+                            useLibraryCodeForTypes = true,
+                            autoImportCompletions = true,
                         },
                     },
                 },
@@ -273,38 +217,33 @@ return {
                         completeUnimported = true,
                         matcher = "Fuzzy",
                         semanticTokens = true,
-                        directoryFilters = {
-                            "-.git",
-                            "-node_modules",
-                            "-vendor",
-                        },
                     },
                 },
             },
 
-            -- Svelte
-            svelte = {
+            -- TypeScript/JavaScript
+            ts_ls = {
                 settings = {
-                    svelte = {
-                        plugin = {
-                            html = { completions = { enable = true, emmet = false } },
-                            svelte = { completions = { enable = true, emmet = false } },
-                            css = { completions = { enable = true, emmet = true } },
+                    typescript = {
+                        format = { enable = false },
+                        inlayHints = {
+                            includeInlayParameterNameHints = "all",
+                            includeInlayParameterNameHintsWhenArgumentMatchesName = false,
+                            includeInlayFunctionParameterTypeHints = true,
+                            includeInlayVariableTypeHints = true,
+                            includeInlayPropertyDeclarationTypeHints = true,
+                            includeInlayFunctionLikeReturnTypeHints = true,
                         },
                     },
-                },
-            },
-
-            -- Python
-            pyright = {
-                settings = {
-                    python = {
-                        analysis = {
-                            typeCheckingMode = "basic",
-                            autoSearchPaths = true,
-                            useLibraryCodeForTypes = true,
-                            autoImportCompletions = true,
-                            stubPath = vim.fn.stdpath("data") .. "/lazy/python-type-stubs",
+                    javascript = {
+                        format = { enable = false },
+                        inlayHints = {
+                            includeInlayParameterNameHints = "all",
+                            includeInlayParameterNameHintsWhenArgumentMatchesName = false,
+                            includeInlayFunctionParameterTypeHints = true,
+                            includeInlayVariableTypeHints = true,
+                            includeInlayPropertyDeclarationTypeHints = true,
+                            includeInlayFunctionLikeReturnTypeHints = true,
                         },
                     },
                 },
@@ -317,7 +256,6 @@ return {
                         cargo = { allFeatures = true },
                         checkOnSave = { command = "clippy" },
                         procMacro = { enable = true },
-                        diagnostics = { disabled = { "unresolved-proc-macro" } },
                         inlayHints = {
                             bindingModeHints = { enable = false },
                             chainingHints = { enable = true },
@@ -338,101 +276,43 @@ return {
                 },
             },
 
-            tailwindcss = {
-                settings = {
-                    tailwindCSS = {
-                        experimental = {
-                            classRegex = {
-                                "tw`([^`]*)",
-                                'tw="([^"]*)',
-                                'tw={"([^"}]*)',
-                                "tw\\.\\w+`([^`]*)",
-                                "tw\\(.*?\\)`([^`]*)",
-                            },
-                        },
-                    },
-                },
-            },
-
-            -- JSON/YAML
+            -- Web technologies
+            html = {},
+            cssls = {},
             jsonls = {
                 settings = {
                     json = {
                         schemas = require("schemastore").json.schemas(),
                         validate = { enable = true },
-                        format = { enable = false },
                     },
                 },
             },
-
             yamlls = {
                 settings = {
                     yaml = {
                         schemaStore = { enable = false, url = "" },
                         schemas = require("schemastore").yaml.schemas(),
-                        format = { enable = false },
-                        validate = true,
-                        hover = true,
-                        completion = true,
                     },
                 },
             },
 
             -- Shell
-            bashls = {
-                settings = {
-                    bashIde = {
-                        globPattern = "*@(.sh|.inc|.bash|.command)",
-                    },
-                },
-            },
+            bashls = {},
 
-            -- ESLint
-            eslint = {
-                settings = {
-                    codeAction = {
-                        disableRuleComment = {
-                            enable = true,
-                            location = "separateLine",
-                        },
-                        showDocumentation = {
-                            enable = true,
-                        },
-                    },
-                    codeActionOnSave = {
-                        enable = false,
-                        mode = "all",
-                    },
-                    format = false,
-                    nodePath = "",
-                    onIgnoredFiles = "off",
-                    packageManager = "npm",
-                    quiet = false,
-                    rulesCustomizations = {},
-                    run = "onType",
-                    useESLintClass = false,
-                    validate = "on",
-                    workingDirectory = { mode = "location" },
-                },
-            },
+            -- Markdown
+            marksman = {},
         }
 
         -- Tools to ensure are installed
         local ensure_installed = vim.tbl_keys(servers)
         vim.list_extend(ensure_installed, {
-            -- Formatters
             "stylua",
             "prettierd",
             "shfmt",
             "goimports",
-            "gofumpt",
             "black",
             "isort",
             "rustfmt",
-            -- Linters
-            "eslint_d",
-            "shellcheck",
-            "markdownlint",
         })
 
         -- Setup mason-tool-installer
@@ -455,13 +335,5 @@ return {
                 end,
             },
         })
-
-        -- Additional LSP configurations that don't use Mason
-        local additional_servers = {}
-
-        for server_name, config in pairs(additional_servers) do
-            config.capabilities = vim.tbl_deep_extend("force", {}, capabilities, config.capabilities or {})
-            require("lspconfig")[server_name].setup(config)
-        end
     end,
 }
