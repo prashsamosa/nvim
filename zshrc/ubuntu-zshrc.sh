@@ -284,7 +284,7 @@ alias ports='ss -tulanp'
 
 if command -v bat &>/dev/null; then
     alias cat='bat' catp='bat --plain' catraw='/bin/cat'
-    export BAT_THEME="Catppuccin-mocha"
+    export BAT_THEME="Catppuccin Mocha"
 fi
 
 if command -v eza &>/dev/null; then
