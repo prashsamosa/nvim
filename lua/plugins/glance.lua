@@ -3,38 +3,30 @@ return {
   cmd = "Glance",
   config = function()
     require("glance").setup({
-      height = 18, -- Height of the window
+      height = 18,
       zindex = 45,
-
-      -- By default glance will open preview "embedded" within your active buffer
-      -- when `detached` is enabled, glance will render above all existing buffers
-      -- and won't be restrained by the width of your active buffer
       detached = true,
-
-      preview_win_opts = { -- Configure preview window options
+      preview_win_opts = {
         cursorline = true,
         number = true,
         wrap = true,
       },
-
       list = {
-        position = "right", -- Position of the list window 'left'|'right'
+        position = "right",
         size = "33%",
       },
-
-      theme = {        -- This feature might not work properly in nvim-0.7.2
-        enable = true, -- Will generate colors for the plugin based on your current colorscheme
-        mode = "auto", -- 'brighten'|'darken'|'auto', 'auto' will set mode based on the brightness of your colorscheme
+      theme = {
+        enable = true,
+        mode = "auto",
       },
-
       mappings = {
         list = {
-          ["j"] = require("glance").actions.next,     -- Bring the cursor to the next item in the list
-          ["k"] = require("glance").actions.previous, -- Bring the cursor to the previous item in the list
+          ["j"] = require("glance").actions.next,
+          ["k"] = require("glance").actions.previous,
           ["<Down>"] = require("glance").actions.next,
           ["<Up>"] = require("glance").actions.previous,
-          ["<Tab>"] = require("glance").actions.next_location,       -- Bring the cursor to the next location skipping groups
-          ["<S-Tab>"] = require("glance").actions.previous_location, -- Bring the cursor to the previous location skipping groups
+          ["<Tab>"] = require("glance").actions.next_location,
+          ["<S-Tab>"] = require("glance").actions.previous_location,
           ["<C-u>"] = require("glance").actions.preview_scroll_win(5),
           ["<C-d>"] = require("glance").actions.preview_scroll_win(-5),
           ["v"] = require("glance").actions.jump_vsplit,
@@ -44,7 +36,7 @@ return {
           ["o"] = require("glance").actions.jump,
           ["l"] = require("glance").actions.open_fold,
           ["h"] = require("glance").actions.close_fold,
-          ["<leader>l"] = require("glance").actions.enter_win("preview"), -- Focus preview window
+          ["<leader>l"] = require("glance").actions.enter_win("preview"),
           ["q"] = require("glance").actions.close,
           ["Q"] = require("glance").actions.close,
           ["<Esc>"] = require("glance").actions.close,
@@ -54,10 +46,9 @@ return {
           ["Q"] = require("glance").actions.close,
           ["<Tab>"] = require("glance").actions.next_location,
           ["<S-Tab>"] = require("glance").actions.previous_location,
-          ["<leader>l"] = require("glance").actions.enter_win("list"), -- Focus list window
+          ["<leader>l"] = require("glance").actions.enter_win("list"),
         },
       },
-
       hooks = {
         before_open = function(results, open, jump, method)
           local uri = vim.uri_from_bufnr(0)
