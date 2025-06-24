@@ -237,12 +237,6 @@ return {
             fps = 60,
         },
 
-        indent = {
-            enabled = true,
-            char = "│",
-            blank = " ",
-        },
-
         dim = { enabled = false },
     },
 
