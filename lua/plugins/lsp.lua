@@ -5,7 +5,7 @@ return {
         { "williamboman/mason.nvim", opts = {} },
         "williamboman/mason-lspconfig.nvim",
         "WhoIsSethDaniel/mason-tool-installer.nvim",
-        { "j-hui/fidget.nvim", opts = {} },
+        { "j-hui/fidget.nvim",       opts = {} },
         { "b0o/schemastore.nvim" },
         {
             "folke/lazydev.nvim",
@@ -23,11 +23,12 @@ return {
         -- Disable intrusive progress notifications
         vim.lsp.handlers["$/progress"] = function(_, result, ctx)
             local client = vim.lsp.get_clients({ id = ctx.client_id })[1]
+            if not client then return end
 
             -- Only show critical progress, hide workspace loading spam
             if result.value and result.value.message then
                 local msg = result.value.message
-                if msg:match("Loading workspace") or msg:match("Indexing") then
+                if msg:match("Loading workspace") or msg:match("Indexing") or msg:match("Analyzing") then
                     return -- Skip these notifications
                 end
             end
@@ -48,6 +49,7 @@ return {
             callback = function(event)
                 local buf = event.buf
                 local client = vim.lsp.get_clients({ id = event.data.client_id })[1]
+                if not client then return end
 
                 -- Use fzf-lua if available, fallback to built-in
                 local has_fzf, fzf = pcall(require, "fzf-lua")
@@ -74,8 +76,10 @@ return {
                 map("<C-k>", vim.lsp.buf.signature_help, "Signature Help", "i", buf)
 
                 -- Disable LSP formatting (handled by conform.nvim)
-                client.server_capabilities.documentFormattingProvider = false
-                client.server_capabilities.documentRangeFormattingProvider = false
+                if client.server_capabilities then
+                    client.server_capabilities.documentFormattingProvider = false
+                    client.server_capabilities.documentRangeFormattingProvider = false
+                end
 
                 -- Document highlighting
                 if client.server_capabilities.documentHighlightProvider then
@@ -101,12 +105,14 @@ return {
 
                 -- Code lens
                 if client.server_capabilities.codeLensProvider then
-                    vim.lsp.codelens.refresh({ bufnr = buf })
+                    local refresh_codelens = function()
+                        pcall(vim.lsp.codelens.refresh, { bufnr = buf })
+                    end
+
+                    refresh_codelens()
                     vim.api.nvim_create_autocmd({ "BufEnter", "CursorHold", "InsertLeave" }, {
                         buffer = buf,
-                        callback = function()
-                            vim.lsp.codelens.refresh({ bufnr = buf })
-                        end,
+                        callback = refresh_codelens,
                     })
                     map("<leader>cl", vim.lsp.codelens.run, "Run Code Lens", "n", buf)
                 end
@@ -166,8 +172,9 @@ return {
         }
 
         -- Setup completion capabilities
-        if package.loaded["blink.cmp"] then
-            capabilities = require("blink.cmp").get_lsp_capabilities(capabilities)
+        local has_blink, blink = pcall(require, "blink.cmp")
+        if has_blink then
+            capabilities = blink.get_lsp_capabilities(capabilities)
         elseif package.loaded["cmp_nvim_lsp"] then
             capabilities = require("cmp_nvim_lsp").default_capabilities(capabilities)
         end
@@ -338,6 +345,7 @@ return {
                 },
             },
 
+            -- Tailwind CSS
             tailwindcss = {
                 settings = {
                     tailwindCSS = {
@@ -414,6 +422,12 @@ return {
                     validate = "on",
                     workingDirectory = { mode = "location" },
                 },
+            },
+
+            -- Emmet
+            emmet_ls = {
+                filetypes = { "html", "css", "scss", "javascript", "javascriptreact", "typescript", "typescriptreact", "svelte", "vue" },
+                settings = {},
             },
         }
 

@@ -100,6 +100,11 @@ This configuration uses `<Space>` as the leader key (`<leader>`).
 | `<leader>ih` | Toggle inlay hints |
 | `<leader>cl` | Run code lens |
 
+## 🎨 Formatting (conform.nvim)
+| Key | Action |
+|-----|--------|
+| `<leader>f` | Format buffer (async with LSP fallback) |
+
 ## 🐹 Go Development (go.nvim)
 
 ### File Navigation
@@ -112,8 +117,9 @@ This configuration uses `<Space>` as the leader key (`<leader>`).
 ### Code Organization
 | Key | Action |
 |-----|--------|
-| `<leader>oi` | Organize imports |
+| `<leader>oi` | Go import |
 | `<leader>ot` | Go mod tidy |
+| `<leader>om` | Go mod |
 
 ### Code Generation
 | Key | Action |
@@ -123,12 +129,14 @@ This configuration uses `<Space>` as the leader key (`<leader>`).
 | `<leader>gr` | Generate return |
 | `<leader>gj` | JSON to struct |
 | `<leader>gI` | Implement interface |
+| `<leader>gee` | Generate if err |
 
 ### Struct Tags
 | Key | Action |
 |-----|--------|
 | `<leader>gta` | Add struct tags |
 | `<leader>gtr` | Remove struct tags |
+| `<leader>gtc` | Clear struct tags |
 
 ### Build & Run
 | Key | Action |
@@ -136,6 +144,7 @@ This configuration uses `<Space>` as the leader key (`<leader>`).
 | `<leader>bb` | Build package |
 | `<leader>br` | Run package |
 | `<leader>gx` | Run current file |
+| `<leader>gsr` | Stop |
 
 ### Testing
 | Key | Action |
@@ -145,6 +154,7 @@ This configuration uses `<Space>` as the leader key (`<leader>`).
 | `<leader>tF` | Test file |
 | `<leader>gat` | Add test |
 | `<leader>get` | Add example test |
+| `<leader>gft` | Test subcase |
 
 ### Coverage
 | Key | Action |
@@ -170,6 +180,20 @@ This configuration uses `<Space>` as the leader key (`<leader>`).
 |-----|--------|
 | `<leader>gG` | Run go generate |
 | `<leader>gm` | Generate mocks |
+
+### Debug
+| Key | Action |
+|-----|--------|
+| `<leader>gdt` | Debug test |
+| `<leader>gdb` | Toggle breakpoint |
+| `<leader>gds` | Debug |
+
+### Refactoring
+| Key | Action |
+|-----|--------|
+| `<leader>gsj` | Split JSON |
+| `<leader>gfs` | Fill switch |
+| `<leader>gfp` | Fix plurals |
 
 ## 🧩 Text Objects & TreeSitter Navigation
 
@@ -380,7 +404,6 @@ This configuration uses `<Space>` as the leader key (`<leader>`).
 | `<leader>Mr` | Read Last Session |
 | `<leader>Md` | Delete Session |
 
-
 ## 💡 Pro Tips
 
 ### FZF-Lua
@@ -402,6 +425,11 @@ This configuration uses `<Space>` as the leader key (`<leader>`).
 2. **Inlay Hints**: Toggle with `<leader>ih` for better code understanding
 3. **Diagnostics**: Use `[d` and `]d` for quick navigation between issues
 
+### Formatting
+1. **Async Formatting**: `<leader>f` formats with async support and LSP fallback
+2. **Format on Save**: Automatically formats Go files and others (configurable per filetype)
+3. **Custom Formatters**: Uses prettierd, stylua, goimports, black, and more
+
 ### Terminal
 1. **Multiple Keymaps**: Both `<C-/>` and `<C-\>` work for terminal toggle
 2. **Terminal Mode**: Terminal keymaps work in both normal and terminal modes
@@ -414,5 +442,12 @@ This configuration uses `<Space>` as the leader key (`<leader>`).
 1. **Barbar Navigation**: Use Alt+number keys to jump directly to specific buffers
 2. **Mixed Buffer Operations**: Use barbar for tab-like operations, Snacks for buffer deletion
 3. **Pin Important Buffers**: Use `<A-p>` to pin frequently used buffers
+
+### Go Development
+1. **Comprehensive Tooling**: Full integration with go.nvim for all Go development needs
+2. **Debugging Support**: Built-in DAP integration for Go debugging
+3. **Automatic Formatting**: Go files are automatically formatted and organized on save
+4. **Test Integration**: Run tests at package, function, or file level
+5. **Code Generation**: Generate comments, struct tags, interfaces, and more
 
 > **Tip**: Use `<leader>` followed by any key to see available mappings via which-key.nvim
