@@ -117,9 +117,9 @@ This configuration uses `<Space>` as the leader key (`<leader>`).
 ### Code Organization
 | Key | Action |
 |-----|--------|
-| `<leader>oi` | Go import |
-| `<leader>ot` | Go mod tidy |
-| `<leader>om` | Go mod |
+| `<leader>oi` | Organize imports |
+| `<leader>om` | Go mod tidy |
+| `<leader>of` | Format code |
 
 ### Code Generation
 | Key | Action |
@@ -129,14 +129,18 @@ This configuration uses `<Space>` as the leader key (`<leader>`).
 | `<leader>gr` | Generate return |
 | `<leader>gj` | JSON to struct |
 | `<leader>gI` | Implement interface |
-| `<leader>gee` | Generate if err |
+| `<leader>gG` | Run go generate |
+| `<leader>gm` | Generate mocks |
+| `<leader>gqi` | Add if err != nil |
+| `<leader>gqf` | Fix plurals |
 
 ### Struct Tags
 | Key | Action |
 |-----|--------|
 | `<leader>gta` | Add struct tags |
 | `<leader>gtr` | Remove struct tags |
-| `<leader>gtc` | Clear struct tags |
+| `<leader>gtc` | Add JSON tags |
+| `<leader>gty` | Add YAML tags |
 
 ### Build & Run
 | Key | Action |
@@ -144,7 +148,7 @@ This configuration uses `<Space>` as the leader key (`<leader>`).
 | `<leader>bb` | Build package |
 | `<leader>br` | Run package |
 | `<leader>gx` | Run current file |
-| `<leader>gsr` | Stop |
+| `<leader>bs` | Stop running process |
 
 ### Testing
 | Key | Action |
@@ -152,48 +156,49 @@ This configuration uses `<Space>` as the leader key (`<leader>`).
 | `<leader>tp` | Test package |
 | `<leader>tf` | Test function |
 | `<leader>tF` | Test file |
+| `<leader>ta` | Test all |
+| `<leader>tv` | Test package verbose |
 | `<leader>gat` | Add test |
-| `<leader>get` | Add example test |
-| `<leader>gft` | Test subcase |
 
 ### Coverage
 | Key | Action |
 |-----|--------|
 | `<leader>tc` | Show coverage |
 | `<leader>tC` | Toggle coverage |
-| `<leader>gcb` | Coverage browser |
+| `<leader>tcb` | Coverage browser |
 
 ### Code Quality
 | Key | Action |
 |-----|--------|
-| `<leader>gL` | Lint code |
-| `<leader>gV` | Vet code |
+| `<leader>gl` | Lint code |
+| `<leader>gv` | Vet code |
+| `<leader>ge` | Error check |
 
 ### Documentation
 | Key | Action |
 |-----|--------|
-| `<leader>gD` | Show documentation |
-| `<leader>gDb` | Documentation browser |
-
-### Code Generation
-| Key | Action |
-|-----|--------|
-| `<leader>gG` | Run go generate |
-| `<leader>gm` | Generate mocks |
-
-### Debug
-| Key | Action |
-|-----|--------|
-| `<leader>gdt` | Debug test |
-| `<leader>gdb` | Toggle breakpoint |
-| `<leader>gds` | Debug |
+| `<leader>gd` | Show documentation |
+| `<leader>gdb` | Documentation browser |
 
 ### Refactoring
 | Key | Action |
 |-----|--------|
-| `<leader>gsj` | Split JSON |
-| `<leader>gfs` | Fill switch |
-| `<leader>gfp` | Fix plurals |
+| `<leader>gn` | Rename symbol |
+| `<leader>gf` | Free variables |
+| `<leader>go` | Channel peers |
+
+### Custom Commands
+| Command | Action |
+|---------|--------|
+| `:GoWorkspace` | Run Go workspace maintenance (mod tidy + imports + generate) |
+| `:GoQuickTest` | Run quick tests (-short flag) |
+| `:GoBenchmark` | Run benchmarks |
+
+### Debug (if DAP enabled)
+| Key | Action |
+|-----|--------|
+| `<leader>gdt` | Debug test |
+| `<leader>gdl` | Debug last test |
 
 ## 🧩 Text Objects & TreeSitter Navigation
 
@@ -327,8 +332,8 @@ This configuration uses `<Space>` as the leader key (`<leader>`).
 
 | Key | Action |
 |-----|--------|
-| `<leader>t` | Open Terminal |
-| `<leader>T` | New Terminal |
+| `<leader>tt` | Open Terminal |
+| `<leader>TT` | New Terminal |
 | `<C-\>` | Toggle Terminal  |
 
 ## 🚀 Git Operations (Snacks)
@@ -445,9 +450,11 @@ This configuration uses `<Space>` as the leader key (`<leader>`).
 
 ### Go Development
 1. **Comprehensive Tooling**: Full integration with go.nvim for all Go development needs
-2. **Debugging Support**: Built-in DAP integration for Go debugging
+2. **Debugging Support**: Built-in DAP integration for Go debugging (when enabled)
 3. **Automatic Formatting**: Go files are automatically formatted and organized on save
 4. **Test Integration**: Run tests at package, function, or file level
 5. **Code Generation**: Generate comments, struct tags, interfaces, and more
+6. **Custom Commands**: Use `:GoWorkspace` for complete project maintenance
+7. **Quick Testing**: Use `:GoQuickTest` for fast test runs with `-short` flag
 
 > **Tip**: Use `<leader>` followed by any key to see available mappings via which-key.nvim

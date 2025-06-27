@@ -261,7 +261,7 @@ return {
             desc = "Notification History",
         },
         {
-            "<leader>t",
+            "<leader>tt",
             function()
                 Snacks.terminal()
             end,
@@ -276,7 +276,7 @@ return {
             mode = { "n", "t" },
         },
         {
-            "<leader>T",
+            "<leader>TT",
             function()
                 Snacks.terminal.open()
             end,
