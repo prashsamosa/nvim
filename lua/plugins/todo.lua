@@ -1,6 +1,7 @@
 return {
   "folke/todo-comments.nvim",
-  dependencies = { "nvim-lua/plenary.nvim" },
+  dependencies = { "nvim-lua/plenary.nvim",
+    "nvim-telescope/telescope.nvim" },
   event = "VeryLazy",
   opts = {
     signs = true,
@@ -63,8 +64,8 @@ return {
     },
   },
   keys = {
-    { "]t", function() require("todo-comments").jump_next() end, desc = "Next TODO comment" },
-    { "[t", function() require("todo-comments").jump_prev() end, desc = "Previous TODO comment" },
-    { "<leader>st", "<cmd>TodoTelescope<CR>", desc = "Search TODOs (Telescope)" },
+    { "]t",         function() require("todo-comments").jump_next() end, desc = "Next TODO comment" },
+    { "[t",         function() require("todo-comments").jump_prev() end, desc = "Previous TODO comment" },
+    { "<leader>st", "<cmd>TodoTelescope<CR>",                            desc = "Search TODOs (Telescope)" },
   },
 }
