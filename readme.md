@@ -383,38 +383,6 @@ This configuration uses `<Space>` as the leader key (`<leader>`).
 | `<leader>Mr` | Read Last Session |
 | `<leader>Md` | Delete Session |
 
-## 🔍 Glance.nvim Integration
-### Main Navigation
-| Key | Action | Description |
-|-----|--------|-------------|
-| `<leader>ld` | Glance Definitions | Show all definitions with preview |
-| `<leader>lr` | Glance References | Show all references with preview |
-| `<leader>lt` | Glance Type Definitions | Show type definitions with preview |
-| `<leader>li` | Glance Implementations | Show implementations with preview |
-
-### Within Glance Window
-
-#### List Navigation
-| Key | Action |
-|-----|--------|
-| `j` / `k` | Next/Previous item |
-| `<Tab>` / `<S-Tab>` | Next/Previous location (skip groups) |
-| `<CR>` / `o` | Jump to location |
-| `v` | Open in vertical split |
-| `s` | Open in horizontal split |
-| `t` | Open in new tab |
-| `l` / `h` | Open/Close folds |
-| `<C-u>` / `<C-d>` | Scroll preview up/down |
-| `<leader>l` | Focus preview window |
-| `q` / `Q` / `<Esc>` | Close Glance |
-| `<C-q>` | Send to quickfix list |
-
-#### Preview Window
-| Key | Action |
-|-----|--------|
-| `<Tab>` / `<S-Tab>` | Next/Previous location |
-| `<leader>l` | Focus list window |
-| `Q` | Close Glance |
 
 ## 💡 Pro Tips
 

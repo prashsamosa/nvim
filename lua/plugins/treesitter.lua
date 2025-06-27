@@ -6,12 +6,15 @@ return {
   },
   config = function()
     require("nvim-treesitter.configs").setup({
+      modules = {}, -- This is the required field that was missing
       ensure_installed = {
         "bash", "c", "cpp", "css", "elixir", "go", "html", "javascript",
         "json", "lua", "markdown", "markdown_inline", "python", "regex",
         "rust", "sql", "tsx", "typescript", "vimdoc", "yaml",
       },
       auto_install = true,
+      sync_install = false, -- Good practice to include this
+      ignore_install = {},  -- Good practice to include this
 
       highlight = {
         enable = true,

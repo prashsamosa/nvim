@@ -165,10 +165,13 @@ return {
             history = {
                 enabled = true,
                 maxHistoryLines = 3000, -- Reduced for better performance
+                -- Fixed autoSave configuration with all required fields
                 autoSave = {
+                    enabled = true, -- This was missing
                     onReplace = true,
                     onSyncAll = true,
                     onBufDelete = true,
+                    onExit = true, -- Added missing field
                 },
             },
 

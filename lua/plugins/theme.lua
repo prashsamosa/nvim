@@ -50,9 +50,12 @@ return {
 
         require("github-theme").setup(opts)
 
-        local ok = pcall(vim.cmd, "colorscheme github_dark_default")
+        -- Fix: Use a wrapper function to avoid type issues with pcall
+        local ok, err = pcall(function()
+            vim.cmd("colorscheme github_dark_default")
+        end)
         if not ok then
-            vim.notify("Colorscheme 'github_dark_default' not found!", vim.log.levels.WARN)
+            vim.notify("Colorscheme 'github_dark_default' not found! Error: " .. tostring(err), vim.log.levels.WARN)
             return
         end
 

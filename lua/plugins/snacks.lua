@@ -55,7 +55,7 @@ return {
             },
             sections = {
                 { section = "header" },
-                { section = "keys",   gap = 1, padding = 1 },
+                { section = "keys", gap = 1, padding = 1 },
                 { section = "startup" },
             },
         },
@@ -82,9 +82,7 @@ return {
             edge = true,
             siblings = false,
             filter = function(buf)
-                return vim.bo[buf].buftype == ""
-                    and vim.b[buf].snacks_scope ~= false
-                    and vim.g.snacks_scope ~= false
+                return vim.bo[buf].buftype == "" and vim.b[buf].snacks_scope ~= false and vim.g.snacks_scope ~= false
             end,
             debounce = 30,
             treesitter = {
@@ -241,32 +239,173 @@ return {
     },
 
     keys = {
-        { "<leader>,",       function() Snacks.picker.buffers() end,          desc = "Buffers" },
-        { "<leader>:",       function() Snacks.picker.command_history() end,  desc = "Command History" },
-        { "<leader>n",       function() Snacks.picker.notifications() end,    desc = "Notification History" },
-        { "<leader>t",       function() Snacks.terminal() end,                desc = "Terminal" },
-        { "<c-\\>",          function() Snacks.terminal.toggle() end,         desc = "Toggle Terminal (Alt)",       mode = { "n", "t" } },
-        { "<leader>T",       function() Snacks.terminal.open() end,           desc = "New Terminal" },
-        { "<leader>e",       function() Snacks.explorer() end,                desc = "Explorer" },
-        { "<leader>E",       function() Snacks.explorer.toggle() end,         desc = "Toggle Explorer" },
-        { "<leader>gb",      function() Snacks.git.blame_line() end,          desc = "Git Blame Line" },
-        { "<leader>gB",      function() Snacks.gitbrowse() end,               desc = "Git Browse",                  mode = { "n", "v" } },
-        { "<leader>gf",      function() Snacks.lazygit.log_file() end,        desc = "Lazygit Current File History" },
-        { "<leader>gg",      function() Snacks.lazygit() end,                 desc = "Lazygit" },
-        { "<leader>gl",      function() Snacks.lazygit.log() end,             desc = "Lazygit Log" },
-        { "<leader>z",       function() Snacks.zen() end,                     desc = "Toggle Zen Mode" },
-        { "<leader>Z",       function() Snacks.zen.zoom() end,                desc = "Zoom Current Window" },
-        { "<leader>bd",      function() Snacks.bufdelete() end,               desc = "Delete Buffer" },
-        { "<leader>ba",      function() Snacks.bufdelete.all() end,           desc = "Delete All Buffers" },
-        { "<leader>bo",      function() Snacks.bufdelete.other() end,         desc = "Delete Other Buffers" },
-        { "<leader>.",       function() Snacks.scratch() end,                 desc = "Scratch Buffer" },
-        { "<leader>S",       function() Snacks.scratch.select() end,          desc = "Select Scratch" },
-        { "<leader>rf",      function() Snacks.rename.rename_file() end,      desc = "Rename File" },
-        { "<leader>wn",      function() Snacks.words.jump(vim.v.count1) end,  desc = "Next Reference",              mode = { "n", "t" } },
-        { "<leader>wp",      function() Snacks.words.jump(-vim.v.count1) end, desc = "Prev Reference",              mode = { "n", "t" } },
+        {
+            "<leader>,",
+            function()
+                Snacks.picker.buffers()
+            end,
+            desc = "Buffers",
+        },
+        {
+            "<leader>:",
+            function()
+                Snacks.picker.command_history()
+            end,
+            desc = "Command History",
+        },
+        {
+            "<leader>n",
+            function()
+                Snacks.picker.notifications()
+            end,
+            desc = "Notification History",
+        },
+        {
+            "<leader>t",
+            function()
+                Snacks.terminal()
+            end,
+            desc = "Terminal",
+        },
+        {
+            "<c-\\>",
+            function()
+                Snacks.terminal.toggle()
+            end,
+            desc = "Toggle Terminal (Alt)",
+            mode = { "n", "t" },
+        },
+        {
+            "<leader>T",
+            function()
+                Snacks.terminal.open()
+            end,
+            desc = "New Terminal",
+        },
+        {
+            "<leader>e",
+            function()
+                Snacks.explorer()
+            end,
+            desc = "Explorer",
+        },
+        {
+            "<leader>gb",
+            function()
+                Snacks.git.blame_line()
+            end,
+            desc = "Git Blame Line",
+        },
+        {
+            "<leader>gB",
+            function()
+                Snacks.gitbrowse()
+            end,
+            desc = "Git Browse",
+            mode = { "n", "v" },
+        },
+        {
+            "<leader>gf",
+            function()
+                Snacks.lazygit.log_file()
+            end,
+            desc = "Lazygit Current File History",
+        },
+        {
+            "<leader>gg",
+            function()
+                Snacks.lazygit()
+            end,
+            desc = "Lazygit",
+        },
+        {
+            "<leader>gl",
+            function()
+                Snacks.lazygit.log()
+            end,
+            desc = "Lazygit Log",
+        },
+        {
+            "<leader>z",
+            function()
+                Snacks.zen()
+            end,
+            desc = "Toggle Zen Mode",
+        },
+        {
+            "<leader>Z",
+            function()
+                Snacks.zen.zoom()
+            end,
+            desc = "Zoom Current Window",
+        },
+        {
+            "<leader>bd",
+            function()
+                Snacks.bufdelete()
+            end,
+            desc = "Delete Buffer",
+        },
+        {
+            "<leader>ba",
+            function()
+                Snacks.bufdelete.all()
+            end,
+            desc = "Delete All Buffers",
+        },
+        {
+            "<leader>bo",
+            function()
+                Snacks.bufdelete.other()
+            end,
+            desc = "Delete Other Buffers",
+        },
+        {
+            "<leader>.",
+            function()
+                Snacks.scratch()
+            end,
+            desc = "Scratch Buffer",
+        },
+        {
+            "<leader>S",
+            function()
+                Snacks.scratch.select()
+            end,
+            desc = "Select Scratch",
+        },
+        {
+            "<leader>rf",
+            function()
+                Snacks.rename.rename_file()
+            end,
+            desc = "Rename File",
+        },
+        {
+            "<leader>wn",
+            function()
+                Snacks.words.jump(vim.v.count1)
+            end,
+            desc = "Next Reference",
+            mode = { "n", "t" },
+        },
+        {
+            "<leader>wp",
+            function()
+                Snacks.words.jump(-vim.v.count1)
+            end,
+            desc = "Prev Reference",
+            mode = { "n", "t" },
+        },
         -- { "<leader>un",      function() Snacks.notifier.hide() end,           desc = "Hide Notifications" },
         -- { "<leader>uN",      function() Snacks.notifier.show_history() end,   desc = "Show Notification History" },
-        { "<leader><space>", function() Snacks.picker.files() end,            desc = "Find Files" },
+        {
+            "<leader><space>",
+            function()
+                Snacks.picker.files()
+            end,
+            desc = "Find Files",
+        },
     },
 
     config = function(_, opts)
