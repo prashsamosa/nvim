@@ -5,19 +5,6 @@ return {
         {
             "kristijanhusak/vim-dadbod-completion",
             ft = { "sql", "mysql", "plsql" },
-            config = function()
-                local ok, cmp = pcall(require, "cmp")
-                if not ok then
-                    return
-                end
-
-                cmp.setup.buffer({
-                    sources = cmp.config.sources({
-                        { name = "vim-dadbod-completion" },
-                        { name = "buffer" },
-                    }),
-                })
-            end,
         },
     },
     cmd = {
@@ -96,6 +83,7 @@ return {
             return vim.tbl_extend("force", opts, extra)
         end
 
+        -- Keymaps
         map("n", "<leader>Do", "<Cmd>DBUI<CR>", with_opts({ desc = "Database: Open UI" }))
         map("n", "<leader>Du", "<Cmd>DBUIToggle<CR>", with_opts({ desc = "Database: Toggle UI" }))
         map("n", "<leader>Dc", "<Cmd>DBUIClose<CR>", with_opts({ desc = "Database: Close UI" }))
@@ -107,34 +95,13 @@ return {
         vim.api.nvim_create_autocmd("FileType", {
             pattern = { "sql", "mysql", "plsql" },
             callback = function(event)
-                map(
-                    "n",
-                    "<leader>Dr",
-                    "<Cmd>DBUIExecute<CR>",
-                    with_opts({
-                        desc = "Execute Query",
-                        buffer = event.buf,
-                    })
-                )
-                map(
-                    "v",
-                    "<leader>Dr",
-                    "<Cmd>DBUIExecute<CR>",
-                    with_opts({
-                        desc = "Execute Selection",
-                        buffer = event.buf,
-                    })
-                )
-                map(
-                    "n",
-                    "<leader>DS",
-                    "<Cmd>DBUISaveQuery<CR>",
-                    with_opts({
-                        desc = "Save Query",
-                        buffer = event.buf,
-                    })
-                )
+                -- Optional query-related keymaps
+                map("n", "<leader>Dr", "<Cmd>DBUIExecute<CR>", with_opts({ desc = "Execute Query", buffer = event.buf }))
+                map("v", "<leader>Dr", "<Cmd>DBUIExecute<CR>",
+                    with_opts({ desc = "Execute Selection", buffer = event.buf }))
+                map("n", "<leader>DS", "<Cmd>DBUISaveQuery<CR>", with_opts({ desc = "Save Query", buffer = event.buf }))
 
+                -- SQL-friendly formatting
                 vim.opt_local.commentstring = "-- %s"
                 vim.opt_local.formatoptions:remove("t")
                 vim.opt_local.formatoptions:append("croql")
