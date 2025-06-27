@@ -119,7 +119,6 @@ This configuration uses `<Space>` as the leader key (`<leader>`).
 |-----|--------|
 | `<leader>oi` | Organize imports |
 | `<leader>om` | Go mod tidy |
-| `<leader>of` | Format code |
 
 ### Code Generation
 | Key | Action |
@@ -334,7 +333,7 @@ This configuration uses `<Space>` as the leader key (`<leader>`).
 |-----|--------|
 | `<leader>tt` | Open Terminal |
 | `<leader>TT` | New Terminal |
-| `<C-\>` | Toggle Terminal  |
+| `<C-t>` | Toggle Terminal  |
 
 ## 🚀 Git Operations (Snacks)
 
@@ -363,8 +362,6 @@ This configuration uses `<Space>` as the leader key (`<leader>`).
 ### Toggle Options
 | Key | Action |
 |-----|--------|
-| `<leader>us` | Toggle Spelling |
-| `<leader>uw` | Toggle Word Wrap |
 | `<leader>uL` | Toggle Relative Line Numbers |
 | `<leader>ud` | Toggle Diagnostics |
 | `<leader>ul` | Toggle Line Numbers |
@@ -436,7 +433,7 @@ This configuration uses `<Space>` as the leader key (`<leader>`).
 3. **Custom Formatters**: Uses prettierd, stylua, goimports, black, and more
 
 ### Terminal
-1. **Multiple Keymaps**: Both `<C-/>` and `<C-\>` work for terminal toggle
+1. **Multiple Keymaps**: `<C-t>` work for terminal toggle
 2. **Terminal Mode**: Terminal keymaps work in both normal and terminal modes
 
 ### File Management

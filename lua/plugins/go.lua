@@ -96,7 +96,7 @@ return {
         -- Code Organization
         map("n", "<leader>oi", "<cmd>GoImports<CR>", "Organize imports")
         map("n", "<leader>om", "<cmd>GoModTidy<CR>", "Go mod tidy")
-        map("n", "<leader>of", "<cmd>GoFmt<CR>", "Format code")
+       
 
         -- Code Generation
         map("n", "<leader>gc", "<cmd>GoCmt<CR>", "Generate comment")

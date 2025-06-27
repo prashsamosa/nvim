@@ -268,7 +268,7 @@ return {
             desc = "Terminal",
         },
         {
-            "<c-\\>",
+            "<c-t>",
             function()
                 Snacks.terminal.toggle()
             end,
