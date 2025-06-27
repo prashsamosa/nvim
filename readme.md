@@ -45,7 +45,6 @@ This configuration uses `<Space>` as the leader key (`<leader>`).
 |-----------------------------|---------------------------------------------|
 | `-`                         | Open `oil.nvim` (Floating File Explorer)    |
 | `<leader>e`                 | Open Snacks Explorer                        |
-| `<leader>E`                 | Toggle Snacks Explorer                      |
 
 ## 🗂️ File Explorer (`oil.nvim`)
 
@@ -115,7 +114,6 @@ This configuration uses `<Space>` as the leader key (`<leader>`).
 |-----|--------|
 | `<leader>oi` | Organize imports |
 | `<leader>ot` | Go mod tidy |
-| `<leader>cc` | Organize imports (LSP) |
 
 ### Code Generation
 | Key | Action |
@@ -255,7 +253,6 @@ This configuration uses `<Space>` as the leader key (`<leader>`).
 |-----|--------|-------------|
 | `<leader>sr` | Search & Replace | Open main GrugFar interface |
 | `<leader>sR` | AST Search & Replace | Open with AST-grep engine for structural patterns |
-| `<leader>st` | Toggle GrugFar | Show/hide GrugFar window |
 
 ### 🎯 Quick Search Actions
 | Key | Action | Description |
