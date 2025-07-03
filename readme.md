@@ -1,10 +1,15 @@
-# ⌨️ Keybindings Configuration
+```markdown
+# My Neovim Configuration
+
+This configuration aims for a fast, efficient, and highly customized Neovim experience. It leverages modern Neovim features and plugins to provide a powerful IDE-like environment.
+
+## ⌨️ Keybindings Configuration
 
 This document outlines the keybindings for this Neovim configuration, utilizing `<Space>` as the leader key (`<leader>`).
 
 ---
 
-## General
+### General
 | Key | Action |
 |-----|--------|
 | `<leader>nh` | Clear search highlights |
@@ -14,26 +19,26 @@ This document outlines the keybindings for this Neovim configuration, utilizing 
 | `<leader>bl` | Switch to last buffer |
 | `<C-s>` | Save file |
 | `<Esc><Esc>` (in Terminal mode) | Exit terminal mode |
+| `<leader>ur` | Redraw / Clear hlsearch / Diff update |
 
 ---
 
-## Window Management
+### Window Management
 | Key | Action |
 |-----|--------|
 | `<C-h>`, `<C-j>`, `<C-k>`, `<C-l>` | Navigate between windows |
 | `sh` | Horizontal split |
 | `sv` | Vertical split |
-| `<leader>ur` | Redraw / Clear hlsearch / Diff update |
 
 ---
 
-## Visual Mode
+### Visual Mode
 | Key | Action |
 |-----|--------|
 | `J` | Move selection down |
 | `K` | Move selection up |
-| `<A-j>` | Move selection down |
-| `<A-k>` | Move selection up |
+| `<A-j>` | Move selection down (maintains selection) |
+| `<A-k>` | Move selection up (maintains selection) |
 | `p` | Paste without replacing clipboard |
 
 ---
@@ -41,47 +46,46 @@ This document outlines the keybindings for this Neovim configuration, utilizing 
 ## 📁 File & Buffer Management
 
 ### Buffer Navigation (Barbar)
-| Key                          | Action                                      |
+| Key                          | Action                                      |
 |-----------------------------|---------------------------------------------|
-| `<A-,>`, `<A-.>`            | Go to previous/next buffer                  |
-| `<A-S-,>`, `<A-S-.>`        | Move buffer previous/next                   |
-| `<A-1>` to `<A-9>`, `<A-0>` | Jump to specific buffer                     |
-| `<A-p>`                     | Pin/unpin current buffer                    |
+| `<A-,>`, `<A-.>`            | Go to previous/next buffer                  |
+| `<A-S-,>`, `<A-S-.>`        | Move buffer previous/next                   |
+| `<A-1>` to `<A-9>`, `<A-0>` | Jump to specific buffer                     |
+| `<A-p>`                     | Pin/unpin current buffer                    |
 
-### Buffer Management (Mixed: Barbar + Snacks)
-| Key                          | Action                                      |
+### Buffer Management (Snacks / Barbar)
+| Key                          | Action                                      |
 |-----------------------------|---------------------------------------------|
-| `<leader>bC`                | Close current buffer (Barbar)              |
-| `<leader>bO`                | Close all but current/pinned (Barbar)      |
-| `<leader>bd`                | Delete current buffer (Snacks)             |
-| `<leader>ba`                | Delete all buffers (Snacks)                |
-| `<leader>bo`                | Delete other buffers (Snacks)              |
+| `<leader>bc`                | Close/Delete current buffer                |
+| `<leader>ba`                | Delete all buffers                          |
+| `<leader>bo`                | Delete other buffers                        |
+| `<leader>bO`                | Close all but current/pinned (Barbar)      |
 
 ### File Operations (Snacks)
-| Key                          | Action                                      |
+| Key                          | Action                                      |
 |-----------------------------|---------------------------------------------|
-| `<leader>rf`                | Rename current file (Snacks)               |
+| `<leader>rf`                | Rename current file                        |
 
 ### File Explorers
-| Key                          | Action                                      |
+| Key                          | Action                                      |
 |-----------------------------|---------------------------------------------|
-| `<leader>e`                 | Open Snacks Explorer                        |
+| `<leader>e`                 | Open Snacks Explorer                        |
 
 ---
 
 ## 🗂️ `oil.nvim` (Floating File Explorer)
 
-| Key            | Action                                             |
+| Key            | Action                                             |
 |----------------|----------------------------------------------------|
-| `-`            | Open Oil (Floating File Explorer)                 |
-| `Enter`        | Open file or enter directory                       |
-| `g?`           | Show help                                          |
-| `<C-h>`        | Go up one directory                                |
-| `<C-l>`        | Enter directory or open file                       |
-| `<C-p>`        | Preview file                                       |
-| `<C-c>`        | Close Oil                                          |
-| `<C-r>`        | Refresh directory                                  |
-| `q`            | Close Oil                                          |
+| `-`            | Open Oil (Floating File Explorer)                 |
+| `Enter`        | Open file or enter directory                       |
+| `g?`           | Show help                                          |
+| `<C-h>`        | Go up one directory                                |
+| `<C-l>`        | Enter directory or open file                       |
+| `<C-p>`        | Preview file                                       |
+| `<C-c>`        | Close Oil                                          |
+| `q`            | Close Oil                                          |
+| `<C-r>`        | Refresh directory                                  |
 
 ---
 
@@ -147,8 +151,8 @@ This document outlines the keybindings for this Neovim configuration, utilizing 
 ### Code Organization
 | Key | Action |
 |-----|--------|
-| `<leader>oi` | Organize imports |
-| `<leader>om` | Go mod tidy |
+| `<leader>gi` | Organize imports |
+| `<leader>gm` | Go mod tidy |
 
 ### Code Generation
 | Key | Action |
@@ -191,7 +195,7 @@ This document outlines the keybindings for this Neovim configuration, utilizing 
 ### Documentation
 | Key | Action |
 |-----|--------|
-| `<leader>gd` | Show documentation |
+| `<leader>gD` | Show documentation |
 
 ### Custom Commands
 | Command | Action |
@@ -210,10 +214,10 @@ This document outlines the keybindings for this Neovim configuration, utilizing 
 ## 🧩 Text Objects & TreeSitter Navigation
 
 ### Snacks Scope Text Objects
-| Key | Usage Example | What it Selects                                 |
+| Key | Usage Example | What it Selects                                 |
 |-----|--------------|-------------------------------------------------|
-| `ii`| `vii`        | **I**nner scope (content within current scope) |
-| `ai`| `vai`        | **A**round scope (entire scope including edges) |
+| `ii`| `vii`        | **I**nner scope (content within current scope) |
+| `ai`| `vai`        | **A**round scope (entire scope including edges) |
 
 ### TreeSitter Text Objects
 | Key | What it Selects |
@@ -256,8 +260,8 @@ This document outlines the keybindings for this Neovim configuration, utilizing 
 ### Parameter Swapping
 | Key | Action |
 |-----|--------|
-| `<leader>a` | Swap with next parameter |
-| `<leader>A` | Swap with previous parameter |
+| `<leader>pa` | Swap with next parameter |
+| `<leader>pA` | Swap with previous parameter |
 
 ### Code Peek
 | Key | Action |
@@ -270,23 +274,23 @@ This document outlines the keybindings for this Neovim configuration, utilizing 
 ## 🗄️ Database Operations (`vim-dadbod-ui`)
 
 ### 🔧 General DB UI Commands
-| Keybinding    | Action                | Description                                 |
+| Keybinding    | Action                | Description                                 |
 |---------------|------------------------|---------------------------------------------|
-| `<leader>Do`  | Open DB UI             | Opens the database UI interface             |
-| `<leader>Du`  | Toggle DB UI           | Toggles the database UI visibility          |
-| `<leader>Dc`  | Close DB UI            | Closes the database UI window               |
-| `<leader>Df`  | Find DB Buffer         | Find and switch to an active DB buffer      |
-| `<leader>Da`  | Add DB Connection      | Add a new database connection               |
-| `<leader>Dn`  | Rename Buffer          | Rename the current DB buffer                |
-| `<leader>Dl`  | Last Query Info        | Show info about the last executed query     |
+| `<leader>Do`  | Open DB UI             | Opens the database UI interface             |
+| `<leader>Du`  | Toggle DB UI           | Toggles the database UI visibility          |
+| `<leader>Dc`  | Close DB UI            | Closes the database UI window               |
+| `<leader>Df`  | Find DB Buffer         | Find and switch to an active DB buffer      |
+| `<leader>Da`  | Add DB Connection      | Add a new database connection               |
+| `<leader>Dn`  | Rename Buffer          | Rename the current DB buffer                |
+| `<leader>Dl`  | Last Query Info        | Show info about the last executed query     |
 
 ### 📝 SQL Buffer-Specific Commands
 > _Available only when editing `.sql`, `.mysql`, or `.plsql` files._
 
-| Keybinding    | Action                | Description                                   |
+| Keybinding    | Action                | Description                                   |
 |---------------|------------------------|-----------------------------------------------|
-| `<leader>Dr`  | Execute Query/Selection| Run the current query or visual selection     |
-| `<leader>DS`  | Save Query             | Save the current SQL query                    |
+| `<leader>Dr`  | Execute Query/Selection| Run the current query or visual selection     |
+| `<leader>DS`  | Save Query             | Save the current SQL query                    |
 
 ---
 
@@ -380,32 +384,32 @@ This document outlines the keybindings for this Neovim configuration, utilizing 
 |-----|--------|
 | `<leader>tt` | Open Terminal |
 | `<leader>TT` | New Terminal |
-| `<C-t>` | Toggle Terminal  |
+| `<C-t>` | Toggle Terminal  |
 
 ---
 
 ## 🚀 Git Operations (Snacks)
 | Key | Action |
 |-----|--------|
-| `<leader>gb` | Git Blame Line |
-| `<leader>gB` | Git Browse |
-| `<leader>gf` | Lazygit Current File History |
-| `<leader>gg` | Open Lazygit |
-| `<leader>gl` | Lazygit Log |
+| `<leader>Gb` | Git Blame Line |
+| `<leader>GB` | Git Browse |
+| `<leader>Gf` | Lazygit Current File History |
+| `<leader>GG` | Open Lazygit |
+| `<leader>Gl` | Lazygit Log |
 
 ---
 
 ## 📝 Markdown (`render-markdown.nvim`)
-| Key         | Action                    |
+| Key         | Action                    |
 |-------------|---------------------------|
 | `<leader>mt`| Toggle Markdown Rendering |
 | `<leader>me`| Enable Markdown Rendering |
 | `<leader>md`| Disable Markdown Rendering|
-| `<leader>ml`| Show Markdown Log         |
-| `<leader>mD`| Debug Current Line        |
-| `<leader>mc`| Show Markdown Config      |
-| `<leader>mE`| Expand Markdown View      |
-| `<leader>mC`| Contract Markdown View    |
+| `<leader>ml`| Show Markdown Log         |
+| `<leader>mD`| Debug Current Line        |
+| `<leader>mc`| Show Markdown Config      |
+| `<leader>mE`| Expand Markdown View      |
+| `<leader>mC`| Contract Markdown View    |
 
 ---
 
@@ -559,8 +563,9 @@ Here are some power-user tips to enhance your workflow:
     * **Incremental Selection**: Use `<Enter>` to start selecting, then keep pressing to expand.
     * **Text Objects**: Use `vif` to select inside function, `vac` for around class, etc.
     * **Smart Movement**: Jump between functions with `]m`/`[m` and classes with `]c`/`[c`.
-    * **Parameter Swapping**: Use `<leader>a` and `<leader>A` to swap function parameters.
+    * **Parameter Swapping**: Use `<leader>pa` and `<leader>pA` to swap function parameters.
 
 ---
 
 > **Tip**: Use `<leader>` followed by any key to see available mappings via `which-key.nvim`.
+```

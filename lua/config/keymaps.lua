@@ -25,22 +25,23 @@ end, { desc = "Find files", silent = true })
 
 -- Numbers
 keymap.set("n", "<leader>+", "<C-a>", { desc = "Increment number", silent = true })
--- FIX: Added a consistent keymap for decrementing numbers
 keymap.set("n", "<leader>-", "<C-x>", { desc = "Decrement number", silent = true })
 
 keymap.set("n", "<leader>df", vim.diagnostic.open_float, { desc = "Show diagnostic float", silent = true })
 keymap.set("n", "<leader>bl", "<cmd>e #<CR>", { desc = "Switch to last buffer", silent = true })
+
 keymap.set("n", "<C-s>", "<cmd>w<CR>", { desc = "Save file", silent = true })
+
 keymap.set("t", "<Esc><Esc>", "<C-\\><C-n>", { desc = "Exit terminal mode", silent = true })
 
 -- Visual mode
 keymap.set("v", "J", ":m '>+1<CR>gv=gv", { desc = "Move selection down", silent = true })
 keymap.set("v", "K", ":m '<-2<CR>gv=gv", { desc = "Move selection up", silent = true })
-keymap.set("v", "<A-j>", ":m '>+1<CR>gv=gv", { desc = "Move selection down", silent = true })
-keymap.set("v", "<A-k>", ":m '<-2<CR>gv=gv", { desc = "Move selection up", silent = true })
+keymap.set("v", "<A-j>", ":m '>+1<CR>gv=gv", { desc = "Move selection down (maintains selection)", silent = true })
+keymap.set("v", "<A-k>", ":m '<-2<CR>gv=gv", { desc = "Move selection up (maintains selection)", silent = true })
 
 -- Better paste in visual mode (doesn't replace clipboard)
-keymap.set("v", "p", '"_dP', { desc = "Paste without replacing clipboard", silent = true })
+keymap.set("v", "p", '"_dP', { desc = "Paste without replacing clipboard (clipboard content)", silent = true })
 
 -- Clear search, diff update and redraw
 keymap.set("n", "<leader>ur", "<Cmd>nohlsearch<Bar>diffupdate<Bar>normal! <C-L><CR>",
@@ -49,6 +50,10 @@ keymap.set("n", "<leader>ur", "<Cmd>nohlsearch<Bar>diffupdate<Bar>normal! <C-L><
 -- Additional diagnostic keymaps (supplement 0.11 defaults: [d, ]d, [D, ]D)
 keymap.set("n", "<leader>dl", vim.diagnostic.setloclist, { desc = "Diagnostic loclist", silent = true })
 keymap.set("n", "<leader>dq", vim.diagnostic.setqflist, { desc = "Diagnostic quickfix", silent = true })
+
+-- REMOVED: Parameter Swapping keymaps, as they are handled by nvim-treesitter-textobjects
+-- keymap.set("n", "<leader>pa", function() require("snacks.utils.treesitter").swap_parameters_forward() end, { desc = "Swap with next parameter" })
+-- keymap.set("n", "<leader>pA", function() require("snacks.utils.treesitter").swap_parameters_backward() end, { desc = "Swap with previous parameter" })
 
 -- NOTE: Neovim 0.11 provides these LSP keymaps automatically (and are also configured in lsp.lua):
 -- grn - vim.lsp.buf.rename()

@@ -1,5 +1,3 @@
--- lua/plugins/go.lua
-
 return {
   "ray-x/go.nvim",
   ft = { "go", "gomod", "gosum", "gotmpl" },
@@ -52,8 +50,10 @@ return {
 
         -- Common Go actions
         map("n", "<leader>ga", "<cmd>GoAlt<CR>", "Alternate file")
-        map("n", "<leader>oi", "<cmd>GoImports<CR>", "Organize imports")
-        map("n", "<leader>om", "<cmd>GoModTidy<CR>", "Mod tidy")
+        -- Changed: <leader>oi -> <leader>gi for "Organize imports"
+        map("n", "<leader>gi", "<cmd>GoImports<CR>", "Organize imports")
+        -- Changed: <leader>om -> <leader>gm for "Mod tidy"
+        map("n", "<leader>gm", "<cmd>GoModTidy<CR>", "Mod tidy")
 
         -- Generate
         map("n", "<leader>gs", "<cmd>GoFillStruct<CR>", "Fill struct")
@@ -65,22 +65,30 @@ return {
         map({ "n", "v" }, "<leader>gtr", "<cmd>GoRmTag<CR>", "Remove tags")
 
         -- Run / Build
-        map("n", "<leader>bb", "<cmd>GoBuild<CR>", "Build")
-        map("n", "<leader>gx", "<cmd>GoRun %<CR>", "Run file")
+        -- Changed: <leader>bb -> <leader>gb for "Build"
+        map("n", "<leader>gb", "<cmd>GoBuild<CR>", "Build package")
+        -- Changed: <leader>gx is correct, updated desc for "Run current file"
+        map("n", "<leader>gx", "<cmd>GoRun %<CR>", "Run current file")
 
         -- Testing
-        map("n", "<leader>ta", "<cmd>GoTest<CR>", "Test all")
-        map("n", "<leader>tf", "<cmd>GoTestFunc<CR>", "Test function")
-        map("n", "<leader>tp", "<cmd>GoTestPkg<CR>", "Test package")
+        -- Changed: <leader>ta -> <leader>gta for "Test all" (conflict with Go tags, fixed in README)
+        map("n", "<leader>gta", "<cmd>GoTest<CR>", "Test all")
+        -- Changed: <leader>tf -> <leader>gtf for "Test function"
+        map("n", "<leader>gtf", "<cmd>GoTestFunc<CR>", "Test function")
+        -- Changed: <leader>tp -> <leader>gtp for "Test package"
+        map("n", "<leader>gtp", "<cmd>GoTestPkg<CR>", "Test package")
         map("n", "<leader>gat", "<cmd>GoAddTest<CR>", "Add test")
 
         -- Coverage
-        map("n", "<leader>tc", "<cmd>GoCoverage<CR>", "Coverage")
-        map("n", "<leader>tC", "<cmd>GoCoverageToggle<CR>", "Toggle coverage")
+        -- Changed: <leader>tc -> <leader>gtc for "Coverage"
+        map("n", "<leader>gtc", "<cmd>GoCoverage<CR>", "Show coverage")
+        -- Changed: <leader>tC -> <leader>gtC for "Toggle coverage"
+        map("n", "<leader>gtC", "<cmd>GoCoverageToggle<CR>", "Toggle coverage")
 
         -- Lint / Docs
         map("n", "<leader>gv", "<cmd>GoVet<CR>", "Go vet")
-        map("n", "<leader>gd", "<cmd>GoDoc<CR>", "Documentation")
+        -- Changed: <leader>gd -> <leader>gD for "Documentation" (conflict with gd for LSP definition)
+        map("n", "<leader>gD", "<cmd>GoDoc<CR>", "Show documentation")
 
         -- DAP support (if loaded)
         if package.loaded["dap-go"] then

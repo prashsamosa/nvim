@@ -62,19 +62,16 @@ return {
         swap = {
           enable = true,
           swap_next = {
-            -- CORRECTED: Keymap now matches readme.md
-            ["<leader>a"] = "@parameter.inner",
+            ["<leader>pa"] = "@parameter.inner", -- CORRECTED: Keymap now matches readme.md for parameter swap next
           },
           swap_previous = {
-            -- CORRECTED: Keymap now matches readme.md
-            ["<leader>A"] = "@parameter.inner",
+            ["<leader>pA"] = "@parameter.inner", -- CORRECTED: Keymap now matches readme.md for parameter swap previous
           },
         },
 
         move = {
           enable = true,
           set_jumps = true, -- whether to set jumps in the jumplist
-          -- CORRECTED: Movement keymaps now match readme.md
           goto_next_start = {
             ["]m"] = "@function.outer",
             ["]c"] = "@class.outer",

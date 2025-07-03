@@ -37,13 +37,13 @@ return {
             enabled = true,
             preset = {
                 header = [[
-   ███████╗ █████╗ ███╗   ███╗ ██████╗ ███████╗ █████╗
-   ██╔════╗██╔══██╗████╗ ████║██╔═══██╗██╔════╝██╔══██╗
-   ███████╗███████║██╔████╔██║██║   ██║███████╗███████║
-   ╚════██║██╔══██║██║╚██╔╝██║██║   ██║╚════██║██╔══██║
-   ███████║██║  ██║██║ ╚═╝ ██║╚██████╔╝███████║██║  ██║
-   ╚══════╝╚═╝  ╚═╝╚═╝   ╚═╝ ╚═════╝ ╚══════╝╚═╝  ╚═╝
-          ]],
+     ███████╗ █████╗ ███╗   ███╗ ██████╗ ███████╗ █████╗
+     ██╔════╗██╔══██╗████╗ ████║██╔═══██╗██╔════╝██╔══██╗
+     ███████╗███████║██╔████╔██║██║   ██║███████╗███████║
+     ╚════██║██╔══██║██║╚██╔╝██║██║   ██║╚════██║██╔══██║
+     ███████║██║  ██║██║ ╚═╝ ██║╚██████╔╝███████║██║  ██║
+     ╚══════╝╚═╝  ╚═╝╚═╝   ╚═╝ ╚═════╝ ╚══════╝╚═╝  ╚═╝
+            ]],
             },
             sections = {
                 { section = "header" },
@@ -190,25 +190,52 @@ return {
     },
 
     keys = {
-        { "<leader>,",  function() Snacks.picker.buffers() end,          desc = "Buffers" },
-        { "<leader>:",  function() Snacks.picker.command_history() end,  desc = "Command History" },
-        { "<leader>n",  function() Snacks.picker.notifications() end,    desc = "Notification History" },
-        { "<leader>tt", function() Snacks.terminal() end,                desc = "Terminal" },
-        { "<c-t>",      function() Snacks.terminal.toggle() end,         desc = "Toggle Terminal (Alt)", mode = { "n", "t" } },
-        { "<leader>TT", function() Snacks.terminal.open() end,           desc = "New Terminal" },
-        { "<leader>e",  function() Snacks.explorer() end,                desc = "Explorer" },
-        { "<leader>gb", function() Snacks.git.blame_line() end,          desc = "Git Blame Line" },
-        { "<leader>gB", function() Snacks.gitbrowse() end,               desc = "Git Browse",            mode = { "n", "v" } },
-        { "<leader>z",  function() Snacks.zen() end,                     desc = "Toggle Zen Mode" },
-        { "<leader>Z",  function() Snacks.zen.zoom() end,                desc = "Zoom Current Window" },
-        { "<leader>bd", function() Snacks.bufdelete() end,               desc = "Delete Buffer" },
-        { "<leader>ba", function() Snacks.bufdelete.all() end,           desc = "Delete All Buffers" },
-        { "<leader>bo", function() Snacks.bufdelete.other() end,         desc = "Delete Other Buffers" },
-        { "<leader>.",  function() Snacks.scratch() end,                 desc = "Scratch Buffer" },
-        { "<leader>S",  function() Snacks.scratch.select() end,          desc = "Select Scratch" },
-        { "<leader>rf", function() Snacks.rename.rename_file() end,      desc = "Rename File" },
-        { "<leader>wn", function() Snacks.words.jump(vim.v.count1) end,  desc = "Next Reference",        mode = { "n", "t" } },
-        { "<leader>wp", function() Snacks.words.jump(-vim.v.count1) end, desc = "Prev Reference",        mode = { "n", "t" } },
+        { "<leader>,",  function() require("snacks.picker").buffers() end,                                               desc = "Buffers (Snacks Picker)" },
+        { "<leader>:",  function() require("snacks.picker").command_history() end,                                       desc = "Command History" },
+        { "<leader>n",  function() require("snacks.picker").notifications() end,                                         desc = "Notification History" },
+        { "<leader>tt", function() require("snacks.terminal")() end,                                                     desc = "Open Terminal" },
+        { "<c-t>",      function() require("snacks.terminal").toggle() end,                                              desc = "Toggle Terminal",             mode = { "n", "t" } },
+        { "<leader>TT", function() require("snacks.terminal").open() end,                                                desc = "New Terminal" },
+        { "<leader>e",  function() require("snacks.explorer")() end,                                                     desc = "Open Snacks Explorer" },
+
+        -- Changed: Git keymaps from <leader>g* to <leader>G*
+        { "<leader>Gb", function() require("snacks.git").blame_line() end,                                               desc = "Git Blame Line" },
+        { "<leader>GB", function() require("snacks.gitbrowse")() end,                                                    desc = "Git Browse",                  mode = { "n", "v" } },
+        { "<leader>Gf", function() require("snacks.git").lazygit_current_file_history() end,                             desc = "Lazygit Current File History" },
+        { "<leader>GG", function() require("snacks.git").lazygit() end,                                                  desc = "Open Lazygit" },
+        { "<leader>Gl", function() require("snacks.git").lazygit_log() end,                                              desc = "Lazygit Log" },
+
+        { "<leader>z",  function() require("snacks.zen")() end,                                                          desc = "Toggle Zen Mode" },
+        { "<leader>Z",  function() require("snacks.zen.zoom")() end,                                                     desc = "Zoom Current Window" },
+
+        -- Unified buffer close/delete under <leader>bc
+        { "<leader>bc", function() require("snacks.utils.buffer").delete_current_buffer() end,                           desc = "Close/Delete current buffer" },
+        { "<leader>ba", function() require("snacks.utils.buffer").delete_all_buffers() end,                              desc = "Delete All Buffers" },
+        { "<leader>bo", function() require("snacks.utils.buffer").delete_other_buffers() end,                            desc = "Delete Other Buffers" },
+
+        { "<leader>.",  function() require("snacks.scratch")() end,                                                      desc = "Scratch Buffer" },
+        { "<leader>S",  function() require("snacks.scratch").select() end,                                               desc = "Select Scratch Buffer" },
+        { "<leader>rf", function() require("snacks.rename").rename_file() end,                                           desc = "Rename current file" },
+
+        { "<leader>wn", function() require("snacks.words").jump(vim.v.count1) end,                                       desc = "Next Word Reference",         mode = { "n", "t" } },
+        { "<leader>wp", function() require("snacks.words").jump(-vim.v.count1) end,                                      desc = "Previous Word Reference",     mode = { "n", "t" } },
+
+        -- Added from README: Utilities & Toggles
+        { "<leader>uL", function() vim.opt.relativenumber = not vim.opt.relativenumber:get() end,                        desc = "Toggle Relative Line Numbers" },
+        { "<leader>ud", function() vim.diagnostic.enable(not vim.diagnostic.is_enabled()) end,                           desc = "Toggle Diagnostics" },
+        { "<leader>ul", function() vim.opt.number = not vim.opt.number:get() end,                                        desc = "Toggle Line Numbers" },
+        { "<leader>uc", function() vim.opt.conceallevel = (vim.opt.conceallevel:get() == 0 and 2 or 0) end,              desc = "Toggle Conceallevel" },
+        { "<leader>uT", "<cmd>TSHighlightToggle<CR>",                                                                    desc = "Toggle Treesitter Highlights" },
+        { "<leader>ub", function() vim.cmd('set background=' .. (vim.o.background == 'dark' and 'light' or 'dark')) end, desc = "Toggle Dark/Light Background" },
+        { "<leader>uh", function() vim.lsp.inlay_hint.enable(not vim.lsp.inlay_hint.is_enabled()) end,                   desc = "Toggle Inlay Hints" },
+        { "<leader>uD", function() require('snacks.dim').toggle() end,                                                   desc = "Toggle Dim Mode" },
+
+        { "<leader>un", function() vim.diagnostic.hide() end,                                                            desc = "Hide Notifications" },
+        { "<leader>uN", function() require("snacks.picker").notifications() end,                                         desc = "Show Notification History" },
+
+        -- REMOVED: Code Peek, as it's handled by nvim-treesitter-textobjects
+        -- { "<leader>pf", function() require("snacks.utils.treesitter").peek_function_definition() end, desc = "Peek function definition" },
+        -- { "<leader>pc", function() require("snacks.utils.treesitter").peek_class_definition() end, desc = "Peek class definition" },
     },
 
     config = function(_, opts)
