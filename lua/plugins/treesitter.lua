@@ -62,10 +62,10 @@ return {
         swap = {
           enable = true,
           swap_next = {
-            ["<leader>pa"] = "@parameter.inner", -- CORRECTED: Keymap now matches readme.md for parameter swap next
+            ["<leader>pa"] = "@parameter.inner",
           },
           swap_previous = {
-            ["<leader>pA"] = "@parameter.inner", -- CORRECTED: Keymap now matches readme.md for parameter swap previous
+            ["<leader>pA"] = "@parameter.inner",
           },
         },
 

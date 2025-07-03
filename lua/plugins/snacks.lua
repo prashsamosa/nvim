@@ -38,12 +38,12 @@ return {
             preset = {
                 header = [[
      ███████╗ █████╗ ███╗   ███╗ ██████╗ ███████╗ █████╗
-     ██╔════╗██╔══██╗████╗ ████║██╔═══██╗██╔════╝██╔══██╗
+     ██╔════╝██╔══██╗████╗ ████║██╔═══██╗██╔════╝██╔══██╗
      ███████╗███████║██╔████╔██║██║   ██║███████╗███████║
      ╚════██║██╔══██║██║╚██╔╝██║██║   ██║╚════██║██╔══██║
      ███████║██║  ██║██║ ╚═╝ ██║╚██████╔╝███████║██║  ██║
      ╚══════╝╚═╝  ╚═╝╚═╝   ╚═╝ ╚═════╝ ╚══════╝╚═╝  ╚═╝
-            ]],
+                ]],
             },
             sections = {
                 { section = "header" },
@@ -232,10 +232,6 @@ return {
 
         { "<leader>un", function() vim.diagnostic.hide() end,                                                            desc = "Hide Notifications" },
         { "<leader>uN", function() require("snacks.picker").notifications() end,                                         desc = "Show Notification History" },
-
-        -- REMOVED: Code Peek, as it's handled by nvim-treesitter-textobjects
-        -- { "<leader>pf", function() require("snacks.utils.treesitter").peek_function_definition() end, desc = "Peek function definition" },
-        -- { "<leader>pc", function() require("snacks.utils.treesitter").peek_class_definition() end, desc = "Peek class definition" },
     },
 
     config = function(_, opts)

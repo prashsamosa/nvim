@@ -51,9 +51,7 @@ keymap.set("n", "<leader>ur", "<Cmd>nohlsearch<Bar>diffupdate<Bar>normal! <C-L><
 keymap.set("n", "<leader>dl", vim.diagnostic.setloclist, { desc = "Diagnostic loclist", silent = true })
 keymap.set("n", "<leader>dq", vim.diagnostic.setqflist, { desc = "Diagnostic quickfix", silent = true })
 
--- REMOVED: Parameter Swapping keymaps, as they are handled by nvim-treesitter-textobjects
--- keymap.set("n", "<leader>pa", function() require("snacks.utils.treesitter").swap_parameters_forward() end, { desc = "Swap with next parameter" })
--- keymap.set("n", "<leader>pA", function() require("snacks.utils.treesitter").swap_parameters_backward() end, { desc = "Swap with previous parameter" })
+
 
 -- NOTE: Neovim 0.11 provides these LSP keymaps automatically (and are also configured in lsp.lua):
 -- grn - vim.lsp.buf.rename()

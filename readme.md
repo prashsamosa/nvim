@@ -1,4 +1,3 @@
-```markdown
 # My Neovim Configuration
 
 This configuration aims for a fast, efficient, and highly customized Neovim experience. It leverages modern Neovim features and plugins to provide a powerful IDE-like environment.
@@ -18,7 +17,7 @@ This document outlines the keybindings for this Neovim configuration, utilizing 
 | `<leader>-` | Decrement number |
 | `<leader>bl` | Switch to last buffer |
 | `<C-s>` | Save file |
-| `<Esc><Esc>` (in Terminal mode) | Exit terminal mode |
+| `<Esc><Esc>` (in Terminal mode) | Exit Terminal mode |
 | `<leader>ur` | Redraw / Clear hlsearch / Diff update |
 
 ---
@@ -45,96 +44,104 @@ This document outlines the keybindings for this Neovim configuration, utilizing 
 
 ## 📁 File & Buffer Management
 
-### Buffer Navigation (Barbar)
-| Key                          | Action                                      |
-|-----------------------------|---------------------------------------------|
-| `<A-,>`, `<A-.>`            | Go to previous/next buffer                  |
-| `<A-S-,>`, `<A-S-.>`        | Move buffer previous/next                   |
-| `<A-1>` to `<A-9>`, `<A-0>` | Jump to specific buffer                     |
-| `<A-p>`                     | Pin/unpin current buffer                    |
+### Buffer Navigation (Native)
+| Key | Action |
+|-----|--------|
+| `[b` | Previous buffer |
+| `]b` | Next buffer |
+| `[B` | First buffer |
+| `]B` | Last buffer |
 
-### Buffer Management (Snacks / Barbar)
-| Key                          | Action                                      |
+### Buffer Navigation (`barbar.nvim`)
+| Key | Action |
 |-----------------------------|---------------------------------------------|
-| `<leader>bc`                | Close/Delete current buffer                |
-| `<leader>ba`                | Delete all buffers                          |
-| `<leader>bo`                | Delete other buffers                        |
-| `<leader>bO`                | Close all but current/pinned (Barbar)      |
+| `<A-,>`, `<A-.>` | Go to previous/next buffer |
+| `<A-S-,>`, `<A-S-.>` | Move buffer previous/next |
+| `<A-1>` to `<A-9>`, `<A-0>` | Jump to specific buffer |
+| `<A-p>` | Pin/unpin current buffer |
 
-### File Operations (Snacks)
-| Key                          | Action                                      |
+### Buffer Management (`snacks.nvim` / `barbar.nvim`)
+| Key | Action |
 |-----------------------------|---------------------------------------------|
-| `<leader>rf`                | Rename current file                        |
+| `<leader>bc` | Close/Delete current buffer |
+| `<leader>ba` | Delete all buffers |
+| `<leader>bo` | Delete other buffers |
+| `<leader>bO` | Close all but current/pinned (Barbar) |
 
-### File Explorers
-| Key                          | Action                                      |
+### File Operations (`snacks.nvim`)
+| Key | Action |
 |-----------------------------|---------------------------------------------|
-| `<leader>e`                 | Open Snacks Explorer                        |
+| `<leader>rf` | Rename current file |
+
+### File Explorers (`snacks.nvim`)
+| Key | Action |
+|-----------------------------|---------------------------------------------|
+| `<leader>e` | Open Snacks Explorer |
 
 ---
 
 ## 🗂️ `oil.nvim` (Floating File Explorer)
 
-| Key            | Action                                             |
+| Key | Action |
 |----------------|----------------------------------------------------|
-| `-`            | Open Oil (Floating File Explorer)                 |
-| `Enter`        | Open file or enter directory                       |
-| `g?`           | Show help                                          |
-| `<C-h>`        | Go up one directory                                |
-| `<C-l>`        | Enter directory or open file                       |
-| `<C-p>`        | Preview file                                       |
-| `<C-c>`        | Close Oil                                          |
-| `q`            | Close Oil                                          |
-| `<C-r>`        | Refresh directory                                  |
+| `-` | Open Oil (Floating File Explorer) |
+| `Enter` | Open file or enter directory |
+| `g?` | Show help |
+| `<C-h>` | Go up one directory |
+| `<C-l>` | Enter directory or open file |
+| `<C-p>` | Preview file |
+| `<C-c>` | Close Oil |
+| `q` | Close Oil |
+| `<C-r>` | Refresh directory |
 
 ---
 
 ## 🔍 LSP (Language Server Protocol)
 
-**Note:** Default Neovim 0.11 mappings are used where available (e.g., `grr`, `gri`, `grn`). FZF-powered actions are prefixed with `<leader>f`.
+**Note:** FZF-powered actions are prefixed with `<leader>f`.
 
 ### Navigation
 | Key | Action |
 |-----|--------|
-| `gd` | Go to definition |
-| `grr` | Go to references (Neovim 0.11 default) |
-| `gri` | Go to implementation (Neovim 0.11 default) |
-| `grn` | Rename symbol (Neovim 0.11 default) |
-| `gra` | Code action (Neovim 0.11 default) |
-| `gO` | Document symbols (Neovim 0.11 default) |
-| `<leader>fgd` | Go to definition (FZF) |
-| `<leader>fgr` | Go to references (FZF) |
-| `<leader>fgi` | Go to implementation (FZF) |
-| `<leader>fgt` | Go to type definition (FZF) |
+| `gd` | Go to Definition |
+| `gr` | Go to References |
+| `gi` | Go to Implementation |
+| `gt` | Type Definition |
+| `<leader>fgd` | Go to Definition (FZF) |
+| `<leader>fgr` | Go to References (FZF) |
+| `<leader>fgi` | Go to Implementation (FZF) |
+| `<leader>fgt` | Type Definition (FZF) |
 
 ### Code Actions
 | Key | Action |
 |-----|--------|
-| `<leader>ca` | Code action |
-| `<leader>cr` | Rename symbol |
-| `K` | Hover documentation |
-| `<C-S>` | Signature help (Insert mode) |
+| `<leader>ca` | Code Action |
+| `<leader>cr` | Rename Symbol |
+| `K` | Hover Documentation |
+| `<C-s>` (Insert mode) | Signature Help |
 
 ### Symbols & Documentation
 | Key | Action |
 |-----|--------|
-| `<leader>fds` | Document symbols (FZF) |
-| `<leader>fws` | Workspace symbols (FZF) |
+| `<leader>ds` | Document Symbols |
+| `<leader>ws` | Workspace Symbols |
+| `<leader>fds` | Document Symbols (FZF) |
+| `<leader>fws` | Workspace Symbols (FZF) |
 
 ### Diagnostics
 | Key | Action |
 |-----|--------|
 | `[d` | Go to previous diagnostic |
 | `]d` | Go to next diagnostic |
-| `[D` | Jump to first diagnostic |
-| `]D` | Jump to last diagnostic |
+| `[D` | Go to previous error |
+| `]D` | Go to next error |
 | `<leader>df` | Show diagnostic float |
 | `<leader>dl` | Diagnostic loclist |
 | `<leader>dq` | Diagnostic quickfix |
 
 ---
 
-## 🎨 Formatting (`conform.nvim`)
+## 🎨 Formatting (`conform.lua`)
 | Key | Action |
 |-----|--------|
 | `<leader>f` | Format buffer (Conform) |
@@ -146,7 +153,7 @@ This document outlines the keybindings for this Neovim configuration, utilizing 
 ### File Navigation
 | Key | Action |
 |-----|--------|
-| `<leader>ga` | Alternate file (test ↔ source) |
+| `<leader>ga` | Alternate file |
 
 ### Code Organization
 | Key | Action |
@@ -158,34 +165,34 @@ This document outlines the keybindings for this Neovim configuration, utilizing 
 | Key | Action |
 |-----|--------|
 | `<leader>gs` | Fill struct |
-| `<leader>gj` | JSON to struct |
+| `<leader>gj` | JSON → struct |
 | `<leader>gI` | Implement interface |
 
 ### Struct Tags
 | Key | Action |
 |-----|--------|
-| `<leader>gta` | Add struct tags |
-| `<leader>gtr` | Remove struct tags |
+| `<leader>gTa` | Add tags |
+| `<leader>gTr` | Remove tags |
 
 ### Build & Run
 | Key | Action |
 |-----|--------|
-| `<leader>bb` | Build package |
+| `<leader>gb` | Build package |
 | `<leader>gx` | Run current file |
 
 ### Testing
 | Key | Action |
 |-----|--------|
-| `<leader>ta` | Test all |
-| `<leader>tf` | Test function |
-| `<leader>tp` | Test package |
+| `<leader>gta` | Test all |
+| `<leader>gtf` | Test function |
+| `<leader>gtp` | Test package |
 | `<leader>gat` | Add test |
 
 ### Coverage
 | Key | Action |
 |-----|--------|
-| `<leader>tc` | Show coverage |
-| `<leader>tC` | Toggle coverage |
+| `<leader>gtc` | Show coverage |
+| `<leader>gtC` | Toggle coverage |
 
 ### Code Quality
 | Key | Action |
@@ -211,13 +218,13 @@ This document outlines the keybindings for this Neovim configuration, utilizing 
 
 ---
 
-## 🧩 Text Objects & TreeSitter Navigation
+## 🧩 Text Objects & TreeSitter Navigation (`nvim-treesitter-textobjects`)
 
-### Snacks Scope Text Objects
-| Key | Usage Example | What it Selects                                 |
+### Snacks Scope Text Objects (`snacks.nvim`)
+| Key | Usage Example | What it Selects |
 |-----|--------------|-------------------------------------------------|
-| `ii`| `vii`        | **I**nner scope (content within current scope) |
-| `ai`| `vai`        | **A**round scope (entire scope including edges) |
+| `ii`| `vii` | **I**nner scope (content within current scope) |
+| `ai`| `vai` | **A**round scope (entire scope including edges) |
 
 ### TreeSitter Text Objects
 | Key | What it Selects |
@@ -257,13 +264,13 @@ This document outlines the keybindings for this Neovim configuration, utilizing 
 | `]c`, `[c` | Next/previous class start |
 | `]C`, `[C` | Next/previous class end |
 
-### Parameter Swapping
+### Parameter Swapping (`witt-neovim/witt.nvim`)
 | Key | Action |
 |-----|--------|
 | `<leader>pa` | Swap with next parameter |
 | `<leader>pA` | Swap with previous parameter |
 
-### Code Peek
+### Code Peek (`witt-neovim/witt.nvim`)
 | Key | Action |
 |-----|--------|
 | `<leader>pf` | Peek function definition |
@@ -271,26 +278,26 @@ This document outlines the keybindings for this Neovim configuration, utilizing 
 
 ---
 
-## 🗄️ Database Operations (`vim-dadbod-ui`)
+## 🗄️ Database Operations (`dadbod.nvim` / `vim-dadbod-ui`)
 
 ### 🔧 General DB UI Commands
-| Keybinding    | Action                | Description                                 |
+| Keybinding | Action | Description |
 |---------------|------------------------|---------------------------------------------|
-| `<leader>Do`  | Open DB UI             | Opens the database UI interface             |
-| `<leader>Du`  | Toggle DB UI           | Toggles the database UI visibility          |
-| `<leader>Dc`  | Close DB UI            | Closes the database UI window               |
-| `<leader>Df`  | Find DB Buffer         | Find and switch to an active DB buffer      |
-| `<leader>Da`  | Add DB Connection      | Add a new database connection               |
-| `<leader>Dn`  | Rename Buffer          | Rename the current DB buffer                |
-| `<leader>Dl`  | Last Query Info        | Show info about the last executed query     |
+| `<leader>Do` | Open DB UI | Opens the database UI interface |
+| `<leader>Du` | Toggle DB UI | Toggles the database UI visibility |
+| `<leader>Dc` | Close DB UI | Closes the database UI window |
+| `<leader>Df` | Find DB Buffer | Find and switch to an active DB buffer |
+| `<leader>Da` | Add DB Connection | Add a new database connection |
+| `<leader>Dn` | Rename Buffer | Rename the current DB buffer |
+| `<leader>Dl` | Last Query Info | Show info about the last executed query |
 
 ### 📝 SQL Buffer-Specific Commands
 > _Available only when editing `.sql`, `.mysql`, or `.plsql` files._
 
-| Keybinding    | Action                | Description                                   |
+| Keybinding | Action | Description |
 |---------------|------------------------|-----------------------------------------------|
-| `<leader>Dr`  | Execute Query/Selection| Run the current query or visual selection     |
-| `<leader>DS`  | Save Query             | Save the current SQL query                    |
+| `<leader>Dr` | Execute Query/Selection| Run the current query or visual selection |
+| `<leader>DS` | Save Query | Save the current SQL query |
 
 ---
 
@@ -324,7 +331,7 @@ This document outlines the keybindings for this Neovim configuration, utilizing 
 
 ---
 
-## 🔍 GrugFar Search & Replace
+## 🔍 GrugFar Search & Replace (`grug-far.nvim`)
 
 ### 🚀 Main Operations
 | Key | Action | Description |
@@ -379,16 +386,16 @@ This document outlines the keybindings for this Neovim configuration, utilizing 
 
 ---
 
-## 🖥️ Terminal Operations (Snacks)
+## 🖥️ Terminal Operations (`snacks.nvim`)
 | Key | Action |
 |-----|--------|
 | `<leader>tt` | Open Terminal |
 | `<leader>TT` | New Terminal |
-| `<C-t>` | Toggle Terminal  |
+| `<C-t>` | Toggle Terminal |
 
 ---
 
-## 🚀 Git Operations (Snacks)
+## 🚀 Git Operations (`snacks.nvim`)
 | Key | Action |
 |-----|--------|
 | `<leader>Gb` | Git Blame Line |
@@ -399,21 +406,21 @@ This document outlines the keybindings for this Neovim configuration, utilizing 
 
 ---
 
-## 📝 Markdown (`render-markdown.nvim`)
-| Key         | Action                    |
+## 📝 Markdown (`markdown.lua` / `render-markdown.nvim`)
+| Key | Action |
 |-------------|---------------------------|
 | `<leader>mt`| Toggle Markdown Rendering |
 | `<leader>me`| Enable Markdown Rendering |
 | `<leader>md`| Disable Markdown Rendering|
-| `<leader>ml`| Show Markdown Log         |
-| `<leader>mD`| Debug Current Line        |
-| `<leader>mc`| Show Markdown Config      |
-| `<leader>mE`| Expand Markdown View      |
-| `<leader>mC`| Contract Markdown View    |
+| `<leader>ml`| Show Markdown Log |
+| `<leader>mD`| Debug Current Line |
+| `<leader>mc`| Show Markdown Config |
+| `<leader>mE`| Expand Markdown View |
+| `<leader>mC`| Contract Markdown View |
 
 ---
 
-## 🎛️ Snacks Utilities & Toggles
+## 🎛️ Snacks Utilities & Toggles (`snacks.nvim`)
 
 ### Toggle Options
 | Key | Action |
@@ -456,7 +463,7 @@ This document outlines the keybindings for this Neovim configuration, utilizing 
 
 ---
 
-## 📚 Sessions (`mini.sessions`)
+## 📚 Sessions (`mini.lua` / `mini.sessions`)
 | Key | Action |
 |-----|--------|
 | `<leader>Ms` | Write Session |
@@ -465,46 +472,24 @@ This document outlines the keybindings for this Neovim configuration, utilizing 
 
 ---
 
-## 🔤 Default Neovim 0.11 Keymaps
+## 🔤 Default Neovim Keymaps
 
-These keymaps are provided by default in Neovim 0.11 and work automatically:
-
-### LSP (when server is attached)
-| Key | Action |
-|-----|--------|
-| `grn` | Rename symbol |
-| `grr` | Go to references |
-| `gri` | Go to implementation |
-| `gO` | Document symbols |
-| `gra` | Code action (Normal and Visual mode) |
-| `<C-S>` | Signature help (Insert and Select mode) |
+These keymaps are provided by default in Neovim and work automatically:
 
 ### Diagnostics
 | Key | Action |
 |-----|--------|
 | `[d`, `]d` | Previous/Next diagnostic |
-| `[D`, `]D` | First/Last diagnostic |
+| `[D`, `]D` | First/Last diagnostic (severity: error) |
 
 ### Lists Navigation
 | Key | Action |
 |-----|--------|
-| `[q`, `]q` | Previous/Next quickfix |
-| `[Q`, `]Q` | First/Last quickfix |
-| `[<C-Q>`, `]<C-Q>` | Previous/Next quickfix file |
-| `[l`, `]l` | Previous/Next location list |
-| `[L`, `]L` | First/Last location list |
-| `[<C-L>`, `]<C-L>` | Previous/Next location list file |
-| `[t`, `]t` | Previous/Next tag |
-| `[T`, `]T` | First/Last tag |
-| `[<C-T>`, `]<C-T>` | Previous/Next tag file |
-| `[a`, `]a` | Previous/Next argument |
-| `[A`, `]A` | First/Last argument |
-| `[b`, `]b` | Previous/Next buffer |
-| `[B`, `]B` | First/Last buffer |
-
-### Line Management
-| Key | Action |
-|-----|--------|
+| `[q`, `]q`, `[Q`, `]Q`, `[<C-Q>`, `]<C-Q>` | Navigate quickfix list |
+| `[l`, `]l`, `[L`, `]L`, `[<C-L>`, `]<C-L>` | Navigate location list |
+| `[t`, `]t`, `[T`, `]T`, `[<C-T>`, `]<C-T>` | Navigate tag matchlist |
+| `[a`, `]a`, `[A`, `]A` | Navigate argument list |
+| `[b`, `]b`, `[B`, `]B` | Navigate buffer list |
 | `[<Space>`, `]<Space>` | Add empty line above/below cursor |
 
 ---
@@ -529,13 +514,12 @@ Here are some power-user tips to enhance your workflow:
 
 * **Enhanced LSP Experience**:
     * **FZF Integration**: LSP navigation commands automatically integrate with `FZF-Lua` when available for faster results.
-    * **Inlay Hints**: Toggle these helpful hints with `<leader>uh` for better code understanding.
+    * **Inlay Hints**: Toggle these helpful hints with `<leader>uh` (if configured in `snacks.nvim`) for better code understanding.
     * **Diagnostics**: Navigate quickly between issues using `[d` and `]d`.
-    * **Default Keymaps**: Neovim 0.11 provides many LSP keymaps automatically (grn, grr, gri, etc.).
 
 * **Efficient Formatting**:
-    * **Async Formatting**: `<leader>f` formats your buffer asynchronously, with fallback to LSP formatting.
-    * **Format on Save**: Go files and others are automatically formatted and organized on save (configurable per filetype).
+    * **Async Formatting**: `<leader>f` formats your buffer asynchronously via `conform.nvim`, with fallback to LSP formatting.
+    * **Format on Save**: Go files and others are automatically formatted and organized on save (configurable per filetype through `mason-tool-installer`).
     * **Custom Formatters**: Supports `prettierd`, `stylua`, `goimports`, `black`, and more.
 
 * **Seamless Terminal Integration**:
@@ -553,8 +537,8 @@ Here are some power-user tips to enhance your workflow:
 
 * **Comprehensive Go Development**:
     * **Full Tooling**: Enjoy full integration with `go.nvim` for all your Go development needs.
-    * **Debugging Support**: Built-in DAP integration allows for efficient Go debugging (when enabled).
-    * **Automatic Formatting**: Go files are automatically formatted and organized on save.
+    * **Debugging Support**: Built-in DAP integration allows for efficient Go debugging (when `dap-go` is loaded and enabled).
+    * **Automatic Formatting**: Go files are automatically formatted and organized on save by `gofumpt`.
     * **Test Integration**: Run tests at package, function, or file level with ease.
     * **Code Generation**: Generate struct tags, interfaces, and more to speed up development.
     * **Custom Commands**: Use `:GoWorkspace` for complete project maintenance.
@@ -563,9 +547,10 @@ Here are some power-user tips to enhance your workflow:
     * **Incremental Selection**: Use `<Enter>` to start selecting, then keep pressing to expand.
     * **Text Objects**: Use `vif` to select inside function, `vac` for around class, etc.
     * **Smart Movement**: Jump between functions with `]m`/`[m` and classes with `]c`/`[c`.
-    * **Parameter Swapping**: Use `<leader>pa` and `<leader>pA` to swap function parameters.
+    * **Parameter Swapping**: Use `<leader>pa` and `<leader>pA` (from `witt.nvim`) to swap function parameters.
 
 ---
 
 > **Tip**: Use `<leader>` followed by any key to see available mappings via `which-key.nvim`.
-```
+
+---

@@ -28,8 +28,6 @@ return {
 
     -- Tab-like operations (visual/UI focused)
     map("n", "<A-p>", "<cmd>BufferPin<cr>", opts)
-    -- REMOVED: <leader>bC, as buffer closing/deletion is now unified under Snacks' <leader>bc
-    -- map("n", "<leader>bC", "<cmd>BufferClose<cr>", opts)
     map("n", "<leader>bO", "<cmd>BufferCloseAllButCurrentOrPinned<cr>", opts)
   end,
 
