@@ -1,3 +1,4 @@
+-- lua/plugins/blink-cmp.lua - Blink completion engine configuration
 return {
   -- Optional Blink compatibility module
   {
@@ -76,7 +77,7 @@ return {
             auto_show = true,
             auto_show_delay_ms = 200,
             update_delay_ms = 50,
-            treesitter_highlighting = true,
+            treesitter_highlighting = true, -- Neovim 0.11: LSP hover docs use Tree-sitter
             window = {
               max_width = 80,
               max_height = 20,
@@ -103,7 +104,7 @@ return {
 
         sources = {
           default = {
-            "lsp",
+            "lsp", -- Ensure LSP is a primary source
             "path",
             "snippets",
             "buffer",

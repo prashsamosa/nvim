@@ -1,6 +1,8 @@
-# ⌨️ Keybindings
+# ⌨️ Keybindings Configuration
 
-This configuration uses `<Space>` as the leader key (`<leader>`).
+This document outlines the keybindings for this Neovim configuration, utilizing `<Space>` as the leader key (`<leader>`).
+
+---
 
 ## General
 | Key | Action |
@@ -9,6 +11,8 @@ This configuration uses `<Space>` as the leader key (`<leader>`).
 | `jk` (in Insert mode) | Exit Insert mode (remapped from `<ESC>`) |
 | `<leader>+` | Increment number |
 
+---
+
 ## Window Management
 | Key | Action |
 |-----|--------|
@@ -16,9 +20,11 @@ This configuration uses `<Space>` as the leader key (`<leader>`).
 | `sh` | Horizontal split |
 | `sv` | Vertical split |
 
+---
+
 ## 📁 File & Buffer Management
 
-### Buffer Navigation (Barber)
+### Buffer Navigation (Barbar)
 | Key                          | Action                                      |
 |-----------------------------|---------------------------------------------|
 | `<A-,>`, `<A-.>`            | Go to previous/next buffer                  |
@@ -43,10 +49,11 @@ This configuration uses `<Space>` as the leader key (`<leader>`).
 ### File Explorers
 | Key                          | Action                                      |
 |-----------------------------|---------------------------------------------|
-| `-`                         | Open `oil.nvim` (Floating File Explorer)    |
 | `<leader>e`                 | Open Snacks Explorer                        |
 
-## 🗂️ File Explorer (`oil.nvim`)
+---
+
+## 🗂️ `oil.nvim` (Floating File Explorer)
 
 | Key            | Action                                             |
 |----------------|----------------------------------------------------|
@@ -59,6 +66,8 @@ This configuration uses `<Space>` as the leader key (`<leader>`).
 | `<C-c>`        | Close Oil                                          |
 | `<C-r>`        | Refresh directory                                  |
 | `q`            | Close Oil                                          |
+
+---
 
 ## 🔍 LSP (Language Server Protocol)
 
@@ -100,12 +109,16 @@ This configuration uses `<Space>` as the leader key (`<leader>`).
 | `<leader>ih` | Toggle inlay hints |
 | `<leader>cl` | Run code lens |
 
-## 🎨 Formatting (conform.nvim)
+---
+
+## 🎨 Formatting (`conform.nvim`)
 | Key | Action |
 |-----|--------|
 | `<leader>f` | Format buffer (async with LSP fallback) |
 
-## 🐹 Go Development (go.nvim)
+---
+
+## 🐹 Go Development (`go.nvim`)
 
 ### File Navigation
 | Key | Action |
@@ -128,9 +141,9 @@ This configuration uses `<Space>` as the leader key (`<leader>`).
 | `<leader>gr` | Generate return |
 | `<leader>gj` | JSON to struct |
 | `<leader>gI` | Implement interface |
-| `<leader>gG` | Run go generate |
+| `<leader>gG` | Run `go generate` |
 | `<leader>gm` | Generate mocks |
-| `<leader>gqi` | Add if err != nil |
+| `<leader>gqi` | Add `if err != nil` |
 | `<leader>gqf` | Fix plurals |
 
 ### Struct Tags
@@ -190,7 +203,7 @@ This configuration uses `<Space>` as the leader key (`<leader>`).
 | Command | Action |
 |---------|--------|
 | `:GoWorkspace` | Run Go workspace maintenance (mod tidy + imports + generate) |
-| `:GoQuickTest` | Run quick tests (-short flag) |
+| `:GoQuickTest` | Run quick tests (`-short` flag) |
 | `:GoBenchmark` | Run benchmarks |
 
 ### Debug (if DAP enabled)
@@ -198,6 +211,8 @@ This configuration uses `<Space>` as the leader key (`<leader>`).
 |-----|--------|
 | `<leader>gdt` | Debug test |
 | `<leader>gdl` | Debug last test |
+
+---
 
 ## 🧩 Text Objects & TreeSitter Navigation
 
@@ -229,10 +244,11 @@ This configuration uses `<Space>` as the leader key (`<leader>`).
 | `<leader>a` | Swap with next parameter |
 | `<leader>A` | Swap with previous parameter |
 
+---
+
 ## 🗄️ Database Operations (`vim-dadbod-ui`)
 
 ### 🔧 General DB UI Commands
-
 | Keybinding    | Action                | Description                                 |
 |---------------|------------------------|---------------------------------------------|
 | `<leader>Do`  | Open DB UI             | Opens the database UI interface             |
@@ -251,7 +267,9 @@ This configuration uses `<Space>` as the leader key (`<leader>`).
 | `<leader>Dr`  | Execute Query/Selection| Run the current query or visual selection     |
 | `<leader>DS`  | Save Query             | Save the current SQL query                    |
 
-## 🔍 Fuzzy Finding (FZF-Lua)
+---
+
+## 🔍 Fuzzy Finding (`FZF-Lua`)
 | Key | Action |
 |-----|--------|
 | `<leader>ff` | Find files |
@@ -273,6 +291,8 @@ This configuration uses `<Space>` as the leader key (`<leader>`).
 | `<leader>fgt` | LSP Type Definition (FZF) |
 | `<leader>fds` | Document Symbols (FZF) |
 | `<leader>fws` | Workspace Symbols (FZF) |
+
+---
 
 ## 🔍 GrugFar Search & Replace
 
@@ -327,16 +347,18 @@ This configuration uses `<Space>` as the leader key (`<leader>`).
 - **Replace**: `logger.info($A)`, `const $FUNC = ($$$ARGS) => { $$$ }`
 - **Files**: `*.js *.ts`, `**/*.{vue,svelte}`
 
-## 🖥️ Terminal Operations (Snacks)
+---
 
+## 🖥️ Terminal Operations (Snacks)
 | Key | Action |
 |-----|--------|
 | `<leader>tt` | Open Terminal |
 | `<leader>TT` | New Terminal |
 | `<C-t>` | Toggle Terminal  |
 
-## 🚀 Git Operations (Snacks)
+---
 
+## 🚀 Git Operations (Snacks)
 | Key | Action |
 |-----|--------|
 | `<leader>gb` | Git Blame Line |
@@ -345,7 +367,9 @@ This configuration uses `<Space>` as the leader key (`<leader>`).
 | `<leader>gg` | Open Lazygit |
 | `<leader>gl` | Lazygit Log |
 
-## 📝 Markdown (render-markdown.nvim)
+---
+
+## 📝 Markdown (`render-markdown.nvim`)
 | Key         | Action                    |
 |-------------|---------------------------|
 | `<leader>mt`| Toggle Markdown Rendering |
@@ -356,6 +380,8 @@ This configuration uses `<Space>` as the leader key (`<leader>`).
 | `<leader>mc`| Show Markdown Config      |
 | `<leader>mE`| Expand Markdown View      |
 | `<leader>mC`| Contract Markdown View    |
+
+---
 
 ## 🎛️ Snacks Utilities & Toggles
 
@@ -399,59 +425,67 @@ This configuration uses `<Space>` as the leader key (`<leader>`).
 | `<leader>un` | Hide Notifications |
 | `<leader>uN` | Show Notification History |
 
-## 📚 Sessions (mini.sessions)
+---
+
+## 📚 Sessions (`mini.sessions`)
 | Key | Action |
 |-----|--------|
 | `<leader>Ms` | Write Session |
 | `<leader>Mr` | Read Last Session |
 | `<leader>Md` | Delete Session |
 
+---
+
 ## 💡 Pro Tips
 
-### FZF-Lua
-1. **Quick File Search**: Use `<leader>ff` for fuzzy file finding
-2. **Live Grep**: `<leader>fg` for searching text across all files
-3. **Recent Files**: `<leader>fo` to quickly access recently opened files
-4. **Config Search**: `<leader>fC` to search within your Neovim config
-5. **Word Search**: Place cursor on word and use `<leader>fw` for project-wide search
+Here are some power-user tips to enhance your workflow:
 
-### GrugFar
-1. **Quick Word Search**: Place cursor on any word and press `<leader>sw`
-2. **Visual Selection**: Select text in visual mode, then `<leader>sv`
-3. **File-Specific**: Use `<leader>sb` to search only current file
-4. **Structural Changes**: Use `<leader>sR` for code refactoring with AST patterns
-5. **History**: Access previous searches with `<leader>h` inside GrugFar
+* **Fuzzy Finding with `FZF-Lua`**:
+    * **Quick File Search**: Use `<leader>ff` to quickly find files.
+    * **Live Grep**: Use `<leader>fg` for searching text across all files.
+    * **Recent Files**: Quickly access recently opened files with `<leader>fo`.
+    * **Config Search**: Search within your Neovim configuration using `<leader>fC`.
+    * **Word Search**: Place your cursor on a word and use `<leader>fw` for a project-wide search.
 
-### LSP
-1. **FZF Integration**: LSP navigation commands automatically use FZF-Lua when available
-2. **Inlay Hints**: Toggle with `<leader>ih` for better code understanding
-3. **Diagnostics**: Use `[d` and `]d` for quick navigation between issues
+* **Smart Search & Replace with `GrugFar`**:
+    * **Quick Word Search**: Place your cursor on any word and press `<leader>sw`.
+    * **Visual Selection Search**: Select text in visual mode, then use `<leader>sv`.
+    * **File-Specific Search**: Limit your search to the current file only with `<leader>sb`.
+    * **Structural Changes**: Utilize `<leader>sR` for advanced code refactoring with AST patterns.
+    * **History**: Access previous searches with `<leader>h` directly within the GrugFar interface.
 
-### Formatting
-1. **Async Formatting**: `<leader>f` formats with async support and LSP fallback
-2. **Format on Save**: Automatically formats Go files and others (configurable per filetype)
-3. **Custom Formatters**: Uses prettierd, stylua, goimports, black, and more
+* **Enhanced LSP Experience**:
+    * **FZF Integration**: LSP navigation commands automatically integrate with `FZF-Lua` when available for faster results.
+    * **Inlay Hints**: Toggle these helpful hints with `<leader>ih` for better code understanding.
+    * **Diagnostics**: Navigate quickly between issues using `[d` and `]d`.
 
-### Terminal
-1. **Multiple Keymaps**: `<C-t>` work for terminal toggle
-2. **Terminal Mode**: Terminal keymaps work in both normal and terminal modes
+* **Efficient Formatting**:
+    * **Async Formatting**: `<leader>f` formats your buffer asynchronously, with fallback to LSP formatting.
+    * **Format on Save**: Go files and others are automatically formatted and organized on save (configurable per filetype).
+    * **Custom Formatters**: Supports `prettierd`, `stylua`, `goimports`, `black`, and more.
 
-### File Management
-1. **Oil.nvim**: Press `-` for quick file operations in a buffer-like interface
-2. **Snacks Explorer**: Use `<leader>e` for a more traditional file tree
+* **Seamless Terminal Integration**:
+    * **Multiple Keymaps**: Use `<C-t>` to toggle the terminal.
+    * **Terminal Mode**: Keymaps work consistently in both normal and terminal modes.
 
-### Buffer Management
-1. **Barbar Navigation**: Use Alt+number keys to jump directly to specific buffers
-2. **Mixed Buffer Operations**: Use barbar for tab-like operations, Snacks for buffer deletion
-3. **Pin Important Buffers**: Use `<A-p>` to pin frequently used buffers
+* **Streamlined File Management**:
+    * **`oil.nvim`**: Press `-` for quick file operations in a buffer-like interface.
+    * **Snacks Explorer**: For a more traditional file tree, use `<leader>e`.
 
-### Go Development
-1. **Comprehensive Tooling**: Full integration with go.nvim for all Go development needs
-2. **Debugging Support**: Built-in DAP integration for Go debugging (when enabled)
-3. **Automatic Formatting**: Go files are automatically formatted and organized on save
-4. **Test Integration**: Run tests at package, function, or file level
-5. **Code Generation**: Generate comments, struct tags, interfaces, and more
-6. **Custom Commands**: Use `:GoWorkspace` for complete project maintenance
-7. **Quick Testing**: Use `:GoQuickTest` for fast test runs with `-short` flag
+* **Advanced Buffer Management**:
+    * **Barbar Navigation**: Use `Alt` + number keys to jump directly to specific buffers.
+    * **Mixed Buffer Operations**: Use Barbar for tab-like operations, and Snacks for powerful buffer deletion.
+    * **Pin Important Buffers**: Use `<A-p>` to pin frequently used buffers for easy access.
 
-> **Tip**: Use `<leader>` followed by any key to see available mappings via which-key.nvim
+* **Comprehensive Go Development**:
+    * **Full Tooling**: Enjoy full integration with `go.nvim` for all your Go development needs.
+    * **Debugging Support**: Built-in DAP integration allows for efficient Go debugging (when enabled).
+    * **Automatic Formatting**: Go files are automatically formatted and organized on save.
+    * **Test Integration**: Run tests at package, function, or file level with ease.
+    * **Code Generation**: Generate comments, struct tags, interfaces, and more to speed up development.
+    * **Custom Commands**: Use `:GoWorkspace` for complete project maintenance.
+    * **Quick Testing**: Use `:GoQuickTest` for fast test runs with the `-short` flag.
+
+---
+
+> **Tip**: Use `<leader>` followed by any key to see available mappings via `which-key.nvim`.

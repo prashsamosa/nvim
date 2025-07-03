@@ -1,50 +1,42 @@
+-- lua/plugins/fzf.lua - fzf-lua configuration
+
 return {
   "ibhagwan/fzf-lua",
-  dependencies = { "nvim-tree/nvim-web-devicons" },
-  keys = function()
-    local fzf = require("fzf-lua")
-    return {
-      { "<leader>ff",  fzf.files,                                                             desc = "Find Files" },
-      { "<leader>fC",  function() fzf.files({ cwd = vim.fn.stdpath("config") }) end,          desc = "Find in Config" },
-      { "<leader>fg",  fzf.live_grep,                                                         desc = "Live Grep" },
-      { "<leader>f/",  function() fzf.live_grep_native({ cwd = vim.fn.expand("%:p:h") }) end, desc = "Grep Current Dir" },
-      { "<leader>fo",  fzf.oldfiles,                                                          desc = "Recent Files" },
-      { "<leader>fb",  fzf.buffers,                                                           desc = "Open Buffers" },
-      { "<leader>fc",  fzf.commands,                                                          desc = "Commands" },
-      { "<leader>fw",  fzf.grep_cword,                                                        desc = "Find Word" },
-      { "<leader>fW",  fzf.grep_cWORD,                                                        desc = "Find WORD" },
-      { "<leader>fh",  fzf.helptags,                                                          desc = "Help Tags" },
-      { "<leader>fk",  fzf.keymaps,                                                           desc = "Keymaps" },
-      { "<leader>fd",  fzf.diagnostics_document,                                              desc = "Document Diagnostics" },
-      { "<leader>fr",  fzf.resume,                                                            desc = "Resume Search" },
-      { "<leader>fgd", fzf.lsp_definitions,                                                   desc = "LSP Definition" },
-      { "<leader>fgr", fzf.lsp_references,                                                    desc = "LSP References" },
-      { "<leader>fgi", fzf.lsp_implementations,                                               desc = "LSP Implementation" },
-      { "<leader>fgt", fzf.lsp_typedefs,                                                      desc = "LSP Type Definition" },
-      { "<leader>fds", fzf.lsp_document_symbols,                                              desc = "Document Symbols" },
-      { "<leader>fws", fzf.lsp_workspace_symbols,                                             desc = "Workspace Symbols" },
-    }
-  end,
+  dependencies = {
+    "nvim-tree/nvim-web-devicons", -- Icons in FZF results
+  },
+  keys = {
+    { "<leader>ff", "<cmd>lua require('fzf-lua').files()<cr>",                                            desc = "Find Files" },
+    { "<leader>fC", "<cmd>lua require('fzf-lua').files({ cwd = vim.fn.stdpath('config') })<cr>",          desc = "Find in Config" },
+    { "<leader>fg", "<cmd>lua require('fzf-lua').live_grep()<cr>",                                        desc = "Live Grep" },
+    { "<leader>f/", "<cmd>lua require('fzf-lua').live_grep_native({ cwd = vim.fn.expand('%:p:h') })<cr>", desc = "Grep Current Dir" },
+    { "<leader>fo", "<cmd>lua require('fzf-lua').oldfiles()<cr>",                                         desc = "Recent Files" },
+    { "<leader>fb", "<cmd>lua require('fzf-lua').buffers()<cr>",                                          desc = "Open Buffers" },
+    { "<leader>fc", "<cmd>lua require('fzf-lua').commands()<cr>",                                         desc = "Commands" },
+    { "<leader>fw", "<cmd>lua require('fzf-lua').grep_cword()<cr>",                                       desc = "Find word under cursor" },
+    { "<leader>fW", "<cmd>lua require('fzf-lua').grep_cWORD()<cr>",                                       desc = "Find WORD under cursor" },
+    { "<leader>fh", "<cmd>lua require('fzf-lua').helptags()<cr>",                                         desc = "Help Tags" },
+    { "<leader>fk", "<cmd>lua require('fzf-lua').keymaps()<cr>",                                          desc = "Keymaps" },
+    { "<leader>fd", "<cmd>lua require('fzf-lua').diagnostics_document()<cr>",                             desc = "Document Diagnostics (FZF)" },
+    { "<leader>fr", "<cmd>lua require('fzf-lua').resume()<cr>",                                           desc = "Resume Last Search" },
+    -- LSP-related mappings are defined in lua/config/keymaps.lua via LspAttach autocmd
+  },
   config = function()
-    local ok, fzf = pcall(require, "fzf-lua")
-    if not ok then
-      vim.notify("fzf-lua not found!", vim.log.levels.ERROR)
-      return
-    end
-
+    local fzf = require("fzf-lua")
     fzf.setup({
       winopts = {
-        preview = { default = 'bat' }, -- try bat for code preview
+        preview = { default = "bat" }, -- Better syntax highlighting with bat
         width = 0.85,
         height = 0.75,
-        border = 'rounded',
+        border = "rounded",
       },
       fzf_opts = {
-        ['--ansi'] = true,
-        ['--prompt'] = '❯ ',
-        ['--layout'] = 'reverse',
-        ['--info'] = 'inline',
+        ["--ansi"] = true,
+        ["--prompt"] = "❯ ",
+        ["--layout"] = "reverse",
+        ["--info"] = "inline",
       },
+      -- Additional customization (e.g. file_icons, colors) can go here
     })
   end,
 }

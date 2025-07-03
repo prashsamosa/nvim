@@ -1,11 +1,12 @@
--- Bufferline configuration using barbar.nvim
+-- lua/plugins/barbar.lua - Bufferline configuration using barbar.nvim
 return {
   "romgrk/barbar.nvim",
   dependencies = {
     "nvim-tree/nvim-web-devicons",
     "lewis6991/gitsigns.nvim",
   },
-  lazy = false, -- Consider setting to true and adding an event like "VeryLazy" if startup perf matters
+  lazy = true,
+  event = "VeryLazy", -- Optimized for better startup performance
 
   init = function()
     vim.g.barbar_auto_setup = false
@@ -14,21 +15,21 @@ return {
     local opts = { noremap = true, silent = true }
 
     -- Navigation
-    map("n", "<A-,>", "<Cmd>BufferPrevious<CR>", opts)
-    map("n", "<A-.>", "<Cmd>BufferNext<CR>", opts)
-    map("n", "<A-S-,>", "<Cmd>BufferMovePrevious<CR>", opts)
-    map("n", "<A-S-.>", "<Cmd>BufferMoveNext<CR>", opts)
+    map("n", "<A-,>", "<cmd>BufferPrevious<cr>", opts)
+    map("n", "<A-.>", "<cmd>BufferNext<cr>", opts)
+    map("n", "<A-S-,>", "<cmd>BufferMovePrevious<cr>", opts)
+    map("n", "<A-S-.>", "<cmd>BufferMoveNext<cr>", opts)
 
     -- Jump to buffer 1–9, 0 = last
     for i = 1, 9 do
-      map("n", ("<A-%d>"):format(i), ("<Cmd>BufferGoto %d<CR>"):format(i), opts)
+      map("n", ("<A-%d>"):format(i), ("<cmd>BufferGoto %d<cr>"):format(i), opts)
     end
-    map("n", "<A-0>", "<Cmd>BufferLast<CR>", opts)
+    map("n", "<A-0>", "<cmd>BufferLast<cr>", opts)
 
     -- Tab-like operations (visual/UI focused)
-    map("n", "<A-p>", "<Cmd>BufferPin<CR>", opts)
-    map("n", "<leader>bC", "<Cmd>BufferClose<CR>", opts)
-    map("n", "<leader>bO", "<Cmd>BufferCloseAllButCurrentOrPinned<CR>", opts)
+    map("n", "<A-p>", "<cmd>BufferPin<cr>", opts)
+    map("n", "<leader>bC", "<cmd>BufferClose<cr>", opts)
+    map("n", "<leader>bO", "<cmd>BufferCloseAllButCurrentOrPinned<cr>", opts)
   end,
 
   opts = {

@@ -14,52 +14,53 @@ keymap.set("n", "<C-l>", "<C-w>l", { desc = "Move to right window", silent = tru
 keymap.set("n", "sh", "<cmd>split<CR>", { desc = "Horizontal split", silent = true })
 keymap.set("n", "sv", "<cmd>vsplit<CR>", { desc = "Vertical split", silent = true })
 
--- Files
+-- Files - Use Snacks picker if available, fallback to fzf-lua
 keymap.set("n", "<leader><space>", function()
-  if not _G.Snacks then
+  if _G.Snacks and _G.Snacks.picker then
+    _G.Snacks.picker.files()
+  else
     require("fzf-lua").files()
   end
-end, { desc = "Fuzzy find files", silent = true })
+end, { desc = "Find files", silent = true })
 
 -- Numbers
 keymap.set("n", "<leader>+", "<C-a>", { desc = "Increment number", silent = true })
+keymap.set("n", "<leader>ed", vim.diagnostic.open_float, { desc = "Show line diagnostics", silent = true })
+keymap.set("n", "<leader>bl", "<cmd>e #<CR>", { desc = "Switch to last buffer", silent = true })
+keymap.set("n", "<C-s>", "<cmd>w<CR>", { desc = "Save file", silent = true })
+keymap.set("t", "<Esc><Esc>", "<C-\\><C-n>", { desc = "Exit terminal mode", silent = true })
 
--- Note: LSP keymaps are now handled in the LSP configuration file
--- Neovim 0.11 provides these default LSP keymaps automatically:
+-- Visual mode
+keymap.set("v", "J", ":m '>+1<CR>gv=gv", { desc = "Move selection down", silent = true })
+keymap.set("v", "K", ":m '<-2<CR>gv=gv", { desc = "Move selection up", silent = true })
+keymap.set("v", "<A-j>", ":m '>+1<CR>gv=gv", { desc = "Move selection down", silent = true })
+keymap.set("v", "<A-k>", ":m '<-2<CR>gv=gv", { desc = "Move selection up", silent = true })
+
+-- Better paste in visual mode (doesn't replace clipboard)
+keymap.set("v", "p", '"_dP', { desc = "Paste without replacing clipboard", silent = true })
+
+-- Clear search, diff update and redraw
+keymap.set("n", "<leader>ur", "<Cmd>nohlsearch<Bar>diffupdate<Bar>normal! <C-L><CR>",
+  { desc = "Redraw / Clear hlsearch / Diff update", silent = true })
+
+-- Additional diagnostic keymaps (supplement 0.11 defaults: [d, ]d, [D, ]D)
+keymap.set("n", "<leader>dl", vim.diagnostic.setloclist, { desc = "Diagnostic loclist", silent = true })
+keymap.set("n", "<leader>dq", vim.diagnostic.setqflist, { desc = "Diagnostic quickfix", silent = true })
+
+-- NOTE: Neovim 0.11 provides these LSP keymaps automatically (and are also configured in lsp.lua):
 -- grn - vim.lsp.buf.rename()
 -- grr - vim.lsp.buf.references()
 -- gri - vim.lsp.buf.implementation()
 -- gO  - vim.lsp.buf.document_symbol()
 -- gra - vim.lsp.buf.code_action() (Normal and Visual mode)
 -- CTRL-S - vim.lsp.buf.signature_help() (Insert and Select mode)
--- [d, ]d - navigate diagnostics ([D, ]D for first/last)
+-- [d, ]d - move between diagnostics
+-- [D, ]D - jump to first/last diagnostic
 
--- Additional convenience mappings for diagnostics
-keymap.set("n", "<leader>e", vim.diagnostic.open_float, { desc = "Show line diagnostics", silent = true })
-
--- Terminal mode escape
-keymap.set("t", "<Esc><Esc>", "<C-\\><C-n>", { desc = "Exit terminal mode", silent = true })
-
--- Better indenting in visual mode
-keymap.set("v", "<", "<gv", { desc = "Indent left", silent = true })
-keymap.set("v", ">", ">gv", { desc = "Indent right", silent = true })
-
--- Move lines up/down
-keymap.set("n", "<A-j>", ":m .+1<CR>==", { desc = "Move line down", silent = true })
-keymap.set("n", "<A-k>", ":m .-2<CR>==", { desc = "Move line up", silent = true })
-keymap.set("v", "<A-j>", ":m '>+1<CR>gv=gv", { desc = "Move selection down", silent = true })
-keymap.set("v", "<A-k>", ":m '<-2<CR>gv=gv", { desc = "Move selection up", silent = true })
-
--- Quick save
-keymap.set("n", "<C-s>", "<cmd>w<CR>", { desc = "Save file", silent = true })
-keymap.set("i", "<C-s>", "<ESC><cmd>w<CR>", { desc = "Save file", silent = true })
-
--- Better paste in visual mode (doesn't replace clipboard)
-keymap.set("v", "p", '"_dP', { desc = "Paste without replacing clipboard", silent = true })
-
--- Toggle between buffers
-keymap.set("n", "<leader>bb", "<cmd>e #<CR>", { desc = "Switch to other buffer", silent = true })
-
--- Clear search, diff update and redraw
-keymap.set("n", "<leader>ur", "<Cmd>nohlsearch<Bar>diffupdate<Bar>normal! <C-L><CR>",
-  { desc = "Redraw / Clear hlsearch / Diff update", silent = true })
+-- Default keymaps for quickfix/location/tag/argument/buffer lists, and adding new lines
+-- [q, ]q, [Q, ]Q, [CTRL-Q, ]CTRL-Q - navigate quickfix list
+-- [l, ]l, [L, ]L, [CTRL-L, ]CTRL-L - navigate location list
+-- [t, ]t, [T, ]T, [CTRL-T, ]CTRL-T - navigate tag matchlist
+-- [a, ]a, [A, ]A - navigate argument list
+-- [b, ]b, [B, ]B - navigate buffer list
+-- [<Space>, ]<Space> - add empty line above/below cursor
