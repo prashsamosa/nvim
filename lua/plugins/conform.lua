@@ -1,5 +1,4 @@
 -- lua/plugins/conform.lua - Auto-formatting with conform.nvim
-
 return {
   "stevearc/conform.nvim",
   event = { "BufWritePre" },
@@ -16,7 +15,6 @@ return {
   },
   opts = function()
     local prettierd_or_prettier = { "prettierd", "prettier", stop_after_first = true }
-
     return {
       formatters_by_ft = {
         bash            = { "shfmt" },
@@ -35,9 +33,8 @@ return {
         typescript      = { prettierd_or_prettier },
         typescriptreact = { prettierd_or_prettier },
         yaml            = { "prettierd" },
-        ["_"]           = { "trim_whitespace" },
+        [""]            = { "trim_whitespace" },
       },
-
       formatters = {
         shfmt = {
           prepend_args = { "-i", "2", "-ci" },
@@ -51,23 +48,20 @@ return {
           },
         },
       },
-
       format_on_save = function(bufnr)
         local ft = vim.bo[bufnr].filetype
         local name = vim.api.nvim_buf_get_name(bufnr)
-        -- FIX: Added `name and` to prevent errors on buffers without a name
+        -- FIX: Added name and to prevent errors on buffers without a name
         if vim.tbl_contains({ "sql", "java" }, ft) or (name and name:match("/node_modules/")) then
           return
         end
         return { timeout_ms = 1000, lsp_format = "fallback" }
       end,
-
       log_level = vim.log.levels.ERROR,
       notify_on_error = true,
       notify_no_formatters = true,
     }
   end,
-
   init = function()
     vim.o.formatexpr = "v:lua.require'conform'.formatexpr()"
   end,

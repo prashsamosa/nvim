@@ -10,6 +10,10 @@ This document outlines the keybindings for this Neovim configuration, utilizing 
 | `<leader>nh` | Clear search highlights |
 | `jk` (in Insert mode) | Exit Insert mode (remapped from `<ESC>`) |
 | `<leader>+` | Increment number |
+| `<leader>-` | Decrement number |
+| `<leader>bl` | Switch to last buffer |
+| `<C-s>` | Save file |
+| `<Esc><Esc>` (in Terminal mode) | Exit terminal mode |
 
 ---
 
@@ -19,6 +23,18 @@ This document outlines the keybindings for this Neovim configuration, utilizing 
 | `<C-h>`, `<C-j>`, `<C-k>`, `<C-l>` | Navigate between windows |
 | `sh` | Horizontal split |
 | `sv` | Vertical split |
+| `<leader>ur` | Redraw / Clear hlsearch / Diff update |
+
+---
+
+## Visual Mode
+| Key | Action |
+|-----|--------|
+| `J` | Move selection down |
+| `K` | Move selection up |
+| `<A-j>` | Move selection down |
+| `<A-k>` | Move selection up |
+| `p` | Paste without replacing clipboard |
 
 ---
 
@@ -71,14 +87,21 @@ This document outlines the keybindings for this Neovim configuration, utilizing 
 
 ## 🔍 LSP (Language Server Protocol)
 
+**Note:** Default Neovim 0.11 mappings are used where available (e.g., `grr`, `gri`, `grn`). FZF-powered actions are prefixed with `<leader>f`.
+
 ### Navigation
 | Key | Action |
 |-----|--------|
-| `gd` | Go to definition (FZF if available) |
-| `gr` | Go to references (FZF if available) |
-| `gD` | Go to declaration |
-| `gI` | Go to implementation (FZF if available) |
-| `<leader>td` | Type definition (FZF if available) |
+| `gd` | Go to definition |
+| `grr` | Go to references (Neovim 0.11 default) |
+| `gri` | Go to implementation (Neovim 0.11 default) |
+| `grn` | Rename symbol (Neovim 0.11 default) |
+| `gra` | Code action (Neovim 0.11 default) |
+| `gO` | Document symbols (Neovim 0.11 default) |
+| `<leader>fgd` | Go to definition (FZF) |
+| `<leader>fgr` | Go to references (FZF) |
+| `<leader>fgi` | Go to implementation (FZF) |
+| `<leader>fgt` | Go to type definition (FZF) |
 
 ### Code Actions
 | Key | Action |
@@ -86,35 +109,31 @@ This document outlines the keybindings for this Neovim configuration, utilizing 
 | `<leader>ca` | Code action |
 | `<leader>cr` | Rename symbol |
 | `K` | Hover documentation |
-| `<C-k>` | Signature help (Insert mode) |
+| `<C-S>` | Signature help (Insert mode) |
 
 ### Symbols & Documentation
 | Key | Action |
 |-----|--------|
-| `<leader>ds` | Document symbols (FZF if available) |
-| `<leader>ws` | Workspace symbols (FZF if available) |
+| `<leader>fds` | Document symbols (FZF) |
+| `<leader>fws` | Workspace symbols (FZF) |
 
 ### Diagnostics
 | Key | Action |
 |-----|--------|
 | `[d` | Go to previous diagnostic |
 | `]d` | Go to next diagnostic |
+| `[D` | Jump to first diagnostic |
+| `]D` | Jump to last diagnostic |
 | `<leader>df` | Show diagnostic float |
 | `<leader>dl` | Diagnostic loclist |
 | `<leader>dq` | Diagnostic quickfix |
-
-### Additional Features
-| Key | Action |
-|-----|--------|
-| `<leader>ih` | Toggle inlay hints |
-| `<leader>cl` | Run code lens |
 
 ---
 
 ## 🎨 Formatting (`conform.nvim`)
 | Key | Action |
 |-----|--------|
-| `<leader>f` | Format buffer (async with LSP fallback) |
+| `<leader>f` | Format buffer (Conform) |
 
 ---
 
@@ -124,8 +143,6 @@ This document outlines the keybindings for this Neovim configuration, utilizing 
 | Key | Action |
 |-----|--------|
 | `<leader>ga` | Alternate file (test ↔ source) |
-| `<leader>gvs` | Alternate vertical split |
-| `<leader>ghs` | Alternate horizontal split |
 
 ### Code Organization
 | Key | Action |
@@ -136,40 +153,28 @@ This document outlines the keybindings for this Neovim configuration, utilizing 
 ### Code Generation
 | Key | Action |
 |-----|--------|
-| `<leader>gc` | Generate comment |
 | `<leader>gs` | Fill struct |
-| `<leader>gr` | Generate return |
 | `<leader>gj` | JSON to struct |
 | `<leader>gI` | Implement interface |
-| `<leader>gG` | Run `go generate` |
-| `<leader>gm` | Generate mocks |
-| `<leader>gqi` | Add `if err != nil` |
-| `<leader>gqf` | Fix plurals |
 
 ### Struct Tags
 | Key | Action |
 |-----|--------|
 | `<leader>gta` | Add struct tags |
 | `<leader>gtr` | Remove struct tags |
-| `<leader>gtc` | Add JSON tags |
-| `<leader>gty` | Add YAML tags |
 
 ### Build & Run
 | Key | Action |
 |-----|--------|
 | `<leader>bb` | Build package |
-| `<leader>br` | Run package |
 | `<leader>gx` | Run current file |
-| `<leader>bs` | Stop running process |
 
 ### Testing
 | Key | Action |
 |-----|--------|
-| `<leader>tp` | Test package |
-| `<leader>tf` | Test function |
-| `<leader>tF` | Test file |
 | `<leader>ta` | Test all |
-| `<leader>tv` | Test package verbose |
+| `<leader>tf` | Test function |
+| `<leader>tp` | Test package |
 | `<leader>gat` | Add test |
 
 ### Coverage
@@ -177,27 +182,16 @@ This document outlines the keybindings for this Neovim configuration, utilizing 
 |-----|--------|
 | `<leader>tc` | Show coverage |
 | `<leader>tC` | Toggle coverage |
-| `<leader>tcb` | Coverage browser |
 
 ### Code Quality
 | Key | Action |
 |-----|--------|
-| `<leader>gl` | Lint code |
-| `<leader>gv` | Vet code |
-| `<leader>ge` | Error check |
+| `<leader>gv` | Go vet |
 
 ### Documentation
 | Key | Action |
 |-----|--------|
 | `<leader>gd` | Show documentation |
-| `<leader>gdb` | Documentation browser |
-
-### Refactoring
-| Key | Action |
-|-----|--------|
-| `<leader>gn` | Rename symbol |
-| `<leader>gf` | Free variables |
-| `<leader>go` | Channel peers |
 
 ### Custom Commands
 | Command | Action |
@@ -210,7 +204,6 @@ This document outlines the keybindings for this Neovim configuration, utilizing 
 | Key | Action |
 |-----|--------|
 | `<leader>gdt` | Debug test |
-| `<leader>gdl` | Debug last test |
 
 ---
 
@@ -221,6 +214,28 @@ This document outlines the keybindings for this Neovim configuration, utilizing 
 |-----|--------------|-------------------------------------------------|
 | `ii`| `vii`        | **I**nner scope (content within current scope) |
 | `ai`| `vai`        | **A**round scope (entire scope including edges) |
+
+### TreeSitter Text Objects
+| Key | What it Selects |
+|-----|-----------------|
+| `af` | Around function |
+| `if` | Inside function |
+| `ac` | Around class |
+| `ic` | Inside class |
+| `aa` | Around parameter |
+| `ia` | Inside parameter |
+| `al` | Around loop |
+| `il` | Inside loop |
+| `at` | Around comment |
+| `it` | Inside comment |
+| `ad` | Around conditional |
+| `id` | Inside conditional |
+| `ab` | Around block |
+| `ib` | Inside block |
+| `a=` | Around assignment |
+| `i=` | Inside assignment |
+| `aq` | Around call |
+| `iq` | Inside call |
 
 ### TreeSitter Navigation
 | Key | Action |
@@ -243,6 +258,12 @@ This document outlines the keybindings for this Neovim configuration, utilizing 
 |-----|--------|
 | `<leader>a` | Swap with next parameter |
 | `<leader>A` | Swap with previous parameter |
+
+### Code Peek
+| Key | Action |
+|-----|--------|
+| `<leader>pf` | Peek function definition |
+| `<leader>pc` | Peek class definition |
 
 ---
 
@@ -270,27 +291,32 @@ This document outlines the keybindings for this Neovim configuration, utilizing 
 ---
 
 ## 🔍 Fuzzy Finding (`FZF-Lua`)
+
+### File Operations
 | Key | Action |
 |-----|--------|
+| `<leader><space>` | Find files (Snacks Picker with FZF fallback) |
 | `<leader>ff` | Find files |
 | `<leader>fC` | Find in Config directory |
-| `<leader>fg` | Live grep (search in files) |
-| `<leader>f/` | Grep in current directory |
 | `<leader>fo` | Recent files (oldfiles) |
 | `<leader>fb` | Open buffers |
-| `<leader>fc` | Commands |
+
+### Search Operations
+| Key | Action |
+|-----|--------|
+| `<leader>fg` | Live grep (search in files) |
+| `<leader>f/` | Grep in current directory |
 | `<leader>fw` | Find word under cursor |
 | `<leader>fW` | Find WORD under cursor |
+| `<leader>fr` | Resume last search |
+
+### Help & Navigation
+| Key | Action |
+|-----|--------|
+| `<leader>fc` | Commands |
 | `<leader>fh` | Help tags |
 | `<leader>fk` | Keymaps |
 | `<leader>fd` | Document diagnostics |
-| `<leader>fr` | Resume last search |
-| `<leader>fgd` | LSP Definition (FZF) |
-| `<leader>fgr` | LSP References (FZF) |
-| `<leader>fgi` | LSP Implementation (FZF) |
-| `<leader>fgt` | LSP Type Definition (FZF) |
-| `<leader>fds` | Document Symbols (FZF) |
-| `<leader>fws` | Workspace Symbols (FZF) |
 
 ---
 
@@ -325,7 +351,7 @@ This document outlines the keybindings for this Neovim configuration, utilizing 
 |-----|--------|-------------|
 | `<leader>r` | Replace | Apply replacement |
 | `<leader>q` | Send to Quickfix | Add results to quickfix list |
-| `<leader>s` | Sync Locations | Sync buffer with results |
+| `<leader>ss` | Sync Locations | Sync buffer with results |
 | `<leader>p` | Preview | Preview location without jumping |
 
 #### Advanced Features
@@ -411,7 +437,6 @@ This document outlines the keybindings for this Neovim configuration, utilizing 
 | `<leader>,` | Show Buffers (Snacks Picker) |
 | `<leader>:` | Command History |
 | `<leader>n` | Notification History |
-| `<leader><space>` | Find Files (Snacks Picker) |
 
 ### Word Navigation
 | Key | Action |
@@ -436,12 +461,56 @@ This document outlines the keybindings for this Neovim configuration, utilizing 
 
 ---
 
+## 🔤 Default Neovim 0.11 Keymaps
+
+These keymaps are provided by default in Neovim 0.11 and work automatically:
+
+### LSP (when server is attached)
+| Key | Action |
+|-----|--------|
+| `grn` | Rename symbol |
+| `grr` | Go to references |
+| `gri` | Go to implementation |
+| `gO` | Document symbols |
+| `gra` | Code action (Normal and Visual mode) |
+| `<C-S>` | Signature help (Insert and Select mode) |
+
+### Diagnostics
+| Key | Action |
+|-----|--------|
+| `[d`, `]d` | Previous/Next diagnostic |
+| `[D`, `]D` | First/Last diagnostic |
+
+### Lists Navigation
+| Key | Action |
+|-----|--------|
+| `[q`, `]q` | Previous/Next quickfix |
+| `[Q`, `]Q` | First/Last quickfix |
+| `[<C-Q>`, `]<C-Q>` | Previous/Next quickfix file |
+| `[l`, `]l` | Previous/Next location list |
+| `[L`, `]L` | First/Last location list |
+| `[<C-L>`, `]<C-L>` | Previous/Next location list file |
+| `[t`, `]t` | Previous/Next tag |
+| `[T`, `]T` | First/Last tag |
+| `[<C-T>`, `]<C-T>` | Previous/Next tag file |
+| `[a`, `]a` | Previous/Next argument |
+| `[A`, `]A` | First/Last argument |
+| `[b`, `]b` | Previous/Next buffer |
+| `[B`, `]B` | First/Last buffer |
+
+### Line Management
+| Key | Action |
+|-----|--------|
+| `[<Space>`, `]<Space>` | Add empty line above/below cursor |
+
+---
+
 ## 💡 Pro Tips
 
 Here are some power-user tips to enhance your workflow:
 
 * **Fuzzy Finding with `FZF-Lua`**:
-    * **Quick File Search**: Use `<leader>ff` to quickly find files.
+    * **Quick File Search**: Use `<leader><space>` or `<leader>ff` to quickly find files.
     * **Live Grep**: Use `<leader>fg` for searching text across all files.
     * **Recent Files**: Quickly access recently opened files with `<leader>fo`.
     * **Config Search**: Search within your Neovim configuration using `<leader>fC`.
@@ -456,8 +525,9 @@ Here are some power-user tips to enhance your workflow:
 
 * **Enhanced LSP Experience**:
     * **FZF Integration**: LSP navigation commands automatically integrate with `FZF-Lua` when available for faster results.
-    * **Inlay Hints**: Toggle these helpful hints with `<leader>ih` for better code understanding.
+    * **Inlay Hints**: Toggle these helpful hints with `<leader>uh` for better code understanding.
     * **Diagnostics**: Navigate quickly between issues using `[d` and `]d`.
+    * **Default Keymaps**: Neovim 0.11 provides many LSP keymaps automatically (grn, grr, gri, etc.).
 
 * **Efficient Formatting**:
     * **Async Formatting**: `<leader>f` formats your buffer asynchronously, with fallback to LSP formatting.
@@ -465,8 +535,8 @@ Here are some power-user tips to enhance your workflow:
     * **Custom Formatters**: Supports `prettierd`, `stylua`, `goimports`, `black`, and more.
 
 * **Seamless Terminal Integration**:
-    * **Multiple Keymaps**: Use `<C-t>` to toggle the terminal.
-    * **Terminal Mode**: Keymaps work consistently in both normal and terminal modes.
+    * **Multiple Keymaps**: Use `<C-t>` to toggle the terminal, or `<leader>tt` for specific terminal operations.
+    * **Terminal Mode**: Use `<Esc><Esc>` to exit terminal mode quickly.
 
 * **Streamlined File Management**:
     * **`oil.nvim`**: Press `-` for quick file operations in a buffer-like interface.
@@ -482,9 +552,14 @@ Here are some power-user tips to enhance your workflow:
     * **Debugging Support**: Built-in DAP integration allows for efficient Go debugging (when enabled).
     * **Automatic Formatting**: Go files are automatically formatted and organized on save.
     * **Test Integration**: Run tests at package, function, or file level with ease.
-    * **Code Generation**: Generate comments, struct tags, interfaces, and more to speed up development.
+    * **Code Generation**: Generate struct tags, interfaces, and more to speed up development.
     * **Custom Commands**: Use `:GoWorkspace` for complete project maintenance.
-    * **Quick Testing**: Use `:GoQuickTest` for fast test runs with the `-short` flag.
+
+* **TreeSitter Power Features**:
+    * **Incremental Selection**: Use `<Enter>` to start selecting, then keep pressing to expand.
+    * **Text Objects**: Use `vif` to select inside function, `vac` for around class, etc.
+    * **Smart Movement**: Jump between functions with `]m`/`[m` and classes with `]c`/`[c`.
+    * **Parameter Swapping**: Use `<leader>a` and `<leader>A` to swap function parameters.
 
 ---
 

@@ -6,7 +6,6 @@ return {
     init = function()
         local Snacks = require("snacks")
 
-        -- Scoped debug helpers
         _G.dd = function(...) Snacks.debug.inspect(...) end
         _G.bt = function() Snacks.debug.backtrace() end
 
@@ -136,30 +135,6 @@ return {
 
         git = { enabled = true },
 
-        lazygit = {
-            enabled = true,
-            configure = true,
-            args = {},
-            config = {
-                os = { editPreset = "nvim-remote" },
-                gui = { nerdFontsVersion = "3" },
-            },
-            theme_path = vim.fs.normalize(vim.fn.stdpath("cache") .. "/lazygit-theme.yml"),
-            theme = {
-                [241] = { fg = "Special" },
-                activeBorderColor = { fg = "MatchParen", bold = true },
-                cherryPickedCommitBgColor = { fg = "Identifier" },
-                cherryPickedCommitFgColor = { fg = "Function" },
-                defaultFgColor = { fg = "Normal" },
-                inactiveBorderColor = { fg = "FloatBorder" },
-                optionsTextColor = { fg = "Function" },
-                searchingActiveBorderColor = { fg = "MatchParen", bold = true },
-                selectedLineBgColor = { bg = "Visual" },
-                unstagedChangesColor = { fg = "DiagnosticError" },
-            },
-            win = { style = "lazygit" },
-        },
-
         debug = { enabled = true },
         quickfile = { enabled = true },
         scroll = { enabled = true },
@@ -219,14 +194,11 @@ return {
         { "<leader>:",  function() Snacks.picker.command_history() end,  desc = "Command History" },
         { "<leader>n",  function() Snacks.picker.notifications() end,    desc = "Notification History" },
         { "<leader>tt", function() Snacks.terminal() end,                desc = "Terminal" },
-        { "<c-t>",      function() Snacks.terminal.toggle() end,         desc = "Toggle Terminal (Alt)",       mode = { "n", "t" } },
+        { "<c-t>",      function() Snacks.terminal.toggle() end,         desc = "Toggle Terminal (Alt)", mode = { "n", "t" } },
         { "<leader>TT", function() Snacks.terminal.open() end,           desc = "New Terminal" },
         { "<leader>e",  function() Snacks.explorer() end,                desc = "Explorer" },
         { "<leader>gb", function() Snacks.git.blame_line() end,          desc = "Git Blame Line" },
-        { "<leader>gB", function() Snacks.gitbrowse() end,               desc = "Git Browse",                  mode = { "n", "v" } },
-        { "<leader>gf", function() Snacks.lazygit.log_file() end,        desc = "Lazygit Current File History" },
-        { "<leader>gg", function() Snacks.lazygit() end,                 desc = "Lazygit" },
-        { "<leader>gl", function() Snacks.lazygit.log() end,             desc = "Lazygit Log" },
+        { "<leader>gB", function() Snacks.gitbrowse() end,               desc = "Git Browse",            mode = { "n", "v" } },
         { "<leader>z",  function() Snacks.zen() end,                     desc = "Toggle Zen Mode" },
         { "<leader>Z",  function() Snacks.zen.zoom() end,                desc = "Zoom Current Window" },
         { "<leader>bd", function() Snacks.bufdelete() end,               desc = "Delete Buffer" },
@@ -235,8 +207,8 @@ return {
         { "<leader>.",  function() Snacks.scratch() end,                 desc = "Scratch Buffer" },
         { "<leader>S",  function() Snacks.scratch.select() end,          desc = "Select Scratch" },
         { "<leader>rf", function() Snacks.rename.rename_file() end,      desc = "Rename File" },
-        { "<leader>wn", function() Snacks.words.jump(vim.v.count1) end,  desc = "Next Reference",              mode = { "n", "t" } },
-        { "<leader>wp", function() Snacks.words.jump(-vim.v.count1) end, desc = "Prev Reference",              mode = { "n", "t" } },
+        { "<leader>wn", function() Snacks.words.jump(vim.v.count1) end,  desc = "Next Reference",        mode = { "n", "t" } },
+        { "<leader>wp", function() Snacks.words.jump(-vim.v.count1) end, desc = "Prev Reference",        mode = { "n", "t" } },
     },
 
     config = function(_, opts)
