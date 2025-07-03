@@ -185,6 +185,18 @@
 | `dd` | Inspect variable (global helper) | `snacks.nvim` |
 | `bt` | Show backtrace (global helper) | `snacks.nvim` |
 
+
+### Commenting (`Comment.nvim`)
+
+| Key | Action | Plugin/Feature |
+| :-- | :----- | :------------- |
+| `gcc` | Comment/Uncomment current line | `Comment.nvim` |
+| `gc[motion]` | Comment/Uncomment using motion (e.g., `gcip` for paragraph) | `Comment.nvim` |
+| `gbc` | Comment/Uncomment current block | `Comment.nvim` |
+| `gb[motion]` | Comment/Uncomment block using motion (e.g., `gbiB` for inner block) | `Comment.nvim` |
+| `gc` (Visual mode) | Toggle line comments for selected lines | `Comment.nvim` |
+| `gb` (Visual mode) | Toggle block comments for selected lines/block | `Comment.nvim` |
+
 ---
 
 > **Tip**: Use `<leader>` followed by any key to see available mappings via `which-key.nvim`.
