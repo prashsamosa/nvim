@@ -96,9 +96,18 @@ return {
             pattern = { "sql", "mysql", "plsql" },
             callback = function(event)
                 -- Optional query-related keymaps
-                map("n", "<leader>Dr", "<Cmd>DBUIExecute<CR>", with_opts({ desc = "Execute Query", buffer = event.buf }))
-                map("v", "<leader>Dr", "<Cmd>DBUIExecute<CR>",
-                    with_opts({ desc = "Execute Selection", buffer = event.buf }))
+                map(
+                    "n",
+                    "<leader>Dr",
+                    "<Cmd>DBUIExecute<CR>",
+                    with_opts({ desc = "Execute Query", buffer = event.buf })
+                )
+                map(
+                    "v",
+                    "<leader>Dr",
+                    "<Cmd>DBUIExecute<CR>",
+                    with_opts({ desc = "Execute Selection", buffer = event.buf })
+                )
                 map("n", "<leader>DS", "<Cmd>DBUISaveQuery<CR>", with_opts({ desc = "Save Query", buffer = event.buf }))
 
                 -- SQL-friendly formatting

@@ -17,9 +17,9 @@ return {
 
     -- Rendering configuration
     render = {
-      -- Maximum file size to render (in bytes)
-      max_file_size = 10.0, -- 10MB
-      -- Debounce rendering updates
+      -- Maximum file size to render (in megabytes)
+      max_file_size = 10.0,
+      -- Debounce rendering updates (in milliseconds)
       debounce = 100,
     },
 
@@ -205,10 +205,6 @@ return {
       top_pad = 0,
       bottom_pad = 0,
     },
-
-    -- Performance settings
-    max_file_size = 10.0, -- MB
-    debounce = 100, -- ms
 
     -- Anti-conceal for better editing experience
     anti_conceal = {

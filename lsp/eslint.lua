@@ -1,7 +1,27 @@
 return {
-    cmd = { 'vscode-eslint-language-server', '--stdio' },
-    root_markers = { '.eslintrc', '.eslintrc.js', '.eslintrc.cjs', '.eslintrc.yaml', '.eslintrc.yml', '.eslintrc.json', 'eslint.config.js', 'package.json', '.git' },
-    filetypes = { 'javascript', 'javascriptreact', 'javascript.jsx', 'typescript', 'typescriptreact', 'typescript.tsx', 'vue', 'svelte', 'astro' },
+    cmd = { "vscode-eslint-language-server", "--stdio" },
+    root_markers = {
+        ".eslintrc",
+        ".eslintrc.js",
+        ".eslintrc.cjs",
+        ".eslintrc.yaml",
+        ".eslintrc.yml",
+        ".eslintrc.json",
+        "eslint.config.js",
+        "package.json",
+        ".git",
+    },
+    filetypes = {
+        "javascript",
+        "javascriptreact",
+        "javascript.jsx",
+        "typescript",
+        "typescriptreact",
+        "typescript.tsx",
+        "vue",
+        "svelte",
+        "astro",
+    },
     settings = {
         codeAction = {
             disableRuleComment = { enable = true, location = "separateLine" },

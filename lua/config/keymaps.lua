@@ -25,7 +25,10 @@ end, { desc = "Find files", silent = true })
 
 -- Numbers
 keymap.set("n", "<leader>+", "<C-a>", { desc = "Increment number", silent = true })
-keymap.set("n", "<leader>ed", vim.diagnostic.open_float, { desc = "Show line diagnostics", silent = true })
+-- FIX: Added a consistent keymap for decrementing numbers
+keymap.set("n", "<leader>-", "<C-x>", { desc = "Decrement number", silent = true })
+
+keymap.set("n", "<leader>df", vim.diagnostic.open_float, { desc = "Show diagnostic float", silent = true })
 keymap.set("n", "<leader>bl", "<cmd>e #<CR>", { desc = "Switch to last buffer", silent = true })
 keymap.set("n", "<C-s>", "<cmd>w<CR>", { desc = "Save file", silent = true })
 keymap.set("t", "<Esc><Esc>", "<C-\\><C-n>", { desc = "Exit terminal mode", silent = true })

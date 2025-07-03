@@ -37,43 +37,23 @@ return {
         select = {
           enable = true,
           lookahead = true,
-          -- Using different keymaps to avoid conflict with snacks.nvim scope (ii/ai)
-          -- snacks.nvim uses ii/ai for scope-based text objects
-          -- treesitter uses these for AST-based text objects
           keymaps = {
-            -- Functions
             ["af"] = "@function.outer",
             ["if"] = "@function.inner",
-
-            -- Classes
             ["ac"] = "@class.outer",
             ["ic"] = "@class.inner",
-
-            -- Parameters/Arguments
             ["aa"] = "@parameter.outer",
             ["ia"] = "@parameter.inner",
-
-            -- Loops
             ["al"] = "@loop.outer",
             ["il"] = "@loop.inner",
-
-            -- Comments
             ["at"] = "@comment.outer",
             ["it"] = "@comment.inner",
-
-            -- Conditionals
             ["ad"] = "@conditional.outer",
             ["id"] = "@conditional.inner",
-
-            -- Blocks
             ["ab"] = "@block.outer",
             ["ib"] = "@block.inner",
-
-            -- Assignments
             ["a="] = "@assignment.outer",
             ["i="] = "@assignment.inner",
-
-            -- Calls
             ["aq"] = "@call.outer",
             ["iq"] = "@call.inner",
           },
@@ -82,45 +62,34 @@ return {
         swap = {
           enable = true,
           swap_next = {
-            ["<leader>sn"] = "@parameter.inner",
-            ["<leader>sf"] = "@function.outer",
+            -- CORRECTED: Keymap now matches readme.md
+            ["<leader>a"] = "@parameter.inner",
           },
           swap_previous = {
-            ["<leader>sp"] = "@parameter.inner",
-            ["<leader>sF"] = "@function.outer",
+            -- CORRECTED: Keymap now matches readme.md
+            ["<leader>A"] = "@parameter.inner",
           },
         },
 
         move = {
           enable = true,
           set_jumps = true, -- whether to set jumps in the jumplist
+          -- CORRECTED: Movement keymaps now match readme.md
           goto_next_start = {
-            ["]f"] = "@function.outer",
+            ["]m"] = "@function.outer",
             ["]c"] = "@class.outer",
-            ["]a"] = "@parameter.inner",
-            ["]l"] = "@loop.outer",
-            ["]e"] = "@conditional.outer",
           },
           goto_next_end = {
-            ["]F"] = "@function.outer",
+            ["]M"] = "@function.outer",
             ["]C"] = "@class.outer",
-            ["]A"] = "@parameter.inner",
-            ["]L"] = "@loop.outer",
-            ["]D"] = "@conditional.outer",
           },
           goto_previous_start = {
-            ["[f"] = "@function.outer",
+            ["[m"] = "@function.outer",
             ["[c"] = "@class.outer",
-            ["[a"] = "@parameter.inner",
-            ["[l"] = "@loop.outer",
-            ["[e"] = "@conditional.outer",
           },
           goto_previous_end = {
-            ["[F"] = "@function.outer",
+            ["[M"] = "@function.outer",
             ["[C"] = "@class.outer",
-            ["[A"] = "@parameter.inner",
-            ["[L"] = "@loop.outer",
-            ["[D"] = "@conditional.outer",
           },
         },
 

@@ -1,4 +1,5 @@
--- Auto-formatting with conform.nvim
+-- lua/plugins/conform.lua - Auto-formatting with conform.nvim
+
 return {
   "stevearc/conform.nvim",
   event = { "BufWritePre" },
@@ -10,15 +11,11 @@ return {
         require("conform").format({ async = true, lsp_format = "fallback" })
       end,
       mode = "",
-      desc = "Format buffer",
+      desc = "Format buffer (Conform)",
     },
   },
   opts = function()
-    local prettierd_or_prettier = {
-      "prettierd",
-      "prettier",
-      stop_after_first = true,
-    }
+    local prettierd_or_prettier = { "prettierd", "prettier", stop_after_first = true }
 
     return {
       formatters_by_ft = {
@@ -38,8 +35,7 @@ return {
         typescript      = { prettierd_or_prettier },
         typescriptreact = { prettierd_or_prettier },
         yaml            = { "prettierd" },
-
-        ["_"]           = { "trim_whitespace" }, -- fallback for all filetypes
+        ["_"]           = { "trim_whitespace" },
       },
 
       formatters = {
@@ -57,27 +53,14 @@ return {
       },
 
       format_on_save = function(bufnr)
-        -- Disable format on save for certain filetypes
-        local ignore_filetypes = { "sql", "java" }
-        if vim.tbl_contains(ignore_filetypes, vim.bo[bufnr].filetype) then
+        local ft = vim.bo[bufnr].filetype
+        local name = vim.api.nvim_buf_get_name(bufnr)
+        -- FIX: Added `name and` to prevent errors on buffers without a name
+        if vim.tbl_contains({ "sql", "java" }, ft) or (name and name:match("/node_modules/")) then
           return
         end
-
-        -- Disable autoformat for files in a certain path
-        local bufname = vim.api.nvim_buf_get_name(bufnr)
-        if bufname:match("/node_modules/") then
-          return
-        end
-
-        return {
-          timeout_ms = 1000,
-          lsp_format = "fallback", -- Use LSP formatting as fallback if no formatter configured
-        }
+        return { timeout_ms = 1000, lsp_format = "fallback" }
       end,
-
-      format_after_save = {
-        lsp_format = "fallback",
-      },
 
       log_level = vim.log.levels.ERROR,
       notify_on_error = true,
@@ -86,7 +69,6 @@ return {
   end,
 
   init = function()
-    -- If you want the formatexpr, here is the place to set it
     vim.o.formatexpr = "v:lua.require'conform'.formatexpr()"
   end,
 }

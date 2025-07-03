@@ -86,14 +86,7 @@ return {
                 severity_sort = true,
                 underline = true,
                 update_in_insert = false,
-                virtual_text = {
-                    source = "if_many",
-                    spacing = 2,
-                    prefix = "●",
-                    format = function(d)
-                        return #d.message > 60 and (d.message:sub(1, 57) .. "...") or d.message
-                    end,
-                },
+                virtual_text = true, -- CORRECTED: Explicitly enable virtual text
                 virtual_lines = { current_line = true },
                 float = {
                     border = "rounded",
@@ -114,23 +107,40 @@ return {
                 },
             })
 
-            -- Set global window border style for all floating windows
+            -- Set global window border style for all floating windows (Neovim 0.11+)
             vim.o.winborder = "rounded"
 
             -- Enable LSP servers (uses ~/.config/nvim/lsp/*.lua if present)
             vim.lsp.enable({
-                "lua_ls",
-                "ts_ls",
-                "gopls",
-                "svelte",
-                "pyright",
-                "rust_analyzer",
-                "tailwindcss",
-                "jsonls",
-                "yamlls",
-                "bashls",
-                "eslint",
-                "emmet_ls",
+                "lua_ls", "ts_ls", "gopls", "svelte", "pyright",
+                "rust_analyzer", "tailwindcss", "jsonls", "yamlls",
+                "bashls", "eslint", "emmet_ls",
+            })
+
+            -- ADDED: LspAttach autocommand to set keymaps after a server attaches
+            local lsp_group = vim.api.nvim_create_augroup("LspKeymaps", { clear = true })
+            vim.api.nvim_create_autocmd("LspAttach", {
+                group = lsp_group,
+                callback = function(ev)
+                    local map = function(keys, func, desc)
+                        vim.keymap.set("n", keys, func, { buffer = ev.buf, desc = "LSP: " .. desc })
+                    end
+
+                    -- FZF-based LSP actions from readme.md
+                    map("<leader>fgd", function() require("fzf-lua").lsp_definitions() end, "Go to Definition (FZF)")
+                    map("<leader>fgr", function() require("fzf-lua").lsp_references() end, "Go to References (FZF)")
+                    map("<leader>fgi", function() require("fzf-lua").lsp_implementations() end,
+                        "Go to Implementation (FZF)")
+                    map("<leader>fgt", function() require("fzf-lua").lsp_typedefs() end, "Type Definition (FZF)")
+                    map("<leader>fds", function() require("fzf-lua").lsp_document_symbols() end, "Document Symbols (FZF)")
+                    map("<leader>fws", function() require("fzf-lua").lsp_workspace_symbols() end,
+                        "Workspace Symbols (FZF)")
+
+                    -- Other buffer-local keymaps
+                    map("<leader>cr", vim.lsp.buf.rename, "Rename Symbol")
+                    map("<leader>ca", vim.lsp.buf.code_action, "Code Action")
+                    map("gd", vim.lsp.buf.definition, "Go to Definition")
+                end,
             })
         end,
     },

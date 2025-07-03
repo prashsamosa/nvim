@@ -5,7 +5,7 @@ vim.opt.tabstop = 4
 vim.opt.softtabstop = 4
 vim.opt.smartindent = true
 vim.opt.autoindent = true
-vim.opt.smarttab = true
+
 
 -- UI / Visuals
 vim.opt.number = true
@@ -51,6 +51,6 @@ vim.g.netrw_liststyle = 3
 
 -- Visual separator for vertical splits (e.g. NvimTree boundary)
 vim.opt.fillchars:append({
-  vert = "│",   -- vertical border
-  eob = " ",    -- hide ~ in empty lines
+  vert = "│", -- vertical border
+  eob = " ", -- hide ~ in empty lines
 })
