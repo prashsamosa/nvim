@@ -4,6 +4,33 @@ local keymap = vim.keymap
 keymap.set("i", "jk", "<ESC>", { desc = "Exit insert mode", silent = true })
 keymap.set("n", "<leader>nh", "<cmd>nohlsearch<CR>", { desc = "Clear search highlights", silent = true })
 
+-- Increment/Decrement
+keymap.set("n", "<leader>+", "<C-a>", { desc = "Increment number", silent = true })
+keymap.set("n", "<leader>-", "<C-x>", { desc = "Decrement number", silent = true })
+
+-- Clipboard
+keymap.set("v", "p", '"_dP', { desc = "Paste without replacing clipboard (clipboard content)", silent = true })
+
+-- Clear search, diff update and redraw
+keymap.set("n", "<leader>ur", "<Cmd>nohlsearch<Bar>diffupdate<Bar>normal! <C-L><CR>",
+  { desc = "Redraw / Clear hlsearch / Diff update", silent = true })
+
+-- Additional diagnostic keymaps (supplement 0.11 defaults: [d, ]d, [D, ]D)
+keymap.set("n", "<leader>dl", vim.diagnostic.setloclist, { desc = "Diagnostic loclist", silent = true })
+keymap.set("n", "<leader>dq", vim.diagnostic.setqflist, { desc = "Diagnostic quickfix", silent = true })
+
+-- File saving
+keymap.set({ "n", "i", "v" }, "<C-s>", "<cmd>w<CR>", { desc = "Save file", silent = true })
+
+-- NOTE: Buffer-local LSP keymaps are configured in lua/plugins/lsp.lua via LspAttach autocommand.
+-- Global LSP keymaps are generally not needed as buffer-local ones take precedence.
+
+-- Default keymaps for quickfix/location list (not strictly necessary but can be useful)
+keymap.set("n", "]q", "<cmd>cnext<CR>", { desc = "Next quickfix item", silent = true })
+keymap.set("n", "[q", "<cmd>cprev<CR>", { desc = "Previous quickfix item", silent = true })
+keymap.set("n", "]l", "<cmd>lnext<CR>", { desc = "Next location list item", silent = true })
+keymap.set("n", "[l", "<cmd>lprev<CR>", { desc = "Previous location list item", silent = true })
+
 -- Window navigation
 keymap.set("n", "<C-h>", "<C-w>h", { desc = "Move to left window", silent = true })
 keymap.set("n", "<C-j>", "<C-w>j", { desc = "Move to lower window", silent = true })
@@ -21,52 +48,28 @@ keymap.set("n", "<leader><space>", function()
   else
     require("fzf-lua").files()
   end
-end, { desc = "Find files", silent = true })
+end, { desc = "Find Files (Snacks/FZF)", silent = true })
 
--- Numbers
-keymap.set("n", "<leader>+", "<C-a>", { desc = "Increment number", silent = true })
-keymap.set("n", "<leader>-", "<C-x>", { desc = "Decrement number", silent = true })
+-- Terminal mode
+keymap.set("t", "<ESC><ESC>", "<C-\\><C-n>", { desc = "Exit terminal mode", silent = true })
 
-keymap.set("n", "<leader>df", vim.diagnostic.open_float, { desc = "Show diagnostic float", silent = true })
-keymap.set("n", "<leader>bl", "<cmd>e #<CR>", { desc = "Switch to last buffer", silent = true })
-
-keymap.set("n", "<C-s>", "<cmd>w<CR>", { desc = "Save file", silent = true })
-
-keymap.set("t", "<Esc><Esc>", "<C-\\><C-n>", { desc = "Exit terminal mode", silent = true })
-
--- Visual mode
+-- Visual mode keymaps for moving lines
 keymap.set("v", "J", ":m '>+1<CR>gv=gv", { desc = "Move selection down", silent = true })
 keymap.set("v", "K", ":m '<-2<CR>gv=gv", { desc = "Move selection up", silent = true })
+
+-- Alt+j/k for visual mode (maintains selection)
 keymap.set("v", "<A-j>", ":m '>+1<CR>gv=gv", { desc = "Move selection down (maintains selection)", silent = true })
 keymap.set("v", "<A-k>", ":m '<-2<CR>gv=gv", { desc = "Move selection up (maintains selection)", silent = true })
 
--- Better paste in visual mode (doesn't replace clipboard)
-keymap.set("v", "p", '"_dP', { desc = "Paste without replacing clipboard (clipboard content)", silent = true })
+-- Buffer-related keymaps (from your readme.md, assuming snacks.buffer is the intended target)
+keymap.set("n", "<leader>bl", function()
+  if _G.Snacks and _G.Snacks.buffer then
+    _G.Snacks.buffer.last() -- Assuming Snacks provides a 'last' buffer function
+  else
+    vim.cmd.bprevious()     -- Fallback if Snacks isn't loaded or doesn't have it
+  end
+end, { desc = "Switch to last buffer (Snacks/Built-in)", silent = true })
 
--- Clear search, diff update and redraw
-keymap.set("n", "<leader>ur", "<Cmd>nohlsearch<Bar>diffupdate<Bar>normal! <C-L><CR>",
-  { desc = "Redraw / Clear hlsearch / Diff update", silent = true })
-
--- Additional diagnostic keymaps (supplement 0.11 defaults: [d, ]d, [D, ]D)
-keymap.set("n", "<leader>dl", vim.diagnostic.setloclist, { desc = "Diagnostic loclist", silent = true })
-keymap.set("n", "<leader>dq", vim.diagnostic.setqflist, { desc = "Diagnostic quickfix", silent = true })
-
-
-
--- NOTE: Neovim 0.11 provides these LSP keymaps automatically (and are also configured in lsp.lua):
--- grn - vim.lsp.buf.rename()
--- grr - vim.lsp.buf.references()
--- gri - vim.lsp.buf.implementation()
--- gO  - vim.lsp.buf.document_symbol()
--- gra - vim.lsp.buf.code_action() (Normal and Visual mode)
--- CTRL-S - vim.lsp.buf.signature_help() (Insert and Select mode)
--- [d, ]d - move between diagnostics
--- [D, ]D - jump to first/last diagnostic
-
--- Default keymaps for quickfix/location/tag/argument/buffer lists, and adding new lines
--- [q, ]q, [Q, ]Q, [CTRL-Q, ]CTRL-Q - navigate quickfix list
--- [l, ]l, [L, ]L, [CTRL-L, ]CTRL-L - navigate location list
--- [t, ]t, [T, ]T, [CTRL-T, ]CTRL-T - navigate tag matchlist
--- [a, ]a, [A, ]A - navigate argument list
--- [b, ]b, [B, ]B - navigate buffer list
--- [<Space>, ]<Space> - add empty line above/below cursor
+-- Missing keymap for closing all but current/pinned in Barbar (from readme)
+-- This is already defined in barbar.lua, so no change needed here.
+-- keymap.set("n", "<leader>bO", "<cmd>BufferCloseAllButCurrentOrPinned<cr>", { desc = "Close all but current/pinned buffer" })
