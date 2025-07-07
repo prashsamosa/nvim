@@ -1,14 +1,17 @@
+-- lua/plugins/snacks.lua (Example Path)
 return {
     "folke/snacks.nvim",
-    priority = 1000,
+    priority = 1000, -- As it's lazy = false, priority mostly affects load order among other non-lazy plugins
     lazy = false,
 
     init = function()
+        -- Ensure Snacks is available for global functions even before setup is called
         local Snacks = require("snacks")
 
         _G.dd = function(...) Snacks.debug.inspect(...) end
         _G.bt = function() Snacks.debug.backtrace() end
 
+        -- Setting global options for fillchars
         vim.opt.fillchars:append({
             vert = " ",
             fold = " ",
@@ -17,9 +20,15 @@ return {
             msgsep = " ",
         })
 
+        -- Highlighting for IndentBlanklineChar
+        -- It's generally better to define highlights in a dedicated highlights file or during colorscheme setup,
+        -- but this is fine if it works for your setup.
         vim.cmd("highlight IndentBlanklineChar guifg=NONE")
 
+        -- Autocommand for OilActionsPost, wrapped in an augroup
+        vim.api.nvim_create_augroup("SnacksOilHooks", { clear = true })
         vim.api.nvim_create_autocmd("User", {
+            group = "SnacksOilHooks", -- Assign to the augroup
             pattern = "OilActionsPost",
             callback = function(event)
                 local data = event.data and event.data.actions
@@ -37,12 +46,12 @@ return {
             enabled = true,
             preset = {
                 header = [[
-     ███████╗ █████╗ ███╗   ███╗ ██████╗ ███████╗ █████╗
-     ██╔════╝██╔══██╗████╗ ████║██╔═══██╗██╔════╝██╔══██╗
-     ███████╗███████║██╔████╔██║██║   ██║███████╗███████║
-     ╚════██║██╔══██║██║╚██╔╝██║██║   ██║╚════██║██╔══██║
-     ███████║██║  ██║██║ ╚═╝ ██║╚██████╔╝███████║██║  ██║
-     ╚══════╝╚═╝  ╚═╝╚═╝   ╚═╝ ╚═════╝ ╚══════╝╚═╝  ╚═╝
+      ███████╗ █████╗ ███╗   ███╗ ██████╗ ███████╗ █████╗
+      ██╔════╝██╔══██╗████╗ ████║██╔═══██╗██╔════╝██╔══██╗
+      ███████╗███████║██╔████╔██║██║   ██║███████╗███████║
+      ╚════██║██╔══██║██║╚██╔╝██║██║   ██║╚════██║██╔══██║
+      ███████║██║  ██║██║ ╚═╝ ██║╚██████╔╝███████║██║  ██║
+      ╚══════╝╚═╝  ╚═╝╚═╝   ╚═╝ ╚═════╝ ╚══════╝╚═╝  ╚═╝
                 ]],
             },
             sections = {
@@ -52,7 +61,7 @@ return {
             },
         },
 
-        input = { enabled = false },
+        input = { enabled = false }, -- Explicitly disabling if not used
 
         terminal = {
             enabled = true,
@@ -63,7 +72,7 @@ return {
                 width = 0.8,
                 border = "rounded",
             },
-            shell = vim.o.shell,
+            shell = vim.o.shell, -- Use vim.o.shell for the default shell
             interactive = true,
         },
 
@@ -76,15 +85,15 @@ return {
             filter = function(buf)
                 return vim.api.nvim_buf_is_valid(buf)
                     and vim.bo[buf].buftype == ""
-                    and vim.b[buf].snacks_scope ~= false
-                    and vim.g.snacks_scope ~= false
+                    and vim.b[buf].snacks_scope ~= false -- Buffer-local variable for enabling/disabling scope
+                    and vim.g.snacks_scope ~= false      -- Global variable for enabling/disabling scope
             end,
             debounce = 30,
             treesitter = {
                 enabled = true,
                 injections = true,
-                blocks = false,
-                field_blocks = { "local_declaration" },
+                blocks = false,                         -- If you want to highlight blocks from TS, set this to true
+                field_blocks = { "local_declaration" }, -- Example: highlight local declarations as blocks
             },
             keys = {
                 textobject = {
@@ -134,11 +143,10 @@ return {
         },
 
         git = { enabled = true },
-
         debug = { enabled = true },
         quickfile = { enabled = true },
         scroll = { enabled = true },
-        statuscolumn = { enabled = false },
+        statuscolumn = { enabled = false }, -- Explicitly disabling if not used
 
         words = {
             enabled = true,
@@ -170,11 +178,11 @@ return {
             },
             win = { style = "zen" },
             zoom = {
-                toggles = {},
+                toggles = {}, -- Add specific toggles if needed, e.g., { "statusline", "tabline" }
                 show = { statusline = true, tabline = true },
                 win = {
                     backdrop = false,
-                    width = 0,
+                    width = 0, -- 0 means auto-calculate, or set specific width (e.g., 0.8)
                 },
             },
         },
@@ -186,10 +194,11 @@ return {
             fps = 60,
         },
 
-        dim = { enabled = false },
+        dim = { enabled = false }, -- Explicitly disabling if not used
     },
 
     keys = {
+        -- Consistent formatting for keymap definitions
         { "<leader>,",  function() require("snacks.picker").buffers() end,                                               desc = "Buffers (Snacks Picker)" },
         { "<leader>:",  function() require("snacks.picker").command_history() end,                                       desc = "Command History" },
         { "<leader>n",  function() require("snacks.picker").notifications() end,                                         desc = "Notification History" },
@@ -198,7 +207,7 @@ return {
         { "<leader>TT", function() require("snacks.terminal").open() end,                                                desc = "New Terminal" },
         { "<leader>e",  function() require("snacks.explorer")() end,                                                     desc = "Open Snacks Explorer" },
 
-        -- Changed: Git keymaps from <leader>g* to <leader>G*
+        -- Git keymaps (already changed in your provided config)
         { "<leader>Gb", function() require("snacks.git").blame_line() end,                                               desc = "Git Blame Line" },
         { "<leader>GB", function() require("snacks.gitbrowse")() end,                                                    desc = "Git Browse",                  mode = { "n", "v" } },
         { "<leader>Gf", function() require("snacks.git").lazygit_current_file_history() end,                             desc = "Lazygit Current File History" },
@@ -208,7 +217,7 @@ return {
         { "<leader>z",  function() require("snacks.zen")() end,                                                          desc = "Toggle Zen Mode" },
         { "<leader>Z",  function() require("snacks.zen.zoom")() end,                                                     desc = "Zoom Current Window" },
 
-        -- Unified buffer close/delete under <leader>bc
+        -- Unified buffer close/delete under <leader>bc (already good)
         { "<leader>bc", function() require("snacks.utils.buffer").delete_current_buffer() end,                           desc = "Close/Delete current buffer" },
         { "<leader>ba", function() require("snacks.utils.buffer").delete_all_buffers() end,                              desc = "Delete All Buffers" },
         { "<leader>bo", function() require("snacks.utils.buffer").delete_other_buffers() end,                            desc = "Delete Other Buffers" },
@@ -220,7 +229,7 @@ return {
         { "<leader>wn", function() require("snacks.words").jump(vim.v.count1) end,                                       desc = "Next Word Reference",         mode = { "n", "t" } },
         { "<leader>wp", function() require("snacks.words").jump(-vim.v.count1) end,                                      desc = "Previous Word Reference",     mode = { "n", "t" } },
 
-        -- Added from README: Utilities & Toggles
+        -- Utilities & Toggles (already good)
         { "<leader>uL", function() vim.opt.relativenumber = not vim.opt.relativenumber:get() end,                        desc = "Toggle Relative Line Numbers" },
         { "<leader>ud", function() vim.diagnostic.enable(not vim.diagnostic.is_enabled()) end,                           desc = "Toggle Diagnostics" },
         { "<leader>ul", function() vim.opt.number = not vim.opt.number:get() end,                                        desc = "Toggle Line Numbers" },
@@ -237,7 +246,10 @@ return {
     config = function(_, opts)
         require("snacks").setup(opts)
 
+        -- Autocommand for TermOpen, wrapped in an augroup
+        vim.api.nvim_create_augroup("SnacksTermHooks", { clear = true })
         vim.api.nvim_create_autocmd("TermOpen", {
+            group = "SnacksTermHooks", -- Assign to the augroup
             callback = function()
                 vim.opt_local.number = false
                 vim.opt_local.relativenumber = false
