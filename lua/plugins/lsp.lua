@@ -1,5 +1,3 @@
--- lua/plugins/lsp.lua - Neovim 0.11 LSP configuration
-
 return {
     -- Mason for managing tools
     {
@@ -86,7 +84,7 @@ return {
                 severity_sort = true,
                 underline = true,
                 update_in_insert = false,
-                virtual_text = true, -- CORRECTED: Explicitly enable virtual text
+                virtual_text = true, -- Explicitly enable virtual text
                 virtual_lines = { current_line = true },
                 float = {
                     border = "rounded",

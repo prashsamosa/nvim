@@ -1,4 +1,3 @@
--- lua/plugins/barbar.lua - Bufferline configuration using barbar.nvim
 return {
   "romgrk/barbar.nvim",
   dependencies = {

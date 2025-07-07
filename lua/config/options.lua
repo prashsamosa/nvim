@@ -6,7 +6,6 @@ vim.opt.softtabstop = 4
 vim.opt.smartindent = true
 vim.opt.autoindent = true
 
-
 -- UI / Visuals
 vim.opt.number = true
 vim.opt.relativenumber = true
@@ -47,7 +46,6 @@ vim.opt.listchars = {
 
 -- Netrw
 vim.g.netrw_liststyle = 3
-
 
 -- Visual separator for vertical splits (e.g. NvimTree boundary)
 vim.opt.fillchars:append({

@@ -11,7 +11,7 @@ keymap.set("n", "<leader>-", "<C-x>", { desc = "Decrement number", silent = true
 -- Clipboard
 keymap.set("v", "p", '"_dP', { desc = "Paste without replacing clipboard (clipboard content)", silent = true })
 
--- Clear search, diff update and redraw
+-- Clear search, diff update, and redraw
 keymap.set("n", "<leader>ur", "<Cmd>nohlsearch<Bar>diffupdate<Bar>normal! <C-L><CR>",
   { desc = "Redraw / Clear hlsearch / Diff update", silent = true })
 
@@ -22,10 +22,7 @@ keymap.set("n", "<leader>dq", vim.diagnostic.setqflist, { desc = "Diagnostic qui
 -- File saving
 keymap.set({ "n", "i", "v" }, "<C-s>", "<cmd>w<CR>", { desc = "Save file", silent = true })
 
--- NOTE: Buffer-local LSP keymaps are configured in lua/plugins/lsp.lua via LspAttach autocommand.
--- Global LSP keymaps are generally not needed as buffer-local ones take precedence.
-
--- Default keymaps for quickfix/location list (not strictly necessary but can be useful)
+-- Default keymaps for quickfix/location list
 keymap.set("n", "]q", "<cmd>cnext<CR>", { desc = "Next quickfix item", silent = true })
 keymap.set("n", "[q", "<cmd>cprev<CR>", { desc = "Previous quickfix item", silent = true })
 keymap.set("n", "]l", "<cmd>lnext<CR>", { desc = "Next location list item", silent = true })
@@ -69,7 +66,3 @@ keymap.set("n", "<leader>bl", function()
     vim.cmd.bprevious()     -- Fallback if Snacks isn't loaded or doesn't have it
   end
 end, { desc = "Switch to last buffer (Snacks/Built-in)", silent = true })
-
--- Missing keymap for closing all but current/pinned in Barbar (from readme)
--- This is already defined in barbar.lua, so no change needed here.
--- keymap.set("n", "<leader>bO", "<cmd>BufferCloseAllButCurrentOrPinned<cr>", { desc = "Close all but current/pinned buffer" })

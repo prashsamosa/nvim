@@ -1,4 +1,3 @@
--- Plugin: numToStr/Comment.nvim
 return {
   "numToStr/Comment.nvim",
   -- Load plugin before reading/creating a buffer for immediate use.

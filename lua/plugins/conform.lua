@@ -1,4 +1,3 @@
--- lua/plugins/conform.lua - Auto-formatting with conform.nvim
 return {
   "stevearc/conform.nvim",
   event = { "BufWritePre" },
@@ -51,7 +50,7 @@ return {
       format_on_save = function(bufnr)
         local ft = vim.bo[bufnr].filetype
         local name = vim.api.nvim_buf_get_name(bufnr)
-        -- FIX: Added name and to prevent errors on buffers without a name
+        -- Added name check to prevent errors on buffers without a name (e.g., [No Name])
         if vim.tbl_contains({ "sql", "java" }, ft) or (name and name:match("/node_modules/")) then
           return
         end
