@@ -83,7 +83,6 @@ return {
             return vim.tbl_extend("force", opts, extra)
         end
 
-        -- Keymaps
         map("n", "<leader>Do", "<Cmd>DBUI<CR>", with_opts({ desc = "Database: Open UI" }))
         map("n", "<leader>Du", "<Cmd>DBUIToggle<CR>", with_opts({ desc = "Database: Toggle UI" }))
         map("n", "<leader>Dc", "<Cmd>DBUIClose<CR>", with_opts({ desc = "Database: Close UI" }))
@@ -95,7 +94,6 @@ return {
         vim.api.nvim_create_autocmd("FileType", {
             pattern = { "sql", "mysql", "plsql" },
             callback = function(event)
-                -- Optional query-related keymaps
                 map(
                     "n",
                     "<leader>Dr",
@@ -110,7 +108,6 @@ return {
                 )
                 map("n", "<leader>DS", "<Cmd>DBUISaveQuery<CR>", with_opts({ desc = "Save Query", buffer = event.buf }))
 
-                -- SQL-friendly formatting
                 vim.opt_local.commentstring = "-- %s"
                 vim.opt_local.formatoptions:remove("t")
                 vim.opt_local.formatoptions:append("croql")

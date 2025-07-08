@@ -16,23 +16,23 @@ return {
     local prettierd_or_prettier = { "prettierd", "prettier", stop_after_first = true }
     return {
       formatters_by_ft = {
-        bash            = { "shfmt" },
-        css             = { "prettierd" },
-        go              = { "goimports", "gofumpt" },
-        html            = { "prettierd" },
-        javascript      = { prettierd_or_prettier },
+        bash = { "shfmt" },
+        css = { "prettierd" },
+        go = { "goimports", "gofumpt" },
+        html = { "prettierd" },
+        javascript = { prettierd_or_prettier },
         javascriptreact = { prettierd_or_prettier },
-        json            = { "prettierd" },
-        lua             = { "stylua" },
-        markdown        = { "prettierd" },
-        python          = { "isort", "black" },
-        rust            = { "rustfmt" },
-        sh              = { "shfmt" },
-        svelte          = { "prettierd" },
-        typescript      = { prettierd_or_prettier },
+        json = { "prettierd" },
+        lua = { "stylua" },
+        markdown = { "prettierd" },
+        python = { "isort", "black" },
+        rust = { "rustfmt" },
+        sh = { "shfmt" },
+        svelte = { "prettierd" },
+        typescript = { prettierd_or_prettier },
         typescriptreact = { prettierd_or_prettier },
-        yaml            = { "prettierd" },
-        [""]            = { "trim_whitespace" },
+        yaml = { "prettierd" },
+        [""] = { "trim_whitespace" },
       },
       formatters = {
         shfmt = {
@@ -50,7 +50,6 @@ return {
       format_on_save = function(bufnr)
         local ft = vim.bo[bufnr].filetype
         local name = vim.api.nvim_buf_get_name(bufnr)
-        -- Added name check to prevent errors on buffers without a name (e.g., [No Name])
         if vim.tbl_contains({ "sql", "java" }, ft) or (name and name:match("/node_modules/")) then
           return
         end

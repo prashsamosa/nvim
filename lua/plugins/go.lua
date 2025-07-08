@@ -17,7 +17,7 @@ return {
     end
 
     go.setup({
-      lsp_cfg = false, -- LSP is globally configured
+      lsp_cfg = false,
       lsp_gofumpt = true,
       lsp_codelens = true,
       lsp_inlay_hints = {
@@ -48,46 +48,37 @@ return {
           vim.keymap.set(m, l, r, vim.tbl_extend("force", opts, { desc = "Go: " .. d }))
         end
 
-        -- Common Go actions
         map("n", "<leader>ga", "<cmd>GoAlt<CR>", "Alternate file")
         map("n", "<leader>gi", "<cmd>GoImports<CR>", "Organize imports")
         map("n", "<leader>gm", "<cmd>GoModTidy<CR>", "Mod tidy")
 
-        -- Generate
         map("n", "<leader>gs", "<cmd>GoFillStruct<CR>", "Fill struct")
         map("n", "<leader>gj", "<cmd>GoJson2Struct<CR>", "JSON → struct")
         map("n", "<leader>gI", "<cmd>GoImpl<CR>", "Implement interface")
 
-        -- Tags
-        map({ "n", "v" }, "<leader>gTa", "<cmd>GoAddTag<CR>", "Add tags")   -- FIXED: <leader>gTa
-        map({ "n", "v" }, "<leader>gTr", "<cmd>GoRmTag<CR>", "Remove tags") -- FIXED: <leader>gTr
+        map({ "n", "v" }, "<leader>gTa", "<cmd>GoAddTag<CR>", "Add tags")
+        map({ "n", "v" }, "<leader>gTr", "<cmd>GoRmTag<CR>", "Remove tags")
 
-        -- Run / Build
         map("n", "<leader>gb", "<cmd>GoBuild<CR>", "Build package")
         map("n", "<leader>gx", "<cmd>GoRun %<CR>", "Run current file")
 
-        -- Testing
-        map("n", "<leader>gta", "<cmd>GoTest<CR>", "Test all") -- FIXED: <leader>gT to match README
+        map("n", "<leader>gta", "<cmd>GoTest<CR>", "Test all")
         map("n", "<leader>gtf", "<cmd>GoTestFunc<CR>", "Test function")
         map("n", "<leader>gtp", "<cmd>GoTestPkg<CR>", "Test package")
         map("n", "<leader>gat", "<cmd>GoAddTest<CR>", "Add test")
 
-        -- Coverage
         map("n", "<leader>gtc", "<cmd>GoCoverage<CR>", "Show coverage")
         map("n", "<leader>gtC", "<cmd>GoCoverageToggle<CR>", "Toggle coverage")
 
-        -- Lint / Docs
         map("n", "<leader>gv", "<cmd>GoVet<CR>", "Go vet")
         map("n", "<leader>gD", "<cmd>GoDoc<CR>", "Show documentation")
 
-        -- DAP support (if loaded)
         if package.loaded["dap-go"] then
           map("n", "<leader>gdt", "<cmd>lua require('dap-go').debug_test()<CR>", "Debug test")
         end
       end,
     })
 
-    -- Custom user commands
     vim.api.nvim_create_user_command("GoWorkspace", function()
       vim.cmd("GoModTidy | GoImports | GoGenerate")
     end, { desc = "Go: Workspace maintenance" })

@@ -1,30 +1,25 @@
--- lua/plugins/blink-cmp.lua - Blink completion engine configuration
 return {
-  -- Optional Blink compatibility module
   {
     "saghen/blink.compat",
     version = "*",
     lazy = true,
   },
 
-  -- Blink completion engine
   {
     "saghen/blink.cmp",
     version = "1.*",
-    event = "InsertEnter", -- Changed from lazy = true for better performance
+    event = "InsertEnter",
     dependencies = {
       "rafamadriz/friendly-snippets",
       "moyiz/blink-emoji.nvim",
       "ray-x/cmp-sql",
     },
     opts = function()
-      -- Utility function: safely get current filetype
       local function get_filetype()
         local ok, ft = pcall(function() return vim.bo.filetype end)
         return ok and ft or ""
       end
 
-      -- Utility function: returns closure to check filetype inclusion
       local function should_show_in(ft_list)
         return function()
           return vim.tbl_contains(ft_list, get_filetype())
@@ -77,7 +72,7 @@ return {
             auto_show = true,
             auto_show_delay_ms = 200,
             update_delay_ms = 50,
-            treesitter_highlighting = true, -- Neovim 0.11: LSP hover docs use Tree-sitter
+            treesitter_highlighting = true,
             window = {
               max_width = 80,
               max_height = 20,
@@ -104,7 +99,7 @@ return {
 
         sources = {
           default = {
-            "lsp", -- Ensure LSP is a primary source
+            "lsp",
             "path",
             "snippets",
             "buffer",

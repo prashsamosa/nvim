@@ -5,7 +5,7 @@ return {
     "lewis6991/gitsigns.nvim",
   },
   lazy = true,
-  event = "VeryLazy", -- Optimized for better startup performance
+  event = "VeryLazy",
 
   init = function()
     vim.g.barbar_auto_setup = false
@@ -25,7 +25,7 @@ return {
     end
     map("n", "<A-0>", "<cmd>BufferLast<cr>", opts)
 
-    -- Tab-like operations (visual/UI focused)
+    -- Tab-like operations
     map("n", "<A-p>", "<cmd>BufferPin<cr>", opts)
     map("n", "<leader>bO", "<cmd>BufferCloseAllButCurrentOrPinned<cr>", opts)
   end,
@@ -46,7 +46,7 @@ return {
         right = "",
       },
       gitsigns = {
-        added   = { enabled = true, icon = "+" },
+        added = { enabled = true, icon = "+" },
         changed = { enabled = true, icon = "~" },
         deleted = { enabled = true, icon = "-" },
       },
