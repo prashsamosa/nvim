@@ -5,27 +5,22 @@ return {
     "lewis6991/gitsigns.nvim",
   },
   lazy = true,
-  event = "VeryLazy",
+  event = "BufReadPost",
 
   init = function()
-    vim.g.barbar_auto_setup = false
-
     local map = vim.keymap.set
     local opts = { noremap = true, silent = true }
 
-    -- Navigation
     map("n", "<A-,>", "<cmd>BufferPrevious<cr>", opts)
     map("n", "<A-.>", "<cmd>BufferNext<cr>", opts)
     map("n", "<A-S-,>", "<cmd>BufferMovePrevious<cr>", opts)
     map("n", "<A-S-.>", "<cmd>BufferMoveNext<cr>", opts)
 
-    -- Jump to buffer 1–9, 0 = last
     for i = 1, 9 do
       map("n", ("<A-%d>"):format(i), ("<cmd>BufferGoto %d<cr>"):format(i), opts)
     end
     map("n", "<A-0>", "<cmd>BufferLast<cr>", opts)
 
-    -- Tab-like operations
     map("n", "<A-p>", "<cmd>BufferPin<cr>", opts)
     map("n", "<leader>bO", "<cmd>BufferCloseAllButCurrentOrPinned<cr>", opts)
   end,
