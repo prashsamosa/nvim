@@ -199,18 +199,21 @@ return {
         { "<leader>TT", function() require("snacks.terminal").open() end,                                                desc = "New Terminal" },
         { "<leader>e",  function() require("snacks.explorer")() end,                                                     desc = "Open Snacks Explorer" },
 
+        -- Fixed Git keymaps - using correct Snacks.nvim API
         { "<leader>Gb", function() require("snacks.git").blame_line() end,                                               desc = "Git Blame Line" },
         { "<leader>GB", function() require("snacks.gitbrowse")() end,                                                    desc = "Git Browse",                  mode = { "n", "v" } },
-        { "<leader>Gf", function() require("snacks.git").lazygit_current_file_history() end,                             desc = "Lazygit Current File History" },
-        { "<leader>GG", function() require("snacks.git").lazygit() end,                                                  desc = "Open Lazygit" },
-        { "<leader>Gl", function() require("snacks.git").lazygit_log() end,                                              desc = "Lazygit Log" },
+        { "<leader>Gf", function() require("snacks.lazygit").log_file() end,                                             desc = "Lazygit Current File History" },
+        { "<leader>GG", function() require("snacks.lazygit")() end,                                                      desc = "Open Lazygit" },
+        { "<leader>Gl", function() require("snacks.lazygit").log() end,                                                  desc = "Lazygit Log" },
 
-        { "<leader>z",  function() require("snacks.zen")() end,                                                          desc = "Toggle Zen Mode" },
-        { "<leader>Z",  function() require("snacks.zen.zoom")() end,                                                     desc = "Zoom Current Window" },
+        -- Fixed Zen mode keymaps - providing required arguments
+        { "<leader>z",  function() require("snacks.zen").zen() end,                                                      desc = "Toggle Zen Mode" },
+        { "<leader>Z",  function() require("snacks.zen").zoom() end,                                                     desc = "Zoom Current Window" },
 
-        { "<leader>bc", function() require("snacks.utils.buffer").delete_current_buffer() end,                           desc = "Close/Delete current buffer" },
-        { "<leader>ba", function() require("snacks.utils.buffer").delete_all_buffers() end,                              desc = "Delete All Buffers" },
-        { "<leader>bo", function() require("snacks.utils.buffer").delete_other_buffers() end,                            desc = "Delete Other Buffers" },
+        -- Buffer management keymaps - using correct API
+        { "<leader>bc", function() require("snacks.bufdelete").delete() end,                                             desc = "Close/Delete current buffer" },
+        { "<leader>ba", function() require("snacks.bufdelete").all() end,                                                desc = "Delete All Buffers" },
+        { "<leader>bo", function() require("snacks.bufdelete").other() end,                                              desc = "Delete Other Buffers" },
 
         { "<leader>.",  function() require("snacks.scratch")() end,                                                      desc = "Scratch Buffer" },
         { "<leader>S",  function() require("snacks.scratch").select() end,                                               desc = "Select Scratch Buffer" },

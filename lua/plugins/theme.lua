@@ -48,33 +48,13 @@ return {
             },
         }
 
+        -- Setup the theme
         require("github-theme").setup(opts)
 
-        -- Fix: Use a wrapper function to avoid type issues with pcall
-        local ok, err = pcall(function()
-            vim.cmd("colorscheme github_dark_default")
-        end)
-        if not ok then
-            vim.notify("Colorscheme 'github_dark_default' not found! Error: " .. tostring(err), vim.log.levels.WARN)
-            return
-        end
+        -- Apply colorscheme with better error handling
+        vim.cmd("colorscheme github_dark_default")
 
-        local hl = vim.api.nvim_set_hl
-        if opts.options.transparent then
-            local transparent_groups = {
-                "Normal",
-                "NormalNC",
-                "NormalFloat",
-                "FloatBorder",
-                "TelescopeNormal",
-                "TelescopeBorder",
-                "Pmenu",
-            }
-            for _, group in ipairs(transparent_groups) do
-                hl(0, group, { bg = "none" })
-            end
-        end
-
+        -- Define colors for consistent theming
         local colors = {
             bg = "#0d1117",
             bg_float = "#1a1b26",
@@ -89,7 +69,30 @@ return {
             warning = "#f0883e",
         }
 
-        local custom_hl = {
+        local hl = vim.api.nvim_set_hl
+
+        -- Apply transparency if enabled
+        if opts.options.transparent then
+            local transparent_groups = {
+                "Normal",
+                "NormalNC",
+                "NormalFloat",
+                "FloatBorder",
+                "TelescopeNormal",
+                "TelescopeBorder",
+                "Pmenu",
+                "PmenuSbar",
+                "PmenuThumb",
+            }
+
+            for _, group in ipairs(transparent_groups) do
+                hl(0, group, { bg = "none" })
+            end
+        end
+
+        -- Apply custom highlights
+        local custom_highlights = {
+            -- Mini.nvim notify highlights
             MiniNotifyBorder = { bg = "none", fg = colors.border },
             MiniNotifyNormal = { bg = colors.bg_float, fg = colors.fg, blend = 0 },
             MiniNotifyTitle = { fg = colors.constant, bold = true },
@@ -97,10 +100,36 @@ return {
             MiniNotifyTitleWarn = { fg = colors.warning, bold = true },
             MiniNotifyTitleInfo = { fg = colors.func, bold = true },
             MiniNotifyTitleTrace = { fg = colors.comment, bold = true },
+
+            -- Additional transparency for Blink.cmp if needed
+            BlinkCmpMenu = { bg = opts.options.transparent and "none" or colors.bg_float },
+            BlinkCmpMenuBorder = { fg = colors.border },
+            BlinkCmpDoc = { bg = opts.options.transparent and "none" or colors.bg_float },
+            BlinkCmpDocBorder = { fg = colors.border },
         }
 
-        for group, spec in pairs(custom_hl) do
+        for group, spec in pairs(custom_highlights) do
             hl(0, group, spec)
         end
+
+        -- Create autocmd to reapply highlights after colorscheme changes
+        vim.api.nvim_create_autocmd("ColorScheme", {
+            pattern = "github_*",
+            callback = function()
+                for group, spec in pairs(custom_highlights) do
+                    hl(0, group, spec)
+                end
+
+                if opts.options.transparent then
+                    local transparent_groups = {
+                        "Normal", "NormalNC", "NormalFloat", "FloatBorder",
+                        "TelescopeNormal", "TelescopeBorder", "Pmenu", "PmenuSbar", "PmenuThumb"
+                    }
+                    for _, group in ipairs(transparent_groups) do
+                        hl(0, group, { bg = "none" })
+                    end
+                end
+            end,
+        })
     end,
 }
