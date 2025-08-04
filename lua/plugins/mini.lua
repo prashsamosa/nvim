@@ -212,26 +212,25 @@ return {
   -- },
 
 
-
-  -- Smart commenting
-  {
-    "echasnovski/mini.comment",
-    version = false,
-    lazy = false,
-    opts = {
-      options = {
-        ignore_blank_line = false,
-        start_of_line = false,
-        pad_comment_parts = true,
-      },
-      mappings = {
-        comment = "gc",
-        comment_line = "gcc",
-        textobject = "gc",
-      },
-    },
-    desc = "Smart code commenting",
-  },
+-- Smart commenting
+--   {
+--     "echasnovski/mini.comment",
+--     version = false,
+--     lazy = false,
+--     opts = {
+--       options = {
+--         ignore_blank_line = false,
+--         start_of_line = false,
+--         pad_comment_parts = true,
+--       },
+--       mappings = {
+--         comment = "gc",
+--         comment_line = "gcc",
+--         textobject = "gc",
+--       },
+--     },
+--     desc = "Smart code commenting",
+--   },
 
   -- Text objects
   {
