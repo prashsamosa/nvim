@@ -1,3 +1,4 @@
+-- lua/plugins/lsp.lua - FIXED VERSION (Remove duplicate FZF keymaps)
 return {
     {
         "williamboman/mason.nvim",
@@ -125,26 +126,23 @@ return {
                 "emmet_ls",
             })
 
-            local lsp_group = vim.api.nvim_create_augroup("LspKeymaps", { clear = true })
+            -- REMOVED: Duplicate FZF-lua keymaps (now in main keymaps.lua)
+            -- This prevents conflicts and centralizes keymap management
+
+            -- Only keep basic LSP attach notification
+            local lsp_group = vim.api.nvim_create_augroup("LspConfig", { clear = true })
             vim.api.nvim_create_autocmd("LspAttach", {
                 group = lsp_group,
                 callback = function(ev)
-                    local map = function(keys, func, desc)
-                        vim.keymap.set("n", keys, func, { buffer = ev.buf, desc = "LSP: " .. desc })
+                    -- Optional: Add any LSP-specific setup here that doesn't involve keymaps
+                    local client = vim.lsp.get_client_by_id(ev.data.client_id)
+                    if client then
+                        vim.notify(
+                            string.format("LSP attached: %s", client.name),
+                            vim.log.levels.INFO,
+                            { title = "LSP" }
+                        )
                     end
-
-                    map("<leader>fgd", function() require("fzf-lua").lsp_definitions() end, "Go to Definition (FZF)")
-                    map("<leader>fgr", function() require("fzf-lua").lsp_references() end, "Go to References (FZF)")
-                    map("<leader>fgi", function() require("fzf-lua").lsp_implementations() end,
-                        "Go to Implementation (FZF)")
-                    map("<leader>fgt", function() require("fzf-lua").lsp_typedefs() end, "Type Definition (FZF)")
-                    map("<leader>fds", function() require("fzf-lua").lsp_document_symbols() end, "Document Symbols (FZF)")
-                    map("<leader>fws", function() require("fzf-lua").lsp_workspace_symbols() end,
-                        "Workspace Symbols (FZF)")
-
-                    map("<leader>cr", vim.lsp.buf.rename, "Rename Symbol")
-                    map("<leader>ca", vim.lsp.buf.code_action, "Code Action")
-                    map("gd", vim.lsp.buf.definition, "Go to Definition")
                 end,
             })
         end,

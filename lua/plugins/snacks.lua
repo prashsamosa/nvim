@@ -1,3 +1,4 @@
+-- lua/plugins/snacks.lua - FIXED VERSION (Resolved conflicts)
 return {
     "folke/snacks.nvim",
     priority = 1000,
@@ -191,37 +192,45 @@ return {
     },
 
     keys = {
+        -- FIXED: Resolved potential conflicts by using unique keymaps
         { "<leader>,",  function() require("snacks.picker").buffers() end,                                               desc = "Buffers (Snacks Picker)" },
         { "<leader>:",  function() require("snacks.picker").command_history() end,                                       desc = "Command History" },
-        { "<leader>n",  function() require("snacks.picker").notifications() end,                                         desc = "Notification History" },
+        { "<leader>sn", function() require("snacks.picker").notifications() end,                                         desc = "Notification History" },  -- Changed from <leader>n to avoid conflicts
+
+        -- Terminal keymaps
         { "<leader>tt", function() require("snacks.terminal")() end,                                                     desc = "Open Terminal" },
         { "<c-t>",      function() require("snacks.terminal").toggle() end,                                              desc = "Toggle Terminal",             mode = { "n", "t" } },
         { "<leader>TT", function() require("snacks.terminal").open() end,                                                desc = "New Terminal" },
+
+        -- Explorer
         { "<leader>e",  function() require("snacks.explorer")() end,                                                     desc = "Open Snacks Explorer" },
 
-        -- Fixed Git keymaps - using correct Snacks.nvim API
+        -- Git keymaps - Fixed function calls
         { "<leader>Gb", function() require("snacks.git").blame_line() end,                                               desc = "Git Blame Line" },
         { "<leader>GB", function() require("snacks.gitbrowse")() end,                                                    desc = "Git Browse",                  mode = { "n", "v" } },
         { "<leader>Gf", function() require("snacks.lazygit").log_file() end,                                             desc = "Lazygit Current File History" },
         { "<leader>GG", function() require("snacks.lazygit")() end,                                                      desc = "Open Lazygit" },
         { "<leader>Gl", function() require("snacks.lazygit").log() end,                                                  desc = "Lazygit Log" },
 
-        -- Fixed Zen mode keymaps - providing required arguments
+        -- Zen mode keymaps
         { "<leader>z",  function() require("snacks.zen").zen() end,                                                      desc = "Toggle Zen Mode" },
         { "<leader>Z",  function() require("snacks.zen").zoom() end,                                                     desc = "Zoom Current Window" },
 
-        -- Buffer management keymaps - using correct API
+        -- Buffer management keymaps
         { "<leader>bc", function() require("snacks.bufdelete").delete() end,                                             desc = "Close/Delete current buffer" },
         { "<leader>ba", function() require("snacks.bufdelete").all() end,                                                desc = "Delete All Buffers" },
         { "<leader>bo", function() require("snacks.bufdelete").other() end,                                              desc = "Delete Other Buffers" },
 
+        -- Scratch and utility
         { "<leader>.",  function() require("snacks.scratch")() end,                                                      desc = "Scratch Buffer" },
         { "<leader>S",  function() require("snacks.scratch").select() end,                                               desc = "Select Scratch Buffer" },
         { "<leader>rf", function() require("snacks.rename").rename_file() end,                                           desc = "Rename current file" },
 
-        { "<leader>wn", function() require("snacks.words").jump(vim.v.count1) end,                                       desc = "Next Word Reference",         mode = { "n", "t" } },
-        { "<leader>wp", function() require("snacks.words").jump(-vim.v.count1) end,                                      desc = "Previous Word Reference",     mode = { "n", "t" } },
+        -- Word references - FIXED: Changed to avoid conflicts with window navigation
+        { "<leader>]w", function() require("snacks.words").jump(vim.v.count1) end,                                       desc = "Next Word Reference",         mode = { "n", "t" } },
+        { "<leader>[w", function() require("snacks.words").jump(-vim.v.count1) end,                                      desc = "Previous Word Reference",     mode = { "n", "t" } },
 
+        -- Toggle utilities
         { "<leader>uL", function() vim.opt.relativenumber = not vim.opt.relativenumber:get() end,                        desc = "Toggle Relative Line Numbers" },
         { "<leader>ud", function() vim.diagnostic.enable(not vim.diagnostic.is_enabled()) end,                           desc = "Toggle Diagnostics" },
         { "<leader>ul", function() vim.opt.number = not vim.opt.number:get() end,                                        desc = "Toggle Line Numbers" },
@@ -231,8 +240,9 @@ return {
         { "<leader>uh", function() vim.lsp.inlay_hint.enable(not vim.lsp.inlay_hint.is_enabled()) end,                   desc = "Toggle Inlay Hints" },
         { "<leader>uD", function() require('snacks.dim').toggle() end,                                                   desc = "Toggle Dim Mode" },
 
-        { "<leader>un", function() vim.diagnostic.hide() end,                                                            desc = "Hide Notifications" },
-        { "<leader>uN", function() require("snacks.picker").notifications() end,                                         desc = "Show Notification History" },
+        -- Notifications - FIXED: Changed keymaps to avoid conflicts
+        { "<leader>uN", function() vim.diagnostic.hide() end,                                                            desc = "Hide Diagnostics" },  -- Changed from "Hide Notifications"
+        { "<leader>un", function() require("snacks.picker").notifications() end,                                         desc = "Show Notification History" },
     },
 
     config = function(_, opts)

@@ -1,3 +1,4 @@
+-- lua/config/keymaps.lua - FIXED VERSION
 local keymap = vim.keymap
 
 -- General
@@ -30,11 +31,11 @@ keymap.set("n", "[q", "<cmd>cprev<CR>", { desc = "Previous quickfix item", silen
 keymap.set("n", "]l", "<cmd>lnext<CR>", { desc = "Next location list item", silent = true })
 keymap.set("n", "[l", "<cmd>lprev<CR>", { desc = "Previous location list item", silent = true })
 
--- Window navigation
+-- Window navigation - FIXED: Removed <C-k> conflict
 keymap.set("n", "<C-h>", "<C-w>h", { desc = "Move to left window", silent = true })
 keymap.set("n", "<C-j>", "<C-w>j", { desc = "Move to lower window", silent = true })
-keymap.set("n", "<C-k>", "<C-w>k", { desc = "Move to upper window", silent = true })
 keymap.set("n", "<C-l>", "<C-w>l", { desc = "Move to right window", silent = true })
+-- NOTE: <C-k> removed to avoid conflict with LSP signature help
 
 -- Window resizing
 keymap.set("n", "<C-Up>", "<cmd>resize +2<CR>", { desc = "Increase window height", silent = true })
@@ -45,6 +46,12 @@ keymap.set("n", "<C-Right>", "<cmd>vertical resize +2<CR>", { desc = "Increase w
 -- Window splitting
 keymap.set("n", "sh", "<cmd>split<CR>", { desc = "Horizontal split", silent = true })
 keymap.set("n", "sv", "<cmd>vsplit<CR>", { desc = "Vertical split", silent = true })
+
+-- Alternative window navigation using <leader>
+keymap.set("n", "<leader>wh", "<C-w>h", { desc = "Move to left window", silent = true })
+keymap.set("n", "<leader>wj", "<C-w>j", { desc = "Move to lower window", silent = true })
+keymap.set("n", "<leader>wk", "<C-w>k", { desc = "Move to upper window", silent = true })
+keymap.set("n", "<leader>wl", "<C-w>l", { desc = "Move to right window", silent = true })
 
 -- Files - Use Snacks picker if available, fallback to fzf-lua
 keymap.set("n", "<leader><space>", function()
@@ -58,11 +65,11 @@ end, { desc = "Find Files (Snacks/FZF)", silent = true })
 -- Terminal mode
 keymap.set("t", "<ESC><ESC>", "<C-\\><C-n>", { desc = "Exit terminal mode", silent = true })
 
--- Better terminal navigation
+-- Better terminal navigation - FIXED: Removed <C-k> conflict
 keymap.set("t", "<C-h>", "<C-\\><C-n><C-w>h", { desc = "Terminal: Move to left window", silent = true })
 keymap.set("t", "<C-j>", "<C-\\><C-n><C-w>j", { desc = "Terminal: Move to lower window", silent = true })
-keymap.set("t", "<C-k>", "<C-\\><C-n><C-w>k", { desc = "Terminal: Move to upper window", silent = true })
 keymap.set("t", "<C-l>", "<C-\\><C-n><C-w>l", { desc = "Terminal: Move to right window", silent = true })
+-- NOTE: Terminal <C-k> removed to avoid conflict
 
 -- Visual mode keymaps for moving lines
 keymap.set("v", "J", ":m '>+1<CR>gv=gv", { desc = "Move selection down", silent = true })
@@ -81,6 +88,56 @@ keymap.set("n", "<leader>bl", function()
     vim.cmd.bprevious()
 end, { desc = "Switch to last buffer", silent = true })
 
+-- FIXED: FZF-lua LSP keymaps - Added to main keymaps file for consistency
+-- These will be available when both LSP and FZF-lua are loaded
+keymap.set("n", "<leader>fgd", function()
+    if package.loaded["fzf-lua"] then
+        require("fzf-lua").lsp_definitions()
+    else
+        vim.lsp.buf.definition()
+    end
+end, { desc = "Go to Definition (FZF)", silent = true })
+
+keymap.set("n", "<leader>fgr", function()
+    if package.loaded["fzf-lua"] then
+        require("fzf-lua").lsp_references()
+    else
+        vim.lsp.buf.references()
+    end
+end, { desc = "Go to References (FZF)", silent = true })
+
+keymap.set("n", "<leader>fgi", function()
+    if package.loaded["fzf-lua"] then
+        require("fzf-lua").lsp_implementations()
+    else
+        vim.lsp.buf.implementation()
+    end
+end, { desc = "Go to Implementation (FZF)", silent = true })
+
+keymap.set("n", "<leader>fgt", function()
+    if package.loaded["fzf-lua"] then
+        require("fzf-lua").lsp_typedefs()
+    else
+        vim.lsp.buf.type_definition()
+    end
+end, { desc = "Type Definition (FZF)", silent = true })
+
+keymap.set("n", "<leader>fds", function()
+    if package.loaded["fzf-lua"] then
+        require("fzf-lua").lsp_document_symbols()
+    else
+        vim.notify("FZF-lua not available for document symbols", vim.log.levels.WARN)
+    end
+end, { desc = "Document Symbols (FZF)", silent = true })
+
+keymap.set("n", "<leader>fws", function()
+    if package.loaded["fzf-lua"] then
+        require("fzf-lua").lsp_workspace_symbols()
+    else
+        vim.notify("FZF-lua not available for workspace symbols", vim.log.levels.WARN)
+    end
+end, { desc = "Workspace Symbols (FZF)", silent = true })
+
 -- LSP Keymaps (Applied when LSP attaches to buffer)
 vim.api.nvim_create_autocmd("LspAttach", {
     group = vim.api.nvim_create_augroup("UserLspKeymaps", { clear = true }),
@@ -98,9 +155,11 @@ vim.api.nvim_create_autocmd("LspAttach", {
 
         -- Documentation and help
         keymap.set("n", "K", vim.lsp.buf.hover, vim.tbl_extend("force", opts, { desc = "LSP: Hover Documentation" }))
-        keymap.set("n", "<C-k>", vim.lsp.buf.signature_help,
+
+        -- FIXED: Use different key for signature help to avoid conflict
+        keymap.set("n", "<leader>k", vim.lsp.buf.signature_help,
             vim.tbl_extend("force", opts, { desc = "LSP: Signature Help" }))
-        keymap.set("i", "<C-k>", vim.lsp.buf.signature_help,
+        keymap.set("i", "<C-s>", vim.lsp.buf.signature_help,
             vim.tbl_extend("force", opts, { desc = "LSP: Signature Help" }))
 
         -- Code actions and refactoring
