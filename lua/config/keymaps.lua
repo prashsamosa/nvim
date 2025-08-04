@@ -156,10 +156,10 @@ vim.api.nvim_create_autocmd("LspAttach", {
         -- Documentation and help
         keymap.set("n", "K", vim.lsp.buf.hover, vim.tbl_extend("force", opts, { desc = "LSP: Hover Documentation" }))
 
-        -- FIXED: Use different key for signature help to avoid conflict
+      
         keymap.set("n", "<leader>k", vim.lsp.buf.signature_help,
             vim.tbl_extend("force", opts, { desc = "LSP: Signature Help" }))
-        keymap.set("i", "<C-s>", vim.lsp.buf.signature_help,
+        keymap.set("i", "<C-k>", vim.lsp.buf.signature_help,
             vim.tbl_extend("force", opts, { desc = "LSP: Signature Help" }))
 
         -- Code actions and refactoring
