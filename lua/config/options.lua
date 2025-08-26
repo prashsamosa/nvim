@@ -1,7 +1,7 @@
 vim.g.mapleader = " "
 vim.g.maplocalleader = "\\"
 
--- Disable unused providers
+-- Disable unused providers (performance optimization)
 vim.g.loaded_perl_provider = 0
 vim.g.loaded_ruby_provider = 0
 vim.g.loaded_node_provider = 0
@@ -62,9 +62,13 @@ opt.splitright = true
 opt.splitbelow = true
 opt.splitkeep = "screen"
 
--- Completion
+-- Completion (enhanced for Neovim 0.11)
 opt.completeopt = { "menu", "menuone", "noselect" }
 opt.wildmode = { "longest:full", "full" }
+-- Enable builtin completion if available (Neovim 0.11+)
+if vim.fn.has("nvim-0.11") == 1 then
+    opt.completeoptions = "menu,menuone,noselect,fuzzy"
+end
 
 -- Colors
 opt.termguicolors = true
@@ -76,28 +80,51 @@ opt.listchars = {
     trail = "·",
     extends = "❯",
     precedes = "❮",
+    nbsp = "␣", -- Added nbsp visualization
 }
 
 opt.fillchars = {
-    eob = " ",
-    fold = " ",
-    foldopen = "",
+    eob       = " ",
+    fold      = " ",
+    foldopen  = "",
     foldclose = "",
-    diff = "╱",
+    diff      = "╱",
+    -- Updated for better visual experience
+    vertleft  = "▎",
+    vertright = " ",
+    horiz     = "━",
+    horizup   = "┻",
+    horizdown = "┳",
+    verthoriz = "╋",
 }
 
--- Folding
+-- Folding (enhanced for treesitter)
 opt.foldlevel = 99
 opt.foldlevelstart = 99
+-- Neovim 0.10+ has better folding options
+if vim.fn.has("nvim-0.10") == 1 then
+    opt.foldmethod = "expr"
+    opt.foldexpr = "v:lua.vim.treesitter.foldexpr()"
+    opt.foldtext = ""
+end
 
--- Session
+-- Session (comprehensive session options)
 opt.sessionoptions = {
     "buffers", "curdir", "tabpages", "winsize", "help", "globals", "skiprtp", "folds"
 }
 
+-- Enhanced defaults for Neovim 0.11
+if vim.fn.has("nvim-0.11") == 1 then
+    -- Better diff algorithm
+    opt.diffopt:append("algorithm:histogram")
+    -- Improved spell checking
+    opt.spelloptions:append("camel")
+end
+
 -- Autocmds
 local augroup = vim.api.nvim_create_augroup("BasicConfig", { clear = true })
 
+-- Highlight yanked text
 vim.api.nvim_create_autocmd("TextYankPost", {
     group = augroup,
     callback = function()
@@ -105,6 +132,7 @@ vim.api.nvim_create_autocmd("TextYankPost", {
     end,
 })
 
+-- Restore cursor position
 vim.api.nvim_create_autocmd("BufReadPost", {
     group = augroup,
     callback = function()
@@ -116,7 +144,31 @@ vim.api.nvim_create_autocmd("BufReadPost", {
     end,
 })
 
+-- Auto-resize windows
 vim.api.nvim_create_autocmd("VimResized", {
     group = augroup,
     command = "wincmd =",
+})
+
+-- Auto-create directories when saving files
+vim.api.nvim_create_autocmd("BufWritePre", {
+    group = augroup,
+    callback = function(event)
+        if event.match:match("^%w%w+:[\\/][\\/]") then
+            return
+        end
+        local file = vim.uv.fs_realpath(event.match) or event.match
+        vim.fn.mkdir(vim.fn.fnamemodify(file, ":p:h"), "p")
+    end,
+})
+
+-- Clean whitespace on save for specific filetypes
+vim.api.nvim_create_autocmd("BufWritePre", {
+    group = augroup,
+    pattern = { "*.lua", "*.py", "*.js", "*.ts", "*.jsx", "*.tsx", "*.go", "*.rs" },
+    callback = function()
+        local save_cursor = vim.fn.getpos(".")
+        vim.cmd([[%s/\s\+$//e]])
+        vim.fn.setpos(".", save_cursor)
+    end,
 })

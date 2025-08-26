@@ -1,3 +1,7 @@
+-- NOTE: Neovim 0.11 has builtin completion (vim.lsp.completion)
+-- Consider using builtin completion instead of blink.cmp for simpler setup
+-- This plugin provides enhanced completion features beyond builtin capabilities
+
 return {
     "saghen/blink.cmp",
     version = "*",
@@ -12,6 +16,8 @@ return {
             ["<S-Tab>"] = { "select_prev", "snippet_backward", "fallback" },
             ["<C-k>"] = { "show", "show_documentation", "hide_documentation" },
             ["<C-e>"] = { "hide", "fallback" },
+            -- Use C-space for manual completion trigger
+            ["<C-space>"] = { "show", "fallback" },
         },
 
         appearance = {
@@ -20,6 +26,7 @@ return {
         },
 
         completion = {
+            accept = { auto_brackets = { enabled = true } },
             documentation = {
                 auto_show = true,
                 auto_show_delay_ms = 200,
@@ -27,28 +34,67 @@ return {
             },
             menu = {
                 border = "rounded",
-                draw = { columns = { { "kind_icon" }, { "label", "label_description", gap = 1 } } },
+                draw = {
+                    columns = {
+                        { "kind_icon" },
+                        { "label",    "label_description", gap = 1 }
+                    }
+                },
             },
         },
 
-        signature = { enabled = true, window = { border = "rounded" } },
+        signature = {
+            enabled = true,
+            window = { border = "rounded" }
+        },
 
         sources = {
             default = { "lsp", "path", "snippets", "buffer" },
             providers = {
-                lsp = { name = "LSP", module = "blink.cmp.sources.lsp", score_offset = 90 },
-                path = { name = "Path", module = "blink.cmp.sources.path", score_offset = 3 },
+                lsp = {
+                    name = "LSP",
+                    module = "blink.cmp.sources.lsp",
+                    score_offset = 90,
+                    opts = {
+                        -- Improved LSP completion configuration
+                        get_trigger_characters = function(ctx)
+                            return ctx.trigger_characters or {}
+                        end
+                    }
+                },
+                path = {
+                    name = "Path",
+                    module = "blink.cmp.sources.path",
+                    score_offset = 3,
+                    opts = {
+                        trailing_slash = false,
+                        label_trailing_slash = true,
+                        get_cwd = function(ctx) return vim.fn.expand(("#%d:p:h"):format(ctx.bufnr)) end
+                    }
+                },
                 snippets = {
                     name = "Snippets",
                     module = "blink.cmp.sources.snippets",
                     score_offset = -3,
-                    opts = { friendly_snippets = true },
+                    opts = {
+                        friendly_snippets = true,
+                        search_paths = { vim.fn.stdpath("config") .. "/snippets" }
+                    },
                 },
                 buffer = {
                     name = "Buffer",
                     module = "blink.cmp.sources.buffer",
                     score_offset = -3,
-                    opts = { max_items = 5, min_keyword_length = 3 },
+                    opts = {
+                        max_items = 5,
+                        min_keyword_length = 3,
+                        get_bufnrs = function()
+                            return vim.tbl_filter(
+                                function(buf) return vim.bo[buf].buftype ~= "nofile" end,
+                                vim.api.nvim_list_bufs()
+                            )
+                        end
+                    },
                 },
             },
         },

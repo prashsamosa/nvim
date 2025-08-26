@@ -1,22 +1,14 @@
 return {
-  "numToStr/Comment.nvim",
-  event = { "BufReadPre", "BufNewFile" },
-  dependencies = {
-    "JoosepAlviste/nvim-ts-context-commentstring",
-  },
-  config = function()
-    local comment = require("Comment")
-    local ts_context_commentstring = require("ts_context_commentstring.integrations.comment_nvim")
+    "numToStr/Comment.nvim",
+    event = { "BufReadPre", "BufNewFile" },
+    -- Removed nvim-ts-context-commentstring dependency as it's built into Neovim 0.10+
+    config = function()
+        local comment = require("Comment")
 
-    comment.setup({
-      pre_hook = ts_context_commentstring.create_pre_hook(),
-      -- mapping = {
-      --   basic = false,
-      --   extra = {
-      --     line = "gcc",
-      --     block = "gbc",
-      --   },
-      -- },
-    })
-  end,
+        comment.setup({
+            -- Neovim 0.10+ has built-in treesitter context commentstring
+            -- No need for external plugin
+            pre_hook = nil, -- Remove the ts_context_commentstring integration
+        })
+    end,
 }
