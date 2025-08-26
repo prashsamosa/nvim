@@ -1,94 +1,50 @@
 return {
-  "ray-x/go.nvim",
-  ft = { "go", "gomod", "gosum", "gotmpl" },
-  build = ':lua require("go.install").update_all_sync()',
-  dependencies = {
-    "ray-x/guihua.lua",
-    "neovim/nvim-lspconfig",
-    "nvim-treesitter/nvim-treesitter",
-  },
-  config = function()
-    local go = require("go")
-    local capabilities = vim.lsp.protocol.make_client_capabilities()
+    "ray-x/go.nvim",
+    ft = { "go", "gomod", "gosum", "gotmpl" },
+    build = ":lua require('go.install').update_all_sync()",
+    dependencies = {
+        "ray-x/guihua.lua",
+        "neovim/nvim-lspconfig",
+        "nvim-treesitter/nvim-treesitter",
+    },
 
-    local ok, cmp = pcall(require, "blink.cmp")
-    if ok then
-      capabilities = cmp.get_lsp_capabilities(capabilities)
-    end
-
-    go.setup({
-      lsp_cfg = false,
-      lsp_gofumpt = true,
-      lsp_codelens = true,
-      lsp_inlay_hints = {
-        enable = true,
-        only_current_line = false,
-        parameter_hints_prefix = "󰊕 ",
-        other_hints_prefix = "=> ",
-        show_parameter_hints = true,
-        show_variable_name = true,
-      },
-      go_capabilities = capabilities,
-      test_runner = "go",
-      test_timeout = "30s",
-      gofmt = "gofumpt",
-      max_line_len = 120,
-      test_env = {},
-      coverage = { sign = "█", sign_covered = "█" },
-    })
-
-    local aug = vim.api.nvim_create_augroup("GoKeymaps", { clear = true })
-
-    vim.api.nvim_create_autocmd("FileType", {
-      pattern = { "go", "gomod", "gosum", "gotmpl" },
-      group = aug,
-      callback = function(ev)
-        local opts = { buffer = ev.buf, silent = true, noremap = true }
-        local map = function(m, l, r, d)
-          vim.keymap.set(m, l, r, vim.tbl_extend("force", opts, { desc = "Go: " .. d }))
+    config = function()
+        local capabilities = vim.lsp.protocol.make_client_capabilities()
+        local ok, blink = pcall(require, "blink.cmp")
+        if ok then
+            capabilities = blink.get_lsp_capabilities(capabilities)
         end
 
-        map("n", "<leader>ga", "<cmd>GoAlt<CR>", "Alternate file")
-        map("n", "<leader>gi", "<cmd>GoImports<CR>", "Organize imports")
-        map("n", "<leader>gm", "<cmd>GoModTidy<CR>", "Mod tidy")
+        require("go").setup({
+            lsp_cfg = false,
+            lsp_gofumpt = true,
+            lsp_codelens = true,
+            lsp_inlay_hints = { enable = true },
+            go_capabilities = capabilities,
+            gofmt = "gofumpt",
+            max_line_len = 120,
+        })
 
-        map("n", "<leader>gs", "<cmd>GoFillStruct<CR>", "Fill struct")
-        map("n", "<leader>gj", "<cmd>GoJson2Struct<CR>", "JSON → struct")
-        map("n", "<leader>gI", "<cmd>GoImpl<CR>", "Implement interface")
+        vim.api.nvim_create_autocmd("FileType", {
+            pattern = { "go", "gomod", "gosum", "gotmpl" },
+            callback = function(ev)
+                local opts = { buffer = ev.buf, silent = true }
+                local map = function(m, l, r, d)
+                    vim.keymap.set(m, l, r, vim.tbl_extend("force", opts, { desc = "Go: " .. d }))
+                end
 
-        map({ "n", "v" }, "<leader>gTa", "<cmd>GoAddTag<CR>", "Add tags")
-        map({ "n", "v" }, "<leader>gTr", "<cmd>GoRmTag<CR>", "Remove tags")
-
-        map("n", "<leader>gb", "<cmd>GoBuild<CR>", "Build package")
-        map("n", "<leader>gx", "<cmd>GoRun %<CR>", "Run current file")
-
-        map("n", "<leader>gta", "<cmd>GoTest<CR>", "Test all")
-        map("n", "<leader>gtf", "<cmd>GoTestFunc<CR>", "Test function")
-        map("n", "<leader>gtp", "<cmd>GoTestPkg<CR>", "Test package")
-        map("n", "<leader>gat", "<cmd>GoAddTest<CR>", "Add test")
-
-        map("n", "<leader>gtc", "<cmd>GoCoverage<CR>", "Show coverage")
-        map("n", "<leader>gtC", "<cmd>GoCoverageToggle<CR>", "Toggle coverage")
-
-        map("n", "<leader>gv", "<cmd>GoVet<CR>", "Go vet")
-        map("n", "<leader>gD", "<cmd>GoDoc<CR>", "Show documentation")
-
-        if package.loaded["dap-go"] then
-          map("n", "<leader>gdt", "<cmd>lua require('dap-go').debug_test()<CR>", "Debug test")
-        end
-      end,
-    })
-
-    vim.api.nvim_create_user_command("GoWorkspace", function()
-      vim.cmd("GoModTidy | GoImports | GoGenerate")
-    end, { desc = "Go: Workspace maintenance" })
-
-    vim.api.nvim_create_user_command("GoQuickTest", function()
-      vim.cmd("GoTestPkg -short")
-    end, { desc = "Go: Quick test" })
-
-    vim.api.nvim_create_user_command("GoBenchmark", function()
-      vim.cmd("GoTest -bench=.")
-    end, { desc = "Go: Benchmark" })
-  end,
+                map("n", "<leader>ga", "<cmd>GoAlt<CR>", "Alternate file")
+                map("n", "<leader>gi", "<cmd>GoImports<CR>", "Organize imports")
+                map("n", "<leader>gm", "<cmd>GoModTidy<CR>", "Mod tidy")
+                map("n", "<leader>gs", "<cmd>GoFillStruct<CR>", "Fill struct")
+                map("n", "<leader>gI", "<cmd>GoImpl<CR>", "Implement interface")
+                map("n", "<leader>gb", "<cmd>GoBuild<CR>", "Build package")
+                map("n", "<leader>gx", "<cmd>GoRun %<CR>", "Run current file")
+                map("n", "<leader>gta", "<cmd>GoTest<CR>", "Test all")
+                map("n", "<leader>gtf", "<cmd>GoTestFunc<CR>", "Test function")
+                map("n", "<leader>gtc", "<cmd>GoCoverage<CR>", "Show coverage")
+                map("n", "<leader>gv", "<cmd>GoVet<CR>", "Go vet")
+            end,
+        })
+    end,
 }

@@ -1,9 +1,6 @@
--- lua/plugins/mini.lua - Essential mini plugins only
-
 return {
     { "echasnovski/mini.nvim", version = false },
 
-    -- Text objects (essential)
     {
         "echasnovski/mini.ai",
         version = false,
@@ -19,14 +16,11 @@ return {
                     }),
                     f = ai.gen_spec.treesitter({ a = "@function.outer", i = "@function.inner" }),
                     c = ai.gen_spec.treesitter({ a = "@class.outer", i = "@class.inner" }),
-                    u = ai.gen_spec.function_call(),
-                    U = ai.gen_spec.function_call({ name_pattern = "[%w_]" }),
                 },
             })
         end,
     },
 
-    -- Surround manipulation (essential)
     {
         "echasnovski/mini.surround",
         version = false,
@@ -46,7 +40,6 @@ return {
         end,
     },
 
-    -- Auto pairs (essential)
     {
         "echasnovski/mini.pairs",
         version = false,
@@ -58,7 +51,6 @@ return {
         end,
     },
 
-    -- Bracketed navigation (useful)
     {
         "echasnovski/mini.bracketed",
         version = false,
@@ -70,22 +62,17 @@ return {
                 diagnostic = { suffix = "d" },
                 file = { suffix = "f" },
                 quickfix = { suffix = "q" },
-                treesitter = { suffix = "t" },
             })
         end,
     },
 
-    -- Indentation guides (visual aid)
     {
         "echasnovski/mini.indentscope",
         version = false,
         event = { "BufReadPre", "BufNewFile" },
         config = function()
             require("mini.indentscope").setup({
-                draw = {
-                    delay = 100,
-                    animation = require("mini.indentscope").gen_animation.none(),
-                },
+                draw = { delay = 100, animation = require("mini.indentscope").gen_animation.none() },
                 mappings = {
                     object_scope = "ii",
                     object_scope_with_border = "ai",
@@ -95,12 +82,8 @@ return {
                 symbol = "╎",
             })
 
-            -- Disable for certain filetypes
             vim.api.nvim_create_autocmd("FileType", {
-                pattern = {
-                    "help", "dashboard", "lazy", "mason", "notify",
-                    "toggleterm", "snacks_dashboard"
-                },
+                pattern = { "help", "dashboard", "lazy", "mason", "notify", "snacks_dashboard" },
                 callback = function()
                     vim.b.miniindentscope_disable = true
                 end,
@@ -108,24 +91,6 @@ return {
         end,
     },
 
-    -- Comment (if not using Comment.nvim)
-    {
-        "echasnovski/mini.comment",
-        version = false,
-        event = "VeryLazy",
-        enabled = false, -- Disable if using Comment.nvim
-        config = function()
-            require("mini.comment").setup({
-                options = {
-                    custom_commentstring = function()
-                        return require("ts_context_commentstring").calculate_commentstring() or vim.bo.commentstring
-                    end,
-                },
-            })
-        end,
-    },
-
-    -- Move lines (useful for editing)
     {
         "echasnovski/mini.move",
         version = false,
@@ -151,15 +116,12 @@ return {
         end,
     },
 
-    -- Split/join (useful)
     {
         "echasnovski/mini.splitjoin",
         version = false,
         keys = { "gS" },
         config = function()
-            require("mini.splitjoin").setup({
-                mappings = { toggle = "gS" },
-            })
+            require("mini.splitjoin").setup({ mappings = { toggle = "gS" } })
         end,
     },
 }
