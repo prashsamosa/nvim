@@ -48,6 +48,7 @@ return {
         },
 
         config = function()
+            -- Enable virtual text by default (disabled in Neovim 0.11)
             vim.diagnostic.config({
                 underline = true,
                 update_in_insert = false,

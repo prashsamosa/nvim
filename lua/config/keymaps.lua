@@ -19,10 +19,11 @@ map("n", "N", "Nzzzv", { desc = "Previous search result and center" })
 
 map("n", "<C-h>", "<C-w>h", { desc = "Move to left window" })
 map("n", "<C-j>", "<C-w>j", { desc = "Move to lower window" })
+map("n", "<C-k>", "<C-w>k", { desc = "Move to upper window" })
 map("n", "<C-l>", "<C-w>l", { desc = "Move to right window" })
 
 map("n", "<leader>|", "<cmd>vsplit<CR>", { desc = "Vertical split" })
-map("n", "<leader>-", "<cmd>split<CR>", { desc = "Horizontal split" })
+map("n", "<leader>\\", "<cmd>split<CR>", { desc = "Horizontal split" })
 
 map("n", "<leader>bd", "<cmd>bdelete<CR>", { desc = "Delete buffer" })
 map("n", "<leader>bn", "<cmd>bnext<CR>", { desc = "Next buffer" })
@@ -40,6 +41,7 @@ map("n", "<leader>dq", vim.diagnostic.setqflist, { desc = "Diagnostic quickfix" 
 
 map("n", "]q", "<cmd>cnext<CR>", { desc = "Next quickfix item" })
 map("n", "[q", "<cmd>cprev<CR>", { desc = "Previous quickfix item" })
+
 
 map("n", "<leader><space>", function()
     if package.loaded["snacks"] and require("snacks").picker then
@@ -62,8 +64,8 @@ vim.api.nvim_create_autocmd("LspAttach", {
         map("n", "gt", vim.lsp.buf.type_definition, vim.tbl_extend("force", opts, { desc = "Type Definition" }))
 
         map("n", "K", vim.lsp.buf.hover, vim.tbl_extend("force", opts, { desc = "Hover Documentation" }))
-        map("n", "<C-k>", vim.lsp.buf.signature_help, vim.tbl_extend("force", opts, { desc = "Signature Help" }))
-        map("i", "<C-k>", vim.lsp.buf.signature_help, vim.tbl_extend("force", opts, { desc = "Signature Help" }))
+        map("n", "gK", vim.lsp.buf.signature_help, vim.tbl_extend("force", opts, { desc = "Signature Help" }))
+        map("i", "<C-h>", vim.lsp.buf.signature_help, vim.tbl_extend("force", opts, { desc = "Signature Help" }))
 
         map({ "n", "v" }, "<leader>ca", vim.lsp.buf.code_action, vim.tbl_extend("force", opts, { desc = "Code Action" }))
         map("n", "<leader>cr", vim.lsp.buf.rename, vim.tbl_extend("force", opts, { desc = "Rename Symbol" }))
@@ -71,7 +73,7 @@ vim.api.nvim_create_autocmd("LspAttach", {
         local client = vim.lsp.get_client_by_id(ev.data.client_id)
         if client and client.supports_method("textDocument/inlayHint") then
             map("n", "<leader>lh", function()
-                vim.lsp.inlay_hint.enable(not vim.lsp.inlay_hint.is_enabled({ bufnr = ev.buf }))
+                vim.lsp.inlay_hint.enable(not vim.lsp.inlay_hint.is_enabled({ bufnr = ev.buf }), { bufnr = ev.buf })
             end, vim.tbl_extend("force", opts, { desc = "Toggle Inlay Hints" }))
         end
     end,

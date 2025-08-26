@@ -1,15 +1,17 @@
 vim.g.mapleader = " "
 vim.g.maplocalleader = "\\"
 
+-- Disable unused providers
 vim.g.loaded_perl_provider = 0
 vim.g.loaded_ruby_provider = 0
 vim.g.loaded_node_provider = 0
-vim.g.loaded_python_provider = 0
+vim.g.loaded_python3_provider = 0
 vim.g.loaded_netrw = 1
 vim.g.loaded_netrwPlugin = 1
 
 local opt = vim.opt
 
+-- Indentation
 opt.expandtab = true
 opt.shiftwidth = 2
 opt.tabstop = 2
@@ -17,6 +19,7 @@ opt.softtabstop = 2
 opt.smartindent = true
 opt.shiftround = true
 
+-- UI
 opt.number = true
 opt.relativenumber = true
 opt.cursorline = true
@@ -31,34 +34,42 @@ opt.pumheight = 10
 opt.pumblend = 10
 opt.cmdheight = 1
 
+-- Search
 opt.ignorecase = true
 opt.smartcase = true
 opt.hlsearch = true
 opt.incsearch = true
 
+-- Files
 opt.undofile = true
 opt.backup = false
 opt.swapfile = false
 opt.autowrite = true
 opt.autoread = true
 
+-- Timing
 opt.updatetime = 250
 opt.timeoutlen = 300
 opt.redrawtime = 10000
 opt.synmaxcol = 200
 
+-- System
 opt.clipboard = "unnamedplus"
 opt.mouse = "a"
 
+-- Splits
 opt.splitright = true
 opt.splitbelow = true
 opt.splitkeep = "screen"
 
+-- Completion
 opt.completeopt = { "menu", "menuone", "noselect" }
 opt.wildmode = { "longest:full", "full" }
 
+-- Colors
 opt.termguicolors = true
 
+-- Characters
 opt.list = true
 opt.listchars = {
     tab = "» ",
@@ -75,13 +86,16 @@ opt.fillchars = {
     diff = "╱",
 }
 
+-- Folding
 opt.foldlevel = 99
 opt.foldlevelstart = 99
 
+-- Session
 opt.sessionoptions = {
     "buffers", "curdir", "tabpages", "winsize", "help", "globals", "skiprtp", "folds"
 }
 
+-- Autocmds
 local augroup = vim.api.nvim_create_augroup("BasicConfig", { clear = true })
 
 vim.api.nvim_create_autocmd("TextYankPost", {

@@ -1,6 +1,7 @@
 return {
     "nvim-treesitter/nvim-treesitter",
     build = ":TSUpdate",
+    event = { "BufReadPre", "BufNewFile" },
     dependencies = "nvim-treesitter/nvim-treesitter-textobjects",
 
     config = function()
@@ -8,12 +9,16 @@ return {
             ensure_installed = {
                 "bash", "c", "cpp", "css", "go", "html", "javascript", "json", "lua",
                 "markdown", "markdown_inline", "python", "rust", "tsx", "typescript",
-                "vimdoc", "yaml",
+                "vim", "vimdoc", "yaml", "toml", "dockerfile", "gitignore"
             },
             auto_install = true,
             sync_install = false,
 
-            highlight = { enable = true, additional_vim_regex_highlighting = false },
+            highlight = {
+                enable = true,
+                additional_vim_regex_highlighting = false
+            },
+
             indent = { enable = true },
 
             incremental_selection = {
@@ -39,6 +44,8 @@ return {
                         ["ia"] = "@parameter.inner",
                         ["al"] = "@loop.outer",
                         ["il"] = "@loop.inner",
+                        ["ab"] = "@block.outer",
+                        ["ib"] = "@block.inner",
                     },
                 },
 
@@ -48,10 +55,12 @@ return {
                     goto_next_start = {
                         ["]m"] = "@function.outer",
                         ["]c"] = "@class.outer",
+                        ["]b"] = "@block.outer",
                     },
                     goto_previous_start = {
                         ["[m"] = "@function.outer",
                         ["[c"] = "@class.outer",
+                        ["[b"] = "@block.outer",
                     },
                 },
 
@@ -62,7 +71,6 @@ return {
                 },
             },
         })
-
         vim.opt.foldmethod = "expr"
         vim.opt.foldexpr = "nvim_treesitter#foldexpr()"
         vim.opt.foldenable = false
