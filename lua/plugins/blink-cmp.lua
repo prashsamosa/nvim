@@ -67,13 +67,18 @@ return {
                     },
                 },
 
-                -- Fixed completion configuration for latest Blink.cmp API
                 completion = {
                     documentation = {
                         auto_show = true,
                         auto_show_delay_ms = 200,
                         update_delay_ms = 50,
                         treesitter_highlighting = true,
+                        window = {
+                            max_width = 80,
+                            max_height = 20,
+                            border = "rounded",
+                            scrollbar = true,
+                        },
                     },
                     menu = {
                         border = "rounded",
@@ -84,22 +89,12 @@ return {
                     },
                 },
 
-                -- Fixed documentation window configuration (moved to separate section)
-                windows = {
-                    documentation = {
-                        max_width = 80,
-                        max_height = 20,
-                        border = "rounded",
-                        scrollbar = true,
-                    },
-                    signature_help = {
+                signature = {
+                    enabled = true,
+                    window = {
                         border = "rounded",
                         scrollbar = false,
                     },
-                },
-
-                signature = {
-                    enabled = true,
                 },
 
                 sources = {
