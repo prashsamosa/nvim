@@ -62,13 +62,9 @@ opt.splitright = true
 opt.splitbelow = true
 opt.splitkeep = "screen"
 
--- Completion (enhanced for Neovim 0.11)
+-- Completion - Neovim 0.11 defaults
 opt.completeopt = { "menu", "menuone", "noselect" }
 opt.wildmode = { "longest:full", "full" }
--- Enable builtin completion if available (Neovim 0.11+)
-if vim.fn.has("nvim-0.11") == 1 then
-    opt.completeoptions = "menu,menuone,noselect,fuzzy"
-end
 
 -- Colors
 opt.termguicolors = true
@@ -80,46 +76,38 @@ opt.listchars = {
     trail = "·",
     extends = "❯",
     precedes = "❮",
-    nbsp = "␣", -- Added nbsp visualization
+    nbsp = "␣",
 }
 
 opt.fillchars = {
-    eob       = " ",
-    fold      = " ",
-    foldopen  = "",
+    eob = " ",
+    fold = " ",
+    foldopen = "",
     foldclose = "",
-    diff      = "╱",
-    -- Updated for better visual experience
-    vertleft  = "▎",
+    diff = "╱",
+    vertleft = "▎",
     vertright = " ",
-    horiz     = "━",
-    horizup   = "┻",
+    horiz = "━",
+    horizup = "┻",
     horizdown = "┳",
     verthoriz = "╋",
 }
 
--- Folding (enhanced for treesitter)
+-- Folding - Neovim 0.11 with treesitter
 opt.foldlevel = 99
 opt.foldlevelstart = 99
--- Neovim 0.10+ has better folding options
-if vim.fn.has("nvim-0.10") == 1 then
-    opt.foldmethod = "expr"
-    opt.foldexpr = "v:lua.vim.treesitter.foldexpr()"
-    opt.foldtext = ""
-end
+opt.foldmethod = "expr"
+opt.foldexpr = "v:lua.vim.treesitter.foldexpr()"
+opt.foldtext = ""
 
--- Session (comprehensive session options)
+-- Session
 opt.sessionoptions = {
     "buffers", "curdir", "tabpages", "winsize", "help", "globals", "skiprtp", "folds"
 }
 
--- Enhanced defaults for Neovim 0.11
-if vim.fn.has("nvim-0.11") == 1 then
-    -- Better diff algorithm
-    opt.diffopt:append("algorithm:histogram")
-    -- Improved spell checking
-    opt.spelloptions:append("camel")
-end
+-- Neovim 0.11 enhanced defaults
+opt.diffopt:append("algorithm:histogram")
+opt.spelloptions:append("camel")
 
 -- Autocmds
 local augroup = vim.api.nvim_create_augroup("BasicConfig", { clear = true })

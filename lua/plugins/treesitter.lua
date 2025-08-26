@@ -20,7 +20,7 @@ return {
                 -- Disable for large files
                 disable = function(lang, buf)
                     local max_filesize = 100 * 1024 -- 100 KB
-                    local ok, stats = pcall(vim.loop.fs_stat, vim.api.nvim_buf_get_name(buf))
+                    local ok, stats = pcall(vim.uv.fs_stat, vim.api.nvim_buf_get_name(buf))
                     if ok and stats and stats.size > max_filesize then
                         return true
                     end
@@ -29,7 +29,6 @@ return {
 
             indent = {
                 enable = true,
-                -- Disable for problematic languages
                 disable = { "python" }
             },
 
@@ -59,12 +58,12 @@ return {
                         ["ab"] = "@block.outer",
                         ["ib"] = "@block.inner",
                         ["as"] = "@statement.outer",
-                        ["is"] = "@statement.outer", -- No inner statement
+                        ["is"] = "@statement.outer",
                     },
                     selection_modes = {
-                        ['@parameter.outer'] = 'v', -- charwise
-                        ['@function.outer'] = 'V',  -- linewise
-                        ['@class.outer'] = '<c-v>', -- blockwise
+                        ['@parameter.outer'] = 'v',
+                        ['@function.outer'] = 'V',
+                        ['@class.outer'] = '<c-v>',
                     },
                 },
 
@@ -112,50 +111,19 @@ return {
                 lsp_interop = {
                     enable = true,
                     border = 'rounded',
-                    floating_preview_opts = {},
                     peek_definition_code = {
                         ["<leader>pf"] = "@function.outer",
                         ["<leader>pc"] = "@class.outer",
                     },
                 },
             },
-
-            -- Enhanced query predicates for better syntax highlighting
-            query_linter = {
-                enable = true,
-                use_virtual_text = true,
-                lint_events = { "BufWrite", "CursorHold" },
-            },
         })
 
-        -- Enhanced folding setup for Neovim 0.10+
-        if vim.fn.has("nvim-0.10") == 1 then
-            vim.opt.foldmethod = "expr"
-            vim.opt.foldexpr = "v:lua.vim.treesitter.foldexpr()"
-            vim.opt.foldenable = false
-
-            -- Custom fold text function for better readability
-            vim.opt.foldtext = ""
-
-            -- Set up better folding for specific file types
-            vim.api.nvim_create_autocmd("FileType", {
-                pattern = { "json", "jsonc" },
-                callback = function()
-                    vim.opt_local.foldmethod = "syntax"
-                end,
-            })
-        else
-            -- Fallback for older versions
-            vim.opt.foldmethod = "expr"
-            vim.opt.foldexpr = "nvim_treesitter#foldexpr()"
-            vim.opt.foldenable = false
-        end
-
-        -- Auto-install missing parsers when entering buffer
+        -- Auto-install missing parsers
         vim.api.nvim_create_autocmd("BufEnter", {
             callback = function()
                 local lang = vim.treesitter.language.get_lang(vim.bo.filetype)
-                if lang and not vim.treesitter.language.get_lang(lang) then
+                if lang and not pcall(vim.treesitter.language.get_lang, lang) then
                     vim.cmd("TSInstall " .. lang)
                 end
             end,

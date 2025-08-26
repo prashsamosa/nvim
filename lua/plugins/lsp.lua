@@ -73,10 +73,8 @@ return {
             vim.lsp.handlers["textDocument/signatureHelp"] = vim.lsp.with(vim.lsp.handlers.signature_help,
                 { border = "rounded" })
 
-            local lspconfig = require("lspconfig")
-            local capabilities = vim.lsp.protocol.make_client_capabilities()
-
             -- Enhanced capabilities for better LSP experience
+            local capabilities = vim.lsp.protocol.make_client_capabilities()
             capabilities.textDocument.completion.completionItem.snippetSupport = true
             capabilities.textDocument.completion.completionItem.resolveSupport = {
                 properties = { "documentation", "detail", "additionalTextEdits" }
@@ -88,6 +86,14 @@ return {
                 capabilities = blink.get_lsp_capabilities(capabilities)
             end
 
+            -- Neovim 0.11 native LSP setup - simplified approach
+            vim.lsp.enable({
+                "lua_ls", "ts_ls", "gopls", "pyright", "rust_analyzer",
+                "jsonls", "yamlls", "tailwindcss", "bashls", "emmet_language_server"
+            })
+
+            -- Server-specific configurations
+            local lspconfig = require("lspconfig")
             local servers = {
                 lua_ls = {
                     settings = {
@@ -95,7 +101,7 @@ return {
                             completion = { callSnippet = "Replace" },
                             diagnostics = { globals = { "vim" } },
                             workspace = { checkThirdParty = false },
-                            hint = { enable = true }, -- Enable inlay hints
+                            hint = { enable = true },
                         },
                     },
                 },
@@ -137,10 +143,6 @@ return {
                             analysis = {
                                 typeCheckingMode = "basic",
                                 autoImportCompletions = true,
-                                inlayHints = {
-                                    variableTypes = true,
-                                    functionReturnTypes = true,
-                                },
                             },
                         },
                     },
@@ -198,45 +200,30 @@ return {
                 group = vim.api.nvim_create_augroup("LspConfig", { clear = true }),
                 callback = function(ev)
                     local client = vim.lsp.get_client_by_id(ev.data.client_id)
+
+                    -- Enable inlay hints if supported
                     if client and client.supports_method("textDocument/inlayHint") then
                         vim.lsp.inlay_hint.enable(true, { bufnr = ev.buf })
                     end
 
-                    -- Enable completion triggered by <c-x><c-o> for builtin completion
-                    vim.bo[ev.buf].omnifunc = "v:lua.vim.lsp.omnifunc"
-
-                    -- Set up buffer-local keymaps only once per buffer
+                    -- Set up buffer-local keymaps
                     local opts = { buffer = ev.buf, silent = true }
+                    local keymap = vim.keymap.set
 
-                    -- Only set up LSP mappings if they haven't been set already
-                    if not vim.b.lsp_keymaps_set then
-                        vim.keymap.set("n", "gd", vim.lsp.buf.definition,
-                            vim.tbl_extend("force", opts, { desc = "Go to Definition" }))
-                        vim.keymap.set("n", "gr", vim.lsp.buf.references,
-                            vim.tbl_extend("force", opts, { desc = "References" }))
-                        vim.keymap.set("n", "gi", vim.lsp.buf.implementation,
-                            vim.tbl_extend("force", opts, { desc = "Go to Implementation" }))
-                        vim.keymap.set("n", "gt", vim.lsp.buf.type_definition,
-                            vim.tbl_extend("force", opts, { desc = "Type Definition" }))
-                        vim.keymap.set("n", "K", vim.lsp.buf.hover,
-                            vim.tbl_extend("force", opts, { desc = "Hover Documentation" }))
-                        vim.keymap.set("n", "gK", vim.lsp.buf.signature_help,
-                            vim.tbl_extend("force", opts, { desc = "Signature Help" }))
-                        vim.keymap.set("i", "<C-h>", vim.lsp.buf.signature_help,
-                            vim.tbl_extend("force", opts, { desc = "Signature Help" }))
-                        vim.keymap.set({ "n", "v" }, "<leader>ca", vim.lsp.buf.code_action,
-                            vim.tbl_extend("force", opts, { desc = "Code Action" }))
-                        vim.keymap.set("n", "<leader>cr", vim.lsp.buf.rename,
-                            vim.tbl_extend("force", opts, { desc = "Rename Symbol" }))
+                    keymap("n", "gd", vim.lsp.buf.definition, vim.tbl_extend("force", opts, { desc = "Go to Definition" }))
+                    keymap("n", "gr", vim.lsp.buf.references, vim.tbl_extend("force", opts, { desc = "References" }))
+                    keymap("n", "gi", vim.lsp.buf.implementation, vim.tbl_extend("force", opts, { desc = "Go to Implementation" }))
+                    keymap("n", "gt", vim.lsp.buf.type_definition, vim.tbl_extend("force", opts, { desc = "Type Definition" }))
+                    keymap("n", "K", vim.lsp.buf.hover, vim.tbl_extend("force", opts, { desc = "Hover Documentation" }))
+                    keymap("n", "gK", vim.lsp.buf.signature_help, vim.tbl_extend("force", opts, { desc = "Signature Help" }))
+                    keymap("i", "<C-h>", vim.lsp.buf.signature_help, vim.tbl_extend("force", opts, { desc = "Signature Help" }))
+                    keymap({ "n", "v" }, "<leader>ca", vim.lsp.buf.code_action, vim.tbl_extend("force", opts, { desc = "Code Action" }))
+                    keymap("n", "<leader>cr", vim.lsp.buf.rename, vim.tbl_extend("force", opts, { desc = "Rename Symbol" }))
 
-                        if client and client.supports_method("textDocument/inlayHint") then
-                            vim.keymap.set("n", "<leader>lh", function()
-                                vim.lsp.inlay_hint.enable(not vim.lsp.inlay_hint.is_enabled({ bufnr = ev.buf }),
-                                    { bufnr = ev.buf })
-                            end, vim.tbl_extend("force", opts, { desc = "Toggle Inlay Hints" }))
-                        end
-
-                        vim.b.lsp_keymaps_set = true
+                    if client and client.supports_method("textDocument/inlayHint") then
+                        keymap("n", "<leader>lh", function()
+                            vim.lsp.inlay_hint.enable(not vim.lsp.inlay_hint.is_enabled({ bufnr = ev.buf }), { bufnr = ev.buf })
+                        end, vim.tbl_extend("force", opts, { desc = "Toggle Inlay Hints" }))
                     end
                 end,
             })
