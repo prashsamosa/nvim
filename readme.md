@@ -65,16 +65,16 @@
 | `<leader>bO`          | Close others   | Close all but current/pinned |
 | `<leader>bd`          | Delete buffer  | Smart buffer deletion        |
 
-### 💾 Session Management
+### 💾 Session Management (**UPDATED**)
 
 | Key          | Action           | Description                              |
 | ------------ | ---------------- | ---------------------------------------- |
-| `<leader>ss` | Save session     | Save session with custom name            |
-| `<leader>sr` | Read session     | Load existing session                    |
-| `<leader>sd` | Delete session   | Delete saved session                     |
-| `<leader>sl` | List sessions    | Show all available sessions              |
-| `<leader>sc` | Save current     | Save current named session               |
-| `<leader>s.` | Save dir session | Save session with current directory name |
+| `<leader>Ss` | Save session     | Save session with custom name            |
+| `<leader>Sr` | Read session     | Load existing session                    |
+| `<leader>Sd` | Delete session   | Delete saved session                     |
+| `<leader>Sl` | List sessions    | Show all available sessions              |
+| `<leader>Sc` | Save current     | Save current named session               |
+| `<leader>S.` | Save dir session | Save session with current directory name |
 
 ### 🔍 Fuzzy Finding (FZF)
 
@@ -107,9 +107,8 @@
 | `<C-h>`      | Signature help   | Signature help (insert mode)             |
 | `<leader>ca` | Code action      | Show code actions                        |
 | `<leader>cr` | Rename           | Rename symbol                            |
-| `<leader>iH` | Global hints     | Toggle inlay hints (global)              |
-| `<leader>ih` | Buffer hints     | Toggle inlay hints (current buffer only) |
-| `<leader>lh` | LSP hints        | Toggle inlay hints (LSP buffer-specific) |
+| `<leader>ih` | Global hints     | Toggle inlay hints (global)              |
+| `<leader>lh` | Buffer hints     | Toggle inlay hints (current buffer only) |
 | `<leader>f`  | Format           | Format code                              |
 | `<leader>df` | Diagnostic float | Show diagnostic popup                    |
 
@@ -148,14 +147,14 @@
 | `<leader>Da` | DB Add    | Add connection          |
 | `<leader>Dr` | Execute   | Execute query/selection |
 
-### 🔄 Search & Replace
+### 🔄 Search & Replace (**UPDATED**)
 
 | Key          | Action           | Description              |
 | ------------ | ---------------- | ------------------------ |
-| `<leader>sr` | Search & replace | Open Grug-Far            |
-| `<leader>sw` | Search word      | Search word under cursor |
-| `<leader>sb` | Search buffer    | Search in current buffer |
-| `<leader>sv` | Search selection | Search visual selection  |
+| `<leader>R`  | Search & replace | Open Grug-Far            |
+| `<leader>rw` | Search word      | Search word under cursor |
+| `<leader>rb` | Search buffer    | Search in current buffer |
+| `<leader>rv` | Search selection | Search visual selection  |
 
 ### 📝 Text Manipulation & Operations
 
@@ -206,7 +205,6 @@
 | `<leader>ul` | Toggle line numbers | Show/hide line numbers     |
 | `<leader>uw` | Toggle wrap         | Enable/disable word wrap   |
 | `<leader>us` | Toggle spelling     | Enable/disable spell check |
-| `<leader>uh` | Toggle inlay hints  | Show/hide inlay hints      |
 | `<leader>uT` | Toggle treesitter   | Enable/disable treesitter  |
 | `<leader>ub` | Toggle background   | Switch dark/light theme    |
 
@@ -222,23 +220,26 @@
 | `<leader>Z`   | Zoom mode           | Focus current window    |
 | `<ESC><ESC>`  | Exit terminal       | Exit terminal mode      |
 
-### 🛠️ Development & File Operations
+### 🛠️ Development & File Operations (**UPDATED**)
 
 | Key          | Action           | Description               |
 | ------------ | ---------------- | ------------------------- |
 | `<leader>e`  | Explorer         | File explorer             |
-| `<leader>.`  | Scratch buffer   | Open scratch buffer       |
-| `<leader>S`  | Scratch select   | Select scratch buffer     |
+| `<leader>s`  | Scratch buffer   | Open scratch buffer       |
+| `<leader>ss` | Scratch select   | Select scratch buffer     |
 | `<leader>cR` | Rename file      | Rename current file       |
 | `<leader>gB` | Git browse       | Open file in browser      |
 | `<leader>un` | Notifications    | Show notification history |
-| `<leader>dP` | Profiler         | Performance profiler      |
-| `<leader>dp` | Profiler scratch | Profiler scratch buffer   |
 
+
+### 🎯 **Movement Keys Clarification**
+- `J/K` (visual mode) - Move lines up/down
+- `<A-h/j/k/l>` (all modes) - Move text/selections in all directions
+- These work together perfectly - use `J/K` for quick line moves in visual mode, `<Alt>` keys for more complex movements
 
 ### Session Management Mastery
 
-- Use `<leader>s.` for instant project-based sessions
+- Use `<leader>S.` for instant project-based sessions
 - Auto-save ensures your work is always preserved
 - Sessions remember splits, cursor positions, and open files
 - Perfect for juggling multiple projects simultaneously
@@ -267,11 +268,11 @@
 
 ### Development
 
-- Global `<leader>iH` for quick inlay hint toggling
-- Buffer-specific `<leader>ih` for focused work
+- Global `<leader>ih` for quick inlay hint toggling
+- Buffer-specific `<leader>lh` for focused work
 - `<leader>cR` renames files with full LSP integration
 - `<leader>gB` shares code via browser instantly
-- Scratch buffers (`<leader>.`) for quick experiments
+- Scratch buffers (`<leader>s`) for quick experiments
 
 ### Terminal Integration
 
@@ -326,10 +327,10 @@
 2. **Health Check**: Run `:checkhealth` to verify setup
 3. **Try Key Features**:
 
-   - `<leader>ss` - Create your first session
+   - `<leader>Ss` - Create your first session (**UPDATED**)
    - `<Tab>` in insert mode - Experience blink.cmp
    - `gS` on a function call - See smart split/join
-   - `<leader>iH` - Toggle inlay hints globally
+   - `<leader>ih` - Toggle inlay hints globally (**UPDATED**)
    - `<C-d>` in completion - View documentation
 
 4. **Explore Advanced Features**:
@@ -337,11 +338,13 @@
    - Visual select text and try `ga` for alignment
    - Use `g=` on math expressions (e.g., `2 + 2`)
    - Try `gx` to exchange text regions
-   - `<leader>.` for scratch buffer experiments
+   - `<leader>s` for scratch buffer experiments (**UPDATED**)
 
 5. **Optimize Your Workflow**:
    - Set up your first database connection with `<leader>Da`
    - Configure Go project with automatic imports
    - Use `<leader>gg` to explore Lazygit integration
    - Try `<leader>z` for distraction-free coding
+   - Use `<leader>R` for powerful search & replace (**UPDATED**)
+
 ---

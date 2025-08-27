@@ -60,9 +60,9 @@ return {
     { "<leader>un", function() Snacks.notifier.show_history() end,   desc = "Notifications" },
     { "<C-t>",      function() Snacks.terminal() end,                desc = "Terminal",       mode = { "n", "t" } },
 
-    -- Scratch buffers (fixed key conflicts with mini.sessions)
-    { "<leader>.",  function() Snacks.scratch() end,                 desc = "Scratch Buffer" },
-    { "<leader>S",  function() Snacks.scratch.select() end,          desc = "Select Scratch" },
+    -- Scratch buffers moved to <leader>s* (lowercase s)
+    { "<leader>s",  function() Snacks.scratch() end,                 desc = "Scratch Buffer" },
+    { "<leader>ss", function() Snacks.scratch.select() end,          desc = "Select Scratch" },
 
     -- File operations
     { "<leader>cR", function() Snacks.rename.rename_file() end,      desc = "Rename File" },
@@ -89,7 +89,6 @@ return {
           { desc = "Toggle Wrap" })
         vim.keymap.set("n", "<leader>us", function() Snacks.toggle.option("spell", { name = "Spelling" }) end,
           { desc = "Toggle Spell" })
-        vim.keymap.set("n", "<leader>ih", function() Snacks.toggle.inlay_hints() end, { desc = "Toggle Inlay Hints" })
         vim.keymap.set("n", "<leader>uT", function() Snacks.toggle.treesitter() end, { desc = "Toggle Treesitter" })
         vim.keymap.set("n", "<leader>ub",
           function() Snacks.toggle.option("background", { off = "light", on = "dark" }) end,

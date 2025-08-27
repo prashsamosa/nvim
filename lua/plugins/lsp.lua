@@ -68,7 +68,7 @@ return {
         float = { border = "rounded", source = true },
       })
 
-      -- Global LSP handlers (your approach is perfect!)
+      -- Global LSP handlers
       vim.lsp.handlers["textDocument/hover"] = vim.lsp.with(vim.lsp.handlers.hover, { border = "rounded" })
       vim.lsp.handlers["textDocument/signatureHelp"] = vim.lsp.with(vim.lsp.handlers.signature_help,
         { border = "rounded" })
@@ -242,10 +242,11 @@ return {
             vim.tbl_extend("force", opts, { desc = "Code Action" }))
           keymap("n", "<leader>cr", vim.lsp.buf.rename, vim.tbl_extend("force", opts, { desc = "Rename Symbol" }))
 
+          -- Buffer-specific inlay hints toggle (when you need per-buffer control)
           if client and client.supports_method("textDocument/inlayHint") then
             keymap("n", "<leader>lh", function()
               vim.lsp.inlay_hint.enable(not vim.lsp.inlay_hint.is_enabled({ bufnr = ev.buf }), { bufnr = ev.buf })
-            end, vim.tbl_extend("force", opts, { desc = "Toggle Inlay Hints" }))
+            end, vim.tbl_extend("force", opts, { desc = "Toggle Buffer Inlay Hints" }))
           end
         end,
       })
