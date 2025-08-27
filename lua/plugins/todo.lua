@@ -44,7 +44,6 @@ return {
         {
             "<leader>ft",
             function()
-                -- Use fzf-lua instead of telescope for TODO search
                 require("fzf-lua").grep({
                     search = "TODO|HACK|WARN|PERF|NOTE|TEST|FIX|FIXME|BUG|FIXIT|ISSUE|WARNING|XXX|OPTIM|PERFORMANCE|OPTIMIZE|INFO|TESTING|PASSED|FAILED",
                     no_esc = true,

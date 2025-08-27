@@ -69,12 +69,12 @@
 
 | Key | Action | Description |
 |-----|--------|-------------|
-| `<leader>Ss` | Save session | Save session with custom name |
-| `<leader>Sr` | Read session | Load existing session |
-| `<leader>Sd` | Delete session | Delete saved session |
-| `<leader>Sl` | List sessions | Show all available sessions |
-| `<leader>Sc` | Save current | Save current named session |
-| `<leader>S.` | Save dir session | Save session with current directory name |
+| `<leader>ss` | Save session | Save session with custom name |
+| `<leader>sr` | Read session | Load existing session |
+| `<leader>sd` | Delete session | Delete saved session |
+| `<leader>sl` | List sessions | Show all available sessions |
+| `<leader>sc` | Save current | Save current named session |
+| `<leader>s.` | Save dir session | Save session with current directory name |
 
 ### 🔍 Fuzzy Finding (FZF)
 
@@ -107,8 +107,8 @@
 | `<C-h>` | Signature help | Signature help (insert mode) |
 | `<leader>ca` | Code action | Show code actions |
 | `<leader>cr` | Rename | Rename symbol |
-| `<leader>lh` | Toggle hints | Toggle inlay hints (buffer-specific) |
-| `<leader>ih` | Global hints | Toggle inlay hints (global) |
+| `<leader>ih` | Toggle hints | Toggle inlay hints (buffer-specific, snacks) |
+| `<leader>iH` | Global hints | Toggle inlay hints (global) |
 | `<leader>f` | Format | Format code |
 | `<leader>df` | Diagnostic float | Show diagnostic popup |
 
@@ -177,7 +177,8 @@
 
 | Key | Action | Description |
 |-----|--------|-------------|
-| `]]` / `[[` | Word references | Next/previous word reference |
+| `]w` / `[w` | Word references | Next/previous word reference (use ]w/[w for word occurrences) |
+| `]]` / `[[` | Function refs | Next/previous function reference |
 | `]q` / `[q` | Quickfix | Next/previous quickfix item |
 | `]t` / `[t` | TODOs | Next/previous TODO comment |
 | `<C-d/u>` | Scroll | Half-page scroll (centered) |
@@ -220,7 +221,7 @@
 |-----|--------|-------------|
 | `<leader>e` | Explorer | File explorer |
 | `<leader>.` | Scratch buffer | Open scratch buffer |
-| `<leader>S` | Select scratch | Select scratch buffer |
+| `<leader>S` | Scratch select | Select scratch buffer |
 | `<leader>cR` | Rename file | Rename current file |
 | `<leader>gB` | Git browse | Open file in browser |
 | `<leader>un` | Notifications | Show notification history |
@@ -325,7 +326,7 @@
 ## ⚡ Pro Tips & Workflows
 
 ### Session Management Mastery
-- Use `<leader>S.` for instant project-based sessions
+- Use `<leader>s.` for instant project-based sessions
 - Auto-save ensures your work is always preserved
 - Sessions remember splits, cursor positions, and open files
 - Perfect for juggling multiple projects simultaneously
@@ -345,13 +346,13 @@
 
 ### Navigation Excellence
 - Enhanced window navigation works in terminal mode too
-- `]]` and `[[` for word occurrence jumping
+- `]w` and `[w` for word occurrence jumping (use ]]/[[ for functions)
 - Status column integration shows git changes and folds
 - Smart centering keeps important content visible
 
 ### Development Workflow
-- Global `<leader>ih` for quick inlay hint toggling
-- Buffer-specific `<leader>lh` for focused work
+- Global `<leader>iH` for quick inlay hint toggling
+- Buffer-specific `<leader>ih` for focused work
 - `<leader>cR` renames files with full LSP integration
 - `<leader>gB` shares code via browser instantly
 - Scratch buffers (`<leader>.`) for quick experiments
@@ -409,10 +410,10 @@
 1. **Installation**: All plugins will auto-install on first launch
 2. **Health Check**: Run `:checkhealth` to verify setup
 3. **Try Key Features**:
-   - `<leader>Ss` - Create your first session
+   - `<leader>ss` - Create your first session
    - `<Tab>` in insert mode - Experience blink.cmp
    - `gS` on a function call - See smart split/join
-   - `<leader>ih` - Toggle inlay hints globally
+   - `<leader>iH` - Toggle inlay hints globally
    - `<C-j>` in completion - View documentation
 
 4. **Explore Advanced Features**:
@@ -447,3 +448,4 @@
 - **Extensible Architecture**: Easy to customize and extend
 
 Your Neovim configuration represents the pinnacle of modern text editor setup - combining performance, aesthetics, and developer productivity in a cohesive, conflict-free package! 🚀✨
+

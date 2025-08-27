@@ -4,46 +4,46 @@ return {
     lazy = false,
 
     opts = {
-        -- Core features you already have
-        bigfile = { enabled = true },
-        dashboard = { enabled = true },
-        terminal = { enabled = true },
-        scroll = { enabled = true },
-        notifier = { enabled = true },
-        bufdelete = { enabled = true },
-        zen = { enabled = true },
-        words = { enabled = true },
+        -- Core features
+        bigfile      = { enabled = true },
+        dashboard    = { enabled = true },
+        terminal     = { enabled = true },
+        scroll       = { enabled = true },
+        notifier     = { enabled = true },
+        bufdelete    = { enabled = true },
+        zen          = { enabled = true },
+        words        = { enabled = true },
 
-        -- Enhanced features to add
+        -- Status column
         statuscolumn = {
             enabled = true,
-            left = { "mark", "sign" },
-            right = { "fold", "git" },
-            folds = {
-                open = true,
+            left    = { "mark", "sign" },
+            right   = { "fold", "git" },
+            folds   = {
+                open   = true,
                 git_hl = true,
             },
-            git = {
+            git     = {
                 patterns = { "GitSign", "MiniDiff" },
             },
         },
 
-        -- Disable picker since you use fzf-lua
-        picker = { enabled = false },
+        -- Disable picker (using fzf-lua)
+        picker       = { enabled = false },
 
-        -- Add useful snacks you're missing
-        image = { enabled = true },     -- Image preview in markdown and other files
-        input = { enabled = true },     -- Better vim.ui.input
-        quickfile = { enabled = true }, -- Fast file opening
-        scope = { enabled = true },     -- Scope-based buffer management
-        scratch = { enabled = true },   -- Scratch buffers
-        rename = { enabled = true },    -- File renaming
-        gitbrowse = { enabled = true }, -- Open files in browser
-        toggle = { enabled = true },    -- Toggle options
-        profiler = { enabled = true },  -- Performance profiling
+        -- Extra features
+        image        = { enabled = true },
+        input        = { enabled = true },
+        quickfile    = { enabled = true },
+        scope        = { enabled = true },
+        scratch      = { enabled = true },
+        rename       = { enabled = true },
+        gitbrowse    = { enabled = true },
+        toggle       = { enabled = true },
+        profiler     = { enabled = true },
 
         -- Advanced window management
-        dim = {
+        dim          = {
             enabled = true,
             scope = {
                 min_size = 5,
@@ -53,165 +53,59 @@ return {
     },
 
     keys = {
-        -- Keep existing keys and add new ones
-        {
-            "<leader>e",
-            function()
-                require("snacks").explorer()
-            end,
-            desc = "Explorer",
-        },
-        {
-            "<leader>gg",
-            function()
-                require("snacks").lazygit()
-            end,
-            desc = "Lazygit",
-        },
-        {
-            "<leader>z",
-            function()
-                require("snacks").zen()
-            end,
-            desc = "Zen Mode",
-        },
-        {
-            "<leader>Z",
-            function()
-                require("snacks").zen.zoom()
-            end,
-            desc = "Zoom Mode",
-        },
-        {
-            "<leader>bd",
-            function()
-                require("snacks").bufdelete()
-            end,
-            desc = "Delete Buffer",
-        },
-        {
-            "<leader>un",
-            function()
-                require("snacks").notifier.show_history()
-            end,
-            desc = "Notifications",
-        },
-        {
-            "<C-t>",
-            function()
-                require("snacks").terminal.toggle()
-            end,
-            desc = "Terminal",
-            mode = { "n", "t" },
-        },
+        -- Core actions
+        { "<leader>e",  function() require("snacks").explorer() end,                desc = "Explorer" },
+        { "<leader>gg", function() require("snacks").lazygit() end,                 desc = "Lazygit" },
+        { "<leader>z",  function() require("snacks").zen() end,                     desc = "Zen Mode" },
+        { "<leader>Z",  function() require("snacks").zen.zoom() end,                desc = "Zoom Mode" },
+        { "<leader>bd", function() require("snacks").bufdelete() end,               desc = "Delete Buffer" },
+        { "<leader>un", function() require("snacks").notifier.show_history() end,   desc = "Notifications" },
+        { "<C-t>",      function() require("snacks").terminal.toggle() end,         desc = "Terminal",            mode = { "n", "t" } },
 
-        -- Scratch and file operations
-        {
-            "<leader>.",
-            function()
-                require("snacks").scratch()
-            end,
-            desc = "Scratch Buffer",
-        },
-        {
-            "<leader>S",
-            function()
-                require("snacks").scratch.select()
-            end,
-            desc = "Select Scratch",
-        },
+        -- Scratch buffers
+        { "<leader>.",  function() require("snacks").scratch() end,                 desc = "Scratch Buffer" },
+        { "<leader>S",  function() require("snacks").scratch.select() end,          desc = "Select Scratch" },
 
-        -- File operations
-        {
-            "<leader>cR",
-            function()
-                require("snacks").rename.rename_file()
-            end,
-            desc = "Rename File",
-        },
-        {
-            "<leader>gB",
-            function()
-                require("snacks").gitbrowse()
-            end,
-            desc = "Git Browse",
-            mode = { "n", "v" },
-        },
+        -- File ops
+        { "<leader>cR", function() require("snacks").rename.rename_file() end,      desc = "Rename File" },
+        { "<leader>gB", function() require("snacks").gitbrowse() end,               desc = "Git Browse",          mode = { "n", "v" } },
 
-        -- Development utilities
-        {
-            "<leader>dP",
-            function()
-                require("snacks").profiler.pick()
-            end,
-            desc = "Profiler",
-        },
-        {
-            "<leader>dp",
-            function()
-                require("snacks").profiler.scratch()
-            end,
-            desc = "Profiler Scratch",
-        },
+        -- Dev utilities
+        { "<leader>dP", function() require("snacks").profiler.pick() end,           desc = "Profiler" },
+        { "<leader>dp", function() require("snacks").profiler.scratch() end,        desc = "Profiler Scratch" },
 
-        -- Word navigation - Fixed: Changed from ]] to avoid conflict with built-in
-        {
-            "]w",
-            function()
-                require("snacks").words.jump(vim.v.count1)
-            end,
-            desc = "Next Word Reference",
-            mode = { "n", "t" },
-        },
-        {
-            "[w",
-            function()
-                require("snacks").words.jump(-vim.v.count1)
-            end,
-            desc = "Prev Word Reference",
-            mode = { "n", "t" },
-        },
+        -- Word navigation
+        { "]w",         function() require("snacks").words.jump(vim.v.count1) end,  desc = "Next Word Reference", mode = { "n", "t" } },
+        { "[w",         function() require("snacks").words.jump(-vim.v.count1) end, desc = "Prev Word Reference", mode = { "n", "t" } },
     },
 
     init = function()
         vim.api.nvim_create_autocmd("User", {
             pattern = "VeryLazy",
             callback = function()
-                -- Setup debugging globals
-                _G.dd = function(...)
-                    require("snacks").debug.inspect(...)
-                end
-                _G.bt = function()
-                    require("snacks").debug.backtrace()
-                end
+                -- Debugging helpers
+                _G.dd = function(...) require("snacks").debug.inspect(...) end
+                _G.bt = function() require("snacks").debug.backtrace() end
                 vim.print = _G.dd
 
-                -- Create toggle mappings
                 local snacks = require("snacks")
 
-                -- Toggle utilities
-                vim.keymap.set("n", "<leader>ud", function()
-                    snacks.toggle.diagnostics()
-                end, { desc = "Toggle Diagnostics" })
-                vim.keymap.set("n", "<leader>ul", function()
-                    snacks.toggle.line_number()
-                end, { desc = "Toggle Line Numbers" })
-                vim.keymap.set("n", "<leader>uw", function()
-                    snacks.toggle.option("wrap", { name = "Wrap" })
-                end, { desc = "Toggle Wrap" })
-                vim.keymap.set("n", "<leader>us", function()
-                    snacks.toggle.option("spell", { name = "Spelling" })
-                end, { desc = "Toggle Spell" })
-                -- Fixed: Keep snacks inlay hints toggle separate from global
-                vim.keymap.set("n", "<leader>ih", function()
-                    snacks.toggle.inlay_hints()
-                end, { desc = "Toggle Buffer Inlay Hints" })
-                vim.keymap.set("n", "<leader>uT", function()
-                    snacks.toggle.treesitter()
-                end, { desc = "Toggle Treesitter" })
-                vim.keymap.set("n", "<leader>ub", function()
-                    snacks.toggle.option("background", { off = "light", on = "dark" })
-                end, { desc = "Toggle Background" })
+                -- Toggles
+                vim.keymap.set("n", "<leader>ud", function() snacks.toggle.diagnostics() end,
+                    { desc = "Toggle Diagnostics" })
+                vim.keymap.set("n", "<leader>ul", function() snacks.toggle.line_number() end,
+                    { desc = "Toggle Line Numbers" })
+                vim.keymap.set("n", "<leader>uw", function() snacks.toggle.option("wrap", { name = "Wrap" }) end,
+                    { desc = "Toggle Wrap" })
+                vim.keymap.set("n", "<leader>us", function() snacks.toggle.option("spell", { name = "Spelling" }) end,
+                { desc = "Toggle Spell" })
+                vim.keymap.set("n", "<leader>ih", function() snacks.toggle.inlay_hints() end,
+                    { desc = "Toggle Buffer Inlay Hints" })
+                vim.keymap.set("n", "<leader>uT", function() snacks.toggle.treesitter() end,
+                    { desc = "Toggle Treesitter" })
+                vim.keymap.set("n", "<leader>ub",
+                    function() snacks.toggle.option("background", { off = "light", on = "dark" }) end,
+                    { desc = "Toggle Background" })
             end,
         })
     end,
