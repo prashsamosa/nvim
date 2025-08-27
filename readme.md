@@ -1,283 +1,243 @@
-
-## 📋 Requirements
-
-- **Neovim**: 0.11+ (recommended)
-- **Git**: For plugin management and git features
-- **Node.js**: For LSP servers and formatters
-- **Python**: For Python LSP and formatters
-- **Go**: For Go development tools
-- **Rust**: For Rust analyzer and tools
-
-## 🔧 Leader Keys
-
-- **Leader**: `<Space>`
-- **Local Leader**: `\`
-
-## 📁 Directory Structure
+## 📁 Configuration Structure
 
 ```
 ~/.config/nvim/
-├── init.lua                    # Entry point
+├── init.lua
 ├── lua/
 │   ├── config/
-│   │   ├── lazy.lua           # Plugin manager setup
-│   │   ├── options.lua        # Neovim options and autocmds
-│   │   └── keymaps.lua        # Global keybindings
+│   │   ├── lazy.lua       # Plugin manager setup
+│   │   ├── options.lua    # Vim options & autocommands
+│   │   └── keymaps.lua    # Global keybindings
 │   └── plugins/
-│       ├── barbar.lua         # Buffer tabs
-│       ├── blink-cmp.lua      # Completion engine
-│       ├── comment.lua        # Smart commenting
-│       ├── conform.lua        # Code formatting
-│       ├── dadbod.lua         # Database interface
-│       ├── fzf.lua           # Fuzzy finder
-│       ├── go.lua            # Go development
-│       ├── grug-far.lua      # Search & replace
-│       ├── lsp.lua           # Language servers
-│       ├── lualine.lua       # Status line
-│       ├── markdown.lua      # Markdown rendering
-│       ├── mini.lua          # Mini.nvim modules
-│       ├── oil.lua           # File manager
-│       ├── sleuth-vim.lua    # Auto-detect indentation
-│       ├── snacks.lua        # Multi-purpose utilities
-│       ├── theme.lua         # GitHub theme
-│       ├── todo.lua          # TODO comments
-│       ├── treesitter.lua    # Syntax highlighting
-│       ├── type.lua          # Typing practice
-│       ├── which-key.lua     # Key binding hints
-│       └── witt-neovim.lua   # Additional utilities
-└── README.md                  # This file
+│       ├── barbar.lua     # Buffer tabs
+│       ├── blink-cmp.lua  # Completion engine
+│       ├── comment.lua    # Smart commenting
+│       ├── conform.lua    # Code formatting
+│       ├── dadbod.lua     # Database interface
+│       ├── fzf.lua        # Fuzzy finder
+│       ├── go.lua         # Go development
+│       ├── grug-far.lua   # Search & replace
+│       ├── lsp.lua        # Language servers
+│       ├── lualine.lua    # Status line
+│       ├── markdown.lua   # Markdown rendering
+│       ├── mini.lua       # Essential mini plugins
+│       ├── oil.lua        # File manager
+│       ├── sleuth-vim.lua # Smart indentation
+│       ├── snacks.lua     # Swiss army knife utilities
+│       ├── theme.lua      # GitHub theme
+│       ├── todo.lua       # TODO comments
+│       ├── treesitter.lua # Syntax highlighting
+│       ├── type.lua       # Typing practice
+│       └── which-key.lua  # Key hints
+│       └── witt-neovim
 ```
 
-## ⌨️ Keybindings Reference
+## ⌨️ Essential Keybindings
 
-### Essential Operations
+### 🔥 Core Navigation
 
-| Key | Mode | Action | Description |
-|-----|------|--------|-------------|
-| `jk` | Insert | Exit insert mode | Quick escape |
-| `<C-s>` | Normal/Insert/Visual | Save file | Universal save |
-| `<leader>nh` | Normal | Clear search | Remove search highlights |
+| Key | Action | Description |
+|-----|--------|-------------|
+| `<Space>` | `<Leader>` | Leader key |
+| `jk` | `<ESC>` | Exit insert mode |
+| `<C-s>` | Save | Save file (all modes) |
+| `<C-a>` | Select all | Select entire buffer |
+| `-` | File manager | Open Oil float |
 
-### File Operations
+### 🪟 Window Management
 
-| Key | Mode | Action | Description |
-|-----|------|--------|-------------|
-| `<leader><space>` | Normal | Find files | Smart file finder |
-| `<leader>ff` | Normal | FZF files | FZF file search |
-| `<leader>fo` | Normal | Recent files | Recently opened files |
-| `<leader>fC` | Normal | Config files | Search config directory |
-| `-` | Normal | Oil file manager | Floating file browser |
-| `<leader>e` | Normal | Snacks explorer | File explorer |
-| `<leader>rf` | Normal | Rename file | Rename current file |
+| Key | Action | Description |
+|-----|--------|-------------|
+| `<C-h/j/k/l>` | Navigate | Switch between windows |
+| `<leader>\|` | Vertical split | Split window vertically |
+| `<leader>\\` | Horizontal split | Split window horizontally |
 
-### Search & Navigation
+### 📄 Buffer Navigation
 
-| Key | Mode | Action | Description |
-|-----|------|--------|-------------|
-| `<leader>fg` | Normal | Live grep | Search in files |
-| `<leader>fw` | Normal | Find word | Search word under cursor |
-| `<leader>f/` | Normal | Grep current dir | Search in current directory |
-| `<leader>sr` | Normal | Search & replace | Project-wide replace |
-| `<leader>sw` | Normal | Replace word | Replace word under cursor |
-| `<leader>sb` | Normal | Search in buffer | Buffer-specific search |
-| `<leader>sv` | Visual | Replace selection | Replace selected text |
+| Key | Action | Description |
+|-----|--------|-------------|
+| `<A-,>` / `<A-.>` | Switch buffers | Previous/Next buffer |
+| `<A-S-,>` / `<A-S-.>` | Move buffers | Move buffer left/right |
+| `<A-1-9>` | Go to buffer | Jump to buffer by number |
+| `<A-0>` | Last buffer | Jump to last buffer |
+| `<A-p>` | Pin buffer | Pin/unpin current buffer |
+| `<leader>bO` | Close others | Close all but current/pinned |
+| `<leader>bd` | Delete buffer | Smart buffer deletion |
 
-### Buffer Management
+### 🔍 Fuzzy Finding (FZF)
 
-| Key | Mode | Action | Description |
-|-----|------|--------|-------------|
-| `<leader>,` | Normal | Buffer picker | Quick buffer switch |
-| `<leader>bc` | Normal | Close buffer | Delete current buffer |
-| `<leader>bo` | Normal | Close others | Delete other buffers |
-| `<A-,>` | Normal | Previous buffer | Barbar navigation |
-| `<A-.>` | Normal | Next buffer | Barbar navigation |
-| `<A-1>` to `<A-9>` | Normal | Go to buffer N | Direct buffer access |
-| `<A-p>` | Normal | Pin buffer | Pin/unpin buffer |
-| `<leader>bO` | Normal | Close unpinned | Close all but pinned |
+| Key | Action | Description |
+|-----|--------|-------------|
+| `<leader>ff` | Find files | Search files in project |
+| `<leader>fC` | Config files | Search in Neovim config |
+| `<leader>fg` | Live grep | Search text in project |
+| `<leader>f/` | Grep current dir | Search in current directory |
+| `<leader>fo` | Recent files | Open recent files |
+| `<leader>fb` | Open buffers | List open buffers |
+| `<leader>fc` | Commands | Search available commands |
+| `<leader>fw` | Word under cursor | Find current word |
+| `<leader>fh` | Help tags | Search help documentation |
+| `<leader>fk` | Keymaps | Search keybindings |
+| `<leader>fd` | Diagnostics | Document diagnostics |
+| `<leader>fr` | Resume | Resume last search |
 
-### Window Management
+### 🔧 LSP & Development
 
-| Key | Mode | Action | Description |
-|-----|------|--------|-------------|
-| `<C-h/j/k/l>` | Normal | Window navigation | Move between windows |
-| `<leader>\|` | Normal | Vertical split | Split window vertically |
-| `<leader>\\` | Normal | Horizontal split | Split window horizontally |
+| Key | Action | Description |
+|-----|--------|-------------|
+| `gd` | Go to definition | Jump to definition |
+| `gr` | References | Show references |
+| `gi` | Implementation | Go to implementation |
+| `gt` | Type definition | Go to type definition |
+| `K` | Hover docs | Show documentation |
+| `gK` | Signature help | Show function signature |
+| `<C-h>` | Signature help | Signature help (insert) |
+| `<leader>ca` | Code action | Show code actions |
+| `<leader>cr` | Rename | Rename symbol |
+| `<leader>lh` | Toggle hints | Toggle inlay hints |
+| `<leader>f` | Format | Format code |
+| `<leader>df` | Diagnostic float | Show diagnostic popup |
 
-### LSP Features
+### 🛠️ Language-Specific
 
-| Key | Mode | Action | Description |
-|-----|------|--------|-------------|
-| `gd` | Normal | Go to definition | Jump to definition |
-| `gr` | Normal | References | Find references |
-| `gi` | Normal | Implementation | Go to implementation |
-| `gt` | Normal | Type definition | Go to type definition |
-| `K` | Normal | Hover info | Show documentation |
-| `gK` | Normal | Signature help | Function signature |
-| `<leader>ca` | Normal/Visual | Code action | Available code actions |
-| `<leader>cr` | Normal | Rename | Rename symbol |
-| `<leader>lh` | Normal | Toggle inlay hints | Show/hide type hints |
+#### Go Development
+| Key | Action | Description |
+|-----|--------|-------------|
+| `<leader>ga` | Alt file | Go to alternate file |
+| `<leader>gi` | Imports | Organize imports |
+| `<leader>gb` | Build | Build project |
+| `<leader>gr` | Run | Run current file |
+| `<leader>gt` | Test | Run tests |
 
-### Diagnostics
+#### Database (SQL)
+| Key | Action | Description |
+|-----|--------|-------------|
+| `<leader>Do` | DB Open | Open database UI |
+| `<leader>Du` | DB Toggle | Toggle database UI |
+| `<leader>Da` | DB Add | Add connection |
+| `<leader>Dr` | Execute | Execute query/selection |
 
-| Key | Mode | Action | Description |
-|-----|------|--------|-------------|
-| `<leader>df` | Normal | Show diagnostic | Diagnostic float |
-| `<leader>dq` | Normal | Quickfix list | All diagnostics |
-| `[d` | Normal | Previous diagnostic | Navigate diagnostics |
-| `]d` | Normal | Next diagnostic | Navigate diagnostics |
-| `<leader>fd` | Normal | FZF diagnostics | Search diagnostics |
+### 🔄 Search & Replace
 
-### Code Formatting
+| Key | Action | Description |
+|-----|--------|-------------|
+| `<leader>sr` | Search & replace | Open Grug-Far |
+| `<leader>sw` | Search word | Search word under cursor |
+| `<leader>sb` | Search buffer | Search in current buffer |
+| `<leader>sv` | Search selection | Search visual selection |
 
-| Key | Mode | Action | Description |
-|-----|------|--------|-------------|
-| `<leader>f` | Normal/Visual | Format code | Format buffer/selection |
-| `<leader>tf` | Normal | Toggle format | Toggle auto-format |
-| `<leader>tF` | Normal | Toggle buffer format | Toggle for current buffer |
+### 📝 Text Manipulation
 
-### Git Integration
+| Key | Action | Description |
+|-----|--------|-------------|
+| `J/K` | Move lines | Move selected lines up/down |
+| `</>`| Indent | Indent/outdent selection |
+| `<A-h/j/k/l>` | Move text | Move text in all directions |
+| `gsa/gsd/gsr` | Surround | Add/delete/replace surroundings |
+| `<leader>y` | System copy | Copy to system clipboard |
+| `p` | Paste (visual) | Paste without overwriting register |
 
-| Key | Mode | Action | Description |
-|-----|------|--------|-------------|
-| `<leader>gg` | Normal | Lazygit | Open Lazygit |
-| `<leader>gb` | Normal | Git blame | Show blame for line |
-| `<leader>gB` | Normal | Git browse | Browse on GitHub/GitLab |
+### 📋 TODO Management
 
-### Terminal
+| Key | Action | Description |
+|-----|--------|-------------|
+| `]t` / `[t` | Navigate TODOs | Next/previous TODO comment |
+| `<leader>ft` | Search TODOs | Find all TODO comments |
 
-| Key | Mode | Action | Description |
-|-----|------|--------|-------------|
-| `<C-t>` | Normal/Terminal | Toggle terminal | Snacks terminal |
-| `<ESC><ESC>` | Terminal | Exit terminal | Back to normal mode |
+### 🎯 Quick Actions
+
+| Key | Action | Description |
+|-----|--------|-------------|
+| `<leader>nh` | No highlight | Clear search highlights |
+| `<leader>+/-` | Increment/decrement | Modify numbers |
+| `<C-d/u>` | Scroll | Half-page scroll (centered) |
+| `n/N` | Search | Next/prev search (centered) |
+| `<C-t>` | Terminal | Toggle terminal |
+| `<leader>gg` | Lazygit | Open Git interface |
+| `<leader>z` | Zen mode | Distraction-free mode |
+
+### 🎪 Snacks Utilities
+
+| Key | Action | Description |
+|-----|--------|-------------|
+| `<leader>e` | Explorer | File explorer |
+| `<leader>sf` | Snacks files | File picker |
+| `<leader>sb` | Snacks buffers | Buffer picker |
+| `<leader>sg` | Snacks grep | Text search |
+| `<leader>un` | Notifications | Show notification history |
+
+## 🎯 Language Server Setup
+
+### Automatically Installed Tools
+
+**Formatters & Linters:**
+- `stylua` - Lua formatting
+- `prettierd` - Fast JS/TS/JSON/YAML formatting
+- `shfmt` - Shell script formatting
+- `goimports`, `gofumpt` - Go formatting
+- `black`, `isort` - Python formatting
+- `eslint_d` - JavaScript linting
+- `shellcheck` - Shell script linting
+
+## 📦 Plugin Breakdown
+
+### Core Functionality
+- **lazy.nvim** - Modern plugin manager
+- **nvim-lspconfig** - LSP configuration
+- **blink.cmp** - Lightning-fast completion
+- **nvim-treesitter** - Advanced syntax highlighting
+
+### File Management
+- **oil.nvim** - Buffer-based file manager
+- **fzf-lua** - Blazing fast fuzzy finder
+- **snacks.nvim** - Multi-utility plugin
+
+### Development Experience
+- **conform.nvim** - Code formatting
+- **grug-far.nvim** - Search and replace
+- **todo-comments.nvim** - TODO highlighting
+- **Comment.nvim** - Smart commenting
+
+### UI/Visual
+- **github-nvim-theme** - Clean GitHub theme
+- **lualine.nvim** - Customizable statusline
+- **barbar.nvim** - Buffer tabs
+- **render-markdown.nvim** - Beautiful markdown
+
+### Language-Specific
+- **go.nvim** - Enhanced Go development
+- **vim-dadbod-ui** - Database management
+
+### Quality of Life
+- **mini.nvim** - Essential mini plugins
+- **which-key.nvim** - Keymap hints
+- **vim-sleuth** - Smart indentation detection
+
+## ⚡ Pro Tips
+
+### Performance
+- Large files (>100KB) automatically disable heavy features
+- Treesitter highlighting disabled for files >100KB
+- Lazy loading optimized for fast startup
+
+### Workflow Optimizations
+- Use `jk` instead of `<ESC>` - it's faster
+- Leader key (`<Space>`) is optimally positioned
+- Visual mode paste preserves register content
+- Auto-save on `<C-s>` from any mode
+
+### Database Development
+- Use `:DBUI` for visual database management
+- Execute queries with `<leader>Dr`
+- Supports multiple database types
 
 ### Go Development
+- Auto-imports and formatting on save
+- Inlay hints for better type visibility
+- Integrated testing and building
 
-| Key | Mode | Action | Description |
-|-----|------|--------|-------------|
-| `<leader>ga` | Normal | Alternate file | Switch to test/impl |
-| `<leader>gi` | Normal | Organize imports | Fix imports |
-| `<leader>gs` | Normal | Fill struct | Auto-fill struct |
-| `<leader>gb` | Normal | Build | Build package |
-| `<leader>gx` | Normal | Run file | Execute current file |
-| `<leader>gta` | Normal | Test all | Run all tests |
-| `<leader>gtf` | Normal | Test function | Test current function |
-| `<leader>gtc` | Normal | Coverage | Show test coverage |
-
-### Database (Dadbod)
-
-| Key | Mode | Action | Description |
-|-----|------|--------|-------------|
-| `<leader>Do` | Normal | Open DB UI | Database interface |
-| `<leader>Du` | Normal | Toggle DB UI | Show/hide DB UI |
-| `<leader>Da` | Normal | Add connection | New DB connection |
-| `<leader>Df` | Normal | Find buffer | Find DB buffer |
-| `<leader>Dr` | Normal/Visual | Execute query | Run SQL query |
-
-### Markdown
-
-| Key | Mode | Action | Description |
-|-----|------|--------|-------------|
-| `<leader>mt` | Normal | Toggle render | Markdown preview |
-| `<leader>me` | Normal | Enable render | Turn on preview |
-| `<leader>md` | Normal | Disable render | Turn off preview |
-
-### TODO Comments
-
-| Key | Mode | Action | Description |
-|-----|------|--------|-------------|
-| `]t` | Normal | Next TODO | Jump to next TODO |
-| `[t` | Normal | Previous TODO | Jump to previous TODO |
-| `<leader>st` | Normal | Search TODOs | Find all TODOs |
-
-### Mini.nvim Features
-
-| Key | Mode | Action | Description |
-|-----|------|--------|-------------|
-| `gsa` | Normal/Visual | Add surround | Surround with chars |
-| `gsd` | Normal | Delete surround | Remove surrounding |
-| `gsr` | Normal | Replace surround | Change surrounding |
-| `gS` | Normal | Split/Join | Toggle code structure |
-| `<A-h/j/k/l>` | Normal/Visual | Move text | Move lines/selection |
-
-### Utilities
-
-| Key | Mode | Action | Description |
-|-----|------|--------|-------------|
-| `<leader>z` | Normal | Zen mode | Distraction-free editing |
-| `<leader>.` | Normal | Scratch buffer | Temporary buffer |
-| `<leader>x` | Normal | Source file | Execute Lua file |
-| `<leader>un` | Normal | Notifications | Show notification history |
-| `<leader>uN` | Normal | Clear notifications | Dismiss all notifications |
-
-## 🔧 Configuration Details
-
-### LSP Servers
-
-Automatically installed and configured:
-- **Lua**: lua-language-server
-- **JavaScript/TypeScript**: typescript-language-server
-- **Go**: gopls
-- **Python**: pyright
-- **Rust**: rust-analyzer
-- **JSON**: json-lsp
-- **YAML**: yaml-language-server
-- **Bash**: bash-language-server
-- **HTML/CSS**: emmet-language-server, tailwindcss-language-server
-
-### Formatters
-
-- **Lua**: stylua
-- **JavaScript/TypeScript**: prettierd/prettier
-- **Go**: goimports, gofumpt
-- **Python**: black, isort
-- **Rust**: rustfmt
-- **Shell**: shfmt
-- **General**: codespell, trim_whitespace
-
-### Treesitter Parsers
-
-Auto-installed for supported languages:
-bash, c, cpp, css, go, html, javascript, json, lua, markdown, python, rust, tsx, typescript, vim, yaml, toml, dockerfile, gitignore
-
-## 🎨 Themes & UI
-
-- **Colorscheme**: GitHub Dark (with transparency)
-- **Status Line**: Lualine with LSP info and git status
-- **Buffer Tabs**: Barbar with git integration
-- **Icons**: Nerd Font icons throughout
-- **Borders**: Rounded borders for floating windows
-
-## 🚀 Performance Optimizations
-
-- **Lazy Loading**: Plugins load only when needed
-- **Disabled Providers**: Unused language providers disabled
-- **Fast Startup**: Optimized plugin loading order
-- **Large File Handling**: Treesitter disabled for files >100KB
-- **Smart Completion**: Context-aware completion triggers
-
-## 📝 File Types & Features
-
-### Markdown
-- Live preview with render-markdown.nvim
-- Enhanced syntax highlighting
-- Table formatting
-- Checkbox support
-
-### Go
-- Full LSP integration with gopls
-- Test running and coverage
-- Struct filling and interface implementation
-- Import organization
-
-### Database
-- SQL syntax highlighting
-- Query execution
-- Connection management
-- Result viewing
-
-## 🔍 Search Capabilities
-
-- **FZF Integration**: Fast file and content search
-- **Live Grep**: Real-time text search across project
-- **Word Search**: Quick search for word under cursor
-- **Project Replace**: Powerful find and replace with Grug-far
+### Git Workflow
+- Use `<leader>gg` for full Git interface
+- Buffer-level git signs and blame
+- Smart diff algorithms
+---

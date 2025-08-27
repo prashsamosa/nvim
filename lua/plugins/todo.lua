@@ -1,3 +1,4 @@
+-- lua/plugins/todo.lua
 return {
     "folke/todo-comments.nvim",
     dependencies = "nvim-lua/plenary.nvim",
@@ -5,14 +6,13 @@ return {
 
     opts = {
         signs = true,
-        -- Define keyword types and icons
         keywords = {
-            FIX = { icon = " ", color = "error", alt = { "FIXME", "BUG", "FIXIT", "ISSUE" } },
-            TODO = { icon = " ", color = "info" },
-            HACK = { icon = " ", color = "warning" },
-            WARN = { icon = " ", color = "warning", alt = { "WARNING", "XXX" } },
-            PERF = { icon = " ", alt = { "OPTIM", "PERFORMANCE", "OPTIMIZE" } },
-            NOTE = { icon = " ", color = "hint", alt = { "INFO" } },
+            FIX = { icon = " ", color = "error", alt = { "FIXME", "BUG", "FIXIT", "ISSUE" } },
+            TODO = { icon = " ", color = "info" },
+            HACK = { icon = " ", color = "warning" },
+            WARN = { icon = " ", color = "warning", alt = { "WARNING", "XXX" } },
+            PERF = { icon = " ", alt = { "OPTIM", "PERFORMANCE", "OPTIMIZE" } },
+            NOTE = { icon = " ", color = "hint", alt = { "INFO" } },
             TEST = { icon = "⏲ ", color = "test", alt = { "TESTING", "PASSED", "FAILED" } },
         },
         highlight = {
@@ -42,6 +42,6 @@ return {
     keys = {
         { "]t",         function() require("todo-comments").jump_next() end, desc = "Next TODO comment" },
         { "[t",         function() require("todo-comments").jump_prev() end, desc = "Previous TODO comment" },
-        { "<leader>st", "<cmd>TodoTelescope<CR>",                            desc = "Search TODOs" },
+        { "<leader>ft", function() require("todo-comments.fzf").todo() end,  desc = "Search TODOs" },
     },
 }

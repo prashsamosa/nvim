@@ -16,14 +16,14 @@ return {
     },
 
     keys = {
-        { "<leader>e",       function() require("snacks").explorer() end,              desc = "Explorer" },
-        { "<leader><space>", function() require("snacks").picker.files() end,          desc = "Files" },
-        { "<leader>,",       function() require("snacks").picker.buffers() end,        desc = "Buffers" },
-        { "<leader>fg",      function() require("snacks").picker.grep() end,           desc = "Grep" },
-        { "<C-t>",           function() require("snacks").terminal.toggle() end,       desc = "Terminal",     mode = { "n", "t" } },
-        { "<leader>gg",      function() require("snacks").lazygit() end,               desc = "Lazygit" },
-        { "<leader>z",       function() require("snacks").zen() end,                   desc = "Zen Mode" },
-        { "<leader>bd",      function() require("snacks").bufdelete() end,             desc = "Delete Buffer" },
-        { "<leader>un",      function() require("snacks").notifier.show_history() end, desc = "Notifications" },
+        { "<leader>e",  function() require("snacks").explorer() end,              desc = "Explorer" },
+        { "<leader>sf", function() require("snacks").picker.files() end,          desc = "Files" },
+        { "<leader>sb", function() require("snacks").picker.buffers() end,        desc = "Buffers" },
+        { "<leader>sg", function() require("snacks").picker.grep() end,           desc = "Grep" },
+        { "<C-t>",      function() require("snacks").terminal.toggle() end,       desc = "Terminal",     mode = { "n", "t" } },
+        { "<leader>gg", function() require("snacks").lazygit() end,               desc = "Lazygit" },
+        { "<leader>z",  function() require("snacks").zen() end,                   desc = "Zen Mode" },
+        { "<leader>bd", function() require("snacks").bufdelete() end,             desc = "Delete Buffer" },
+        { "<leader>un", function() require("snacks").notifier.show_history() end, desc = "Notifications" },
     },
 }
