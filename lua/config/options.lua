@@ -48,6 +48,9 @@ opt.splitbelow = true
 -- Enhanced completion for Neovim 0.11+
 opt.completeopt = { "menu", "menuone", "noselect", "popup" }
 opt.termguicolors = true
+-- Better completion visuals
+opt.pumblend = 10  -- Slight transparency for completion menu
+opt.winblend = 0   -- No transparency for other windows
 
 -- Enhanced LSP features
 opt.shortmess:append("c")  -- Don't show completion messages
@@ -70,10 +73,11 @@ opt.diffopt:append("linematch:60")
 
 -- Neovim 0.11+ features
 if vim.fn.has("nvim-0.11") == 1 then
-  opt.smoothscroll = true  -- Already present ✓
-  -- Add these new ones:
+  opt.smoothscroll = true
   opt.splitkeep = "cursor"  -- Keep cursor position when splitting
   opt.shortmess:append("WcC") -- Reduce command line messages
+  -- New in 0.11
+  opt.jumpoptions = "stack"  -- Better jump list
 end
 
 -- Better performance for large files
