@@ -7,11 +7,11 @@ return {
     event = "BufReadPost",
 
     keys = {
-        { "<A-,>",      "<cmd>BufferPrevious<cr>" },
-        { "<A-.>",      "<cmd>BufferNext<cr>" },
-        { "<A-S-,>",    "<cmd>BufferMovePrevious<cr>" },
-        { "<A-S-.>",    "<cmd>BufferMoveNext<cr>" },
-        { "<A-p>",      "<cmd>BufferPin<cr>" },
+        { "<A-,>", "<cmd>BufferPrevious<cr>" },
+        { "<A-.>", "<cmd>BufferNext<cr>" },
+        { "<A-S-,>", "<cmd>BufferMovePrevious<cr>" },
+        { "<A-S-.>", "<cmd>BufferMoveNext<cr>" },
+        { "<A-p>", "<cmd>BufferPin<cr>" },
         { "<leader>bO", "<cmd>BufferCloseAllButCurrentOrPinned<cr>" },
     },
 

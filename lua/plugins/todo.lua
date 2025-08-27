@@ -10,12 +10,12 @@ return {
     opts = {
         signs = true,
         keywords = {
-            FIX = { icon = " ", color = "error", alt = { "FIXME", "BUG", "FIXIT", "ISSUE" } },
-            TODO = { icon = " ", color = "info" },
-            HACK = { icon = " ", color = "warning" },
-            WARN = { icon = " ", color = "warning", alt = { "WARNING", "XXX" } },
-            PERF = { icon = " ", alt = { "OPTIM", "PERFORMANCE", "OPTIMIZE" } },
-            NOTE = { icon = " ", color = "hint", alt = { "INFO" } },
+            FIX  = { icon = " ", color = "error", alt = { "FIXME", "BUG", "FIXIT", "ISSUE" } },
+            TODO = { icon = " ", color = "info" },
+            HACK = { icon = " ", color = "warning" },
+            WARN = { icon = " ", color = "warning", alt = { "WARNING", "XXX" } },
+            PERF = { icon = " ", alt = { "OPTIM", "PERFORMANCE", "OPTIMIZE" } },
+            NOTE = { icon = " ", color = "hint", alt = { "INFO" } },
             TEST = { icon = "⏲ ", color = "test", alt = { "TESTING", "PASSED", "FAILED" } },
         },
         highlight = {
@@ -28,12 +28,12 @@ return {
             max_line_len = 400,
         },
         colors = {
-            error = { "DiagnosticError", "ErrorMsg", "#DC2626" },
+            error   = { "DiagnosticError", "ErrorMsg", "#DC2626" },
             warning = { "DiagnosticWarn", "WarningMsg", "#FBBF24" },
-            info = { "DiagnosticInfo", "#2563EB" },
-            hint = { "DiagnosticHint", "#10B981" },
+            info    = { "DiagnosticInfo", "#2563EB" },
+            hint    = { "DiagnosticHint", "#10B981" },
             default = { "Identifier", "#7C3AED" },
-            test = { "Identifier", "#FF00FF" },
+            test    = { "Identifier", "#FF00FF" },
         },
         search = {
             command = "rg",
@@ -43,8 +43,14 @@ return {
     },
 
     keys = {
-        { "]t",         function() require("todo-comments").jump_next() end, desc = "Next TODO comment" },
-        { "[t",         function() require("todo-comments").jump_prev() end, desc = "Previous TODO comment" },
-        { "<leader>ft", function() require("todo-comments.telescope").todo() end,  desc = "Search TODOs" },
+        { "]t", function() require("todo-comments").jump_next() end, desc = "Next TODO comment" },
+        { "[t", function() require("todo-comments").jump_prev() end, desc = "Previous TODO comment" },
+        {
+            "<leader>ft",
+            function()
+                require("telescope").extensions["todo-comments"].todo()
+            end,
+            desc = "Search TODOs",
+        },
     },
 }
