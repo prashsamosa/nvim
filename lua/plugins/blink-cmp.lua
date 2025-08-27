@@ -24,7 +24,7 @@ return {
       accept = { auto_brackets = { enabled = true } },
       documentation = {
         auto_show = true,
-        auto_show_delay_ms = 100, -- Faster than your current 200ms
+        auto_show_delay_ms = 100,
         window = { max_width = 80, max_height = 20, border = "rounded" },
       },
       menu = {
@@ -69,11 +69,9 @@ return {
           score_offset = -3,
           opts = {
             friendly_snippets = true,
-            -- Add snippet path optimization and reduce items for performance
-            max_items = 6, -- Reduced from 8
+            max_items = 6,
             search_paths = function()
               local paths = { vim.fn.stdpath("config") .. "/snippets" }
-              -- Only add if exists to avoid I/O when not present
               local friendly_snippets = vim.fn.stdpath("data") .. "/lazy/friendly-snippets/snippets"
               if vim.fn.isdirectory(friendly_snippets) == 1 then
                 table.insert(paths, friendly_snippets)
@@ -87,13 +85,21 @@ return {
           module = "blink.cmp.sources.buffer",
           score_offset = -3,
           opts = {
-            max_items = 4, -- Reduced for performance
+            max_items = 4,
             min_keyword_length = 3,
-            max_line_length = 1000, -- Add line length limit
+            max_line_length = 1000,
             get_bufnrs = function()
               return vim.tbl_filter(function(buf)
                 local byte_size = vim.api.nvim_buf_get_offset(buf, vim.api.nvim_buf_line_count(buf))
-                return vim.bo[buf].buftype ~= "nofile" and byte_size < 1024 * 1024 -- 1MB limit
+                local buftype = vim.bo[buf].buftype
+                local filetype = vim.bo[buf].filetype
+
+                return buftype ~= "nofile"
+                    and buftype ~= "prompt"
+                    and buftype ~= "help"
+                    and filetype ~= "TelescopePrompt"
+                    and filetype ~= "alpha"
+                    and byte_size < 1024 * 1024 -- 1MB limit
               end, vim.api.nvim_list_bufs())
             end,
           },

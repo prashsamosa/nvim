@@ -68,24 +68,22 @@ return {
         float = { border = "rounded", source = true },
       })
 
+      -- Global LSP handlers (your approach is perfect!)
+      vim.lsp.handlers["textDocument/hover"] = vim.lsp.with(vim.lsp.handlers.hover, { border = "rounded" })
+      vim.lsp.handlers["textDocument/signatureHelp"] = vim.lsp.with(vim.lsp.handlers.signature_help,
+        { border = "rounded" })
+
       local capabilities = vim.lsp.protocol.make_client_capabilities()
       capabilities.textDocument.completion.completionItem.snippetSupport = true
       capabilities.textDocument.completion.completionItem.resolveSupport = {
         properties = { "documentation", "detail", "additionalTextEdits" }
       }
 
+      -- Enhanced blink.cmp integration
       local ok, blink = pcall(require, "blink.cmp")
       if ok then
         capabilities = blink.get_lsp_capabilities(capabilities)
       end
-
-      vim.lsp.config("*", {
-        capabilities = capabilities,
-        handlers = {
-          ["textDocument/hover"] = vim.lsp.with(vim.lsp.handlers.hover, { border = "rounded" }),
-          ["textDocument/signatureHelp"] = vim.lsp.with(vim.lsp.handlers.signature_help, { border = "rounded" }),
-        },
-      })
 
       local lspconfig = require("lspconfig")
       local servers = {
@@ -104,6 +102,17 @@ return {
           capabilities = capabilities,
           settings = {
             typescript = {
+              inlayHints = {
+                includeInlayParameterNameHints = "all",
+                includeInlayParameterNameHintsWhenArgumentMatchesName = false,
+                includeInlayFunctionParameterTypeHints = true,
+                includeInlayVariableTypeHints = true,
+                includeInlayPropertyDeclarationTypeHints = true,
+                includeInlayFunctionLikeReturnTypeHints = true,
+                includeInlayEnumMemberValueHints = true,
+              },
+            },
+            javascript = {
               inlayHints = {
                 includeInlayParameterNameHints = "all",
                 includeInlayParameterNameHintsWhenArgumentMatchesName = false,
@@ -206,7 +215,7 @@ return {
           end
 
           if client and client.supports_method("textDocument/documentHighlight") then
-            local group = vim.api.nvim_create_augroup("LspDocumentHighlight", { clear = true })
+            local group = vim.api.nvim_create_augroup("LspDocumentHighlight", { clear = false })
             vim.api.nvim_create_autocmd({ "CursorHold", "CursorHoldI" }, {
               group = group,
               buffer = ev.buf,
@@ -222,27 +231,20 @@ return {
           local opts = { buffer = ev.buf, silent = true }
           local keymap = vim.keymap.set
 
-          keymap("n", "gd", vim.lsp.buf.definition,
-            vim.tbl_extend("force", opts, { desc = "Go to Definition" }))
+          keymap("n", "gd", vim.lsp.buf.definition, vim.tbl_extend("force", opts, { desc = "Go to Definition" }))
           keymap("n", "gr", vim.lsp.buf.references, vim.tbl_extend("force", opts, { desc = "References" }))
-          keymap("n", "gi", vim.lsp.buf.implementation,
-            vim.tbl_extend("force", opts, { desc = "Go to Implementation" }))
-          keymap("n", "gt", vim.lsp.buf.type_definition,
-            vim.tbl_extend("force", opts, { desc = "Type Definition" }))
+          keymap("n", "gi", vim.lsp.buf.implementation, vim.tbl_extend("force", opts, { desc = "Go to Implementation" }))
+          keymap("n", "gt", vim.lsp.buf.type_definition, vim.tbl_extend("force", opts, { desc = "Type Definition" }))
           keymap("n", "K", vim.lsp.buf.hover, vim.tbl_extend("force", opts, { desc = "Hover Documentation" }))
-          keymap("n", "gK", vim.lsp.buf.signature_help,
-            vim.tbl_extend("force", opts, { desc = "Signature Help" }))
-          keymap("i", "<C-h>", vim.lsp.buf.signature_help,
-            vim.tbl_extend("force", opts, { desc = "Signature Help" }))
+          keymap("n", "gK", vim.lsp.buf.signature_help, vim.tbl_extend("force", opts, { desc = "Signature Help" }))
+          keymap("i", "<C-h>", vim.lsp.buf.signature_help, vim.tbl_extend("force", opts, { desc = "Signature Help" }))
           keymap({ "n", "v" }, "<leader>ca", vim.lsp.buf.code_action,
             vim.tbl_extend("force", opts, { desc = "Code Action" }))
-          keymap("n", "<leader>cr", vim.lsp.buf.rename,
-            vim.tbl_extend("force", opts, { desc = "Rename Symbol" }))
+          keymap("n", "<leader>cr", vim.lsp.buf.rename, vim.tbl_extend("force", opts, { desc = "Rename Symbol" }))
 
           if client and client.supports_method("textDocument/inlayHint") then
             keymap("n", "<leader>lh", function()
-              vim.lsp.inlay_hint.enable(not vim.lsp.inlay_hint.is_enabled({ bufnr = ev.buf }),
-                { bufnr = ev.buf })
+              vim.lsp.inlay_hint.enable(not vim.lsp.inlay_hint.is_enabled({ bufnr = ev.buf }), { bufnr = ev.buf })
             end, vim.tbl_extend("force", opts, { desc = "Toggle Inlay Hints" }))
           end
         end,

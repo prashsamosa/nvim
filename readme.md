@@ -135,6 +135,9 @@
 | `<leader>gb` | Build    | Build project        |
 | `<leader>gr` | Run      | Run current file     |
 | `<leader>gt` | Test     | Run tests            |
+| `<leader>gT` | Test File   | Run tests in file    |
+| `<leader>gf` | Fill Struct | Fill struct fields   |
+| `<leader>ge` | If Err      | Add if err check     |
 
 #### Database (SQL)
 
@@ -232,113 +235,6 @@
 | `<leader>dP` | Profiler         | Performance profiler      |
 | `<leader>dp` | Profiler scratch | Profiler scratch buffer   |
 
-## 🎯 Language Server Setup
-
-### Automatically Installed Tools
-
-**Language Servers:**
-
-- `lua-language-server` - Lua LSP
-- `typescript-language-server` - TypeScript/JavaScript LSP
-- `gopls` - Go LSP
-- `pyright` - Python LSP
-- `rust-analyzer` - Rust LSP
-- `tailwindcss-language-server` - Tailwind CSS LSP
-- `json-lsp` - JSON LSP
-- `yaml-language-server` - YAML LSP
-- `bash-language-server` - Bash LSP
-- `emmet-language-server` - Emmet LSP
-
-**Formatters & Linters:**
-
-- `stylua` - Lua formatting
-- `prettierd` - Fast JS/TS/JSON/YAML formatting
-- `shfmt` - Shell script formatting
-- `goimports`, `gofumpt` - Go formatting
-- `black`, `isort` - Python formatting
-- `eslint_d` - JavaScript linting
-- `shellcheck` - Shell script linting
-
-## 📦 Plugin Breakdown
-
-### Core Functionality
-
-- **lazy.nvim** - Modern plugin manager
-- **nvim-lspconfig** - LSP configuration
-- **blink.cmp** - Lightning-fast completion engine
-- **nvim-treesitter** - Advanced syntax highlighting
-
-### File Management
-
-- **oil.nvim** - Buffer-based file manager
-- **fzf-lua** - Blazing fast fuzzy finder
-- **snacks.nvim** - Multi-utility plugin with enhanced features
-
-### Session Management
-
-- **mini.sessions** - Lightweight session management
-  - Auto-save sessions on exit
-  - Interactive session selection
-  - Directory-based quick sessions
-
-### Development Experience
-
-- **conform.nvim** - Code formatting
-- **grug-far.nvim** - Search and replace
-- **todo-comments.nvim** - TODO highlighting
-- **Comment.nvim** - Smart commenting
-
-### UI/Visual Enhancement
-
-- **github-nvim-theme** - Clean GitHub theme
-- **lualine.nvim** - Customizable statusline
-- **barbar.nvim** - Buffer tabs with advanced features
-- **render-markdown.nvim** - Beautiful markdown rendering
-- **snacks.statuscolumn** - Enhanced status column with git signs
-
-### Language-Specific
-
-- **go.nvim** - Enhanced Go development tools
-- **vim-dadbod-ui** - Visual database management
-
-### Quality of Life Features
-
-- **mini.nvim** - Essential mini plugins collection:
-
-  - **mini.ai** - Enhanced text objects
-  - **mini.surround** - Surround text operations
-  - **mini.pairs** - Auto-pair brackets
-  - **mini.move** - Move text around
-  - **mini.sessions** - Session management
-  - **mini.splitjoin** - Smart split/join constructs
-  - **mini.align** - Text alignment
-  - **mini.operators** - Powerful text operations
-
-- **snacks.nvim** - Comprehensive utilities:
-
-  - **bigfile** - Large file handling
-  - **dashboard** - Welcome screen
-  - **terminal** - Terminal integration
-  - **scroll** - Smooth scrolling
-  - **notifier** - Notification system
-  - **bufdelete** - Smart buffer deletion
-  - **zen** - Distraction-free mode
-  - **words** - Word highlighting and navigation
-  - **statuscolumn** - Enhanced status column
-  - **input** - Enhanced input dialogs
-  - **quickfile** - Fast file opening
-  - **scope** - Buffer scope management
-  - **scratch** - Scratch buffers
-  - **rename** - File renaming
-  - **gitbrowse** - Git browser integration
-  - **toggle** - Option toggling utilities
-  - **profiler** - Performance profiling
-  - **dim** - Window dimming
-
-- **which-key.nvim** - Keymap hints and discovery
-- **vim-sleuth** - Smart indentation detection
-
-## ⚡ Pro Tips & Workflows
 
 ### Session Management Mastery
 
@@ -347,14 +243,14 @@
 - Sessions remember splits, cursor positions, and open files
 - Perfect for juggling multiple projects simultaneously
 
-### Completion Excellence with Blink.cmp
+### Completion with Blink.cmp
 
 - `<Tab>` and `<S-Tab>` for intuitive navigation
 - `<C-d>` shows documentation without conflicts
 - Auto-brackets for faster coding
 - Smart source prioritization (LSP > Path > Snippets > Buffer)
 
-### Text Operations Mastery
+### Text Operations
 
 - `gS` intelligently splits/joins function calls and arrays
 - `ga` aligns code on any character (=, :, etc.)
@@ -362,14 +258,14 @@
 - `gx` swaps function arguments or code blocks
 - `gm` duplicates with smart positioning
 
-### Navigation Excellence
+### Navigation
 
 - Enhanced window navigation works in terminal mode too
 - `]w` and `[w` for word occurrence jumping (use ]]/[[ for functions)
 - Status column integration shows git changes and folds
 - Smart centering keeps important content visible
 
-### Development Workflow
+### Development
 
 - Global `<leader>iH` for quick inlay hint toggling
 - Buffer-specific `<leader>ih` for focused work
@@ -397,14 +293,6 @@
 - `<leader>gg` opens full Lazygit interface
 - `<leader>gB` creates shareable links instantly
 - Enhanced diff algorithms for better merge resolution
-
-### Advanced Features You're Getting
-
-- Modern Neovim 0.11+ feature utilization
-- Smart buffer scope management
-- Enhanced input dialogs throughout
-- Performance profiling capabilities
-- Window dimming for focus enhancement
 
 ### Keyboard-Driven Efficiency
 
@@ -456,27 +344,4 @@
    - Configure Go project with automatic imports
    - Use `<leader>gg` to explore Lazygit integration
    - Try `<leader>z` for distraction-free coding
-
-## 🎉 What Makes This Config Special
-
-### Modern Architecture
-
-- **Neovim 0.11+ Features**: Smooth scrolling, enhanced completion, modern diff algorithms
-- **Performance First**: Smart lazy loading, large file detection, optimized startup
-- **Zero Conflicts**: Carefully orchestrated keybindings without collisions
-
-### Developer Experience
-
-- **Intelligent Completion**: Context-aware suggestions with documentation
-- **Advanced Navigation**: Multi-dimensional movement and jumping
-- **Session Persistence**: Never lose your workflow state
-- **Visual Excellence**: GitHub theme with enhanced status information
-
-### Quality Assurance
-
-- **Conflict-Free Keybindings**: Thoroughly tested key combinations
-- **Performance Optimized**: Handles large files and projects gracefully
-- **Modern Plugin Ecosystem**: Latest and most maintained plugins
-- **Extensible Architecture**: Easy to customize and extend
-
-Your Neovim configuration represents the pinnacle of modern text editor setup - combining performance, aesthetics, and developer productivity in a cohesive, conflict-free package! 🚀✨
+---
