@@ -120,7 +120,7 @@
 | `<Tab>`     | Next item     | Select next completion item     |
 | `<S-Tab>`   | Previous item | Select previous completion item |
 | `<CR>`      | Accept        | Accept completion               |
-| `<C-j>`     | Documentation | Show/hide documentation         |
+| `<C-d>`     | Documentation | Show/hide documentation         |
 | `<C-e>`     | Hide          | Hide completion menu            |
 | `<C-space>` | Show          | Force show completion           |
 
@@ -350,7 +350,7 @@
 ### Completion Excellence with Blink.cmp
 
 - `<Tab>` and `<S-Tab>` for intuitive navigation
-- `<C-j>` shows documentation without conflicts
+- `<C-d>` shows documentation without conflicts
 - Auto-brackets for faster coding
 - Smart source prioritization (LSP > Path > Snippets > Buffer)
 
@@ -442,7 +442,7 @@
    - `<Tab>` in insert mode - Experience blink.cmp
    - `gS` on a function call - See smart split/join
    - `<leader>iH` - Toggle inlay hints globally
-   - `<C-j>` in completion - View documentation
+   - `<C-d>` in completion - View documentation
 
 4. **Explore Advanced Features**:
 

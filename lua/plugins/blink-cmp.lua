@@ -10,7 +10,7 @@ return {
             ["<CR>"] = { "accept", "fallback" },
             ["<Tab>"] = { "select_next", "snippet_forward", "fallback" },
             ["<S-Tab>"] = { "select_prev", "snippet_backward", "fallback" },
-            ["<C-j>"] = { "show_documentation", "hide_documentation" }, -- Fixed: Changed from C-d to avoid scroll conflict
+            ["<C-d>"] = { "show_documentation", "hide_documentation" },
             ["<C-e>"] = { "hide", "fallback" },
             ["<C-space>"] = { "show", "fallback" },
         },
