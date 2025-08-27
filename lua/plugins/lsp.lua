@@ -68,10 +68,6 @@ return {
         float = { border = "rounded", source = true },
       })
 
-      vim.lsp.handlers["textDocument/hover"] = vim.lsp.with(vim.lsp.handlers.hover, { border = "rounded" })
-      vim.lsp.handlers["textDocument/signatureHelp"] = vim.lsp.with(vim.lsp.handlers.signature_help,
-        { border = "rounded" })
-
       local capabilities = vim.lsp.protocol.make_client_capabilities()
       capabilities.textDocument.completion.completionItem.snippetSupport = true
       capabilities.textDocument.completion.completionItem.resolveSupport = {
@@ -82,6 +78,14 @@ return {
       if ok then
         capabilities = blink.get_lsp_capabilities(capabilities)
       end
+
+      vim.lsp.config("*", {
+        capabilities = capabilities,
+        handlers = {
+          ["textDocument/hover"] = vim.lsp.with(vim.lsp.handlers.hover, { border = "rounded" }),
+          ["textDocument/signatureHelp"] = vim.lsp.with(vim.lsp.handlers.signature_help, { border = "rounded" }),
+        },
+      })
 
       local lspconfig = require("lspconfig")
       local servers = {
@@ -204,14 +208,14 @@ return {
           if client and client.supports_method("textDocument/documentHighlight") then
             local group = vim.api.nvim_create_augroup("LspDocumentHighlight", { clear = true })
             vim.api.nvim_create_autocmd({ "CursorHold", "CursorHoldI" }, {
-            group = group,
-            buffer = ev.buf,
-            callback = vim.lsp.buf.document_highlight,
+              group = group,
+              buffer = ev.buf,
+              callback = vim.lsp.buf.document_highlight,
             })
             vim.api.nvim_create_autocmd("CursorMoved", {
-            group = group,
-            buffer = ev.buf,
-            callback = vim.lsp.buf.clear_references,
+              group = group,
+              buffer = ev.buf,
+              callback = vim.lsp.buf.clear_references,
             })
           end
 
