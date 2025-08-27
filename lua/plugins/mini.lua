@@ -32,18 +32,18 @@ return {
         end,
     },
 
-    -- Remove mini.indentscope since snacks.indent is better
-    -- {
-    --     "echasnovski/mini.indentscope",
-    --     version = false,
-    --     event = { "BufReadPre", "BufNewFile" },
-    --     config = function()
-    --         require("mini.indentscope").setup({
-    --             symbol = "╎",
-    --             draw = { animation = require("mini.indentscope").gen_animation.none() },
-    --         })
-    --     end,
-    -- },
+
+    {
+        "echasnovski/mini.indentscope",
+        version = false,
+        event = { "BufReadPre", "BufNewFile" },
+        config = function()
+            require("mini.indentscope").setup({
+                symbol = "╎",
+                draw = { animation = require("mini.indentscope").gen_animation.none() },
+            })
+        end,
+    },
 
     {
         "echasnovski/mini.move",
