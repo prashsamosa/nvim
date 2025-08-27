@@ -15,15 +15,16 @@ map("n", "<C-u>", "<C-u>zz")
 map("n", "n", "nzzzv")
 map("n", "N", "Nzzzv")
 
--- Window navigation (restored full navigation)
+-- Window navigation
 map("n", "<C-h>", "<C-w>h")
 map("n", "<C-j>", "<C-w>j")
-map("n", "<C-k>", "<C-w>k") -- Fixed: Restored C-k window navigation
+map("n", "<C-k>", "<C-w>k")
 map("n", "<C-l>", "<C-w>l")
 
 map("n", "<leader>|", "<cmd>vsplit<CR>")
 map("n", "<leader>\\", "<cmd>split<CR>")
 
+-- Visual line movement (works with mini.move for other movements)
 map("v", "J", ":m '>+1<CR>gv=gv")
 map("v", "K", ":m '<-2<CR>gv=gv")
 map("v", "<", "<gv")
@@ -44,7 +45,7 @@ map("n", "[q", "<cmd>cprev<CR>")
 
 map("n", "<C-a>", "ggVG")
 
--- Global inlay hints toggle
-map("n", "<leader>iH", function()
-    vim.lsp.inlay_hint.enable(not vim.lsp.inlay_hint.is_enabled())
+-- Global inlay hints toggle (primary toggle)
+map("n", "<leader>ih", function()
+  vim.lsp.inlay_hint.enable(not vim.lsp.inlay_hint.is_enabled())
 end, { desc = "Toggle Inlay Hints" })

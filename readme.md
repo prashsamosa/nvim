@@ -65,16 +65,16 @@
 | `<leader>bO`          | Close others   | Close all but current/pinned |
 | `<leader>bd`          | Delete buffer  | Smart buffer deletion        |
 
-### 💾 Session Management
+### 💾 Session Management (**UPDATED**)
 
 | Key          | Action           | Description                              |
 | ------------ | ---------------- | ---------------------------------------- |
-| `<leader>ss` | Save session     | Save session with custom name            |
-| `<leader>sr` | Read session     | Load existing session                    |
-| `<leader>sd` | Delete session   | Delete saved session                     |
-| `<leader>sl` | List sessions    | Show all available sessions              |
-| `<leader>sc` | Save current     | Save current named session               |
-| `<leader>s.` | Save dir session | Save session with current directory name |
+| `<leader>Ss` | Save session     | Save session with custom name            |
+| `<leader>Sr` | Read session     | Load existing session                    |
+| `<leader>Sd` | Delete session   | Delete saved session                     |
+| `<leader>Sl` | List sessions    | Show all available sessions              |
+| `<leader>Sc` | Save current     | Save current named session               |
+| `<leader>S.` | Save dir session | Save session with current directory name |
 
 ### 🔍 Fuzzy Finding (FZF)
 
@@ -107,9 +107,8 @@
 | `<C-h>`      | Signature help   | Signature help (insert mode)             |
 | `<leader>ca` | Code action      | Show code actions                        |
 | `<leader>cr` | Rename           | Rename symbol                            |
-| `<leader>iH` | Global hints     | Toggle inlay hints (global)              |
-| `<leader>ih` | Buffer hints     | Toggle inlay hints (current buffer only) |
-| `<leader>lh` | LSP hints        | Toggle inlay hints (LSP buffer-specific) |
+| `<leader>ih` | Global hints     | Toggle inlay hints (global)              |
+| `<leader>lh` | Buffer hints     | Toggle inlay hints (current buffer only) |
 | `<leader>f`  | Format           | Format code                              |
 | `<leader>df` | Diagnostic float | Show diagnostic popup                    |
 
@@ -135,6 +134,9 @@
 | `<leader>gb` | Build    | Build project        |
 | `<leader>gr` | Run      | Run current file     |
 | `<leader>gt` | Test     | Run tests            |
+| `<leader>gT` | Test File   | Run tests in file    |
+| `<leader>gf` | Fill Struct | Fill struct fields   |
+| `<leader>ge` | If Err      | Add if err check     |
 
 #### Database (SQL)
 
@@ -145,14 +147,14 @@
 | `<leader>Da` | DB Add    | Add connection          |
 | `<leader>Dr` | Execute   | Execute query/selection |
 
-### 🔄 Search & Replace
+### 🔄 Search & Replace (**UPDATED**)
 
 | Key          | Action           | Description              |
 | ------------ | ---------------- | ------------------------ |
-| `<leader>sr` | Search & replace | Open Grug-Far            |
-| `<leader>sw` | Search word      | Search word under cursor |
-| `<leader>sb` | Search buffer    | Search in current buffer |
-| `<leader>sv` | Search selection | Search visual selection  |
+| `<leader>R`  | Search & replace | Open Grug-Far            |
+| `<leader>rw` | Search word      | Search word under cursor |
+| `<leader>rb` | Search buffer    | Search in current buffer |
+| `<leader>rv` | Search selection | Search visual selection  |
 
 ### 📝 Text Manipulation & Operations
 
@@ -203,7 +205,6 @@
 | `<leader>ul` | Toggle line numbers | Show/hide line numbers     |
 | `<leader>uw` | Toggle wrap         | Enable/disable word wrap   |
 | `<leader>us` | Toggle spelling     | Enable/disable spell check |
-| `<leader>uh` | Toggle inlay hints  | Show/hide inlay hints      |
 | `<leader>uT` | Toggle treesitter   | Enable/disable treesitter  |
 | `<leader>ub` | Toggle background   | Switch dark/light theme    |
 
@@ -219,142 +220,38 @@
 | `<leader>Z`   | Zoom mode           | Focus current window    |
 | `<ESC><ESC>`  | Exit terminal       | Exit terminal mode      |
 
-### 🛠️ Development & File Operations
+### 🛠️ Development & File Operations (**UPDATED**)
 
 | Key          | Action           | Description               |
 | ------------ | ---------------- | ------------------------- |
 | `<leader>e`  | Explorer         | File explorer             |
-| `<leader>.`  | Scratch buffer   | Open scratch buffer       |
-| `<leader>S`  | Scratch select   | Select scratch buffer     |
+| `<leader>s`  | Scratch buffer   | Open scratch buffer       |
+| `<leader>ss` | Scratch select   | Select scratch buffer     |
 | `<leader>cR` | Rename file      | Rename current file       |
 | `<leader>gB` | Git browse       | Open file in browser      |
 | `<leader>un` | Notifications    | Show notification history |
-| `<leader>dP` | Profiler         | Performance profiler      |
-| `<leader>dp` | Profiler scratch | Profiler scratch buffer   |
 
-## 🎯 Language Server Setup
 
-### Automatically Installed Tools
-
-**Language Servers:**
-
-- `lua-language-server` - Lua LSP
-- `typescript-language-server` - TypeScript/JavaScript LSP
-- `gopls` - Go LSP
-- `pyright` - Python LSP
-- `rust-analyzer` - Rust LSP
-- `tailwindcss-language-server` - Tailwind CSS LSP
-- `json-lsp` - JSON LSP
-- `yaml-language-server` - YAML LSP
-- `bash-language-server` - Bash LSP
-- `emmet-language-server` - Emmet LSP
-
-**Formatters & Linters:**
-
-- `stylua` - Lua formatting
-- `prettierd` - Fast JS/TS/JSON/YAML formatting
-- `shfmt` - Shell script formatting
-- `goimports`, `gofumpt` - Go formatting
-- `black`, `isort` - Python formatting
-- `eslint_d` - JavaScript linting
-- `shellcheck` - Shell script linting
-
-## 📦 Plugin Breakdown
-
-### Core Functionality
-
-- **lazy.nvim** - Modern plugin manager
-- **nvim-lspconfig** - LSP configuration
-- **blink.cmp** - Lightning-fast completion engine
-- **nvim-treesitter** - Advanced syntax highlighting
-
-### File Management
-
-- **oil.nvim** - Buffer-based file manager
-- **fzf-lua** - Blazing fast fuzzy finder
-- **snacks.nvim** - Multi-utility plugin with enhanced features
-
-### Session Management
-
-- **mini.sessions** - Lightweight session management
-  - Auto-save sessions on exit
-  - Interactive session selection
-  - Directory-based quick sessions
-
-### Development Experience
-
-- **conform.nvim** - Code formatting
-- **grug-far.nvim** - Search and replace
-- **todo-comments.nvim** - TODO highlighting
-- **Comment.nvim** - Smart commenting
-
-### UI/Visual Enhancement
-
-- **github-nvim-theme** - Clean GitHub theme
-- **lualine.nvim** - Customizable statusline
-- **barbar.nvim** - Buffer tabs with advanced features
-- **render-markdown.nvim** - Beautiful markdown rendering
-- **snacks.statuscolumn** - Enhanced status column with git signs
-
-### Language-Specific
-
-- **go.nvim** - Enhanced Go development tools
-- **vim-dadbod-ui** - Visual database management
-
-### Quality of Life Features
-
-- **mini.nvim** - Essential mini plugins collection:
-
-  - **mini.ai** - Enhanced text objects
-  - **mini.surround** - Surround text operations
-  - **mini.pairs** - Auto-pair brackets
-  - **mini.move** - Move text around
-  - **mini.sessions** - Session management
-  - **mini.splitjoin** - Smart split/join constructs
-  - **mini.align** - Text alignment
-  - **mini.operators** - Powerful text operations
-
-- **snacks.nvim** - Comprehensive utilities:
-
-  - **bigfile** - Large file handling
-  - **dashboard** - Welcome screen
-  - **terminal** - Terminal integration
-  - **scroll** - Smooth scrolling
-  - **notifier** - Notification system
-  - **bufdelete** - Smart buffer deletion
-  - **zen** - Distraction-free mode
-  - **words** - Word highlighting and navigation
-  - **statuscolumn** - Enhanced status column
-  - **input** - Enhanced input dialogs
-  - **quickfile** - Fast file opening
-  - **scope** - Buffer scope management
-  - **scratch** - Scratch buffers
-  - **rename** - File renaming
-  - **gitbrowse** - Git browser integration
-  - **toggle** - Option toggling utilities
-  - **profiler** - Performance profiling
-  - **dim** - Window dimming
-
-- **which-key.nvim** - Keymap hints and discovery
-- **vim-sleuth** - Smart indentation detection
-
-## ⚡ Pro Tips & Workflows
+### 🎯 **Movement Keys Clarification**
+- `J/K` (visual mode) - Move lines up/down
+- `<A-h/j/k/l>` (all modes) - Move text/selections in all directions
+- These work together perfectly - use `J/K` for quick line moves in visual mode, `<Alt>` keys for more complex movements
 
 ### Session Management Mastery
 
-- Use `<leader>s.` for instant project-based sessions
+- Use `<leader>S.` for instant project-based sessions
 - Auto-save ensures your work is always preserved
 - Sessions remember splits, cursor positions, and open files
 - Perfect for juggling multiple projects simultaneously
 
-### Completion Excellence with Blink.cmp
+### Completion with Blink.cmp
 
 - `<Tab>` and `<S-Tab>` for intuitive navigation
 - `<C-d>` shows documentation without conflicts
 - Auto-brackets for faster coding
 - Smart source prioritization (LSP > Path > Snippets > Buffer)
 
-### Text Operations Mastery
+### Text Operations
 
 - `gS` intelligently splits/joins function calls and arrays
 - `ga` aligns code on any character (=, :, etc.)
@@ -362,20 +259,20 @@
 - `gx` swaps function arguments or code blocks
 - `gm` duplicates with smart positioning
 
-### Navigation Excellence
+### Navigation
 
 - Enhanced window navigation works in terminal mode too
 - `]w` and `[w` for word occurrence jumping (use ]]/[[ for functions)
 - Status column integration shows git changes and folds
 - Smart centering keeps important content visible
 
-### Development Workflow
+### Development
 
-- Global `<leader>iH` for quick inlay hint toggling
-- Buffer-specific `<leader>ih` for focused work
+- Global `<leader>ih` for quick inlay hint toggling
+- Buffer-specific `<leader>lh` for focused work
 - `<leader>cR` renames files with full LSP integration
 - `<leader>gB` shares code via browser instantly
-- Scratch buffers (`<leader>.`) for quick experiments
+- Scratch buffers (`<leader>s`) for quick experiments
 
 ### Terminal Integration
 
@@ -397,14 +294,6 @@
 - `<leader>gg` opens full Lazygit interface
 - `<leader>gB` creates shareable links instantly
 - Enhanced diff algorithms for better merge resolution
-
-### Advanced Features You're Getting
-
-- Modern Neovim 0.11+ feature utilization
-- Smart buffer scope management
-- Enhanced input dialogs throughout
-- Performance profiling capabilities
-- Window dimming for focus enhancement
 
 ### Keyboard-Driven Efficiency
 
@@ -438,10 +327,10 @@
 2. **Health Check**: Run `:checkhealth` to verify setup
 3. **Try Key Features**:
 
-   - `<leader>ss` - Create your first session
+   - `<leader>Ss` - Create your first session (**UPDATED**)
    - `<Tab>` in insert mode - Experience blink.cmp
    - `gS` on a function call - See smart split/join
-   - `<leader>iH` - Toggle inlay hints globally
+   - `<leader>ih` - Toggle inlay hints globally (**UPDATED**)
    - `<C-d>` in completion - View documentation
 
 4. **Explore Advanced Features**:
@@ -449,34 +338,13 @@
    - Visual select text and try `ga` for alignment
    - Use `g=` on math expressions (e.g., `2 + 2`)
    - Try `gx` to exchange text regions
-   - `<leader>.` for scratch buffer experiments
+   - `<leader>s` for scratch buffer experiments (**UPDATED**)
 
 5. **Optimize Your Workflow**:
    - Set up your first database connection with `<leader>Da`
    - Configure Go project with automatic imports
    - Use `<leader>gg` to explore Lazygit integration
    - Try `<leader>z` for distraction-free coding
+   - Use `<leader>R` for powerful search & replace (**UPDATED**)
 
-## 🎉 What Makes This Config Special
-
-### Modern Architecture
-
-- **Neovim 0.11+ Features**: Smooth scrolling, enhanced completion, modern diff algorithms
-- **Performance First**: Smart lazy loading, large file detection, optimized startup
-- **Zero Conflicts**: Carefully orchestrated keybindings without collisions
-
-### Developer Experience
-
-- **Intelligent Completion**: Context-aware suggestions with documentation
-- **Advanced Navigation**: Multi-dimensional movement and jumping
-- **Session Persistence**: Never lose your workflow state
-- **Visual Excellence**: GitHub theme with enhanced status information
-
-### Quality Assurance
-
-- **Conflict-Free Keybindings**: Thoroughly tested key combinations
-- **Performance Optimized**: Handles large files and projects gracefully
-- **Modern Plugin Ecosystem**: Latest and most maintained plugins
-- **Extensible Architecture**: Easy to customize and extend
-
-Your Neovim configuration represents the pinnacle of modern text editor setup - combining performance, aesthetics, and developer productivity in a cohesive, conflict-free package! 🚀✨
+---

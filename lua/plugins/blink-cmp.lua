@@ -24,8 +24,12 @@ return {
       accept = { auto_brackets = { enabled = true } },
       documentation = {
         auto_show = true,
-        auto_show_delay_ms = 100,         -- Faster than your current 200ms
-        window = { max_width = 80, max_height = 20, border = "rounded" },
+        auto_show_delay_ms = 100,
+        window = {
+          max_width = 80,
+          max_height = 20,
+          border = "rounded"
+        },
       },
       menu = {
         border = "rounded",
@@ -40,56 +44,11 @@ return {
 
     signature = {
       enabled = true,
-      window = { border = "rounded" }
+      window = { border = "rounded" },
     },
 
     sources = {
       default = { "lsp", "path", "snippets", "buffer" },
-      providers = {
-        lsp = {
-          name = "LSP",
-          module = "blink.cmp.sources.lsp",
-          score_offset = 90,
-        },
-        path = {
-          name = "Path",
-          module = "blink.cmp.sources.path",
-          score_offset = 3,
-          opts = {
-            trailing_slash = false,
-            label_trailing_slash = true,
-            get_cwd = function(ctx) return vim.fn.expand(("#%d:p:h"):format(ctx.bufnr)) end
-          }
-        },
-        snippets = {
-          name = "Snippets",
-          module = "blink.cmp.sources.snippets",
-          score_offset = -3,
-          opts = {
-            friendly_snippets = true,
-            search_paths = { vim.fn.stdpath("config") .. "/snippets" },
-            -- Enhanced snippet performance
-            max_items = 8,             -- Limit snippet suggestions for performance
-          },
-        },
-        buffer = {
-          name = "Buffer",
-          module = "blink.cmp.sources.buffer",
-          score_offset = -3,
-          opts = {
-            max_items = 5,
-            min_keyword_length = 3,
-            get_bufnrs = function()
-              return vim.tbl_filter(
-                function(buf) return vim.bo[buf].buftype ~= "nofile" end,
-                vim.api.nvim_list_bufs()
-              )
-            end
-          },
-        },
-      },
     },
   },
-
-  opts_extend = { "sources.default" },
 }
