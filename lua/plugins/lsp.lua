@@ -48,7 +48,6 @@ return {
         },
 
         config = function()
-            -- Neovim 0.11: Virtual text is now opt-in, explicitly enable it
             vim.diagnostic.config({
                 underline = true,
                 update_in_insert = false,
@@ -73,29 +72,21 @@ return {
             vim.lsp.handlers["textDocument/signatureHelp"] = vim.lsp.with(vim.lsp.handlers.signature_help,
                 { border = "rounded" })
 
-            -- Enhanced capabilities for better LSP experience
             local capabilities = vim.lsp.protocol.make_client_capabilities()
             capabilities.textDocument.completion.completionItem.snippetSupport = true
             capabilities.textDocument.completion.completionItem.resolveSupport = {
                 properties = { "documentation", "detail", "additionalTextEdits" }
             }
 
-            -- Check if blink.cmp is available for enhanced capabilities
             local ok, blink = pcall(require, "blink.cmp")
             if ok then
                 capabilities = blink.get_lsp_capabilities(capabilities)
             end
 
-            -- Neovim 0.11 native LSP setup - simplified approach
-            vim.lsp.enable({
-                "lua_ls", "ts_ls", "gopls", "pyright", "rust_analyzer",
-                "jsonls", "yamlls", "tailwindcss", "bashls", "emmet_language_server"
-            })
-
-            -- Server-specific configurations
             local lspconfig = require("lspconfig")
             local servers = {
                 lua_ls = {
+                    capabilities = capabilities,
                     settings = {
                         Lua = {
                             completion = { callSnippet = "Replace" },
@@ -106,6 +97,7 @@ return {
                     },
                 },
                 ts_ls = {
+                    capabilities = capabilities,
                     settings = {
                         typescript = {
                             inlayHints = {
@@ -121,6 +113,7 @@ return {
                     },
                 },
                 gopls = {
+                    capabilities = capabilities,
                     settings = {
                         gopls = {
                             gofumpt = true,
@@ -138,6 +131,7 @@ return {
                     },
                 },
                 pyright = {
+                    capabilities = capabilities,
                     settings = {
                         python = {
                             analysis = {
@@ -148,6 +142,7 @@ return {
                     },
                 },
                 rust_analyzer = {
+                    capabilities = capabilities,
                     settings = {
                         ["rust-analyzer"] = {
                             cargo = { allFeatures = true },
@@ -168,6 +163,7 @@ return {
                     },
                 },
                 jsonls = {
+                    capabilities = capabilities,
                     settings = {
                         json = {
                             schemas = require("schemastore").json.schemas(),
@@ -176,6 +172,7 @@ return {
                     },
                 },
                 yamlls = {
+                    capabilities = capabilities,
                     settings = {
                         yaml = {
                             schemaStore = { enable = false, url = "" },
@@ -183,46 +180,51 @@ return {
                         },
                     },
                 },
-                tailwindcss = {},
-                bashls = {},
+                tailwindcss = { capabilities = capabilities },
+                bashls = { capabilities = capabilities },
                 emmet_language_server = {
+                    capabilities = capabilities,
                     filetypes = { "html", "css", "scss", "javascript", "javascriptreact", "typescript", "typescriptreact" },
                 },
             }
 
             for name, config in pairs(servers) do
-                config.capabilities = capabilities
                 lspconfig[name].setup(config)
             end
 
-            -- Enhanced LSP attach autocmd
             vim.api.nvim_create_autocmd("LspAttach", {
                 group = vim.api.nvim_create_augroup("LspConfig", { clear = true }),
                 callback = function(ev)
                     local client = vim.lsp.get_client_by_id(ev.data.client_id)
 
-                    -- Enable inlay hints if supported
                     if client and client.supports_method("textDocument/inlayHint") then
                         vim.lsp.inlay_hint.enable(true, { bufnr = ev.buf })
                     end
 
-                    -- Set up buffer-local keymaps
                     local opts = { buffer = ev.buf, silent = true }
                     local keymap = vim.keymap.set
 
-                    keymap("n", "gd", vim.lsp.buf.definition, vim.tbl_extend("force", opts, { desc = "Go to Definition" }))
+                    keymap("n", "gd", vim.lsp.buf.definition,
+                        vim.tbl_extend("force", opts, { desc = "Go to Definition" }))
                     keymap("n", "gr", vim.lsp.buf.references, vim.tbl_extend("force", opts, { desc = "References" }))
-                    keymap("n", "gi", vim.lsp.buf.implementation, vim.tbl_extend("force", opts, { desc = "Go to Implementation" }))
-                    keymap("n", "gt", vim.lsp.buf.type_definition, vim.tbl_extend("force", opts, { desc = "Type Definition" }))
+                    keymap("n", "gi", vim.lsp.buf.implementation,
+                        vim.tbl_extend("force", opts, { desc = "Go to Implementation" }))
+                    keymap("n", "gt", vim.lsp.buf.type_definition,
+                        vim.tbl_extend("force", opts, { desc = "Type Definition" }))
                     keymap("n", "K", vim.lsp.buf.hover, vim.tbl_extend("force", opts, { desc = "Hover Documentation" }))
-                    keymap("n", "gK", vim.lsp.buf.signature_help, vim.tbl_extend("force", opts, { desc = "Signature Help" }))
-                    keymap("i", "<C-h>", vim.lsp.buf.signature_help, vim.tbl_extend("force", opts, { desc = "Signature Help" }))
-                    keymap({ "n", "v" }, "<leader>ca", vim.lsp.buf.code_action, vim.tbl_extend("force", opts, { desc = "Code Action" }))
-                    keymap("n", "<leader>cr", vim.lsp.buf.rename, vim.tbl_extend("force", opts, { desc = "Rename Symbol" }))
+                    keymap("n", "gK", vim.lsp.buf.signature_help,
+                        vim.tbl_extend("force", opts, { desc = "Signature Help" }))
+                    keymap("i", "<C-h>", vim.lsp.buf.signature_help,
+                        vim.tbl_extend("force", opts, { desc = "Signature Help" }))
+                    keymap({ "n", "v" }, "<leader>ca", vim.lsp.buf.code_action,
+                        vim.tbl_extend("force", opts, { desc = "Code Action" }))
+                    keymap("n", "<leader>cr", vim.lsp.buf.rename,
+                        vim.tbl_extend("force", opts, { desc = "Rename Symbol" }))
 
                     if client and client.supports_method("textDocument/inlayHint") then
                         keymap("n", "<leader>lh", function()
-                            vim.lsp.inlay_hint.enable(not vim.lsp.inlay_hint.is_enabled({ bufnr = ev.buf }), { bufnr = ev.buf })
+                            vim.lsp.inlay_hint.enable(not vim.lsp.inlay_hint.is_enabled({ bufnr = ev.buf }),
+                                { bufnr = ev.buf })
                         end, vim.tbl_extend("force", opts, { desc = "Toggle Inlay Hints" }))
                     end
                 end,

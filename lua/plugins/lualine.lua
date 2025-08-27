@@ -19,34 +19,22 @@ return {
         require("lualine").setup({
             options = {
                 theme = "github_dark",
-                component_separators = { left = "", right = "" },
-                section_separators = { left = "", right = "" },
                 globalstatus = true,
                 disabled_filetypes = { statusline = { "dashboard", "alpha", "starter" } },
             },
             sections = {
                 lualine_a = { "mode" },
-                lualine_b = {
-                    { "branch", icon = "" },
-                    { "diff",   symbols = { added = " ", modified = " ", removed = " " } },
-                },
-                lualine_c = {
-                    { "filetype", icon_only = true, separator = "",      padding = { left = 1, right = 0 } },
-                    { "filename", path = 1,         shorting_target = 40 },
-                },
+                lualine_b = { "branch", "diff" },
+                lualine_c = { "filename" },
                 lualine_x = {
-                    {
-                        "diagnostics",
-                        symbols = { error = " ", warn = " ", info = " ", hint = " " },
-                    },
+                    "diagnostics",
                     { lsp_client_names, cond = function() return not vim.tbl_isempty(vim.lsp.get_clients({ bufnr = 0 })) end },
                     "encoding",
-                    "fileformat",
+                    "filetype",
                 },
                 lualine_y = { "progress" },
                 lualine_z = { "location" },
             },
-            extensions = { "lazy", "mason", "oil" },
         })
     end,
 }

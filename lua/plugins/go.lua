@@ -22,28 +22,20 @@ return {
             lsp_inlay_hints = { enable = true },
             go_capabilities = capabilities,
             gofmt = "gofumpt",
-            max_line_len = 120,
         })
 
         vim.api.nvim_create_autocmd("FileType", {
             pattern = { "go", "gomod", "gosum", "gotmpl" },
             callback = function(ev)
-                local opts = { buffer = ev.buf, silent = true }
-                local map = function(m, l, r, d)
-                    vim.keymap.set(m, l, r, vim.tbl_extend("force", opts, { desc = "Go: " .. d }))
-                end
-
-                map("n", "<leader>ga", "<cmd>GoAlt<CR>", "Alternate file")
-                map("n", "<leader>gi", "<cmd>GoImports<CR>", "Organize imports")
-                map("n", "<leader>gm", "<cmd>GoModTidy<CR>", "Mod tidy")
-                map("n", "<leader>gs", "<cmd>GoFillStruct<CR>", "Fill struct")
-                map("n", "<leader>gI", "<cmd>GoImpl<CR>", "Implement interface")
-                map("n", "<leader>gb", "<cmd>GoBuild<CR>", "Build package")
-                map("n", "<leader>gx", "<cmd>GoRun %<CR>", "Run current file")
-                map("n", "<leader>gta", "<cmd>GoTest<CR>", "Test all")
-                map("n", "<leader>gtf", "<cmd>GoTestFunc<CR>", "Test function")
-                map("n", "<leader>gtc", "<cmd>GoCoverage<CR>", "Show coverage")
-                map("n", "<leader>gv", "<cmd>GoVet<CR>", "Go vet")
+                local opts = { buffer = ev.buf }
+                vim.keymap.set("n", "<leader>ga", "<cmd>GoAlt<CR>",
+                    vim.tbl_extend("force", opts, { desc = "Go: Alt file" }))
+                vim.keymap.set("n", "<leader>gi", "<cmd>GoImports<CR>",
+                    vim.tbl_extend("force", opts, { desc = "Go: Imports" }))
+                vim.keymap.set("n", "<leader>gb", "<cmd>GoBuild<CR>",
+                    vim.tbl_extend("force", opts, { desc = "Go: Build" }))
+                vim.keymap.set("n", "<leader>gr", "<cmd>GoRun %<CR>", vim.tbl_extend("force", opts, { desc = "Go: Run" }))
+                vim.keymap.set("n", "<leader>gt", "<cmd>GoTest<CR>", vim.tbl_extend("force", opts, { desc = "Go: Test" }))
             end,
         })
     end,

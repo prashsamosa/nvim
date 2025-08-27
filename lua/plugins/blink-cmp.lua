@@ -1,7 +1,3 @@
--- NOTE: Neovim 0.11 has builtin completion (vim.lsp.completion)
--- Consider using builtin completion instead of blink.cmp for simpler setup
--- This plugin provides enhanced completion features beyond builtin capabilities
-
 return {
     "saghen/blink.cmp",
     version = "*",
@@ -16,7 +12,6 @@ return {
             ["<S-Tab>"] = { "select_prev", "snippet_backward", "fallback" },
             ["<C-k>"] = { "show", "show_documentation", "hide_documentation" },
             ["<C-e>"] = { "hide", "fallback" },
-            -- Use C-space for manual completion trigger
             ["<C-space>"] = { "show", "fallback" },
         },
 
@@ -55,12 +50,6 @@ return {
                     name = "LSP",
                     module = "blink.cmp.sources.lsp",
                     score_offset = 90,
-                    opts = {
-                        -- Improved LSP completion configuration
-                        get_trigger_characters = function(ctx)
-                            return ctx.trigger_characters or {}
-                        end
-                    }
                 },
                 path = {
                     name = "Path",
