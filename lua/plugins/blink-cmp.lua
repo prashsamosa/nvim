@@ -24,7 +24,7 @@ return {
       accept = { auto_brackets = { enabled = true } },
       documentation = {
         auto_show = true,
-        auto_show_delay_ms = 100,         -- Faster than your current 200ms
+        auto_show_delay_ms = 100, -- Faster than your current 200ms
         window = { max_width = 80, max_height = 20, border = "rounded" },
       },
       menu = {
@@ -40,7 +40,7 @@ return {
 
     signature = {
       enabled = true,
-      window = { border = "rounded" }
+      window = { border = "rounded" },
     },
 
     sources = {
@@ -58,8 +58,10 @@ return {
           opts = {
             trailing_slash = false,
             label_trailing_slash = true,
-            get_cwd = function(ctx) return vim.fn.expand(("#%d:p:h"):format(ctx.bufnr)) end
-          }
+            get_cwd = function(ctx)
+              return vim.fn.expand(("#%d:p:h"):format(ctx.bufnr))
+            end,
+          },
         },
         snippets = {
           name = "Snippets",
@@ -69,7 +71,7 @@ return {
             friendly_snippets = true,
             search_paths = { vim.fn.stdpath("config") .. "/snippets" },
             -- Enhanced snippet performance
-            max_items = 8,             -- Limit snippet suggestions for performance
+            max_items = 8, -- Limit snippet suggestions for performance
           },
         },
         buffer = {
@@ -80,11 +82,10 @@ return {
             max_items = 5,
             min_keyword_length = 3,
             get_bufnrs = function()
-              return vim.tbl_filter(
-                function(buf) return vim.bo[buf].buftype ~= "nofile" end,
-                vim.api.nvim_list_bufs()
-              )
-            end
+              return vim.tbl_filter(function(buf)
+                return vim.bo[buf].buftype ~= "nofile"
+              end, vim.api.nvim_list_bufs())
+            end,
           },
         },
       },
