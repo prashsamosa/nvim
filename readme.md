@@ -21,7 +21,6 @@
 │       ├── lualine.lua    # Status line
 │       ├── markdown.lua   # Markdown rendering
 │       ├── mini.lua       # Essential mini plugins
-│       ├── mini-sessions.lua # Session management
 │       ├── oil.lua        # File manager
 │       ├── sleuth-vim.lua # Smart indentation
 │       ├── snacks.lua     # Swiss army knife utilities
@@ -49,7 +48,7 @@
 
 | Key | Action | Description |
 |-----|--------|-------------|
-| `<C-h/j/k/l>` | Navigate | Switch between windows |
+| `<C-h/j/k/l>` | Navigate | Switch between windows (works in terminal too) |
 | `<leader>\|` | Vertical split | Split window vertically |
 | `<leader>\\` | Horizontal split | Split window horizontally |
 | `<leader>Z` | Zoom mode | Toggle window zoom |
@@ -105,12 +104,24 @@
 | `gt` | Type definition | Go to type definition |
 | `K` | Hover docs | Show documentation |
 | `gK` | Signature help | Show function signature |
-| `<C-h>` | Signature help | Signature help (insert) |
+| `<C-h>` | Signature help | Signature help (insert mode) |
 | `<leader>ca` | Code action | Show code actions |
 | `<leader>cr` | Rename | Rename symbol |
-| `<leader>lh` | Toggle hints | Toggle inlay hints |
+| `<leader>lh` | Toggle hints | Toggle inlay hints (buffer-specific) |
+| `<leader>ih` | Global hints | Toggle inlay hints (global) |
 | `<leader>f` | Format | Format code |
 | `<leader>df` | Diagnostic float | Show diagnostic popup |
+
+### 🔌 Completion (Blink.cmp)
+
+| Key | Action | Description |
+|-----|--------|-------------|
+| `<Tab>` | Next item | Select next completion item |
+| `<S-Tab>` | Previous item | Select previous completion item |
+| `<CR>` | Accept | Accept completion |
+| `<C-j>` | Documentation | Show/hide documentation |
+| `<C-e>` | Hide | Hide completion menu |
+| `<C-space>` | Show | Force show completion |
 
 ### 🛠️ Language-Specific
 
@@ -144,7 +155,7 @@
 
 | Key | Action | Description |
 |-----|--------|-------------|
-| `J/K` | Move lines | Move selected lines up/down |
+| `J/K` | Move lines | Move selected lines up/down (visual mode) |
 | `</>`| Indent | Indent/outdent selection |
 | `<A-h/j/k/l>` | Move text | Move text in all directions |
 | `gsa/gsd/gsr` | Surround | Add/delete/replace surroundings |
@@ -167,16 +178,10 @@
 | Key | Action | Description |
 |-----|--------|-------------|
 | `]]` / `[[` | Word references | Next/previous word reference |
-| `]f` / `[f` | Files | Next/previous file in list |
 | `]q` / `[q` | Quickfix | Next/previous quickfix item |
 | `]t` / `[t` | TODOs | Next/previous TODO comment |
-| `]i` / `[i` | Indent | Next/previous same indent |
-| `]j` / `[j` | Jumps | Next/previous jump |
-| `]l` / `[l` | Location | Next/previous location |
-| `]o` / `[o` | Oldfiles | Next/previous old file |
-| `]u` / `[u` | Undo | Next/previous undo state |
-| `]w` / `[w` | Windows | Next/previous window |
-| `]y` / `[y` | Yank | Next/previous yank |
+| `<C-d/u>` | Scroll | Half-page scroll (centered) |
+| `n/N` | Search | Next/prev search (centered) |
 
 ### 📋 TODO Management
 
@@ -203,12 +208,11 @@
 |-----|--------|-------------|
 | `<leader>nh` | No highlight | Clear search highlights |
 | `<leader>+/-` | Increment/decrement | Modify numbers |
-| `<C-d/u>` | Scroll | Half-page scroll (centered) |
-| `n/N` | Search | Next/prev search (centered) |
 | `<C-t>` | Terminal | Toggle terminal |
 | `<leader>gg` | Lazygit | Open Git interface |
 | `<leader>z` | Zen mode | Distraction-free mode |
 | `<leader>Z` | Zoom mode | Focus current window |
+| `<ESC><ESC>` | Exit terminal | Exit terminal mode |
 
 ### 🛠️ Development & File Operations
 
@@ -253,7 +257,7 @@
 ### Core Functionality
 - **lazy.nvim** - Modern plugin manager
 - **nvim-lspconfig** - LSP configuration
-- **blink.cmp** - Lightning-fast completion
+- **blink.cmp** - Lightning-fast completion engine
 - **nvim-treesitter** - Advanced syntax highlighting
 
 ### File Management
@@ -276,13 +280,13 @@
 ### UI/Visual Enhancement
 - **github-nvim-theme** - Clean GitHub theme
 - **lualine.nvim** - Customizable statusline
-- **barbar.nvim** - Buffer tabs
-- **render-markdown.nvim** - Beautiful markdown
+- **barbar.nvim** - Buffer tabs with advanced features
+- **render-markdown.nvim** - Beautiful markdown rendering
 - **snacks.statuscolumn** - Enhanced status column with git signs
 
 ### Language-Specific
-- **go.nvim** - Enhanced Go development
-- **vim-dadbod-ui** - Database management
+- **go.nvim** - Enhanced Go development tools
+- **vim-dadbod-ui** - Visual database management
 
 ### Quality of Life Features
 - **mini.nvim** - Essential mini plugins collection:
@@ -293,7 +297,6 @@
   - **mini.sessions** - Session management
   - **mini.splitjoin** - Smart split/join constructs
   - **mini.align** - Text alignment
-  - **mini.bracketed** - Enhanced bracket navigation
   - **mini.operators** - Powerful text operations
 
 - **snacks.nvim** - Comprehensive utilities:
@@ -306,7 +309,6 @@
   - **zen** - Distraction-free mode
   - **words** - Word highlighting and navigation
   - **statuscolumn** - Enhanced status column
-  - **picker** - Alternative file picker
   - **input** - Enhanced input dialogs
   - **quickfile** - Fast file opening
   - **scope** - Buffer scope management
@@ -317,103 +319,131 @@
   - **profiler** - Performance profiling
   - **dim** - Window dimming
 
-- **which-key.nvim** - Keymap hints
+- **which-key.nvim** - Keymap hints and discovery
 - **vim-sleuth** - Smart indentation detection
 
-## ⚡ Pro Tips
+## ⚡ Pro Tips & Workflows
 
-### Session Management Workflow
-- Use `<leader>S.` for quick project sessions
-- Auto-save keeps your work safe on exit
-- Sessions remember open files, splits, and cursor positions
-- Perfect for switching between multiple projects
+### Session Management Mastery
+- Use `<leader>S.` for instant project-based sessions
+- Auto-save ensures your work is always preserved
+- Sessions remember splits, cursor positions, and open files
+- Perfect for juggling multiple projects simultaneously
+
+### Completion Excellence with Blink.cmp
+- `<Tab>` and `<S-Tab>` for intuitive navigation
+- `<C-j>` shows documentation without conflicts
+- Auto-brackets for faster coding
+- Smart source prioritization (LSP > Path > Snippets > Buffer)
 
 ### Text Operations Mastery
-- `gS` to split long function calls or join short ones
-- `ga` in visual mode to align code on specific characters
-- `g=` to evaluate math expressions or code inline
-- `gx` to swap function arguments or text blocks
-- `gm` to duplicate lines or blocks quickly
+- `gS` intelligently splits/joins function calls and arrays
+- `ga` aligns code on any character (=, :, etc.)
+- `g=` evaluates math expressions inline
+- `gx` swaps function arguments or code blocks
+- `gm` duplicates with smart positioning
 
 ### Navigation Excellence
-- Use `]]` and `[[` to jump between word occurrences
-- Bracket navigation (`]f`, `[f`, etc.) for quick movement
-- Status column shows git changes and fold information
-- Enhanced indentation guides with scope highlighting
+- Enhanced window navigation works in terminal mode too
+- `]]` and `[[` for word occurrence jumping
+- Status column integration shows git changes and folds
+- Smart centering keeps important content visible
 
 ### Development Workflow
-- `<leader>cR` to rename files with LSP integration
-- `<leader>gB` to open files in browser for sharing
-- `<leader>dP` for performance profiling when needed
-- Scratch buffers (`<leader>.`) for quick notes and experiments
+- Global `<leader>ih` for quick inlay hint toggling
+- Buffer-specific `<leader>lh` for focused work
+- `<leader>cR` renames files with full LSP integration
+- `<leader>gB` shares code via browser instantly
+- Scratch buffers (`<leader>.`) for quick experiments
 
-### Toggle System
-- All toggles under `<leader>u*` for consistency
-- Quick theme switching with `<leader>ub`
-- Diagnostic toggling for clean screenshots
-- Spell check toggling for writing modes
+### Terminal Integration
+- `<C-t>` toggles terminal from anywhere
+- Full window navigation works in terminal mode
+- `<ESC><ESC>` exits terminal mode cleanly
+- Seamless workflow between code and terminal
 
 ### Performance Optimizations
-- Large files automatically disable heavy features
-- Treesitter highlighting disabled for files >100KB
-- Lazy loading optimized for fast startup
+- Large files (>100KB) automatically disable heavy features
+- Smart lazy loading optimizes startup time
 - Status column integration reduces plugin overhead
-- Quickfile feature for instant file opening
+- Treesitter performance tuning for smooth experience
 
-### Advanced Features
-- Git integration in status column
-- Smart window dimming for focus
-- Profiler for performance analysis
+### Git Integration
+- Status column shows git changes inline
+- `<leader>gg` opens full Lazygit interface
+- `<leader>gB` creates shareable links instantly
+- Enhanced diff algorithms for better merge resolution
+
+### Advanced Features You're Getting
+- Modern Neovim 0.11+ feature utilization
+- Smart buffer scope management
 - Enhanced input dialogs throughout
-- Scope-based buffer management
+- Performance profiling capabilities
+- Window dimming for focus enhancement
 
-### Workflow Integration
-- Use `jk` instead of `<ESC>` - it's faster
-- Leader key (`<Space>`) is optimally positioned
-- Visual mode paste preserves register content
-- Auto-save on `<C-s>` from any mode
-- Terminal integration with `<C-t>`
+### Keyboard-Driven Efficiency
+- `jk` escape is faster than reaching for ESC
+- Leader key optimally positioned at spacebar
+- Visual paste preserves register content
+- Consistent toggle patterns under `<leader>u*`
+- Smart search centering keeps context visible
 
 ### Database Development
-- Use `:DBUI` for visual database management
-- Execute queries with `<leader>Dr`
-- Supports multiple database types
+- Visual query building with `:DBUI`
+- Execute selections with `<leader>Dr`
+- Multiple database type support
 - Query history and result management
+- Connection management built-in
 
-### Go Development
+### Go Development Excellence
 - Auto-imports and formatting on save
-- Inlay hints for better type visibility
+- Inlay hints for type clarity
 - Integrated testing and building
-- Alternate file navigation
-
-### Git Workflow
-- Use `<leader>gg` for full Git interface
-- `<leader>gB` to share code via browser
-- Buffer-level git signs and blame
-- Smart diff algorithms in status column
+- Smart alternate file navigation
+- Performance-optimized for large codebases
 
 ---
 
 ## 🚀 Getting Started
 
-1. Ensure all plugin files are in place:
-   - Enhanced `lua/plugins/snacks.lua`
-   - Optimized `lua/plugins/mini.lua`
-   - New `lua/plugins/mini-sessions.lua`
+1. **Installation**: All plugins will auto-install on first launch
+2. **Health Check**: Run `:checkhealth` to verify setup
+3. **Try Key Features**:
+   - `<leader>Ss` - Create your first session
+   - `<Tab>` in insert mode - Experience blink.cmp
+   - `gS` on a function call - See smart split/join
+   - `<leader>ih` - Toggle inlay hints globally
+   - `<C-j>` in completion - View documentation
 
-2. Restart Neovim or run `:Lazy sync`
-
-3. Run `:checkhealth snacks` to verify setup
-
-4. Try the new features:
-   - `<leader>Ss` to create your first session
-   - `gS` to split/join code constructs
-   - `<leader>ud` to toggle diagnostics
-   - `<leader>.` for a scratch buffer
-
-5. Explore text operations:
-   - Select text and try `ga` for alignment
-   - Use `g=` on math expressions
+4. **Explore Advanced Features**:
+   - Visual select text and try `ga` for alignment
+   - Use `g=` on math expressions (e.g., `2 + 2`)
    - Try `gx` to exchange text regions
+   - `<leader>.` for scratch buffer experiments
 
-Your configuration is now a comprehensive, modern Neovim setup with powerful text operations, enhanced navigation, and seamless workflow integration!
+5. **Optimize Your Workflow**:
+   - Set up your first database connection with `<leader>Da`
+   - Configure Go project with automatic imports
+   - Use `<leader>gg` to explore Lazygit integration
+   - Try `<leader>z` for distraction-free coding
+
+## 🎉 What Makes This Config Special
+
+### Modern Architecture
+- **Neovim 0.11+ Features**: Smooth scrolling, enhanced completion, modern diff algorithms
+- **Performance First**: Smart lazy loading, large file detection, optimized startup
+- **Zero Conflicts**: Carefully orchestrated keybindings without collisions
+
+### Developer Experience
+- **Intelligent Completion**: Context-aware suggestions with documentation
+- **Advanced Navigation**: Multi-dimensional movement and jumping
+- **Session Persistence**: Never lose your workflow state
+- **Visual Excellence**: GitHub theme with enhanced status information
+
+### Quality Assurance
+- **Conflict-Free Keybindings**: Thoroughly tested key combinations
+- **Performance Optimized**: Handles large files and projects gracefully
+- **Modern Plugin Ecosystem**: Latest and most maintained plugins
+- **Extensible Architecture**: Easy to customize and extend
+
+Your Neovim configuration represents the pinnacle of modern text editor setup - combining performance, aesthetics, and developer productivity in a cohesive, conflict-free package! 🚀✨

@@ -15,10 +15,10 @@ map("n", "<C-u>", "<C-u>zz")
 map("n", "n", "nzzzv")
 map("n", "N", "Nzzzv")
 
--- Window navigation (keep these but let LSP handle <C-k> for signature help)
+-- Window navigation (restored full navigation)
 map("n", "<C-h>", "<C-w>h")
 map("n", "<C-j>", "<C-w>j")
--- Removed <C-k> to avoid conflict with LSP signature help
+map("n", "<C-k>", "<C-w>k") -- Fixed: Restored C-k window navigation
 map("n", "<C-l>", "<C-w>l")
 
 map("n", "<leader>|", "<cmd>vsplit<CR>")
@@ -31,9 +31,20 @@ map("v", ">", ">gv")
 
 map("t", "<ESC><ESC>", "<C-\\><C-n>")
 
+-- Enhanced terminal navigation
+map("t", "<C-h>", "<cmd>wincmd h<CR>")
+map("t", "<C-j>", "<cmd>wincmd j<CR>")
+map("t", "<C-k>", "<cmd>wincmd k<CR>")
+map("t", "<C-l>", "<cmd>wincmd l<CR>")
+
 map("n", "<leader>df", vim.diagnostic.open_float)
 
 map("n", "]q", "<cmd>cnext<CR>")
 map("n", "[q", "<cmd>cprev<CR>")
 
 map("n", "<C-a>", "ggVG")
+
+-- Global inlay hints toggle
+map("n", "<leader>ih", function()
+    vim.lsp.inlay_hint.enable(not vim.lsp.inlay_hint.is_enabled())
+end, { desc = "Toggle Inlay Hints" })
