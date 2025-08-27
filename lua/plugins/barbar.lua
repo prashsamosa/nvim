@@ -7,7 +7,7 @@ return {
     },
     event = "BufReadPost",
 
-    -- IMPORTANT: disable barbar's auto-setup, LazyVim will call setup with opts
+    -- IMPORTANT: disable barbar's auto-setup, lazy.nvim will call setup with opts
     init = function()
         vim.g.barbar_auto_setup = false
 
