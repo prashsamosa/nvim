@@ -17,7 +17,6 @@ return {
     opts = {
         formatters_by_ft = {
             lua = { "stylua" },
-            -- python = { "isort", "black" },
             javascript = { "prettierd", "prettier", stop_after_first = true },
             typescript = { "prettierd", "prettier", stop_after_first = true },
             javascriptreact = { "prettierd", "prettier", stop_after_first = true },
@@ -28,7 +27,7 @@ return {
             rust = { "rustfmt" },
             sql = { "sqlfmt" },
             sh = { "shfmt" },
-            python = { "ruff_format", "ruff_fix" }, -- Modern Python formatter
+            python = { "ruff_format", "ruff_fix" },
             c = { "clang-format" },
             cpp = { "clang-format" },
             markdown = { "markdownlint", "prettier", stop_after_first = true },

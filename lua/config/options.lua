@@ -34,8 +34,10 @@ opt.backup = false
 opt.swapfile = false
 opt.autowrite = true
 
-opt.updatetime = 250
+-- Better performance
+opt.updatetime = 50        -- Faster updates (was 250)
 opt.timeoutlen = 300
+opt.redrawtime = 10000     -- Better redraw performance
 
 opt.clipboard = "unnamedplus"
 opt.mouse = "a"
@@ -46,6 +48,12 @@ opt.splitbelow = true
 -- Enhanced completion for Neovim 0.11+
 opt.completeopt = { "menu", "menuone", "noselect", "popup" }
 opt.termguicolors = true
+
+-- Enhanced LSP features
+opt.shortmess:append("c")  -- Don't show completion messages
+
+-- Enhanced search
+opt.inccommand = "split"   -- Live preview for substitutions
 
 opt.list = true
 opt.listchars = { tab = "» ", trail = "·", extends = "❯", precedes = "❮" }
