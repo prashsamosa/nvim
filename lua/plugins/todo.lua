@@ -1,10 +1,6 @@
--- lua/plugins/todo.lua
 return {
     "folke/todo-comments.nvim",
-    dependencies = {
-        "nvim-lua/plenary.nvim",
-        "nvim-telescope/telescope.nvim", -- make sure telescope is installed
-    },
+    dependencies = "nvim-lua/plenary.nvim",
     event = "VeryLazy",
 
     opts = {
@@ -48,9 +44,15 @@ return {
         {
             "<leader>ft",
             function()
-                require("telescope").extensions["todo-comments"].todo()
+                -- Use fzf-lua instead of telescope for TODO search
+                require("fzf-lua").grep({
+                    search = "TODO|HACK|WARN|PERF|NOTE|TEST|FIX|FIXME|BUG|FIXIT|ISSUE|WARNING|XXX|OPTIM|PERFORMANCE|OPTIMIZE|INFO|TESTING|PASSED|FAILED",
+                    no_esc = true,
+                })
             end,
             desc = "Search TODOs",
         },
     },
 }
+
+

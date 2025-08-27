@@ -28,35 +28,19 @@ return {
             },
         },
 
-        -- Fixed picker configuration
-        picker = {
-            enabled = true,
-            -- Remove the problematic win config for now
-        },
+        -- Disable picker since you use fzf-lua
+        picker = { enabled = false },
 
         -- Add useful snacks you're missing
-        image = { enabled = true }, -- Image preview in markdown and other files
-        input = { enabled = true }, -- Better vim.ui.input
+        image = { enabled = true },     -- Image preview in markdown and other files
+        input = { enabled = true },     -- Better vim.ui.input
         quickfile = { enabled = true }, -- Fast file opening
-        scope = { enabled = true }, -- Scope-based buffer management
-        scratch = { enabled = true }, -- Scratch buffers
-        rename = { enabled = true }, -- File renaming
+        scope = { enabled = true },     -- Scope-based buffer management
+        scratch = { enabled = true },   -- Scratch buffers
+        rename = { enabled = true },    -- File renaming
         gitbrowse = { enabled = true }, -- Open files in browser
-        toggle = { enabled = true }, -- Toggle options
-        profiler = { enabled = true }, -- Performance profiling
-
-        -- Configure indent (better than mini.indentscope)
-        -- indent = {
-        --     enabled = true,
-        --     animate = {
-        --         enabled = false, -- Disable for performance
-        --     },
-        --     scope = {
-        --         enabled = true,
-        --         char = "╎",
-        --         underline = false,
-        --     },
-        -- },
+        toggle = { enabled = true },    -- Toggle options
+        profiler = { enabled = true },  -- Performance profiling
 
         -- Advanced window management
         dim = {

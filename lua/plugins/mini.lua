@@ -32,7 +32,6 @@ return {
         end,
     },
 
-
     {
         "echasnovski/mini.indentscope",
         version = false,
@@ -59,7 +58,6 @@ return {
         end,
     },
 
-    -- Add missing mini plugins that complement snacks
     {
         "echasnovski/mini.splitjoin",
         version = false,
@@ -83,30 +81,6 @@ return {
     },
 
     {
-        "echasnovski/mini.bracketed",
-        version = false,
-        event = "VeryLazy",
-        config = function()
-            require("mini.bracketed").setup({
-                -- Disable some that might conflict
-                comment = { suffix = "" },    -- Disable comment navigation
-                conflict = { suffix = "" },   -- Disable conflict navigation
-                diagnostic = { suffix = "" }, -- We have LSP mappings
-                file = { suffix = "f" },
-                indent = { suffix = "i" },
-                jump = { suffix = "j" },
-                location = { suffix = "l" },
-                oldfile = { suffix = "o" },
-                quickfix = { suffix = "q" },
-                treesitter = { suffix = "t" },
-                undo = { suffix = "u" },
-                window = { suffix = "w" },
-                yank = { suffix = "y" },
-            })
-        end,
-    },
-
-    {
         "echasnovski/mini.operators",
         version = false,
         keys = {
@@ -118,27 +92,34 @@ return {
         },
         config = function()
             require("mini.operators").setup({
-                -- Evaluate text and replace with output
-                evaluate = {
-                    prefix = "g=",
-                },
-                -- Exchange text regions
-                exchange = {
-                    prefix = "gx",
-                },
-                -- Multiply (duplicate) text
-                multiply = {
-                    prefix = "gm",
-                },
-                -- Replace text with register
-                replace = {
-                    prefix = "gr",
-                },
-                -- Sort text
-                sort = {
-                    prefix = "gs",
-                },
+                evaluate = { prefix = "g=" },
+                exchange = { prefix = "gx" },
+                multiply = { prefix = "gm" },
+                replace = { prefix = "gr" },
+                sort = { prefix = "gs" },
             })
         end,
+    },
+
+    {
+        "echasnovski/mini.sessions",
+        version = false,
+        lazy = false,
+        config = function()
+            require("mini.sessions").setup({
+                autoread = false,
+                autowrite = true,
+                directory = vim.fn.stdpath('data') .. '/sessions/',
+                file = 'Session.vim',
+            })
+        end,
+        keys = {
+            { "<leader>Ss", function() require("mini.sessions").write() end,                                          desc = "Save session" },
+            { "<leader>Sr", function() require("mini.sessions").read() end,                                           desc = "Read session" },
+            { "<leader>Sd", function() require("mini.sessions").delete() end,                                         desc = "Delete session" },
+            { "<leader>Sl", function() require("mini.sessions").select() end,                                         desc = "Select session" },
+            { "<leader>Sc", function() require("mini.sessions").write(vim.fn.input("Session name: ")) end,            desc = "Save named session" },
+            { "<leader>S.", function() require("mini.sessions").write(vim.fn.fnamemodify(vim.fn.getcwd(), ":t")) end, desc = "Save dir session" },
+        },
     },
 }

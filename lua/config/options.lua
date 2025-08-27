@@ -43,7 +43,8 @@ opt.mouse = "a"
 opt.splitright = true
 opt.splitbelow = true
 
-opt.completeopt = { "menu", "menuone", "noselect" }
+-- Enhanced completion for Neovim 0.11+
+opt.completeopt = { "menu", "menuone", "noselect", "popup" }
 opt.termguicolors = true
 
 opt.list = true
@@ -56,6 +57,13 @@ opt.foldexpr = "v:lua.vim.treesitter.foldexpr()"
 opt.foldtext = ""
 
 opt.diffopt:append("algorithm:histogram")
+-- Better diff algorithm for Neovim 0.11+
+opt.diffopt:append("linematch:60")
+
+-- Neovim 0.11+ features
+if vim.fn.has("nvim-0.11") == 1 then
+    opt.smoothscroll = true
+end
 
 local augroup = vim.api.nvim_create_augroup("BasicConfig", { clear = true })
 

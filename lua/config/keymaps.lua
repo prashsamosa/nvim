@@ -15,9 +15,10 @@ map("n", "<C-u>", "<C-u>zz")
 map("n", "n", "nzzzv")
 map("n", "N", "Nzzzv")
 
+-- Window navigation (keep these but let LSP handle <C-k> for signature help)
 map("n", "<C-h>", "<C-w>h")
 map("n", "<C-j>", "<C-w>j")
-map("n", "<C-k>", "<C-w>k")
+-- Removed <C-k> to avoid conflict with LSP signature help
 map("n", "<C-l>", "<C-w>l")
 
 map("n", "<leader>|", "<cmd>vsplit<CR>")

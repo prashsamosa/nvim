@@ -9,18 +9,13 @@ return {
     },
 
     config = function()
-        local capabilities = vim.lsp.protocol.make_client_capabilities()
-        local ok, blink = pcall(require, "blink.cmp")
-        if ok then
-            capabilities = blink.get_lsp_capabilities(capabilities)
-        end
-
         require("go").setup({
             lsp_cfg = false,
             lsp_gofumpt = true,
             lsp_codelens = true,
             lsp_inlay_hints = { enable = true },
-            go_capabilities = capabilities,
+            dap_debug = false,
+            luasnip = false,   -- We use blink.cmp
             gofmt = "gofumpt",
         })
 
