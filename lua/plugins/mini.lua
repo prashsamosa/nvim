@@ -114,12 +114,13 @@ return {
             })
         end,
         keys = {
-            { "<leader>Ss", function() require("mini.sessions").write() end,                                          desc = "Save session" },
-            { "<leader>Sr", function() require("mini.sessions").read() end,                                           desc = "Read session" },
-            { "<leader>Sd", function() require("mini.sessions").delete() end,                                         desc = "Delete session" },
-            { "<leader>Sl", function() require("mini.sessions").select() end,                                         desc = "Select session" },
-            { "<leader>Sc", function() require("mini.sessions").write(vim.fn.input("Session name: ")) end,            desc = "Save named session" },
-            { "<leader>S.", function() require("mini.sessions").write(vim.fn.fnamemodify(vim.fn.getcwd(), ":t")) end, desc = "Save dir session" },
+            -- Fixed: Reorganized session keys to avoid conflicts with snacks scratch
+            { "<leader>ss", function() require("mini.sessions").write() end,                                          desc = "Save Session" },
+            { "<leader>sr", function() require("mini.sessions").read() end,                                           desc = "Read Session" },
+            { "<leader>sd", function() require("mini.sessions").delete() end,                                         desc = "Delete Session" },
+            { "<leader>sl", function() require("mini.sessions").select() end,                                         desc = "Select Session" },
+            { "<leader>sc", function() require("mini.sessions").write(vim.fn.input("Session name: ")) end,            desc = "Save Named Session" },
+            { "<leader>s.", function() require("mini.sessions").write(vim.fn.fnamemodify(vim.fn.getcwd(), ":t")) end, desc = "Save Dir Session" },
         },
     },
 }

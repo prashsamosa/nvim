@@ -154,21 +154,21 @@ return {
             desc = "Profiler Scratch",
         },
 
-        -- Word navigation
+        -- Word navigation - Fixed: Changed from ]] to avoid conflict with built-in
         {
-            "]]",
+            "]w",
             function()
                 require("snacks").words.jump(vim.v.count1)
             end,
-            desc = "Next Reference",
+            desc = "Next Word Reference",
             mode = { "n", "t" },
         },
         {
-            "[[",
+            "[w",
             function()
                 require("snacks").words.jump(-vim.v.count1)
             end,
-            desc = "Prev Reference",
+            desc = "Prev Word Reference",
             mode = { "n", "t" },
         },
     },
@@ -202,9 +202,10 @@ return {
                 vim.keymap.set("n", "<leader>us", function()
                     snacks.toggle.option("spell", { name = "Spelling" })
                 end, { desc = "Toggle Spell" })
-                vim.keymap.set("n", "<leader>uh", function()
+                -- Fixed: Keep snacks inlay hints toggle separate from global
+                vim.keymap.set("n", "<leader>ih", function()
                     snacks.toggle.inlay_hints()
-                end, { desc = "Toggle Inlay Hints" })
+                end, { desc = "Toggle Buffer Inlay Hints" })
                 vim.keymap.set("n", "<leader>uT", function()
                     snacks.toggle.treesitter()
                 end, { desc = "Toggle Treesitter" })
