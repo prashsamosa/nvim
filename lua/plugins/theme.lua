@@ -1,17 +1,14 @@
 return {
-  "projekt0n/github-nvim-theme",
+  'projekt0n/github-nvim-theme',
+  name = 'github-theme',
+  lazy = false,
   priority = 1000,
   config = function()
-    require("github-theme").setup({
-      options = {
-        transparent = true,
-        styles = {
-          comments = "italic",
-          functions = "bold",
-          keywords = "italic",
-        },
-      },
+    require('github-theme').setup({
+
     })
-    vim.cmd("colorscheme github_dark_default")
+
+    vim.cmd('colorscheme github_dark')
   end,
 }
+
