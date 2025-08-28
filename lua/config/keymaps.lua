@@ -1,51 +1,61 @@
 local map = vim.keymap.set
+local opts = { silent = true }
 
-map("i", "jk", "<ESC>")
-map("n", "<leader>nh", "<cmd>nohlsearch<CR>")
-map("n", "<leader>+", "<C-a>")
-map("n", "<leader>-", "<C-x>")
+-- Essential mappings
+map("i", "jk", "<ESC>", { desc = "Exit insert mode" })
+map("n", "<leader>nh", "<cmd>nohlsearch<CR>", { desc = "Clear highlights" })
+map("n", "<leader>+", "<C-a>", { desc = "Increment number" })
+map("n", "<leader>-", "<C-x>", { desc = "Decrement number" })
 
-map("v", "p", '"_dP')
-map({ "n", "v" }, "<leader>y", '"+y')
+-- Better paste in visual mode
+map("v", "p", '"_dP', { desc = "Paste without yanking" })
 
-map({ "n", "i", "v" }, "<C-s>", "<cmd>w<CR><ESC>")
+-- System clipboard
+map({ "n", "v" }, "<leader>y", '"+y', { desc = "Yank to system clipboard" })
 
-map("n", "<C-d>", "<C-d>zz")
-map("n", "<C-u>", "<C-u>zz")
-map("n", "n", "nzzzv")
-map("n", "N", "Nzzzv")
+-- Save file
+map({ "n", "i", "v" }, "<C-s>", "<cmd>w<CR><ESC>", { desc = "Save file" })
 
--- Window navigation
-map("n", "<C-h>", "<C-w>h")
-map("n", "<C-j>", "<C-w>j")
-map("n", "<C-k>", "<C-w>k")
-map("n", "<C-l>", "<C-w>l")
+-- Better navigation
+map("n", "<C-d>", "<C-d>zz", { desc = "Half page down and center" })
+map("n", "<C-u>", "<C-u>zz", { desc = "Half page up and center" })
+map("n", "n", "nzzzv", { desc = "Next search result (centered)" })
+map("n", "N", "Nzzzv", { desc = "Previous search result (centered)" })
 
-map("n", "<leader>|", "<cmd>vsplit<CR>")
-map("n", "<leader>\\", "<cmd>split<CR>")
+-- Window management
+map("n", "<C-h>", "<C-w>h", { desc = "Go to left window" })
+map("n", "<C-j>", "<C-w>j", { desc = "Go to lower window" })
+map("n", "<C-k>", "<C-w>k", { desc = "Go to upper window" })
+map("n", "<C-l>", "<C-w>l", { desc = "Go to right window" })
+map("n", "<leader>|", "<cmd>vsplit<CR>", { desc = "Vertical split" })
+map("n", "<leader>\\", "<cmd>split<CR>", { desc = "Horizontal split" })
 
--- Visual line movement (works with mini.move for other movements)
-map("v", "J", ":m '>+1<CR>gv=gv")
-map("v", "K", ":m '<-2<CR>gv=gv")
-map("v", "<", "<gv")
-map("v", ">", ">gv")
+-- Visual mode improvements
+map("v", "J", ":m '>+1<CR>gv=gv", { desc = "Move line down" })
+map("v", "K", ":m '<-2<CR>gv=gv", { desc = "Move line up" })
+map("v", "<", "<gv", { desc = "Decrease indent" })
+map("v", ">", ">gv", { desc = "Increase indent" })
 
-map("t", "<ESC><ESC>", "<C-\\><C-n>")
+-- Terminal
+map("t", "<ESC><ESC>", "<C-\\><C-n>", { desc = "Exit terminal mode" })
+map("t", "<C-h>", "<cmd>wincmd h<CR>", { desc = "Terminal left window" })
+map("t", "<C-j>", "<cmd>wincmd j<CR>", { desc = "Terminal lower window" })
+map("t", "<C-k>", "<cmd>wincmd k<CR>", { desc = "Terminal upper window" })
+map("t", "<C-l>", "<cmd>wincmd l<CR>", { desc = "Terminal right window" })
 
--- Enhanced terminal navigation
-map("t", "<C-h>", "<cmd>wincmd h<CR>")
-map("t", "<C-j>", "<cmd>wincmd j<CR>")
-map("t", "<C-k>", "<cmd>wincmd k<CR>")
-map("t", "<C-l>", "<cmd>wincmd l<CR>")
+-- Diagnostics
+map("n", "<leader>df", vim.diagnostic.open_float, { desc = "Show line diagnostics" })
+map("n", "]d", vim.diagnostic.goto_next, { desc = "Next diagnostic" })
+map("n", "[d", vim.diagnostic.goto_prev, { desc = "Previous diagnostic" })
 
-map("n", "<leader>df", vim.diagnostic.open_float)
+-- Quickfix
+map("n", "]q", "<cmd>cnext<CR>", { desc = "Next quickfix" })
+map("n", "[q", "<cmd>cprev<CR>", { desc = "Previous quickfix" })
 
-map("n", "]q", "<cmd>cnext<CR>")
-map("n", "[q", "<cmd>cprev<CR>")
+-- Select all
+map("n", "<C-a>", "ggVG", { desc = "Select all" })
 
-map("n", "<C-a>", "ggVG")
-
--- Global inlay hints toggle (primary toggle)
+-- Global inlay hints toggle
 map("n", "<leader>ih", function()
   vim.lsp.inlay_hint.enable(not vim.lsp.inlay_hint.is_enabled())
-end, { desc = "Toggle Inlay Hints" })
+end, { desc = "Toggle inlay hints" })

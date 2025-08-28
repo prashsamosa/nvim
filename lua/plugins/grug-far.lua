@@ -1,18 +1,31 @@
-return {
+return
+{
   "MagicDuck/grug-far.nvim",
   cmd = { "GrugFar" },
 
   keys = {
-    { "<leader>R",  function() require("grug-far").open() end,                                                     desc = "Search & Replace" },
-    { "<leader>rw", function() require("grug-far").open({ prefills = { search = vim.fn.expand("<cword>") } }) end, desc = "Search Word Under Cursor" },
-    { "<leader>rb", function() require("grug-far").open({ prefills = { paths = vim.fn.expand("%") } }) end,        desc = "Search in Current Buffer" },
+    { "<leader>R", function() require("grug-far").open() end, desc = "Search & replace" },
+    {
+      "<leader>rw",
+      function()
+        require("grug-far").open({ prefills = { search = vim.fn.expand("<cword>") } })
+      end,
+      desc = "Search word under cursor"
+    },
+    {
+      "<leader>rb",
+      function()
+        require("grug-far").open({ prefills = { paths = vim.fn.expand("%") } })
+      end,
+      desc = "Search in current buffer"
+    },
     {
       "<leader>rv",
       mode = "v",
       function()
         require("grug-far").open({ visualSelectionUsage = "prefill-search" })
       end,
-      desc = "Search Visual Selection"
+      desc = "Search visual selection"
     },
   },
 

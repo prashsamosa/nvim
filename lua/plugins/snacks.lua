@@ -4,7 +4,8 @@ return {
   lazy = false,
 
   opts = {
-    -- Core features (simplified - many are enabled by default)
+    -- Core features
+    image = { enabled = true },
     bigfile = { enabled = true },
     dashboard = { enabled = true },
     terminal = { enabled = true },
@@ -28,12 +29,11 @@ return {
         git_hl = true,
       },
       git = {
-        -- Updated pattern for better git integration
         patterns = { "GitSign", "MiniDiff", "Gitsign" },
       },
     },
 
-    -- Disable picker (you're using fzf-lua - good choice!)
+    -- Disable picker (using fzf-lua)
     picker = { enabled = false },
 
     -- Performance features
@@ -41,36 +41,39 @@ return {
     scratch = {
       enabled = true,
       ft = function()
-        -- Auto-detect filetype based on buffer name
         return vim.bo.filetype ~= "" and vim.bo.filetype or "markdown"
       end,
     },
 
-    -- Remove toggle and profiler from opts - they're always available
-    -- Remove dim - it can cause performance issues
+    styles = {
+      notification = {
+        wo = { wrap = true },
+        border = "rounded",
+      },
+    },
   },
 
   keys = {
-    -- Core actions (streamlined)
+    -- Core actions
     { "<leader>e",  function() Snacks.explorer() end,                desc = "Explorer" },
     { "<leader>gg", function() Snacks.lazygit() end,                 desc = "Lazygit" },
-    { "<leader>z",  function() Snacks.zen() end,                     desc = "Zen Mode" },
-    { "<leader>Z",  function() Snacks.zen.zoom() end,                desc = "Zoom Mode" },
-    { "<leader>bd", function() Snacks.bufdelete() end,               desc = "Delete Buffer" },
-    { "<leader>un", function() Snacks.notifier.show_history() end,   desc = "Notifications" },
-    { "<C-t>",      function() Snacks.terminal() end,                desc = "Terminal",       mode = { "n", "t" } },
+    { "<leader>z",  function() Snacks.zen() end,                     desc = "Zen mode" },
+    { "<leader>Z",  function() Snacks.zen.zoom() end,                desc = "Zoom mode" },
+    { "<leader>bd", function() Snacks.bufdelete() end,               desc = "Delete buffer" },
+    { "<leader>un", function() Snacks.notifier.show_history() end,   desc = "Notification history" },
+    { "<C-t>",      function() Snacks.terminal() end,                desc = "Terminal",            mode = { "n", "t" } },
 
-    -- Scratch buffers moved to <leader>s* (lowercase s)
-    { "<leader>s",  function() Snacks.scratch() end,                 desc = "Scratch Buffer" },
-    { "<leader>ss", function() Snacks.scratch.select() end,          desc = "Select Scratch" },
+    -- Scratch buffers
+    { "<leader>s",  function() Snacks.scratch() end,                 desc = "Scratch buffer" },
+    { "<leader>ss", function() Snacks.scratch.select() end,          desc = "Select scratch" },
 
     -- File operations
-    { "<leader>cR", function() Snacks.rename.rename_file() end,      desc = "Rename File" },
-    { "<leader>gB", function() Snacks.gitbrowse() end,               desc = "Git Browse",     mode = { "n", "v" } },
+    { "<leader>cR", function() Snacks.rename.rename_file() end,      desc = "Rename file" },
+    { "<leader>gB", function() Snacks.gitbrowse() end,               desc = "Git browse",          mode = { "n", "v" } },
 
-    -- Word navigation (improved)
-    { "]w",         function() Snacks.words.jump(vim.v.count1) end,  desc = "Next Reference", mode = { "n", "t" } },
-    { "[w",         function() Snacks.words.jump(-vim.v.count1) end, desc = "Prev Reference", mode = { "n", "t" } },
+    -- Word navigation
+    { "]w",         function() Snacks.words.jump(vim.v.count1) end,  desc = "Next reference",      mode = { "n", "t" } },
+    { "[w",         function() Snacks.words.jump(-vim.v.count1) end, desc = "Prev reference",      mode = { "n", "t" } },
   },
 
   init = function()
@@ -82,17 +85,17 @@ return {
         _G.bt = function() Snacks.debug.backtrace() end
         vim.print = _G.dd
 
-        -- Essential toggles only
-        vim.keymap.set("n", "<leader>ud", function() Snacks.toggle.diagnostics() end, { desc = "Toggle Diagnostics" })
-        vim.keymap.set("n", "<leader>ul", function() Snacks.toggle.line_number() end, { desc = "Toggle Line Numbers" })
+        -- Essential toggles
+        vim.keymap.set("n", "<leader>ud", function() Snacks.toggle.diagnostics() end, { desc = "Toggle diagnostics" })
+        vim.keymap.set("n", "<leader>ul", function() Snacks.toggle.line_number() end, { desc = "Toggle line numbers" })
         vim.keymap.set("n", "<leader>uw", function() Snacks.toggle.option("wrap", { name = "Wrap" }) end,
-          { desc = "Toggle Wrap" })
+          { desc = "Toggle wrap" })
         vim.keymap.set("n", "<leader>us", function() Snacks.toggle.option("spell", { name = "Spelling" }) end,
-          { desc = "Toggle Spell" })
-        vim.keymap.set("n", "<leader>uT", function() Snacks.toggle.treesitter() end, { desc = "Toggle Treesitter" })
+          { desc = "Toggle spelling" })
+        vim.keymap.set("n", "<leader>uT", function() Snacks.toggle.treesitter() end, { desc = "Toggle treesitter" })
         vim.keymap.set("n", "<leader>ub",
           function() Snacks.toggle.option("background", { off = "light", on = "dark" }) end,
-          { desc = "Toggle Background" })
+          { desc = "Toggle background" })
       end,
     })
   end,

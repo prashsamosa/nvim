@@ -1,49 +1,46 @@
 return {
+  -- Text objects and AI
   {
     "echasnovski/mini.ai",
     version = false,
     event = "VeryLazy",
-    config = function()
-      require("mini.ai").setup()
-    end,
+    config = true,
   },
 
+  -- Surround operations
   {
     "echasnovski/mini.surround",
     version = false,
     event = "VeryLazy",
-    config = function()
-      require("mini.surround").setup({
-        mappings = {
-          add = "gsa",
-          delete = "gsd",
-          replace = "gsr",
-        },
-      })
-    end,
+    opts = {
+      mappings = {
+        add = "gsa",
+        delete = "gsd",
+        replace = "gsr",
+      },
+    },
   },
 
+  -- Auto pairs
   {
     "echasnovski/mini.pairs",
     version = false,
     event = "VeryLazy",
-    config = function()
-      require("mini.pairs").setup()
-    end,
+    config = true,
   },
 
+  -- Indent scope visualization
   {
     "echasnovski/mini.indentscope",
     version = false,
     event = { "BufReadPre", "BufNewFile" },
-    config = function()
-      require("mini.indentscope").setup({
-        symbol = "╎",
-        draw = { animation = require("mini.indentscope").gen_animation.none() },
-      })
-    end,
+    opts = {
+      symbol = "╎",
+      draw = { animation = require("mini.indentscope").gen_animation.none() },
+    },
   },
 
+  -- Move lines and selections
   {
     "echasnovski/mini.move",
     version = false,
@@ -53,33 +50,28 @@ return {
       { "<A-k>", mode = { "n", "v" } },
       { "<A-l>", mode = { "n", "v" } },
     },
-    config = function()
-      require("mini.move").setup()
-    end,
+    config = true,
   },
 
+  -- Split/join operations
   {
     "echasnovski/mini.splitjoin",
     version = false,
     keys = { "gS" },
-    config = function()
-      require("mini.splitjoin").setup({
-        mappings = {
-          toggle = "gS",
-        },
-      })
-    end,
+    opts = {
+      mappings = { toggle = "gS" },
+    },
   },
 
+  -- Alignment operations
   {
     "echasnovski/mini.align",
     version = false,
     keys = { { "ga", mode = { "n", "v" } } },
-    config = function()
-      require("mini.align").setup()
-    end,
+    config = true,
   },
 
+  -- Various operators
   {
     "echasnovski/mini.operators",
     version = false,
@@ -90,37 +82,45 @@ return {
       { "gr", desc = "Replace" },
       { "gs", desc = "Sort" },
     },
-    config = function()
-      require("mini.operators").setup({
-        evaluate = { prefix = "g=" },
-        exchange = { prefix = "gx" },
-        multiply = { prefix = "gm" },
-        replace = { prefix = "gr" },
-        sort = { prefix = "gs" },
-      })
-    end,
+    opts = {
+      evaluate = { prefix = "g=" },
+      exchange = { prefix = "gx" },
+      multiply = { prefix = "gm" },
+      replace = { prefix = "gr" },
+      sort = { prefix = "gs" },
+    },
   },
 
+  -- Sessions management
   {
     "echasnovski/mini.sessions",
     version = false,
     lazy = false,
-    config = function()
-      require("mini.sessions").setup({
-        autoread = false,
-        autowrite = true,
-        directory = vim.fn.stdpath('data') .. '/sessions/',
-        file = 'Session.vim',
-      })
-    end,
+    opts = {
+      autoread = false,
+      autowrite = true,
+      directory = vim.fn.stdpath('data') .. '/sessions/',
+      file = 'Session.vim',
+    },
     keys = {
-      -- Sessions moved to <leader>S* (capital S) to avoid conflicts
-      { "<leader>Ss", function() require("mini.sessions").write() end,                                          desc = "Save Session" },
-      { "<leader>Sr", function() require("mini.sessions").read() end,                                           desc = "Read Session" },
-      { "<leader>Sd", function() require("mini.sessions").delete() end,                                         desc = "Delete Session" },
-      { "<leader>Sl", function() require("mini.sessions").select() end,                                         desc = "Select Session" },
-      { "<leader>Sc", function() require("mini.sessions").write(vim.fn.input("Session name: ")) end,            desc = "Save Named Session" },
-      { "<leader>S.", function() require("mini.sessions").write(vim.fn.fnamemodify(vim.fn.getcwd(), ":t")) end, desc = "Save Dir Session" },
+      { "<leader>Ss", function() require("mini.sessions").write() end,  desc = "Save session" },
+      { "<leader>Sr", function() require("mini.sessions").read() end,   desc = "Read session" },
+      { "<leader>Sd", function() require("mini.sessions").delete() end, desc = "Delete session" },
+      { "<leader>Sl", function() require("mini.sessions").select() end, desc = "Select session" },
+      {
+        "<leader>Sc",
+        function()
+          require("mini.sessions").write(vim.fn.input("Session name: "))
+        end,
+        desc = "Save named session"
+      },
+      {
+        "<leader>S.",
+        function()
+          require("mini.sessions").write(vim.fn.fnamemodify(vim.fn.getcwd(), ":t"))
+        end,
+        desc = "Save directory session"
+      },
     },
   },
 }
