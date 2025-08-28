@@ -198,8 +198,8 @@ function M.setup()
     callback = function(ev)
       local opts = { buffer = ev.buf, silent = true }
       local set = vim.keymap.set
-
-      set("n", "<leader>gi", "<cmd>!goimports -w %<CR>", vim.tbl_extend("force", opts, { desc = "Go imports" }))
+      -- Remove these lines since go.nvim handles them better:
+      -- set("n", "<leader>gi", "<cmd>!goimports -w %<CR>", vim.tbl_extend("force", opts, { desc = "Go imports" }))
       set("n", "<leader>gt", "<cmd>!go test<CR>", vim.tbl_extend("force", opts, { desc = "Go test" }))
       set("n", "<leader>gr", "<cmd>!go run %<CR>", vim.tbl_extend("force", opts, { desc = "Go run" }))
     end,

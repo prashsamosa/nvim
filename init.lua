@@ -1,11 +1,13 @@
 require("config.lazy")
 
-
-
--- Initialize LSP after lazy is loaded
 vim.api.nvim_create_autocmd("User", {
   pattern = "VeryLazy",
   callback = function()
-    require("lsp").setup()
+    local ok, lsp = pcall(require, "lsp")
+    if ok and lsp.setup then
+      lsp.setup()
+    else
+      vim.notify("Failed to load LSP configuration", vim.log.levels.WARN)
+    end
   end,
 })
