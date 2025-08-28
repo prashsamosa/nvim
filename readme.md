@@ -1,11 +1,11 @@
-## Keymaps Reference
+# Neovim Configuration - Keymaps Reference
 
-### Leader Keys
+## Leader Keys
 
 - **Leader**: `<Space>`
 - **Local Leader**: `\`
 
-### Essential Mappings
+## Essential Mappings
 
 | Mode  | Key          | Action        | Description              |
 | ----- | ------------ | ------------- | ------------------------ |
@@ -18,7 +18,7 @@
 | n,i,v | `<C-s>`      | `:w`          | Save file                |
 | n     | `<C-a>`      | `ggVG`        | Select all               |
 
-### Navigation
+## Navigation
 
 | Mode | Key     | Action    | Description                       |
 | ---- | ------- | --------- | --------------------------------- |
@@ -27,7 +27,7 @@
 | n    | `n`     | `nzzzv`   | Next search result (centered)     |
 | n    | `N`     | `Nzzzv`   | Previous search result (centered) |
 
-### Window Management
+## Window Management
 
 | Mode | Key          | Action    | Description        |
 | ---- | ------------ | --------- | ------------------ |
@@ -38,7 +38,7 @@
 | n    | `<leader>\|` | `:vsplit` | Vertical split     |
 | n    | `<leader>\\` | `:split`  | Horizontal split   |
 
-### Visual Mode
+## Visual Mode
 
 | Mode | Key | Action             | Description     |
 | ---- | --- | ------------------ | --------------- |
@@ -47,7 +47,7 @@
 | v    | `<` | `<gv`              | Decrease indent |
 | v    | `>` | `>gv`              | Increase indent |
 
-### Terminal
+## Terminal
 
 | Mode | Key          | Action              | Description           |
 | ---- | ------------ | ------------------- | --------------------- |
@@ -58,7 +58,7 @@
 | t    | `<C-l>`      | `:wincmd l`         | Terminal right window |
 | n,t  | `<C-t>`      | `Snacks.terminal()` | Open terminal         |
 
-### LSP
+## LSP
 
 | Mode | Key          | Action                        | Description          |
 | ---- | ------------ | ----------------------------- | -------------------- |
@@ -73,7 +73,7 @@
 | n    | `<leader>cr` | `vim.lsp.buf.rename`          | Rename symbol        |
 | n    | `<leader>ih` | Toggle inlay hints            | Toggle inlay hints   |
 
-### Diagnostics
+## Diagnostics
 
 | Mode | Key          | Action                      | Description           |
 | ---- | ------------ | --------------------------- | --------------------- |
@@ -81,14 +81,14 @@
 | n    | `]d`         | `vim.diagnostic.goto_next`  | Next diagnostic       |
 | n    | `[d`         | `vim.diagnostic.goto_prev`  | Previous diagnostic   |
 
-### Quickfix
+## Quickfix
 
 | Mode | Key  | Action   | Description       |
 | ---- | ---- | -------- | ----------------- |
 | n    | `]q` | `:cnext` | Next quickfix     |
 | n    | `[q` | `:cprev` | Previous quickfix |
 
-### Buffer Management (Barbar)
+## Buffer Management (Barbar)
 
 | Mode | Key                | Action                             | Description       |
 | ---- | ------------------ | ---------------------------------- | ----------------- |
@@ -101,7 +101,7 @@
 | n    | `<leader>bo`       | `BufferCloseAllButCurrentOrPinned` | Close others      |
 | n    | `<leader>bd`       | `Snacks.bufdelete()`               | Delete buffer     |
 
-### File Management (FZF)
+## File Management (FZF)
 
 | Mode | Key          | Action                        | Description                 |
 | ---- | ------------ | ----------------------------- | --------------------------- |
@@ -119,13 +119,13 @@
 | n    | `<leader>fC` | Find in config                | Find files in config dir    |
 | n    | `<leader>f/` | Grep current dir              | Live grep current directory |
 
-### File Explorer (Oil)
+## File Explorer (Oil)
 
 | Mode | Key | Action             | Description       |
 | ---- | --- | ------------------ | ----------------- |
 | n    | `-` | `oil.open_float()` | Open file manager |
 
-### Git (Gitsigns)
+## Git (Gitsigns)
 
 | Mode | Key          | Action        | Description               |
 | ---- | ------------ | ------------- | ------------------------- |
@@ -140,14 +140,14 @@
 | n    | `<leader>hd` | Diff this     | Diff this                 |
 | n    | `<leader>tb` | Toggle blame  | Toggle current line blame |
 
-### Code Formatting (Conform)
+## Code Formatting (Conform)
 
 | Mode | Key          | Action          | Description           |
 | ---- | ------------ | --------------- | --------------------- |
 | n,v  | `<leader>f`  | Format code     | Format code           |
 | n    | `<leader>cF` | `ConformToggle` | Toggle format on save |
 
-### Search & Replace (GrugFar)
+## Search & Replace (GrugFar)
 
 | Mode | Key          | Action                   | Description              |
 | ---- | ------------ | ------------------------ | ------------------------ |
@@ -156,7 +156,7 @@
 | n    | `<leader>rb` | Search in current buffer | Search in current buffer |
 | v    | `<leader>rv` | Search visual selection  | Search visual selection  |
 
-### Go Development (go.nvim)
+## Go Development (go.nvim)
 
 | Mode | Key          | Action         | Description          |
 | ---- | ------------ | -------------- | -------------------- |
@@ -169,7 +169,7 @@
 | n    | `<leader>gf` | `GoFillStruct` | Go fill struct       |
 | n    | `<leader>ge` | `GoIfErr`      | Go add if err        |
 
-### Database (Dadbod)
+## Database (Dadbod)
 
 | Mode | Key          | Action              | Description        |
 | ---- | ------------ | ------------------- | ------------------ |
@@ -179,7 +179,7 @@
 | n    | `<leader>Dr` | `DBUIExecute`       | Execute query      |
 | v    | `<leader>Dr` | `DBUIExecute`       | Execute selection  |
 
-### Todo Comments
+## Todo Comments
 
 | Mode | Key          | Action                | Description           |
 | ---- | ------------ | --------------------- | --------------------- |
@@ -187,7 +187,7 @@
 | n    | `[t`         | Previous todo comment | Previous todo comment |
 | n    | `<leader>ft` | `TodoFzfLua`          | Todo comments         |
 
-### Snacks (Various Features)
+## Snacks (Various Features)
 
 | Mode | Key          | Action                    | Description             |
 | ---- | ------------ | ------------------------- | ----------------------- |
@@ -203,7 +203,7 @@
 | n,t  | `]w`         | Next reference            | Next word reference     |
 | n,t  | `[w`         | Previous reference        | Previous word reference |
 
-### Snacks Toggles
+## Snacks Toggles
 
 | Mode | Key          | Action              | Description         |
 | ---- | ------------ | ------------------- | ------------------- |
@@ -214,7 +214,7 @@
 | n    | `<leader>uT` | Toggle treesitter   | Toggle treesitter   |
 | n    | `<leader>ub` | Toggle background   | Toggle background   |
 
-### Treesitter Selections
+## Treesitter Selections
 
 | Mode | Key         | Action            | Description          |
 | ---- | ----------- | ----------------- | -------------------- |
@@ -223,7 +223,7 @@
 | n    | `<S-Enter>` | Scope incremental | Expand to scope      |
 | n    | `<BS>`      | Node decremental  | Shrink selection     |
 
-### Treesitter Text Objects
+## Treesitter Text Objects
 
 | Mode | Key  | Action                  | Description             |
 | ---- | ---- | ----------------------- | ----------------------- |
@@ -236,7 +236,7 @@
 | n    | `]c` | Next class start        | Next class start        |
 | n    | `[c` | Previous class start    | Previous class start    |
 
-### Mini.nvim Mappings
+## Mini.nvim Mappings
 
 | Mode | Key   | Action            | Description         |
 | ---- | ----- | ----------------- | ------------------- |
@@ -250,21 +250,13 @@
 | n,v  | `gr`  | Replace           | Replace text        |
 | n,v  | `gs`  | Sort              | Sort text           |
 
-### Markdown
+## Markdown
 
 | Mode | Key          | Action                  | Description            |
 | ---- | ------------ | ----------------------- | ---------------------- |
 | n    | `<leader>mt` | `RenderMarkdown toggle` | Toggle markdown render |
 
-### Commands
-
-- `:StartupTime` - Show startup time
-- `:ConformToggle` - Toggle format on save
-- `:Mason` - Open Mason
-- `:Typr` - Start typing practice
-- `:TyprStats` - Show typing stats
-
-### Completion (Blink.cmp)
+## Completion (Blink.cmp)
 
 | Mode | Key         | Action                      | Description          |
 | ---- | ----------- | --------------------------- | -------------------- |
@@ -274,28 +266,33 @@
 | i    | `<C-d>`     | Show/hide documentation     | Toggle documentation |
 | i    | `<C-e>`     | Hide completion             | Hide completion      |
 | i    | `<C-space>` | Show completion             | Show completion      |
+| i    | `<C-k>`     | Previous completion         | Previous completion  |
+| i    | `<C-j>`     | Next completion             | Next completion      |
 
+## Commands
+
+- `:StartupTime` - Show startup time
+- `:ConformToggle` - Toggle format on save
+- `:Mason` - Open Mason
+- `:Typr` - Start typing practice
+- `:TyprStats` - Show typing stats
+
+## Configuration Notes
+
+### Mason & LSP Configuration
+
+configuration uses Neovim 0.11's native LSP setup with `vim.lsp.config()` in `lua/lsp/init.lua`. This is the modern approach and works perfectly with mason-lspconfig's automatic installation feature.
+
+
+- Native LSP configuration using `vim.lsp.config()`
+- Automatic server installation via mason-lspconfig
+- Enhanced capabilities with blink.cmp integration
+- Proper error handling and deferred loading
+- Optimized for Go, TypeScript, Python, and Lua development
+
+**Supported Language Servers:**
+- `lua_ls` - Lua Language Server
+- `ts_ls` - TypeScript Language Server
+- `pyright` - Python Language Server
+- `gopls` - Go Language Server
 ---
-
-## Notes
-
-1. The main issue is with mason-lspconfig's `automatic_enable` option which may not work in 0.11+
-2. Mason-LSPConfig Compatibility
-Since Neovim 0.11 introduced vim.lsp.config, mason-lspconfig's feature set has been reduced and automatic_enable may not work as expected. Your configuration should work but may need manual server enabling.
-3. Potential Fixes Needed
-
-**lua/plugins/mason.lua** - Update to handle Neovim 0.11 properly:
-```lua
-config = function(_, opts)
-  require("mason-lspconfig").setup(opts)
-
-  -- For Neovim 0.11+, we need to manually enable servers
-  local mason_lspconfig = require("mason-lspconfig")
-  mason_lspconfig.setup_handlers({
-    function(server_name)
-      -- Enable the server using vim.lsp.enable
-      vim.lsp.enable(server_name)
-    end,
-  })
-end,
-```
