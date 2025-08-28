@@ -5,8 +5,6 @@ return {
   event = "InsertEnter",
   dependencies = {
     "rafamadriz/friendly-snippets",
-    -- Ensure mason-lspconfig is loaded first
-    "mason-org/mason-lspconfig.nvim",
   },
 
   opts = {
@@ -18,6 +16,8 @@ return {
       ["<C-d>"] = { "show_documentation", "hide_documentation" },
       ["<C-e>"] = { "hide", "fallback" },
       ["<C-space>"] = { "show", "fallback" },
+      ["<C-k>"] = { "select_prev", "fallback" },
+      ["<C-j>"] = { "select_next", "fallback" },
     },
 
     appearance = {
@@ -26,7 +26,9 @@ return {
     },
 
     completion = {
-      accept = { auto_brackets = { enabled = true } },
+      accept = {
+        auto_brackets = { enabled = true },
+      },
       documentation = {
         auto_show = true,
         auto_show_delay_ms = 100,
@@ -34,15 +36,41 @@ return {
       },
       menu = {
         border = "rounded",
-        draw = { columns = { { "kind_icon" }, { "label", "label_description", gap = 1 } } },
+        scrollbar = true,
+        draw = {
+          columns = {
+            { "kind_icon" },
+            { "label",      "label_description", gap = 1 },
+            { "source_name" }
+          },
+          treesitter = { "lsp" }
+        },
+      },
+      list = {
+        selection = {
+          preselect = true,
+          auto_insert = true,
+        },
       },
     },
 
-    signature = { enabled = true, window = { border = "rounded" } },
-    sources = { default = { "lsp", "path", "snippets", "buffer" } },
+    signature = {
+      enabled = true,
+      window = { border = "rounded" },
+    },
+
+    sources = {
+      default = { "lsp", "path", "snippets", "buffer" },
+      -- Per-filetype configuration
+      per_filetype = {
+        lua = { "lsp", "path", "snippets", "buffer" },
+        go = { "lsp", "path", "snippets", "buffer" },
+        typescript = { "lsp", "path", "snippets", "buffer" },
+        python = { "lsp", "path", "snippets", "buffer" },
+      }
+    },
   },
 
-  -- Removed LSP initialization from here - it's now handled properly by mason-lspconfig
   config = function(_, opts)
     require("blink.cmp").setup(opts)
   end,

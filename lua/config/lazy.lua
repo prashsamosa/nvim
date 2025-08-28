@@ -26,6 +26,7 @@ require("config.options")
 require("config.keymaps")
 require("config.autocmds")
 
+
 -- Setup lazy.nvim
 require("lazy").setup("plugins", {
   install = { colorscheme = { "github_dark_default" } },

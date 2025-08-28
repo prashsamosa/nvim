@@ -96,90 +96,95 @@ function M.setup()
   setup_handlers()
   setup_diagnostics()
 
-  -- Global LSP configuration for all servers
-  vim.lsp.config('*', {
-    root_markers = { '.git', 'package.json', 'go.mod', 'pyproject.toml', 'Cargo.toml' },
-    capabilities = get_capabilities(),
-  })
+  -- Wait for mason-lspconfig to be available
+  vim.defer_fn(function()
+    -- Global LSP configuration for all servers
+    pcall(function()
+      vim.lsp.config('*', {
+        root_markers = { '.git', 'package.json', 'go.mod', 'pyproject.toml', 'Cargo.toml' },
+        capabilities = get_capabilities(),
+      })
+    end)
 
-  -- Configure individual servers using vim.lsp.config (Neovim 0.11+)
-  -- These will be automatically enabled by mason-lspconfig when installed
-
-  -- Lua Language Server
-  vim.lsp.config("lua_ls", {
-    settings = {
-      Lua = {
-        completion = { callSnippet = "Replace" },
-        diagnostics = { globals = { "vim" } },
-        workspace = {
-          checkThirdParty = false,
-          library = { vim.env.VIMRUNTIME }
-        },
-        hint = { enable = true },
-      },
-    },
-  })
-
-  -- TypeScript Language Server
-  vim.lsp.config("ts_ls", {
-    settings = {
-      typescript = {
-        inlayHints = {
-          includeInlayParameterNameHints = "all",
-          includeInlayParameterNameHintsWhenArgumentMatchesName = false,
-          includeInlayFunctionParameterTypeHints = true,
-          includeInlayVariableTypeHints = true,
-          includeInlayPropertyDeclarationTypeHints = true,
-          includeInlayFunctionLikeReturnTypeHints = true,
-          includeInlayEnumMemberValueHints = true,
+    -- Configure individual servers using vim.lsp.config (Neovim 0.11+)
+    local servers = {
+      lua_ls = {
+        settings = {
+          Lua = {
+            completion = { callSnippet = "Replace" },
+            diagnostics = { globals = { "vim" } },
+            workspace = {
+              checkThirdParty = false,
+              library = { vim.env.VIMRUNTIME }
+            },
+            hint = { enable = true },
+          },
         },
       },
-      javascript = {
-        inlayHints = {
-          includeInlayParameterNameHints = "all",
-          includeInlayParameterNameHintsWhenArgumentMatchesName = false,
-          includeInlayFunctionParameterTypeHints = true,
-          includeInlayVariableTypeHints = true,
-          includeInlayPropertyDeclarationTypeHints = true,
-          includeInlayFunctionLikeReturnTypeHints = true,
-          includeInlayEnumMemberValueHints = true,
+      ts_ls = {
+        settings = {
+          typescript = {
+            inlayHints = {
+              includeInlayParameterNameHints = "all",
+              includeInlayParameterNameHintsWhenArgumentMatchesName = false,
+              includeInlayFunctionParameterTypeHints = true,
+              includeInlayVariableTypeHints = true,
+              includeInlayPropertyDeclarationTypeHints = true,
+              includeInlayFunctionLikeReturnTypeHints = true,
+              includeInlayEnumMemberValueHints = true,
+            },
+          },
+          javascript = {
+            inlayHints = {
+              includeInlayParameterNameHints = "all",
+              includeInlayParameterNameHintsWhenArgumentMatchesName = false,
+              includeInlayFunctionParameterTypeHints = true,
+              includeInlayVariableTypeHints = true,
+              includeInlayPropertyDeclarationTypeHints = true,
+              includeInlayFunctionLikeReturnTypeHints = true,
+              includeInlayEnumMemberValueHints = true,
+            },
+          },
         },
       },
-    },
-  })
-
-  -- Python Language Server
-  vim.lsp.config("pyright", {
-    settings = {
-      python = {
-        analysis = {
-          typeCheckingMode = "basic",
-          autoImportCompletions = true,
-          autoSearchPaths = true,
-          useLibraryCodeForTypes = true,
+      pyright = {
+        settings = {
+          python = {
+            analysis = {
+              typeCheckingMode = "basic",
+              autoImportCompletions = true,
+              autoSearchPaths = true,
+              useLibraryCodeForTypes = true,
+            },
+          },
         },
       },
-    },
-  })
-
-  -- Go Language Server
-  vim.lsp.config("gopls", {
-    settings = {
       gopls = {
-        gofumpt = true,
-        staticcheck = true,
-        usePlaceholders = true,
-        completeUnimported = true,
-        codelenses = { generate = true, test = true, tidy = true },
-        hints = {
-          assignVariableTypes = true,
-          compositeLiteralFields = true,
-          constantValues = true,
-          parameterNames = true,
+        settings = {
+          gopls = {
+            gofumpt = true,
+            staticcheck = true,
+            usePlaceholders = true,
+            completeUnimported = true,
+            codelenses = { generate = true, test = true, tidy = true },
+            hints = {
+              assignVariableTypes = true,
+              compositeLiteralFields = true,
+              constantValues = true,
+              parameterNames = true,
+            },
+          },
         },
       },
-    },
-  })
+    }
+
+    -- Apply server configurations with error handling
+    for server, config in pairs(servers) do
+      pcall(function()
+        vim.lsp.config(server, config)
+      end)
+    end
+  end, 100) -- Small delay to ensure mason-lspconfig is ready
 
   -- Setup LSP attach autocmd
   vim.api.nvim_create_autocmd("LspAttach", {

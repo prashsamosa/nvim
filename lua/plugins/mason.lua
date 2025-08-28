@@ -12,7 +12,6 @@ return {
     "mason-org/mason-lspconfig.nvim",
     dependencies = {
       "williamboman/mason.nvim",
-      "neovim/nvim-lspconfig", -- Still needed for server configurations
     },
     opts = {
       -- Automatically install these servers
@@ -22,14 +21,12 @@ return {
         "pyright", -- Python
         "gopls",   -- Go
       },
-      -- Automatically enable installed servers
-      automatic_enable = true,
+      -- For Neovim 0.11+ with native LSP config, we disable automatic setup
+      automatic_installation = true,
     },
     config = function(_, opts)
       require("mason-lspconfig").setup(opts)
-
-      -- This will automatically enable servers installed by Mason
-      -- No need for manual vim.lsp.enable() calls
+      -- No need for setup_handlers with native LSP config in 0.11+
     end,
   },
   {

@@ -1,3 +1,4 @@
+-- lua/config/options.lua
 vim.g.loaded_netrw = 1
 vim.g.loaded_netrwPlugin = 1
 
@@ -14,6 +15,7 @@ o.expandtab = true
 o.shiftwidth = 2
 o.tabstop = 2
 o.smartindent = true
+o.breakindent = true -- Better line wrapping
 
 -- UI
 o.number = true
@@ -49,11 +51,12 @@ o.redrawtime = 10000
 o.completeopt = { "menu", "menuone", "noselect" }
 o.pumheight = 15
 o.pumblend = 10
+o.winblend = 10 -- Floating window transparency
 
 -- Visual enhancements
 o.termguicolors = true
 o.list = true
-o.listchars = { tab = "» ", trail = "·", extends = "❯", precedes = "❮" }
+o.listchars = { tab = "» ", trail = "·", extends = "❯", precedes = "❮", nbsp = "␣" }
 
 -- Folding (using treesitter)
 o.foldlevel = 99
@@ -70,8 +73,14 @@ if vim.fn.has("nvim-0.11") == 1 then
   o.smoothscroll = true
   o.splitkeep = "cursor"
   o.jumpoptions = "stack"
+  -- Enhanced completion for 0.11+
+  o.completeopt:append("fuzzy")
 end
 
 -- Window splitting
 o.splitright = true
 o.splitbelow = true
+
+-- Better defaults for modern editing
+o.virtualedit = "block"       -- Allow cursor beyond line end in visual block mode
+o.formatoptions:remove("cro") -- Disable auto comment continuation
