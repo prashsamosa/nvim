@@ -59,3 +59,12 @@ map("n", "<C-a>", "ggVG", { desc = "Select all" })
 map("n", "<leader>ih", function()
   vim.lsp.inlay_hint.enable(not vim.lsp.inlay_hint.is_enabled())
 end, { desc = "Toggle inlay hints" })
+
+
+-- Buffer management
+map("n", "<leader>bd", function()
+  require("snacks").bufdelete()
+end, { desc = "Delete buffer" })
+
+-- Format on save toggle
+map("n", "<leader>cF", "<cmd>ConformToggle<cr>", { desc = "Toggle format on save" })

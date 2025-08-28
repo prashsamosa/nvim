@@ -12,6 +12,11 @@ return {
       mode = { "n", "v" },
       desc = "Format code",
     },
+    {
+      "<leader>cF",
+      "<cmd>ConformToggle<cr>",
+      desc = "Toggle format on save",
+    },
   },
 
   opts = {
@@ -36,5 +41,12 @@ return {
 
   init = function()
     vim.o.formatexpr = "v:lua.require'conform'.formatexpr()"
+
+    -- Add toggle command
+    vim.api.nvim_create_user_command("ConformToggle", function()
+      vim.g.disable_autoformat = not vim.g.disable_autoformat
+      local status = vim.g.disable_autoformat and "disabled" or "enabled"
+      vim.notify("Format on save " .. status, vim.log.levels.INFO)
+    end, { desc = "Toggle format on save" })
   end,
 }

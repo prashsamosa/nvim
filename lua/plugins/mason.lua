@@ -1,25 +1,42 @@
+-- lua/plugins/mason.lua
 return {
-  "williamboman/mason.nvim",
-  cmd = "Mason",
-  build = ":MasonUpdate",
-  dependencies = {
-    "WhoIsSethDaniel/mason-tool-installer.nvim",
+  {
+    "williamboman/mason.nvim",
+    cmd = "Mason",
+    build = ":MasonUpdate",
+    opts = {
+      ui = { border = "rounded" },
+    },
   },
-
-  opts = {
-    ui = { border = "rounded" },
-  },
-
-  config = function(_, opts)
-    require("mason").setup(opts)
-    require("mason-tool-installer").setup({
+  {
+    "mason-org/mason-lspconfig.nvim",
+    dependencies = {
+      "williamboman/mason.nvim",
+      "neovim/nvim-lspconfig", -- Still needed for server configurations
+    },
+    opts = {
+      -- Automatically install these servers
       ensure_installed = {
-        -- Language servers
-        "lua-language-server",
-        "typescript-language-server",
-        "pyright",
-        "gopls",
+        "lua_ls",
+        "ts_ls",   -- TypeScript
+        "pyright", -- Python
+        "gopls",   -- Go
+      },
+      -- Automatically enable installed servers
+      automatic_enable = true,
+    },
+    config = function(_, opts)
+      require("mason-lspconfig").setup(opts)
 
+      -- This will automatically enable servers installed by Mason
+      -- No need for manual vim.lsp.enable() calls
+    end,
+  },
+  {
+    "WhoIsSethDaniel/mason-tool-installer.nvim",
+    dependencies = "williamboman/mason.nvim",
+    opts = {
+      ensure_installed = {
         -- Formatters
         "stylua",
         "prettierd",
@@ -33,6 +50,7 @@ return {
       },
       auto_update = false,
       run_on_start = true,
-    })
-  end,
+      start_delay = 3000, -- Wait 3 seconds after startup
+    },
+  },
 }

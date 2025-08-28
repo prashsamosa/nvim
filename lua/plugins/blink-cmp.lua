@@ -1,8 +1,13 @@
+-- lua/plugins/blink-cmp.lua
 return {
   "saghen/blink.cmp",
   version = "*",
   event = "InsertEnter",
-  dependencies = "rafamadriz/friendly-snippets",
+  dependencies = {
+    "rafamadriz/friendly-snippets",
+    -- Ensure mason-lspconfig is loaded first
+    "mason-org/mason-lspconfig.nvim",
+  },
 
   opts = {
     keymap = {
@@ -37,9 +42,8 @@ return {
     sources = { default = { "lsp", "path", "snippets", "buffer" } },
   },
 
+  -- Removed LSP initialization from here - it's now handled properly by mason-lspconfig
   config = function(_, opts)
     require("blink.cmp").setup(opts)
-    -- Initialize LSP after blink.cmp is ready
-    require("lsp").setup()
   end,
 }

@@ -37,3 +37,11 @@ vim.api.nvim_create_autocmd("BufWritePre", {
     vim.fn.mkdir(vim.fn.fnamemodify(file, ":p:h"), "p")
   end,
 })
+
+-- Performance monitoring
+vim.api.nvim_create_user_command("StartupTime", function()
+  vim.notify("Startup time: " .. vim.fn.reltimestr(vim.fn.reltime(vim.g.start_time)))
+end, { desc = "Show startup time" })
+
+-- Track startup time
+vim.g.start_time = vim.fn.reltime()
