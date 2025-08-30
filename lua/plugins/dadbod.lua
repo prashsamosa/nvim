@@ -3,14 +3,14 @@ return {
   {
     "kristijanhusak/vim-dadbod-ui",
     dependencies = {
-      { "tpope/vim-dadbod",                     lazy = true },
+      { "tpope/vim-dadbod", lazy = true },
       { "kristijanhusak/vim-dadbod-completion", ft = { "sql", "mysql", "plsql" } },
     },
     cmd = { "DBUI", "DBUIToggle", "DBUIAddConnection" },
 
     keys = {
-      { "<leader>Do", "<cmd>DBUI<CR>",              desc = "DB: Open" },
-      { "<leader>Du", "<cmd>DBUIToggle<CR>",        desc = "DB: Toggle" },
+      { "<leader>Do", "<cmd>DBUI<CR>", desc = "DB: Open" },
+      { "<leader>Du", "<cmd>DBUIToggle<CR>", desc = "DB: Toggle" },
       { "<leader>Da", "<cmd>DBUIAddConnection<CR>", desc = "DB: Add connection" },
     },
 
@@ -25,10 +25,18 @@ return {
         pattern = { "sql", "mysql", "plsql" },
         callback = function(ev)
           local opts = { buffer = ev.buf }
-          vim.keymap.set("n", "<leader>Dr", "<cmd>DBUIExecute<CR>",
-            vim.tbl_extend("force", opts, { desc = "Execute query" }))
-          vim.keymap.set("v", "<leader>Dr", "<cmd>DBUIExecute<CR>",
-            vim.tbl_extend("force", opts, { desc = "Execute selection" }))
+          vim.keymap.set(
+            "n",
+            "<leader>Dr",
+            "<cmd>DBUIExecute<CR>",
+            vim.tbl_extend("force", opts, { desc = "Execute query" })
+          )
+          vim.keymap.set(
+            "v",
+            "<leader>Dr",
+            "<cmd>DBUIExecute<CR>",
+            vim.tbl_extend("force", opts, { desc = "Execute selection" })
+          )
         end,
       })
     end,
