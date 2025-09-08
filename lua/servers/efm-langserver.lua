@@ -25,7 +25,7 @@ return function(lspconfig, capabilities, on_attach)
 	local hadolint = require("efmls-configs.linters.hadolint") -- docker linter
 	local cpplint = require("efmls-configs.linters.cpplint") -- c/cpp linter
 	local clangformat = require("efmls-configs.formatters.clang_format") -- c/cpp formatter
-	local solhint = require("efmls-configs.linters.solhint") -- solidity linter
+
 
 	lspconfig.efm.setup({
 		on_attach = on_attach,
