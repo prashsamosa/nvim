@@ -1,13 +1,17 @@
 return {
 	"marko-cerovac/material.nvim",
 	name = "material",
-	lazy = false, -- make sure we load this during startup if it is your main colorscheme
-	priority = 1000, -- make sure to load this before all the other start plugins
+	lazy = false,
+	priority = 1000,
 	config = function()
+		-- ensure a dark background and pick the dark variant
+		vim.o.background = "dark"
+		vim.g.material_style = "darker" -- other options: "palenight", "oceanic", "lighter", etc.
+
 		require("material").setup({
-			-- ...
+			-- your custom setup here
 		})
 
-		vim.cmd("colorscheme material-dark")
+		vim.cmd("colorscheme material")
 	end,
 }
