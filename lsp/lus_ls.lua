@@ -1,4 +1,4 @@
-
+-- Native Neovim 0.11+ LSP config for lua_ls
 return {
   cmd = { 'lua-language-server' },
   filetypes = { 'lua' },
