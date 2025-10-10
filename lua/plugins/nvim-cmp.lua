@@ -64,7 +64,6 @@ return {
 			}),
 
 			sources = {
-				{ name = "codeium" },
 				{ name = "luasnip" },
 				{ name = "nvim_lsp" },
 				{ name = "buffer" },
