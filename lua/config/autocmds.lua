@@ -29,7 +29,8 @@ vim.api.nvim_create_autocmd("TextYankPost", {
 	end,
 })
 
--- format on save using efm langserver and configured formatters
+-- Format on save using efm langserver and configured formatters
+-- Updated to use synchronous formatting for better reliability
 local lsp_fmt_group = vim.api.nvim_create_augroup("FormatOnSaveGroup", {})
 vim.api.nvim_create_autocmd("BufWritePre", {
 	group = lsp_fmt_group,
@@ -38,6 +39,23 @@ vim.api.nvim_create_autocmd("BufWritePre", {
 		if vim.tbl_isempty(efm) then
 			return
 		end
-		vim.lsp.buf.format({ name = "efm", async = true })
+		-- Use synchronous formatting on save (async = false) for better reliability
+		vim.lsp.buf.format({ name = "efm", async = false })
+	end,
+})
+
+-- Auto-close nvim-tree when it's the last window
+vim.api.nvim_create_autocmd("BufEnter", {
+	group = vim.api.nvim_create_augroup("NvimTreeClose", { clear = true }),
+	pattern = "NvimTree_*",
+	callback = function()
+		local layout = vim.api.nvim_call_function("winlayout", {})
+		if
+				layout[1] == "leaf"
+				and vim.bo[vim.api.nvim_win_get_buf(layout[2])].filetype == "NvimTree"
+				and layout[3] == nil
+		then
+			vim.cmd("quit")
+		end
 	end,
 })
