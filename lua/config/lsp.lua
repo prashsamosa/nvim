@@ -86,6 +86,5 @@ vim.lsp.enable({
   'dockerls',
   'emmet_ls',
   'yamlls',
-  'tailwindcss',
   'efm',
 })

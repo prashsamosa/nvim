@@ -15,8 +15,6 @@
 │   ├── clangd.lua             # C/C++ language server
 │   ├── dockerls.lua           # Docker language server
 │   ├── emmet_ls.lua           # Emmet language server
-│   ├── yamlls.lua             # YAML language server
-│   ├── tailwindcss.lua        # Tailwind CSS server
 │   └── efm.lua                # EFM (formatters/linters)
 └── lua/
     ├── config/                # Core configuration
@@ -125,8 +123,6 @@ Configured language servers (installed via Mason):
 - **C/C++**: clangd
 - **Docker**: dockerfile-language-server-nodejs
 - **Emmet**: emmet-ls
-- **YAML**: yaml-language-server
-- **Tailwind CSS**: tailwindcss-language-server
 - **Formatters/Linters**: efm-langserver
 
 ## 📦 Plugin Management
